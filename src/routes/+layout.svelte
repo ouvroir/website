@@ -1,22 +1,26 @@
 <script lang="ts">
-    import Nav from '$lib/components/Nav.svelte'
+	import Nav from '$lib/components/Nav.svelte';
 </script>
 
+<header>
+	<div class="header-container">
+		<h1>Ouvroir</h1>
+		<h2>d’histoire de l’art et de muséologie numériques</h2>
+		<p>
+			L’Ouvroir d’histoire de l’art et de muséologie numérique de l’Université de Montréal, est un
+			laboratoire de recherche destiné à soutenir le travail conduit dans le cadre du Partenariat «
+			Des nouveaux usages des collections dans les musées d’art » <a href="http://www.cieco.co/"
+				><abbr>CIÉCO</abbr></a
+			>.
+		</p>
+	</div>
+</header>
 
-<div class='app'>
-    <Nav />
-    <div class='app-content'>
-        <slot />
-    </div>
-</div>
+<main>
+	<header>
+		<Nav />
+	</header>
+	<slot />
+</main>
 
-<style>
-    .app {
-        width: 100%;
-        height: 100%;
-    }
-    
-    .app-content {
-        padding: .5rem 1.5rem 5rem 1.5rem;
-    }
-</style>
+<footer />

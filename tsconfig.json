@@ -12,7 +12,8 @@
 		"paths": {
 			"$lib": ["./src/lib"],
 			"$lib/*": ["./src/lib/*"],
-			"$i18n": ["./src/lib/i18n/*"]
+			"$i18n": ["./src/lib/i18n"],
+			"$i18n/*": ["./src/lib/i18n/*"]
 		}
 	}
 	// Path aliases are handled by https://kit.svelte.dev/docs/configuration#alias

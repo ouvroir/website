@@ -7,43 +7,19 @@
 		: locale.set('fr');
 </script>
 
-<div class="nav">
-	<div class="home">Ouvroir</div>
-	<div class="nav-btn"><a href="/">{$t('nav.home')}</a></div>
-	<div class="nav-btn"><a href={`/${$t('nav.route.projects')}`}>{$t('nav.projects')}</a></div>
-	<div class="nav-btn"><a href={`/${$t('nav.route.events')}`}>{$t('nav.events')}</a></div>
-	<div class="nav-btn"><a href="/services">{$t('nav.services')}</a></div>
-	<div class="nav-btn"><a href={`/${$t('nav.route.about')}`}>{$t('nav.about')}</a></div>
-	<select class="locale-select" bind:value={$locale}>
+<nav aria-labelledby={`${$t('aria.nav.label')}`}>
+	<ul>
+		<li><a href="/">{$t('nav.home')}</a></li>
+		<li><a href={`/${$t('route.projects')}`}>{$t('nav.projects')}</a></li>
+		<li><a href={`/${$t('route.events')}`}>{$t('nav.events')}</a></li>
+		<li><a href={`/${$t('route.services')}`}>{$t('nav.services')}</a></li>
+		<li><a href={`/${$t('route.about')}`}>{$t('nav.about')}</a></li>
+	</ul>
+
+	<label for="locale">{$t('nav.locale.label')}</label>
+	<select id="locale" bind:value={$locale} aria-label={`${$t('aria.locales.label')}`}>
 		{#each locales as l}
-			<option value={l}>{l}</option>
+			<option aria-label={`${$t('aria.locales.' + l)}`} value={l}>{l}</option>
 		{/each}
 	</select>
-</div>
-
-<style>
-	a {
-		text-decoration: none;
-		color: black;
-	}
-	.nav {
-		display: flex;
-		gap: 1.5rem;
-		align-items: baseline;
-		padding: 0 1.5rem 0 1.5rem;
-	}
-
-	.home {
-		width: 10%;
-		font-size: xx-large;
-	}
-
-	.nav-btn {
-		font-size: large;
-	}
-
-	.locale-select {
-		width: 3rem;
-		margin-left: auto;
-	}
-</style>
+</nav>
