@@ -1,4 +1,6 @@
 <script lang="ts">
+	export const prerender = true;
+
 	import Nav from '$lib/components/Nav.svelte';
 </script>
 

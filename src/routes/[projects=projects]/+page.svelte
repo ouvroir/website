@@ -1,16 +1,12 @@
 <script lang="ts">
-	import type { PageData } from './$types';
-	import { locale } from '$i18n';
-
-	export let data: PageData;
+	import { locale } from '$i18n/i18n';
 
 	console.log('Current locale', $locale);
-	console.log(data);
 </script>
 
 <h1>Our projects</h1>
 
-<h4>{$locale}</h4>
+<!-- <h4>{$locale}</h4>
 <ul>
 	{#each data.posts.en as f}
 		<div class="front-matter">
@@ -28,4 +24,4 @@
 	.front-matter {
 		padding: 1.5rem;
 	}
-</style>
+</style> -->

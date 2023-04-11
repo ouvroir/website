@@ -1,4 +1,4 @@
-import adapter from '@sveltejs/adapter-auto';
+import adapter from '@sveltejs/adapter-static';
 import { vitePreprocess } from '@sveltejs/kit/vite';
 
 /** @type {import('@sveltejs/kit').Config} */
@@ -8,7 +8,20 @@ const config = {
 	preprocess: vitePreprocess(),
 
 	kit: {
-		adapter: adapter(),
+		adapter: adapter({
+			fallback: 'app.html'
+		}),
+		prerender: {
+			entries: [
+				'/projets',
+				'/projects',
+				'/about',
+				'/a-propos',
+				'/events',
+				'/evenements',
+				'*' // Prerender all non-dynamic routes
+			]
+		},
 		alias: {
 			$lib: 'src/lib/*',
 			$i18n: 'src/lib/i18n/*',
