@@ -1,27 +1,20 @@
 <script lang="ts">
 	import { locale } from '$i18n/i18n';
+	import { projects } from '$lib/stores/stores';
 
-	console.log('Current locale', $locale);
+	export let data;
+
+	projects.set(data.projects);
+
+	// console.log('projects', data.projects);
 </script>
 
 <h1>Our projects</h1>
 
-<!-- <h4>{$locale}</h4>
 <ul>
-	{#each data.posts.en as f}
-		<div class="front-matter">
-			{#each Object.keys(f.attributes) as k}
-				<div class="front-item">
-					<span>{k}:</span>
-					<p>{f.attributes[k]}</p>
-				</div>
-			{/each}
-		</div>
+	{#each data.projects as p}
+		<li>
+			{p.meta.title}
+		</li>
 	{/each}
 </ul>
-
-<style>
-	.front-matter {
-		padding: 1.5rem;
-	}
-</style> -->

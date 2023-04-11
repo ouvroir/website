@@ -29,6 +29,10 @@ const translations: { [locale: string]: { [path: string]: string } } = {
         'home.projects.title': 'Latest projects & publications',
         'home.events.title': 'Upcoming events',
 
+        // Events
+        'events.title': "Our events",
+
+
         // Error
         'error.title': "Oups! The page your asking for cannot be find."
     },
@@ -62,6 +66,9 @@ const translations: { [locale: string]: { [path: string]: string } } = {
         // Homepage
         'home.projects.title': 'Projets & publications',
         'home.events.title': 'Nos événements',
+
+        // Events
+        'events.title': "Nos évenements",
 
         // Error
         'error.title': "Oups! La page demandée n'a pas pu être retrouvée."

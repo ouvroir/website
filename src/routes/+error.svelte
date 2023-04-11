@@ -1,8 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import { t } from '$i18n/i18n';
-
-	export const prerender = true;
 </script>
 
 <svelte:head>
