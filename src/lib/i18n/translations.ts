@@ -20,6 +20,7 @@ const translations: { [locale: string]: { [path: string]: string } } = {
         'nav.locale.label': 'Language',
 
         // URLs
+        'route.base': 'home',
         'route.projects': 'projects',
         'route.events': 'events',
         'route.services': 'our-services',
@@ -58,6 +59,7 @@ const translations: { [locale: string]: { [path: string]: string } } = {
 
 
         // URLs
+        'route.base': 'accueil',
         'route.projects': 'projets',
         'route.events': 'evenements',
         'route.services': 'nos-services',

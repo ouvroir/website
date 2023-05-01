@@ -14,7 +14,7 @@
 
 <nav aria-labelledby={`${$t('aria.nav.label')}`}>
 	<ul>
-		<li><a href="/">{$t('nav.home')}</a></li>
+		<li><a href={`/${$t('route.base')}`}>{$t('nav.home')}</a></li>
 		<li><a href={`/${$t('route.projects')}`}>{$t('nav.projects')}</a></li>
 		<li><a href={`/${$t('route.events')}`}>{$t('nav.events')}</a></li>
 		<li><a href={`/${$t('route.services')}`}>{$t('nav.services')}</a></li>
