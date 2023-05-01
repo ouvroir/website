@@ -1,13 +1,14 @@
 import { derived, writable } from "svelte/store";
 import translations from "./translations";
 
+
 // Code greatly inspired by:
 // https://dev.to/danawoodman/svelte-quick-tip-adding-basic-internationalization-i18n-to-you-app-2lm
 
 export const locale = writable("fr");
 export const locales = Object.keys(translations);
 
-function translate(locale: string, key: string, vars: { [key: string]: string }) {
+export function translate(locale: string, key: string, vars: { [key: string]: string }) {
 
     if (!key) throw new Error("[error i18n] No key provided to $t()");
     if (!locale) throw new Error(`[error i18n] No translation for key "${key}"`);
@@ -28,3 +29,10 @@ function translate(locale: string, key: string, vars: { [key: string]: string })
 export const t = derived(locale, ($locale) => (key: string, vars = {}) =>
     translate($locale, key, vars)
 );
+
+export const importMdFile = derived(locale, ($locale) => (path: string) => {
+    const basePath = 'labouvroir/'
+    const test = `${basePath}${path}-${$locale}.md`
+    console.log("🚀 ~ file: i18n.ts:38 ~ getFullPath ~ test:", test)
+    return import(`../${basePath}${path}-${$locale}.md`)
+})

@@ -1,20 +1,23 @@
 import type { Handle } from '@sveltejs/kit';
-import { locale } from '$i18n/i18n';
+import { getLangFromSlug } from '$i18n/routesLangMap'
 
-/**
- * For a11y purposes
- * https://kit.svelte.dev/docs/accessibility#the-lang-attribute
- * TODO: locale should be set using user's prefered language. 
- * To do so check first incoming request and check accept-language in header
- */
 export const handle = (({ event, resolve }) => {
+    let lang = event.locals.lang ?? null
+    if (!lang) {
+        if (event.route.id === '/')
+            lang = event.request.headers.get('accept-language')?.split(';')[0]
+                .includes('en')
+                ? 'en'
+                : 'fr'
+        else
+            lang = getLangFromSlug(event.route.id as string, event.url.pathname)
+    }
 
-    const lang = event.request.headers.get('accept-laguage') ?? 'fr'
-    lang.includes('en')
-        ? locale.set('en')
-        : locale.set('fr')
+    event.locals = { ...event.locals, lang }
 
     return resolve(event, {
-        transformPageChunk: ({ html }) => html.replace('%lang%', lang)
+        transformPageChunk: ({ html }) => html.replace('%lang%', lang as string)
     });
+
 }) satisfies Handle;
+

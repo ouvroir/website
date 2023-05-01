@@ -1,10 +1,15 @@
 <script lang="ts">
-	import { t, locale, locales } from '$lib/i18n/i18n';
+	import { t, locale, locales } from '$i18n/i18n';
 	import { page } from '$app/stores';
+	import { goto } from '$app/navigation';
+	import { getRedirectRoute } from '$i18n/routesLangMap';
 
-	['events', 'projects', 'services', 'about'].includes($page.params.events)
-		? locale.set('en')
-		: locale.set('fr');
+	console.log('Nav locale', $locale);
+
+	const selectLangOnChange = () => {
+		const newRoute = getRedirectRoute($page.route.id as string, $locale);
+		goto(newRoute);
+	};
 </script>
 
 <nav aria-labelledby={`${$t('aria.nav.label')}`}>
@@ -17,7 +22,12 @@
 	</ul>
 
 	<label for="locale">{$t('nav.locale.label')}</label>
-	<select id="locale" bind:value={$locale} aria-label={`${$t('aria.locales.label')}`}>
+	<select
+		id="locale"
+		bind:value={$locale}
+		on:change={selectLangOnChange}
+		aria-label={`${$t('aria.locales.label')}`}
+	>
 		{#each locales as l}
 			<option aria-label={`${$t('aria.locales.' + l)}`} value={l}>{l}</option>
 		{/each}

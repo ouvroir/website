@@ -5,10 +5,9 @@ import * as fm from 'front-matter';
  * This codes reads the content in labouvroir to generate routes (before building
  * the website and before starting dev server).
  * These routes are then fed to sveltekit crawler (see svelte.config.js)
- * @returns { routes } : routes generated from labouvroir content
  */
 
-const createProjectsRoutes = () => {
+const projectsRoutes = () => {
 	console.log('Creating projects routes');
 	const basePath = './src/lib/labouvroir/projets/';
 	const files = readdirSync(basePath);
@@ -24,7 +23,7 @@ const createProjectsRoutes = () => {
 	return projects;
 };
 
-const createTeamRoutes = () => {
+const teamRoutes = () => {
 	console.log('Creating team routes');
 	const files = readdirSync('./src/lib/labouvroir/equipe');
 
@@ -36,6 +35,6 @@ const createTeamRoutes = () => {
 	return team;
 };
 
-export const routes = [...createProjectsRoutes()];
+export const routes = [...projectsRoutes()];
 
 console.log('created routes', routes);

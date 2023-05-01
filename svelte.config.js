@@ -21,6 +21,9 @@ const config = {
 				'/a-propos',
 				'/events',
 				'/evenements',
+				'/lab',
+				'/lab/members',
+				'/lab/membres',
 				...routes
 			]
 		},

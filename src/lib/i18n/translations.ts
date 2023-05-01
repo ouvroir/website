@@ -22,7 +22,7 @@ const translations: { [locale: string]: { [path: string]: string } } = {
         // URLs
         'route.projects': 'projects',
         'route.events': 'events',
-        'route.services': 'services',
+        'route.services': 'our-services',
         'route.about': 'about',
 
         // Homepage
@@ -60,7 +60,7 @@ const translations: { [locale: string]: { [path: string]: string } } = {
         // URLs
         'route.projects': 'projets',
         'route.events': 'evenements',
-        'route.services': 'services',
+        'route.services': 'nos-services',
         'route.about': 'a-propos',
 
         // Homepage

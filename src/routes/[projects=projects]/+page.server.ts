@@ -12,7 +12,6 @@ export async function load() {
     const projects = readdirSync(basePath)
         .filter(f => f !== '0-template-fr.md')
         .map(f => {
-
             const metadata: MarkdownAttr = fm.default(
                 readFileSync(basePath + f, { encoding: 'utf-8' })
             ).attributes as MarkdownAttr
@@ -23,9 +22,6 @@ export async function load() {
                 meta: metadata
             }
         })
-
-    // console.log(projects)
-
     return {
         projects
     }

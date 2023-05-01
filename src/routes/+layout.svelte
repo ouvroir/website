@@ -1,5 +1,10 @@
 <script lang="ts">
 	import Nav from '$lib/components/Nav.svelte';
+	import { locale } from '$i18n/i18n';
+
+	export let data;
+
+	locale.set(data.lang as string);
 </script>
 
 <header>
