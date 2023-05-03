@@ -4,11 +4,10 @@
 	import { goto } from '$app/navigation';
 	import { getRedirectRoute } from '$i18n/routesLangMap';
 
-	console.log('Nav locale', $locale);
-
 	const selectLangOnChange = () => {
-		const newRoute = getRedirectRoute($page.route.id as string, $locale);
-		goto(newRoute);
+		const newRoute = getRedirectRoute($page.route.id as string, $page.url.pathname, $locale);
+		const invalidateAll = $page.route.id?.includes('[slug]');
+		goto(newRoute, { invalidateAll: false });
 	};
 </script>
 

@@ -3,8 +3,9 @@ import { getLangFromSlug } from '$i18n/routesLangMap'
 
 export const handle = (({ event, resolve }) => {
     let lang = event.locals.lang ?? null
+    // console.log(event)
     if (!lang) {
-        if (event.route.id === '/')
+        if (event.url.pathname === '/')
             lang = event.request.headers.get('accept-language')?.split(';')[0]
                 .includes('en')
                 ? 'en'

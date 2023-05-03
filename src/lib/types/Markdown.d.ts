@@ -1,9 +1,28 @@
-declare module "*.md" {
-    const attributes: MarkdownAttr;
-    const html: MarkdownHtml;
-    const toc: MarkdownToc;
-}
+declare module '*.md' {
+    // "unknown" would be more detailed depends on how you structure frontmatter
+    const attributes: Record<string, unknown>;
 
+    // When "Mode.TOC" is requested
+    const toc: { level: string, content: string }[];
+
+    // When "Mode.HTML" is requested
+    const html: string;
+
+    // When "Mode.RAW" is requested
+    const raw: string
+
+    // When "Mode.React" is requested. VFC could take a generic like React.VFC<{ MyComponent: TypeOfMyComponent }>
+    import React from 'react'
+    const ReactComponent: React.VFC;
+
+    // When "Mode.Vue" is requested
+    import { ComponentOptions, Component } from 'vue';
+    const VueComponent: ComponentOptions;
+    const VueComponentWith: (components: Record<string, Component>) => ComponentOptions;
+
+    // Modify below per your usage
+    export { attributes, toc, html, ReactComponent, VueComponent, VueComponentWith };
+}
 export type MarkdownAttr = {
     description: string
     draft: boolean
@@ -17,14 +36,29 @@ export type MarkdownAttr = {
     title: string
 }
 
-export type MarkdownToc = {
-    level: string, content: string
-}[]
-
-export type MarkdownHtml = string
-
 export type Markdown = {
     attributes: MarkdownAttr
-    html: string
-    toc: MarkdownToc
+    body: string
+    bodyBegin: number
+    frontmatter: string
+}
+
+type Project = {
+    filename: string
+    description: string
+    draft: boolean
+    lang: 'en' | 'fr'
+    lead: string
+    link: string
+    since: string
+    slug: string
+    tags: string[]
+    team: string[]
+    title: string
+}
+
+export type ContentMeta = {
+    [content: string]: {
+        [lang: string]: Project[]
+    }
 }

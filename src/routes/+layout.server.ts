@@ -4,11 +4,10 @@ import { redirect } from '@sveltejs/kit';
 export const prerender = true
 
 export const load = async (event) => {
-    console.log('[ + ] Layout locals', event.locals)
-    console.log('[ + ] Layout route', event.route.id)
+    // console.log('[ + ] Layout locals', event.locals)
+    // console.log('[ + ] Layout route', event)
 
-
-    if (event.route.id === '/') {
+    if (event.url.pathname === '/') {
         if (event.locals.lang === 'fr') {
             console.log('redirect to /accueil')
             throw redirect(307, '/accueil')

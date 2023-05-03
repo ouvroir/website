@@ -2,6 +2,8 @@ import adapter from '@sveltejs/adapter-static';
 import { vitePreprocess } from '@sveltejs/kit/vite';
 import { routes } from './routes.js';
 
+const dev = process.argv.includes('dev');
+
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
 	// Consult https://kit.svelte.dev/docs/integrations#preprocessors
@@ -15,17 +17,24 @@ const config = {
 		prerender: {
 			entries: [
 				'*', // Prerender all non-dynamic routes
-				'/projets',
-				'/projects',
 				'/about',
 				'/a-propos',
 				'/events',
 				'/evenements',
-				'/lab',
-				'/lab/members',
-				'/lab/membres',
-				...routes
+				'/home',
+				'/accueil',
+				'/the-lab',
+				'/le-laboratoire',
+				'/projects',
+				'/projets',
+				'/our-services',
+				'/nos-services',
+				'/the-lab/members',
+				'/le-laboratoire/membres'
 			]
+		},
+		paths: {
+			base: dev ? '' : process.env.BASE_PATH
 		},
 		alias: {
 			$lib: 'src/lib/*',

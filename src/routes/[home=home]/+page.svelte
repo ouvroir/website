@@ -1,10 +1,5 @@
 <script lang="ts">
 	import { t, locale } from '$i18n/i18n';
-
-	import { page } from '$app/stores';
-
-	console.log($page);
-	console.log('Home page locale', $locale);
 </script>
 
 <svelte:head>

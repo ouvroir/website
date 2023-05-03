@@ -1,20 +1,17 @@
 <script lang="ts">
-	import { locale } from '$i18n/i18n';
-	import { projects } from '$lib/stores/stores';
+	import { t } from '$i18n/i18n';
 
 	export let data;
 
-	projects.set(data.projects);
-
-	// console.log('projects', data.projects);
+	const projects = data.projects;
 </script>
 
 <h1>Our projects</h1>
 
 <ul>
-	{#each data.projects as p}
+	{#each projects as p}
 		<li>
-			{p.meta.title}
+			<a href={`/${$t('route.projects')}/${p.slug}`}>{p.title}</a>
 		</li>
 	{/each}
 </ul>

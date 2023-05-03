@@ -1,33 +1,26 @@
+import abstractRoutes from "./abstractRoutes"
+import contentMeta from './meta/contentMeta.json'
+import type { ContentMeta } from "$lib/types/Markdown"
 
-export const abstractRoutes: { [abs: string]: { [lang: string]: string } } = {
-    '/[about=about]': {
-        'en': '/about',
-        'fr': '/a-propos'
-    },
-    '/[events=events]': {
-        'en': '/events',
-        'fr': '/evenements'
-    },
-    '/[home=home]': {
-        'en': '/home',
-        'fr': '/accueil'
-    },
-    '/[lab=lab]': {
-        'en': '/the-lab',
-        'fr': '/le-laboratoire'
-    },
-    '/[projects=projects]': {
-        'en': '/projects',
-        'fr': '/projets'
-    },
-    '/[services=services]': {
-        'en': '/our-services',
-        'fr': '/nos-services'
-    },
-    '/[team=team]': {
-        'en': '/members',
-        'fr': '/membres'
-    },
+export const localizedRoutes = (() => {
+    const routes: string[] = []
+    Object.keys(abstractRoutes).forEach(k => {
+        Object.keys(abstractRoutes[k]).forEach(l => routes.push(abstractRoutes[k][l]))
+    })
+    // console.log('localized routes', routes)
+    return routes
+})()
+
+
+function translatePojectSlug(slug: string, to: string) {
+    const content = contentMeta as ContentMeta
+    const from = to === 'en' ? 'fr' : 'en'
+
+    let filename = content.projects[from].filter(o => o.slug === slug)[0].filename
+    filename = filename.replace(from, to)
+
+    const nslug = content.projects[to].filter(o => o.filename === filename)[0].slug
+    return nslug
 }
 
 /**
@@ -35,21 +28,32 @@ export const abstractRoutes: { [abs: string]: { [lang: string]: string } } = {
  * @param {string} slug Define slug page (note localized)
  * @param {string} to Define lang destination
  */
-export const getRedirectRoute = (slug: string, to: string): string => {
-    try {
-        abstractRoutes[slug][to]
+export const getRedirectRoute = (abstractSlug: string, slug: string, to: string): string => {
+    let route = abstractRoutes[abstractSlug][to]
+
+    console.log(abstractSlug)
+    console.log(slug)
+
+    if (abstractSlug.includes('[slug]')) {
+        if (abstractSlug.includes('projects')) {
+            route += '/' + translatePojectSlug(slug.split('/').at(-1) as string, to)
+        }
     }
-    catch (e) {
-        throw new Error(`could not find url for ${slug}`)
-    }
-    finally {
-        return '/erro'
-    }
+
+    if (!route) throw new Error(`could not find url for ${slug}`)
+    return route
 }
 
 export const getLangFromSlug = (abstractSlug: string, slug: string): string => {
+    // console.log('\n ABSTRACT SLUG', abstractSlug)
+    // console.log('SLUG', slug)
+    // console.log('ABSTRACT SLUG \n', abstractRoutes[abstractSlug])
+
     const routes = abstractRoutes[abstractSlug]
-    if (routes['en'] === slug)
+
+    if (slug === '/[fallback]') return 'en'
+    if (slug.includes(routes['en']))
         return 'en'
     else return 'fr'
 }
+
