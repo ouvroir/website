@@ -7,7 +7,7 @@
 	const selectLangOnChange = () => {
 		const newRoute = getRedirectRoute($page.route.id as string, $page.url.pathname, $locale);
 		const invalidateAll = $page.route.id?.includes('[slug]');
-		goto(newRoute, { invalidateAll: false });
+		goto(newRoute, { invalidateAll: invalidateAll });
 	};
 </script>
 

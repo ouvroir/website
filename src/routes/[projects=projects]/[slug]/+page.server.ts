@@ -13,9 +13,13 @@ export const load = async (event) => {
 
     const md = fm(readFileSync(filename, { encoding: 'utf-8' })) as Markdown
 
+
+    console.log('Porject load function is (re)running with data')
+    console.log(`${md.attributes.title} - ${md.attributes.lang}`)
+
     return {
         post: {
-            attr: md.attributes,
+            attributes: md.attributes,
             html: converter.makeHtml(md.body)
         }
     }

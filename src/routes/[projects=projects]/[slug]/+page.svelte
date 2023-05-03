@@ -1,8 +1,14 @@
 <script lang="ts">
-	export let data;
-	const post = data.post;
+	import { page } from '$app/stores';
+	import type { Markdown } from '$lib/types/Markdown';
+
+	let post: Markdown;
+	$: post = $page.data.post;
 </script>
 
-<h1>{post.attr.title}</h1>
+<h1>{post.attributes.title}</h1>
 
-{@html post.html}
+<p>{post.attributes.team.join(', ')}</p>
+<p>{post.attributes.since}</p>
+
+{@html $page.data.post.html}
