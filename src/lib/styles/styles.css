@@ -1,0 +1,209 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400&display=swap');
+
+:root {
+    --bg-color: white;
+    --color-gunmetal: #2b303a;
+
+
+    --ff-primary: 'Gill Sans', 'Gill Sans MT', sans-serif;
+    --ff-secondary: 'IBM Plex Mono', monospace;
+    --ff-body: var(--ff-primary);
+    --ff-accent: var(--ff-secondary);
+    --fw-light: 200;
+    --fw-regular: 300;
+    --fw-semi-bold: 500;
+    --fw-bold: 700;
+    --fs-300: 0.85rem;
+    --fs-400: 1rem;
+    --fs-500: 1.2rem;
+    --fs-600: 2.45rem;
+    --fs-700: 3.1rem;
+
+    --ratio: 1.5;
+    --s-5: calc(var(--s-4) / var(--ratio));
+    --s-4: calc(var(--s-3) / var(--ratio));
+    --s-3: calc(var(--s-2) / var(--ratio));
+    --s-2: calc(var(--s-1) / var(--ratio));
+    --s-1: calc(var(--s0) / var(--ratio));
+    --s0: 1rem;
+    --s1: calc(var(--s0) * var(--ratio));
+    --s2: calc(var(--s1) * var(--ratio));
+    --s3: calc(var(--s2) * var(--ratio));
+    --s4: calc(var(--s3) * var(--ratio));
+    --s5: calc(var(--s4) * var(--ratio));
+
+    --measure: 60ch;
+}
+
+* {
+    /* every layout p.12-13 */
+    box-sizing: border-box;
+    inline-size: auto;
+
+    /* every layout p.42 */
+    max-inline-size: var(--measure);
+}
+
+html,
+body,
+div,
+header,
+nav,
+main,
+footer {
+    /* every layout p.42 */
+    max-inline-size: none;
+    color: white;
+    background-color: var(--color-gunmetal);
+}
+
+
+mark {
+    color: red;
+}
+
+main {
+    background-color: white;
+    color: black;
+}
+
+body {
+    font-family: var(--ff-primary);
+    font-size: var(--fs-400);
+}
+
+p {
+    line-height: 1.7rem;
+}
+
+a {
+    color: red;
+    text-decoration: none;
+    transition: text-decoration 10s;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+nav {
+    display: flex;
+    flex-direction: row;
+}
+
+nav>ul {
+    display: flex;
+    flex-direction: row;
+    margin: auto;
+    gap: 1.5rem;
+    font-size: var(--fs-500);
+}
+
+nav>ul>li>a {
+    color: white;
+    font-family: var(--ff-secondary);
+    font-weight: 100;
+}
+
+.stack {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.stack>* {
+    /* ↓ Any extant vertical margins are removed */
+    margin-block: 0;
+}
+
+.stack>*+* {
+    margin-block-start: var(--s1);
+}
+
+.stack-small>*+* {
+    margin-block-start: var(--s-1);
+}
+
+.hstack {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: var(--s-1);
+}
+
+
+.sticky-banner {
+    height: 90vh;
+    max-height: 90vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1.5fr 1.8fr 2fr 2.2fr 2.45fr 2.60fr;
+    grid-template-rows: repeat(5, 1fr);
+    gap: 3rem;
+    margin-bottom: 3rem;
+}
+
+.banner-title {
+    grid-column: 3/5;
+    grid-row: 2;
+    font-size: 8rem;
+    font-family: var(--ff-secondary);
+    border: solid 1rem white;
+    height: min-content;
+    width: min-content;
+    padding: 0.2em;
+}
+
+.banner-subtitle {
+    grid-column: 6/9;
+    grid-row: 3;
+    font-size: 2.8rem;
+    font-family: var(--ff-secondary);
+    line-height: 1.2em;
+    border-left: solid 0.5rem white;
+    padding-left: 1rem;
+}
+
+.banner-description {
+    grid-column: 4 / 9;
+    grid-row: 4 / 6;
+    font-size: 1.8rem;
+    /* font-family: var(--ff-secondary); */
+    font-weight: 300;
+    line-height: 1.2em;
+}
+
+
+
+/* Utility classes */
+
+.fs\:300 {
+    font-size: var(--fs-300) !important;
+}
+
+.fs\:400 {
+    font-size: var(--fs-400) !important;
+}
+
+.fs\:500 {
+    font-size: var(--fs-500) !important;
+}
+
+.fs\:600 {
+    font-size: var(--fs-600) !important;
+}
+
+.fs\:700 {
+    font-size: var(--fs-700) !important;
+}
+
+.ff\:secondary {
+    font-family: var(--ff-secondary);
+}
+
+.fw\:light {
+    font-weight: 200;
+}
+
+.clr\:red {
+    color: red
+}
