@@ -16,8 +16,8 @@ const projectsRoutes = () => {
 	console.log('Creating projects routes');
 
 	const projects = [];
-	Object.keys(contentMeta.projects).forEach((lang) => {
-		contentMeta.projects[lang].forEach((p) => {
+	Object.keys(contentMeta).forEach((lang) => {
+		contentMeta[lang].projects.forEach((p) => {
 			lang === 'fr' ? projects.push(`/projets/${p.slug}`) : projects.push(`/projects/${p.slug}`);
 		});
 	});

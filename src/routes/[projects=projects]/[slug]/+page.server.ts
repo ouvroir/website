@@ -6,9 +6,9 @@ import type { Markdown, ContentMeta } from '$lib/types/Markdown';
 
 
 export const load = async (event) => {
-    const content = contentMeta as ContentMeta
+    const content = contentMeta as unknown as ContentMeta
     const converter = new showdown.Converter()
-    const filename = content.projects[event.locals.lang]
+    const filename = content[event.locals.lang].projects
         .filter(o => o.slug === event.params.slug)[0].filename
 
     const md = fm(readFileSync(filename, { encoding: 'utf-8' })) as Markdown

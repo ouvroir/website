@@ -1,9 +1,9 @@
-import type { ContentMeta } from '$lib/types/Markdown';
 import contentMeta from '$i18n/meta/contentMeta.json'
+import type { ContentMeta } from "$lib/types/Markdown";
 
 export const load = async (event) => {
     const content = contentMeta as unknown as ContentMeta
     return {
-        projects: content[event.locals.lang].projects
+        content: content[event.locals.lang]
     }
 }

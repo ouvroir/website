@@ -43,7 +43,7 @@ export type Markdown = {
     frontmatter: string
 }
 
-type Project = {
+export type Project = {
     filename: string
     description: string
     draft: boolean
@@ -57,8 +57,47 @@ type Project = {
     title: string
 }
 
+export type Blog = {
+    title: string
+    description: string
+    author: string
+    date: string
+    draft: boolean
+    slug: string
+    lang: 'en' | 'fr'
+    tags: string[]
+}
+
+export type Report = {
+    title: string
+    description: string
+    author: string
+    date: string
+    tags: string[]
+    draft: boolean
+}
+
+export type Member = {
+    firstname: string
+    lastname: string
+    username: string
+    slug: string
+    lang: 'en' | 'fr'
+    description: string
+    tags: string[]
+    mail: string
+    link: string
+    projects: string
+    status: string
+    pronouns: string
+    permalink: string
+}
+
 export type ContentMeta = {
-    [content: string]: {
-        [lang: string]: Project[]
+    [lang: string]: {
+        projects: Project[],
+        blog: Blog[],
+        report: Report[],
+        team: Member[]
     }
 }

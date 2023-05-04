@@ -1,24 +1,20 @@
 <script lang="ts">
+	import '$lib/styles/reset.css';
+	import '$lib/styles/styles.css';
 	import Nav from '$lib/components/Nav.svelte';
-	import { locale } from '$i18n/i18n';
+	import { t, locale } from '$i18n/i18n';
 
 	export let data;
 
 	locale.set(data.lang as string);
 </script>
 
-<header>
-	<div class="header-container">
-		<h1>Ouvroir</h1>
-		<h2>d’histoire de l’art et de muséologie numériques</h2>
-		<p>
-			L’Ouvroir d’histoire de l’art et de muséologie numérique de l’Université de Montréal, est un
-			laboratoire de recherche destiné à soutenir le travail conduit dans le cadre du Partenariat «
-			Des nouveaux usages des collections dans les musées d’art » <a href="http://www.cieco.co/"
-				><abbr>CIÉCO</abbr></a
-			>.
-		</p>
-	</div>
+<header class="sticky-banner">
+	<h1 class="banner-title">Ouvroir</h1>
+	<h2 class="banner-subtitle">{@html $t('header.subtitle')}</h2>
+	<p class="banner-description">
+		{$t('header.description')} <a href="http://www.cieco.co/"><abbr>CIÉCO</abbr></a>.
+	</p>
 </header>
 
 <main>

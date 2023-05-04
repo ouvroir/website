@@ -6,9 +6,11 @@
 	$: post = $page.data.post;
 </script>
 
-<h1>{post.attributes.title}</h1>
+<article>
+	<h1>{post.attributes.title}</h1>
 
-<p>{post.attributes.team.join(', ')}</p>
-<p>{post.attributes.since}</p>
+	<p>{post.attributes.team.join(', ')}</p>
+	<p>{post.attributes.since}</p>
 
-{@html $page.data.post.html}
+	{@html $page.data.post.html}
+</article>

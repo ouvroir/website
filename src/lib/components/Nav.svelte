@@ -6,12 +6,12 @@
 
 	const selectLangOnChange = () => {
 		const newRoute = getRedirectRoute($page.route.id as string, $page.url.pathname, $locale);
-		const invalidateAll = $page.route.id?.includes('[slug]');
-		goto(newRoute, { invalidateAll: invalidateAll });
+		goto(newRoute, { invalidateAll: true });
 	};
 </script>
 
 <nav aria-labelledby={`${$t('aria.nav.label')}`}>
+	<span>LOGO</span>
 	<ul>
 		<li><a href={`/${$t('route.base')}`}>{$t('nav.home')}</a></li>
 		<li><a href={`/${$t('route.projects')}`}>{$t('nav.projects')}</a></li>
@@ -20,15 +20,17 @@
 		<li><a href={`/${$t('route.about')}`}>{$t('nav.about')}</a></li>
 	</ul>
 
-	<label for="locale">{$t('nav.locale.label')}</label>
-	<select
-		id="locale"
-		bind:value={$locale}
-		on:change={selectLangOnChange}
-		aria-label={`${$t('aria.locales.label')}`}
-	>
-		{#each locales as l}
-			<option aria-label={`${$t('aria.locales.' + l)}`} value={l}>{l}</option>
-		{/each}
-	</select>
+	<div>
+		<label for="locale">{$t('nav.locale.label')}</label>
+		<select
+			id="locale"
+			bind:value={$locale}
+			on:change={selectLangOnChange}
+			aria-label={`${$t('aria.locales.label')}`}
+		>
+			{#each locales as l}
+				<option aria-label={`${$t('aria.locales.' + l)}`} value={l}>{l}</option>
+			{/each}
+		</select>
+	</div>
 </nav>
