@@ -7,7 +7,6 @@ export const handle = (({ event, resolve }) => {
     if (!lang) {
         if (event.url.pathname === '/')
             lang = event.request.headers.get('accept-language')?.split(';')[0]
-                .includes('en')
                 ? 'en'
                 : 'fr'
         else

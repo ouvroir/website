@@ -11,6 +11,10 @@ const abstractRoutes = {
 		en: '/about',
 		fr: '/a-propos'
 	},
+	'/[cr=cr]': {
+		en: '/reports',
+		fr: '/comptes-rendu'
+	},
 	'/[events=events]': {
 		en: '/events',
 		fr: '/evenements'

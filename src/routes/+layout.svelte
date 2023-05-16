@@ -18,9 +18,7 @@
 </header>
 
 <main>
-	<header>
-		<Nav />
-	</header>
+	<Nav />
 	<slot />
 </main>
 

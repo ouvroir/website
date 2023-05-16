@@ -30,6 +30,8 @@ const translations: { [locale: string]: { [path: string]: string } } = {
         'route.events': 'events',
         'route.services': 'our-services',
         'route.about': 'about',
+        'route.cr': 'reports',
+
 
         // Homepage
         'home.projects.title': 'Latest projects & publications',
@@ -80,6 +82,7 @@ const translations: { [locale: string]: { [path: string]: string } } = {
         'route.events': 'evenements',
         'route.services': 'nos-services',
         'route.about': 'a-propos',
+        'route.cr': 'comptes-rendu',
 
         // Homepage
         'home.projects.title': 'Projets & publications',

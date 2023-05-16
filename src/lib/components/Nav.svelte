@@ -6,12 +6,12 @@
 
 	const selectLangOnChange = () => {
 		const newRoute = getRedirectRoute($page.route.id as string, $page.url.pathname, $locale);
-		goto(newRoute, { invalidateAll: true });
+		goto(newRoute, { invalidateAll: true, noScroll: true });
 	};
 </script>
 
 <nav aria-labelledby={`${$t('aria.nav.label')}`}>
-	<span>LOGO</span>
+	<span class="fs:400">OUVROIR</span>
 	<ul>
 		<li><a href={`/${$t('route.base')}`}>{$t('nav.home')}</a></li>
 		<li><a href={`/${$t('route.projects')}`}>{$t('nav.projects')}</a></li>

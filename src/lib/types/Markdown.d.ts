@@ -78,6 +78,7 @@ export type Report = {
 }
 
 export type Member = {
+    filename: string
     firstname: string
     lastname: string
     username: string
@@ -93,11 +94,14 @@ export type Member = {
     permalink: string
 }
 
+type Content = {
+    projects: Project[],
+    blog: Blog[],
+    // report: Report[],
+    // team: Member[]
+}
+
 export type ContentMeta = {
-    [lang: string]: {
-        projects: Project[],
-        blog: Blog[],
-        report: Report[],
-        team: Member[]
-    }
+    'en': Content,
+    'fr': Content
 }

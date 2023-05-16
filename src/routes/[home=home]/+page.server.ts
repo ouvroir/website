@@ -1,9 +1,11 @@
-import contentMeta from '$i18n/meta/contentMeta.json'
-import type { ContentMeta } from "$lib/types/Markdown";
+import { importContentFrom } from '$lib/helpers/markdown.js'
+import type { Project } from '$lib/types/Markdown'
+
 
 export const load = async (event) => {
-    const content = contentMeta as unknown as ContentMeta
     return {
-        content: content[event.locals.lang]
+        content: {
+            projects: await importContentFrom('projets/', event.locals.lang) as Project[]
+        }
     }
 }

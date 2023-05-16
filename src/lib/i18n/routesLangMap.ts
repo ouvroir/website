@@ -12,14 +12,16 @@ export const localizedRoutes = (() => {
 })()
 
 
-function translatePojectSlug(slug: string, to: string) {
+function translatePojectSlug(slug: string, to: 'en' | 'fr') {
     const content = contentMeta as ContentMeta
+
+    console.log(content)
     const from = to === 'en' ? 'fr' : 'en'
 
-    let filename = content.projects[from].filter(o => o.slug === slug)[0].filename
+    let filename = content[from].projects.filter(o => o.slug === slug)[0].filename
     filename = filename.replace(from, to)
 
-    const nslug = content.projects[to].filter(o => o.filename === filename)[0].slug
+    const nslug = content[to].projects.filter(o => o.filename === filename)[0].slug
     return nslug
 }
 

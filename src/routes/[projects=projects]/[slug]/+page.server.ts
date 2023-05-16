@@ -1,26 +1,25 @@
-import { readFileSync } from 'fs'
-import { default as fm } from 'front-matter';
-import showdown from 'showdown'
 import contentMeta from '$i18n/meta/contentMeta.json'
 import type { Markdown, ContentMeta } from '$lib/types/Markdown';
 
 
 export const load = async (event) => {
     const content = contentMeta as unknown as ContentMeta
-    const converter = new showdown.Converter()
-    const filename = content[event.locals.lang].projects
+    let filename = content[event.locals.lang as 'en' | 'fr'].projects
         .filter(o => o.slug === event.params.slug)[0].filename
 
-    const md = fm(readFileSync(filename, { encoding: 'utf-8' })) as Markdown
+    filename = filename.split('/').at(-1) as string
 
+    const relPath = process.env.NODE_ENV === 'development'
+        ? '../../../lib/labouvroir/projets/'
+        : '../../../../../../../src/lib/labouvroir/projets/'
 
-    console.log('Porject load function is (re)running with data')
-    console.log(`${md.attributes.title} - ${md.attributes.lang}`)
+    const md = await import(/* @vite-ignore */ relPath + filename)
 
     return {
         post: {
-            attributes: md.attributes,
-            html: converter.makeHtml(md.body)
+            ...md.metadata,
+            ...md.default.render()
         }
     }
 }
+
