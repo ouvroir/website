@@ -14,12 +14,12 @@
 	let visible = false;
 	setTimeout(() => {
 		visible = true;
-	}, 1000);
+	}, 500);
 </script>
 
 <nav aria-labelledby={`${$t('aria.nav.label')}`}>
 	{#if visible}
-		<img class="logo" src={Logo} alt="ll" transition:fly={{ x: 150, duration: 2000 }} />
+		<img class="logo" src={Logo} alt="ll" transition:fly={{ x: 60, duration: 1000 }} />
 	{:else}
 		<img class="logo invisible" src={Logo} alt="ll" />
 	{/if}
@@ -69,12 +69,13 @@
 	.logo-text {
 		/* border-left: solid 0.5px var(--clr-magenta); */
 		padding-right: 1rem;
-		background-color: white;
+		background-color: var(--clr-bg);
 		z-index: 1;
 	}
 	.logo-text > h1 {
 		font-size: 1.3rem;
 		margin-bottom: 0.2rem;
+		color: var(--clr-magenta);
 	}
 
 	.logo-text > p {

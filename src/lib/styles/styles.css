@@ -4,8 +4,10 @@
 :root {
     --clr-accent: hotpink;
     --clr-body: black;
-    --clr-magenta: #0d2033;
-    --clr-magenta: rgba(13, 32, 51, 0.9);
+    --clr-magenta: hsl(210, 59%, 13%);
+    --clr-magenta: hsl(210, 59%, 25%);
+    --clr-bg: hsl(73, 50%, 97%);
+    --clr-bg: white;
 
     --padding-s: 0.5rem;
     --padding-m: 1.8rem;
@@ -33,13 +35,15 @@
     --fs-600: 2.8rem;
     --fs-700: 3.1rem;
 
+    --fs-secnav-title: var(--fs-500);
+
     --grid-columns: repeat(16, 1fr);
     --gap: 1.5rem;
 
     --line-height-s: 1.5rem;
     --line-height-l: 1.8rem;
 
-    --measure: 70ch;
+    --measure: 60ch;
 }
 
 * {
@@ -56,6 +60,11 @@ body,
 main {
     width: 100%;
     font-family: var(--ff-ui);
+    background-color: var(--clr-bg);
+}
+
+.selected {
+    color: darkorange;
 }
 
 
@@ -79,6 +88,22 @@ a {
     text-decoration: none;
 }
 
+button,
+.nav-secondary>li>a {
+    border: none;
+    background: none;
+    font-family: var(--ff-accent);
+    font-size: var(--fs-200);
+    color: hsl(0, 0%, 30%);
+    transition: color 0.2s ease;
+}
+
+button:hover:hover,
+.nav-secondary>li>a:hover {
+    cursor: pointer;
+    color: darkorange;
+}
+
 p {
     line-height: var(--line-height-s);
     font-size: var(--fs-300);
@@ -88,7 +113,6 @@ p {
 span {
     display: block;
 }
-
 
 nav>ul {
     display: flex;
@@ -102,8 +126,16 @@ nav>div:first-child {
     font-family: var(--ff-accent);
 }
 
-nav>div:last-child {
-    /* grid-column: 15/17; */
+.aside {
+    grid-column: 1/5;
+}
+
+.aside>h3 {
+    color: var(--clr-magenta);
+}
+
+.aside>*+* {
+    margin-top: 2.5rem;
 }
 
 .main-content {
@@ -153,9 +185,6 @@ header>ul {
 .tags>*+*::before {
     content: '⸱\0000a0\0000a0'
 }
-
-
-
 
 header>*+* {
     margin-top: 1.3rem;

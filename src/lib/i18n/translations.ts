@@ -21,8 +21,13 @@ const translations: { [locale: string]: { [path: string]: string } } = {
         'nav.lab': 'The Lab',
         'nav.services': 'Services',
         'nav.about': 'About',
-
         'nav.locale.label': 'Language',
+
+        // Secondary nav
+        'snav.title': 'the lab',
+        'snav.presentation': 'presentation',
+        'snav.team': 'team',
+        'snav.coc': 'code of conduct',
 
         // URLs
         'route.base': 'news',
@@ -30,6 +35,9 @@ const translations: { [locale: string]: { [path: string]: string } } = {
         'route.events': 'events',
         'route.services': 'our-services',
         'route.about': 'about',
+        'route.about.presentation': 'about/presentation',
+        'route.about.team': 'about/team',
+        'route.about.coc': 'about/code-of-conduct',
         'route.cr': 'reports',
 
 
@@ -72,9 +80,13 @@ const translations: { [locale: string]: { [path: string]: string } } = {
         'nav.services': 'Services',
         'nav.lab': 'Le Laboratoire',
         'nav.about': 'À propos',
-
         'nav.locale.label': 'Langue',
 
+        // Secondary nav
+        'snav.title': 'le laboratoire',
+        'snav.presentation': 'présentation',
+        'snav.team': 'équipe',
+        'snav.coc': 'charte de fonctionnement',
 
         // URLs
         'route.base': 'actualites',
@@ -82,6 +94,9 @@ const translations: { [locale: string]: { [path: string]: string } } = {
         'route.events': 'evenements',
         'route.services': 'nos-services',
         'route.about': 'a-propos',
+        'route.about.presentation': 'a-propos/presentation',
+        'route.about.team': 'a-propos/equipe',
+        'route.about.coc': 'a-propos/charte-fonctionnement',
         'route.cr': 'comptes-rendu',
 
         // Homepage
