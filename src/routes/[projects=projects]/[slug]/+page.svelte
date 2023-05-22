@@ -6,8 +6,9 @@
 <article>
 	<h1>{post.title}</h1>
 
-	<p>{post.team.join(', ')}</p>
-	<p>{post.since}</p>
+	<span>{post.team.join(', ')}</span>
+	|
+	<span>{post.since}</span>
 
 	{@html post.html}
 </article>

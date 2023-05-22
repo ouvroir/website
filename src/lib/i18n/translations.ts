@@ -14,7 +14,7 @@ const translations: { [locale: string]: { [path: string]: string } } = {
 
 
         // Navigation bar
-        'nav.home': 'Home',
+        'nav.home': 'News',
         'nav.projects': 'Projects',
         'nav.events': 'Events',
         'nav.blog': 'Blog',
@@ -25,7 +25,7 @@ const translations: { [locale: string]: { [path: string]: string } } = {
         'nav.locale.label': 'Language',
 
         // URLs
-        'route.base': 'home',
+        'route.base': 'news',
         'route.projects': 'projects',
         'route.events': 'events',
         'route.services': 'our-services',
@@ -65,7 +65,7 @@ const translations: { [locale: string]: { [path: string]: string } } = {
         'header.description': "L’Ouvroir d’histoire de l’art et de muséologie numérique de l’Université de Montréal, est un laboratoire de recherche destiné à soutenir le travail conduit dans le cadre du Partenariat « Des nouveaux usages des collections dans les musées d’art »",
 
         // Navigation bar
-        'nav.home': 'Accueil',
+        'nav.home': 'Actualités',
         'nav.projects': 'Projets',
         'nav.events': 'Évenements',
         'nav.blog': 'Blog',
@@ -77,7 +77,7 @@ const translations: { [locale: string]: { [path: string]: string } } = {
 
 
         // URLs
-        'route.base': 'accueil',
+        'route.base': 'actualites',
         'route.projects': 'projets',
         'route.events': 'evenements',
         'route.services': 'nos-services',
@@ -100,3 +100,4 @@ const translations: { [locale: string]: { [path: string]: string } } = {
 }
 
 export default translations
+

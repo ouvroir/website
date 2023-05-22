@@ -2,7 +2,12 @@ import type { Handle } from '@sveltejs/kit';
 import { getLangFromSlug } from '$i18n/routesLangMap'
 
 export const handle = (({ event, resolve }) => {
+
+
     let lang = event.locals.lang ?? null
+
+    if (event.url.pathname.includes('temp')) lang = 'en'
+
     // console.log(event)
     if (!lang) {
         if (event.url.pathname === '/')

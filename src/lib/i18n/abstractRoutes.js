@@ -11,14 +11,11 @@ const abstractRoutes = {
 		en: '/about',
 		fr: '/a-propos'
 	},
-	'/[cr=cr]': {
-		en: '/reports',
-		fr: '/comptes-rendu'
+	'/[news=news]': {
+		en: '/news',
+		fr: '/actualités'
 	},
-	'/[events=events]': {
-		en: '/events',
-		fr: '/evenements'
-	},
+
 	'/[home=home]': {
 		en: '/home',
 		fr: '/accueil'
@@ -38,6 +35,10 @@ const abstractRoutes = {
 	'/[services=services]': {
 		en: '/our-services',
 		fr: '/nos-services'
+	},
+	'/[lab=lab]/[cr=cr]': {
+		en: '/the-lab/meeting-reports',
+		fr: '/le-laboratoire/comptes-rendu'
 	},
 	'/[lab=lab]/[team=team]': {
 		en: '/the-lab/members',

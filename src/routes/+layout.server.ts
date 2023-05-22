@@ -9,7 +9,6 @@ export const load = async (event) => {
 
     if (event.url.pathname === '/') {
         if (event.locals.lang === 'fr') {
-            console.log('redirect to /accueil')
             throw redirect(307, '/accueil')
         }
         else

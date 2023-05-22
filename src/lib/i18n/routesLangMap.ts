@@ -47,9 +47,9 @@ export const getRedirectRoute = (abstractSlug: string, slug: string, to: string)
 }
 
 export const getLangFromSlug = (abstractSlug: string, slug: string): string => {
-    // console.log('\n ABSTRACT SLUG', abstractSlug)
-    // console.log('SLUG', slug)
-    // console.log('ABSTRACT SLUG \n', abstractRoutes[abstractSlug])
+    console.log('\n ABSTRACT SLUG', abstractSlug)
+    console.log('SLUG', slug)
+    console.log('ABSTRACT SLUG \n', abstractRoutes[abstractSlug])
 
     const routes = abstractRoutes[abstractSlug]
 

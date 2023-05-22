@@ -9,17 +9,19 @@
 	locale.set(data.lang as string);
 </script>
 
-<header class="sticky-banner">
+<!-- <header class="sticky-banner">
 	<h1 class="banner-title">Ouvroir</h1>
 	<h2 class="banner-subtitle">{@html $t('header.subtitle')}</h2>
 	<p class="banner-description">
 		{$t('header.description')} <a href="http://www.cieco.co/"><abbr>CIÉCO</abbr></a>.
 	</p>
-</header>
+</header> -->
 
 <main>
 	<Nav />
-	<slot />
+	<div class="main-content">
+		<slot />
+	</div>
 </main>
 
 <footer />

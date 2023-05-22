@@ -49,7 +49,7 @@ export type Project = {
     draft: boolean
     lang: 'en' | 'fr'
     lead: string
-    link: string
+    html: string
     since: string
     slug: string
     tags: string[]
