@@ -17,7 +17,7 @@
 >
 	<span class="document-tag">Événement</span>
 	<h1 class={`${mouseOver ? 'underline' : ''}`}>
-		<a href={`/${$t('route.news')}/${post.meta.slug}`}>
+		<a href={`${$t('route.news')}/${post.meta.slug}`}>
 			{post.meta.title}
 		</a>
 	</h1>

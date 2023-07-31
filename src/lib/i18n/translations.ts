@@ -1,3 +1,8 @@
+import { base } from "$app/paths"
+
+console.log('------- BASE', base)
+
+
 const translations: { [locale: string]: { [path: string]: string } } = {
     'en': {
         // ARIA labels
@@ -22,18 +27,18 @@ const translations: { [locale: string]: { [path: string]: string } } = {
         'nav.locale.label': 'Language',
 
         // URLs
-        'route.home': 'home',
-        'route.news': 'news',
-        'route.projects': 'projects',
-        'route.services': 'our-services',
-        'route.about': 'about',
-        'route.about.presentation': '/about/presentation',
-        'route.about.team': '/about/members',
-        'route.about.coc': '/about/code-of-conduct',
-        'route.services.presentation': '/our-services/presentation',
-        'route.services.equipement': '/our-services/equipement',
-        'route.services.reservation': '/our-services/reservation',
-        'route.services.meetups': '/our-services/meet-ups',
+        'route.home': `${base}/home`,
+        'route.news': `${base}/news`,
+        'route.projects': `${base}/projects`,
+        'route.services': `${base}/our-services`,
+        'route.about': `${base}/about`,
+        'route.about.presentation': `${base}/about/presentation`,
+        'route.about.team': `${base}/about/members`,
+        'route.about.coc': `${base}/about/code-of-conduct`,
+        'route.services.presentation': `${base}/our-services/presentation`,
+        'route.services.equipement': `${base}/our-services/equipement`,
+        'route.services.reservation': `${base}/our-services/reservation`,
+        'route.services.meetups': `${base}/our-services/meet-ups`,
 
         // Homepage
         'home.projects.title': 'Latest projects & publications',
@@ -95,18 +100,18 @@ const translations: { [locale: string]: { [path: string]: string } } = {
         'nav.locale.label': 'Langue',
 
         // URLs
-        'route.home': 'accueil',
-        'route.news': 'actualites',
-        'route.projects': 'projets',
-        'route.services': 'nos-services',
-        'route.about': 'a-propos',
-        'route.about.presentation': '/a-propos/presentation',
-        'route.about.team': '/a-propos/membres',
-        'route.about.coc': '/a-propos/code-de-conduite',
-        'route.services.presentation': '/nos-services/presentation',
-        'route.services.equipement': '/nos-services/equipements',
-        'route.services.reservation': '/nos-services/reservation',
-        'route.services.meetups': '/nos-services/rencontres',
+        'route.home': `${base}/accueil`,
+        'route.news': `${base}/actualites`,
+        'route.projects': `${base}/projets`,
+        'route.services': `${base}/nos-services`,
+        'route.about': `${base}/a-propos`,
+        'route.about.presentation': `${base}/a-propos/presentation`,
+        'route.about.team': `${base}/a-propos/membres`,
+        'route.about.coc': `${base}/a-propos/code-de-conduite`,
+        'route.services.presentation': `${base}/nos-services/presentation`,
+        'route.services.equipement': `${base}/nos-services/equipements`,
+        'route.services.reservation': `${base}/nos-services/reservation`,
+        'route.services.meetups': `${base}/nos-services/rencontres`,
 
         // Homepage
         'home.projects.title': 'Projets & publications',

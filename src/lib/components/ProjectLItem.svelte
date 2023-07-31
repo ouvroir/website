@@ -35,7 +35,7 @@
 	{#if header}
 		<span class="card-header">Livrable CIÉCO</span>
 	{/if}
-	<a href={`/${$t('route.projects')}/${data.meta.slug}`}>
+	<a href={`${$t('route.projects')}/${data.meta.slug}`}>
 		<h1 on:mouseover={onMouseOver} on:mouseout={onMouseOut} on:focus on:blur>{data.meta.title}</h1>
 	</a>
 	<ul class="tags">

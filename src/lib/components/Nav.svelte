@@ -63,7 +63,7 @@
 <svelte:window on:scroll={handleScroll} bind:scrollY />
 
 <nav aria-labelledby={`${$t('aria.nav.label')}`} class="main">
-	<a href={`/${$t('route.home')}`} class="logo">
+	<a href={`${$t('route.home')}`} class="logo">
 		{#if visible}
 			<img
 				class="logo-img"
@@ -85,14 +85,14 @@
 			<a class={`nav-link ${active === 'home' ? 'active' : ''}`} href="/">{$t('nav.home')}</a>
 		</li> -->
 		<li>
-			<a class={`nav-link ${active === 'news' ? 'active' : ''}`} href={`/${$t('route.news')}`}
+			<a class={`nav-link ${active === 'news' ? 'active' : ''}`} href={`${$t('route.news')}`}
 				>{$t('nav.news')}</a
 			>
 		</li>
 		<li>
 			<a
 				class={`nav-link ${active === 'projects' ? 'active' : ''}`}
-				href={`/${$t('route.projects')}`}>{$t('nav.projects')}</a
+				href={`${$t('route.projects')}`}>{$t('nav.projects')}</a
 			>
 		</li>
 		<li>
