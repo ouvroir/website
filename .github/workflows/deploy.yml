@@ -10,10 +10,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-
-      - name: Checkout submodule
-        run: |
-          git clone --depth 1 https://github.com/ouvroir/labouvroir.git src/lib/labouvroir/
+        with:
+          submodules: 'recursive'
 
       # If you're using pnpm, add this step then change the commands and cache key below to use `pnpm`
       # - name: Install pnpm
