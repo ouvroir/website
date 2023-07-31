@@ -1,46 +1,107 @@
 <script lang="ts">
-	import type { Project } from '$lib/types/Markdown';
-
-	// import logo from '$lib/assets/righettino_landing_screenshot.png';
-
 	export let data;
-
-	const project = data.post;
-	console.log(project);
 </script>
 
-<header>
-	<h1>{project.title}</h1>
+<h1>{data.meta?.title}</h1>
+
+<div class="meta">
 	<ul class="tags">
-		{#each project.tags as t}
+		{#each data.meta.tags as t}
 			<li>{t}</li>
 		{/each}
 	</ul>
-
-	<p class="project-description">
-		{project.description}
-	</p>
-
+	<img src="/sample1.jpg" alt="" />
+	<p class="project-description">{data.meta?.description}</p>
 	<div class="infos">
 		<div class="info">
-			<span class="clr:light">since</span>
-			<span>{project.since}</span>
+			<span>since</span>
+			<p>{data.meta?.since}</p>
 		</div>
 		<div class="info">
-			<span class="clr:light">project manager</span>
-			<span>{project.lead}</span>
+			<span>status</span>
+			<p>ongoing</p>
 		</div>
 		<div class="info">
-			<span class="clr:light">team</span>
+			<span>project manager</span>
+			<p>{data.meta?.lead}</p>
+		</div>
+		<div class="info">
+			<span>team</span>
 			<ul>
-				{#each project.team as t}
+				{#each data.meta.team as t}
 					<li>{t}</li>
 				{/each}
 			</ul>
 		</div>
 	</div>
-</header>
+</div>
 
-<article>
-	{@html project.html}
-</article>
+<div class="text-content">
+	<h2>Introduction</h2>
+	{@html data.html}
+	<p>
+		Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ipsa ducimus aperiam culpa consequatur
+		aspernatur. Nobis dolore sed molestias ullam architecto temporibus asperiores corrupti, mollitia
+		obcaecati numquam maxime dicta, pariatur iure.
+	</p>
+	<h2>More titles</h2>
+	{@html data.html}
+	{@html data.html}
+	{@html data.html}
+	{@html data.html}
+	{@html data.html}
+</div>
+
+<style>
+	h1 {
+		grid-column: 1/-1;
+		font-size: var(--fs-title);
+		margin-bottom: 3rem;
+		max-inline-size: 25ch;
+		line-height: 2.5rem;
+	}
+
+	h2 {
+		font-size: 1.3rem;
+		margin-bottom: 1rem;
+	}
+
+	img {
+		/* max-height: 18rem; */
+		filter: grayscale();
+		max-width: 100%;
+	}
+
+	.meta {
+		grid-column: span 4;
+		max-width: 90%;
+	}
+
+	.meta > * + * {
+		margin-top: 1.3rem;
+	}
+
+	.text-content {
+		grid-column: 5/-1;
+		/* padding-left: 1rem; */
+		padding-right: 1rem;
+	}
+
+	.tags {
+		margin: 0;
+	}
+
+	.infos {
+		display: flex;
+		flex-direction: row;
+		gap: 2rem;
+	}
+	span {
+		display: block;
+		font-family: var(--ff-mono);
+		color: red;
+		font-weight: 300;
+		margin-bottom: 0.3rem;
+		font-size: 0.9rem;
+	}
+</style>

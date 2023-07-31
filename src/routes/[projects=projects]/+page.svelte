@@ -1,137 +1,107 @@
 <script lang="ts">
-	import { t } from '$i18n/i18n';
+	import ProjectLItem from '$lib/components/ProjectLItem.svelte';
+	import FilterPanel from '$lib/components/FilterPanel.svelte';
+	import type { Project } from '$lib/types.js';
 
 	export let data;
 
-	let projects = data.projects;
-	console.log('🚀 ~ file: +page.svelte:7 ~ projects:', projects);
-
-	let selected_topics: string[] = [];
-	let selected_status: string[] = [];
-
-	const filterTags = (key: string, tags: string[]): void => {
-		projects = data.projects.filter((p) => {
-			if (tags.length > 0) {
-				return tags.every((t) => p[key].includes(t));
-			} else {
-				return true;
-			}
-		});
-	};
-
-	const topicOnClick = (e) => {
-		if (!e.target.classList.contains('selected')) {
-			selected_topics.push(e.target.id);
-			e.target.classList.add('selected');
-		} else {
-			selected_topics = selected_topics.filter((t) => t !== e.target.id);
-			e.target.classList.remove('selected');
-		}
-		filterTags('tags', selected_topics);
-	};
-
 	const tags = data.projects
-		.reduce((acc, project) => {
-			project.tags.forEach((t) => {
+		.reduce((acc, p) => {
+			p.meta.tags.forEach((t: string) => {
 				if (!acc.includes(t)) acc.push(t);
 			});
 			return acc;
 		}, [])
 		.sort();
+
+	let selectedTags: string[] = [];
+
+	const filterTags = (d: Project, selectedTags: string[]) => {
+		if (selectedTags.length === 0) return true;
+		let contains = false;
+		d.meta.tags.forEach((t) => {
+			if (selectedTags.includes(t)) contains = true;
+		});
+		return contains;
+	};
+
+	$: ciecoProjects = data.projects
+		.filter((d) => d.meta.tags.includes('CIÉCO'))
+		.filter((d) => filterTags(d, selectedTags));
+
+	$: projects = data.projects
+		.filter((d) => !d.meta.tags.includes('CIÉCO'))
+		.filter((d) => filterTags(d, selectedTags));
 </script>
 
-<div class="aside">
-	<div>
-		<h3>topics</h3>
-		<ul class="filter-tags">
-			{#each tags as t, i}
-				<li>
-					<button on:click={topicOnClick} id={t}>{t}</button>
-				</li>
-			{/each}
-		</ul>
-	</div>
+<FilterPanel {tags} bind:selectedTags />
 
-	<div>
-		<h3>development</h3>
-		<ul class="filter-tags">
-			<button id="planned">planned</button>
-			<button id="ongoing">ongoing</button>
-			<button id="archived">archived</button>
-		</ul>
+{#if ciecoProjects.length > 0}
+	<div class="section-title">
+		<h2>Livrables CIÉCO</h2>
 	</div>
-</div>
+{/if}
+<ul class="pinned-projects">
+	{#each ciecoProjects as p}
+		<ProjectLItem data={p} header={false} />
+	{/each}
+</ul>
 
-<ul class="projects">
+{#if projects.length > 0}
+	<div class="section-title">
+		<h2>Recherches et développements</h2>
+	</div>
+{/if}
+<!-- 
+<h2 class="section-title">Ouvroir</h2> -->
+<ul class="projects-list">
 	{#each projects as p}
-		<li>
-			<div class="project-li">
-				<a href={`${$t('route.projects')}/${p.slug}`}>
-					<h2>{p.title}</h2>
-				</a>
-				<!-- <p>{p.description}</p>  -->
-				<ul class="tags">
-					{#each p.tags as t}
-						<li class="tag">{t}</li>
-					{/each}
-				</ul>
-			</div>
-		</li>
+		<ProjectLItem data={p} />
 	{/each}
 </ul>
 
 <style>
+	/* .empty {
+		grid-column: 2/-1;
+		border-top: solid 0.5px lightgrey;
+		margin-bottom: 2rem;
+	} */
+
+	.section-title {
+		position: relative;
+		/* right: 4rem; */
+		grid-column: 2/5;
+		height: 100%;
+		/* border-right: solid 0.05rem orangered; */
+		padding-right: 0rem;
+		margin-top: var(--filter-margin);
+		margin-bottom: 2rem;
+	}
+
 	h2 {
-		font-size: 2.5rem;
-		transition: color 0.1s ease;
-	}
-
-	h2:hover {
-		color: darkorange;
-		cursor: pointer;
-	}
-
-	h3 {
-		font-size: var(--fs-secnav-title);
+		font-size: 1rem;
+		padding-top: 0.5rem;
+		/* margin-bottom: 1rem; */
+		/* text-align: right; */
+		/* color: orangered; */
+		/* text-decoration: underline 0.1rem orangered; */
+		color: orangered;
+		grid-column: 2;
 		font-weight: 300;
-		margin-bottom: var(--padding-m);
-		border-bottom: solid 0.2rem hotpink;
-		padding-bottom: 0.4rem;
-		color: var(--clr-magenta);
 	}
 
-	.filter-tags {
+	/* .aside {
+		grid-column: span 2;
+		padding-right: 4rem;
+		position: sticky;
+		top: 9rem;
+	}
+	.tags {
 		display: flex;
 		flex-direction: row;
-		flex-wrap: wrap;
 		gap: 1rem;
-		/* max-height: 2%; */
-		font-family: var(--ff-accent);
-		font-size: var(--fs-200);
-	}
-
-	.projects {
-		/* margin-top: 1.5rem; */
-		grid-column: 6/17;
-		display: flex;
-		flex-direction: column;
-		gap: 3rem;
-		/* max-height: 75vh;
-		overflow-y: scroll; */
-	}
-
-	.projects > * + * {
-		border-top: solid 0.3px hotpink;
-		padding-top: 2.5rem;
-	}
-	.project-li > * + * {
-		margin-top: 1rem;
-	}
-
-	/* .tags {
-		display: flex;
-		flex-direction: row;
-		gap: var(--gap);
-		font-family: var(--ff-accent);
+		flex-wrap: wrap;
+		height: min-content;
+		justify-content: end;
 	} */
 </style>

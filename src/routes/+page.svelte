@@ -1,1 +1,2 @@
-<h1>Nothing to see here</h1>
+<a href="/home">Home</a>
+<a href="/accueil">Accueil</a>

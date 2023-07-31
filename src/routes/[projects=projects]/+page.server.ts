@@ -1,7 +1,8 @@
-import { importContentFrom } from '$lib/helpers/markdown'
+import { fetchData } from '$lib/helpers/data';
 
-export const load = async (event) => {
+
+export const load = async ({ locals }) => {
     return {
-        projects: await importContentFrom('projets/', event.locals.lang)
-    }
+        projects: await fetchData(locals.lang, 'projects')
+    };
 }

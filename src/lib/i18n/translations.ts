@@ -12,34 +12,28 @@ const translations: { [locale: string]: { [path: string]: string } } = {
         'header.subtitle': 'a <span class="clr:red">digital</span> art history and museology lab.',
         'header.description': "L’Ouvroir is a Digital Art History and Museology lab at the Université de Montréal dedicated to support the work conducted within the framework of the Partnership « New Uses of Collections in Art Museums »",
 
-
         // Navigation bar
-        'nav.home': 'News',
+        'nav.home': 'Home',
+        'nav.news': 'News',
         'nav.projects': 'Projects',
-        'nav.events': 'Events',
-        'nav.blog': 'Blog',
-        'nav.lab': 'The Lab',
         'nav.services': 'Services',
         'nav.about': 'About',
+
         'nav.locale.label': 'Language',
 
-        // Secondary nav
-        'snav.title': 'the lab',
-        'snav.presentation': 'presentation',
-        'snav.team': 'team',
-        'snav.coc': 'code of conduct',
-
         // URLs
-        'route.base': 'news',
+        'route.home': 'home',
+        'route.news': 'news',
         'route.projects': 'projects',
-        'route.events': 'events',
         'route.services': 'our-services',
         'route.about': 'about',
-        'route.about.presentation': 'about/presentation',
-        'route.about.team': 'about/team',
-        'route.about.coc': 'about/code-of-conduct',
-        'route.cr': 'reports',
-
+        'route.about.presentation': '/about/presentation',
+        'route.about.team': '/about/members',
+        'route.about.coc': '/about/code-of-conduct',
+        'route.services.presentation': '/our-services/presentation',
+        'route.services.equipement': '/our-services/equipement',
+        'route.services.reservation': '/our-services/reservation',
+        'route.services.meetups': '/our-services/meet-ups',
 
         // Homepage
         'home.projects.title': 'Latest projects & publications',
@@ -47,12 +41,32 @@ const translations: { [locale: string]: { [path: string]: string } } = {
 
         // About
         'about.title': 'About',
+        'about.presentation': 'Presentation',
+        'about.coc': 'Code of conduct',
+        'about.support': 'Financial support',
+        'about.team': 'Members',
+        'about.team.dir_sc': 'Scientific direction',
+        'about.team.coord': 'Coordination',
+        'about.team.members': 'Members',
+        'about.team.pronouns': 'Pronoun(s)',
+        'about.team.homepage': 'Homepage',
+        'about.team.contributor': 'Contributor',
+
+        // Services
+        'services.title': 'Our services',
+        'services.presentation': 'Presentation',
+        'services.meetups': 'Meet-ups',
+        'services.equipement': 'Equipement',
+        'services.reservation': 'Reservation',
 
         // Events
         'events.title': "Our events",
 
         // Error
-        'error.title': "Oups! The page your asking for cannot be find."
+        'error.title': "Oups! The page your asking for cannot be find.",
+
+        // UI
+        'ui.btt': 'Back to top',
     },
     'fr': {
         // ARIA labels
@@ -73,31 +87,26 @@ const translations: { [locale: string]: { [path: string]: string } } = {
         'header.description': "L’Ouvroir d’histoire de l’art et de muséologie numérique de l’Université de Montréal, est un laboratoire de recherche destiné à soutenir le travail conduit dans le cadre du Partenariat « Des nouveaux usages des collections dans les musées d’art »",
 
         // Navigation bar
-        'nav.home': 'Actualités',
+        'nav.home': 'Accueil',
+        'nav.news': 'Actualités',
         'nav.projects': 'Projets',
-        'nav.events': 'Évenements',
-        'nav.blog': 'Blog',
         'nav.services': 'Services',
-        'nav.lab': 'Le Laboratoire',
         'nav.about': 'À propos',
         'nav.locale.label': 'Langue',
 
-        // Secondary nav
-        'snav.title': 'le laboratoire',
-        'snav.presentation': 'présentation',
-        'snav.team': 'équipe',
-        'snav.coc': 'charte de fonctionnement',
-
         // URLs
-        'route.base': 'actualites',
+        'route.home': 'accueil',
+        'route.news': 'actualites',
         'route.projects': 'projets',
-        'route.events': 'evenements',
         'route.services': 'nos-services',
         'route.about': 'a-propos',
-        'route.about.presentation': 'a-propos/presentation',
-        'route.about.team': 'a-propos/equipe',
-        'route.about.coc': 'a-propos/charte-fonctionnement',
-        'route.cr': 'comptes-rendu',
+        'route.about.presentation': '/a-propos/presentation',
+        'route.about.team': '/a-propos/membres',
+        'route.about.coc': '/a-propos/code-de-conduite',
+        'route.services.presentation': '/nos-services/presentation',
+        'route.services.equipement': '/nos-services/equipements',
+        'route.services.reservation': '/nos-services/reservation',
+        'route.services.meetups': '/nos-services/rencontres',
 
         // Homepage
         'home.projects.title': 'Projets & publications',
@@ -105,12 +114,32 @@ const translations: { [locale: string]: { [path: string]: string } } = {
 
         // About
         'about.title': 'À propos',
+        'about.presentation': 'Présentation',
+        'about.coc': 'Code de conduite',
+        'about.support': 'Financements',
+        'about.team': 'Membres',
+        'about.team.dir_sc': 'Direction scientifique',
+        'about.team.coord': 'Coordination',
+        'about.team.members': 'Membres',
+        'about.team.pronouns': 'Pronom(s)',
+        'about.team.homepage': 'Page personnelle',
+        'about.team.contributor': 'Contributeur⸱rice',
+
+        // Services
+        'services.title': 'Nos services',
+        'services.presentation': 'Présentation',
+        'services.equipement': 'Équipements',
+        'services.reservation': 'Réservations',
+        'services.meetups': 'Rencontres',
 
         // Events
         'events.title': "Nos évenements",
 
         // Error
-        'error.title': "Oups! La page demandée n'a pas pu être retrouvée."
+        'error.title': "Oups! La page demandée n'a pas pu être retrouvée.",
+
+        // UI
+        'ui.btt': 'Haut de la page',
     }
 }
 

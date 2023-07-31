@@ -1,21 +1,29 @@
-// import routes from '$i18n/routesLang'
-import { redirect } from '@sveltejs/kit';
+import { fetchData } from '$lib/helpers/data'
+import { redirect } from '@sveltejs/kit'
 
 export const prerender = true
 
 export const load = async (event) => {
-    // console.log('[ + ] Layout locals', event.locals)
-    // console.log('[ + ] Layout route', event)
+
+    let support = null
 
     if (event.url.pathname === '/') {
-        if (event.locals.lang === 'fr') {
-            throw redirect(307, '/accueil')
-        }
+        if (event.locals.lang === 'fr')
+            throw redirect(301, '/accueil')
         else
-            throw redirect(307, '/home')
+            throw redirect(301, '/home')
+    }
+
+    if (event.route.id && (
+        event.route.id.includes('home') ||
+        event.route.id.includes('about'))) {
+
+        support = await fetchData(event.locals.lang, 'support')
+        support = support[0]
     }
 
     return {
+        support,
         lang: event.locals.lang
     }
 }

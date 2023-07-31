@@ -1,28 +1,10 @@
-import contentMeta from '$i18n/meta/contentMeta.json'
-import type { Markdown, ContentMeta } from '$lib/types/Markdown';
-
+import { fetchData } from '$lib/helpers/data';
 
 export const load = async (event) => {
-    try {
-        const content = contentMeta as unknown as ContentMeta
-        let filename = content[event.locals.lang as 'en' | 'fr'].projects
-            .filter(o => o.slug === event.params.slug)[0].filename
+    const projects = await fetchData(event.locals.lang, 'projects')
+    const project = projects.find(p => p.meta.slug === event.params.slug)
 
-        filename = filename.split('/').at(-1) as string
-
-        const relPath = '../../../lib/labouvroir/projets/'
-
-        const md = await import(/* @vite-ignore */ relPath + filename)
-
-        return {
-            post: {
-                ...md.metadata,
-                ...md.default.render()
-            }
-        }
+    return {
+        ...project
     }
-    catch {
-        console.log('hello')
-    }
-}
-
+};

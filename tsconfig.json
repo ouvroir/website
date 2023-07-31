@@ -3,6 +3,8 @@
 	"compilerOptions": {
 		"allowJs": true,
 		"checkJs": true,
+		"noEmit": true, // added to fix the error
+		"allowImportingTsExtensions": true,
 		"esModuleInterop": true,
 		"forceConsistentCasingInFileNames": true,
 		"resolveJsonModule": true,
@@ -12,8 +14,6 @@
 		"paths": {
 			"$lib": ["./src/lib"],
 			"$lib/*": ["./src/lib/*"],
-			"$ouvroir": ["./src/lib/labouvroir"],
-			"$ouvroir/*": ["./src/lib/labouvroir/*"],
 			"$i18n": ["./src/lib/i18n"],
 			"$i18n/*": ["./src/lib/i18n/*"],
 			"$components": ["./src/lib/components"],

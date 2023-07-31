@@ -1,24 +1,12 @@
-import { importContentFrom } from '$lib/helpers/markdown.js'
-import type { Project } from '$lib/types/Markdown'
-
+import { fetchData } from '$lib/helpers/data.js'
 
 export const load = async (event) => {
-    const efiles = import.meta.glob('./events/*.md')
-    const events = await Promise.all(
-        Object.entries(efiles).map(async ([_, resolver]) => {
-            const e = await resolver()
-            return {
-                ...e.metadata,
-                ...e.default.render()
-            }
-        })
-    )
-
+    const projects = await fetchData(event.locals.lang, 'projects')
+    const posts = await fetchData(event.locals.lang, 'blog')
+    const events = await fetchData(event.locals.lang, 'event')
     return {
-        content: {
-            projects: await importContentFrom('projets/', event.locals.lang) as Project[],
-            events: await events
-        }
+        projects,
+        posts,
+        events,
     }
 }
-

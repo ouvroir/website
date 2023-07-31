@@ -1,0 +1,347 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@200;300;400;500;600&family=IBM+Plex+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,300;1,400&family=IBM+Plex+Serif:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;700&display=swap');
+
+:root {
+    --ff-sans: 'IBM Plex Sans', sans-serif;
+    --ff-mono: 'IBM Plex Mono', monospace;
+    --ff-serif: 'IBM Plex Serif', serif;
+    --ff-body: var(--ff-serif);
+    --ff-ui: var(--ff-sans);
+    --ff-accent: var(--ff-mono);
+    --ff-logo: 'Open Sans', sans-serif;
+
+    --fs-title: 3rem;
+    --fs-title-card: 2.5rem;
+
+    --fs-tags: 0.9rem;
+    --fw-tags: 300;
+
+    --filter-margin: 3rem;
+}
+
+* {
+    box-sizing: border-box;
+    inline-size: auto;
+    overflow-wrap: break-word;
+}
+
+html,
+body {
+    /* overflow-x: hidden; */
+    min-height: 100%;
+    /* overflow: hidden; */
+    scroll-behavior: smooth;
+    font-family: var(--ff-sans);
+}
+
+main,
+nav {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    grid-row: auto;
+    align-content: start;
+    padding: 2rem 4%;
+}
+
+nav {
+    position: sticky;
+    top: 0;
+
+    left: 0px;
+    align-items: end;
+    background-color: white;
+    padding-bottom: 4rem;
+    padding-top: 2rem;
+    max-height: 15vh;
+    z-index: 3;
+    transition: all 0.5s ease-in-out;
+}
+
+.nav-shadow {
+    box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.1);
+    /* background-color: rgba(243, 243, 243); */
+    /* background-color: rgba(145, 145, 145); */
+    /* color: white; */
+}
+
+
+main {
+    /* min-height: 70vh; */
+    margin-bottom: 3rem;
+    /* gap: 2rem; */
+}
+
+.addGap {
+    gap: 2rem;
+    display: grid;
+    grid-auto-flow: dense;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+nav>ul {
+    display: flex;
+    gap: 1.5rem;
+    grid-column: 3/6;
+}
+
+a {
+    text-decoration: none;
+    color: rgb(38, 38, 38);
+}
+
+.active::after {
+    content: '';
+    position: absolute;
+    bottom: -0.3rem;
+    width: 100%;
+    left: 0;
+    height: 0.15rem;
+    background-color: orangered;
+}
+
+p {
+    line-height: 1.9rem;
+}
+
+p+p {
+    margin-top: 1rem;
+}
+
+.pinned-projects,
+.projects-list {
+    grid-column: 2/-1;
+    margin-bottom: 2rem;
+}
+
+
+.projects-list {
+    grid-column: 2/-1;
+}
+
+.projects-list>*+*,
+.pinned-projects>*+* {
+    --margin: 1.8rem;
+    margin-top: var(--margin);
+    padding-top: var(--margin);
+    /* border-top: solid 0.5px lightgrey; */
+}
+
+
+.project-item:hover {
+    cursor: pointer;
+}
+
+.project-item::after {
+    transition: all 1s ease-in-out;
+    opacity: 0;
+}
+
+.project-item:hover::after {
+    content: '';
+    position: absolute;
+    background-color: rgba(211, 211, 211, 0.386);
+    height: 110%;
+    width: 10rem;
+    top: 5%;
+    left: -50%;
+    width: 300%;
+    z-index: -1;
+    opacity: 1;
+    /* box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.246); */
+    /* border-bottom: solid 0.5px rgba(0, 0, 0, 0.246); */
+    /* border-top: solid 0.5px rgba(0, 0, 0, 0.246); */
+}
+
+.project-item:first-child:hover::after {
+    height: 130%;
+    top: -15%;
+}
+
+.project-description {
+    /* position: relative;
+    right: .7rem; */
+    padding-left: 0.5rem;
+    margin-top: 1rem;
+    border-left: solid 3px orangered;
+    line-height: 1.5rem;
+}
+
+.tags {
+    display: flex;
+    gap: 1rem;
+    margin-top: 0.9rem;
+    color: rgb(118, 118, 118);
+}
+
+article>* {
+    font-family: var(--ff-sans);
+}
+
+
+
+/* article>p {
+    font-size: 1.2rem;
+} */
+
+article>h2 {
+    font-size: var(--fs-400);
+    font-weight: 500;
+    /* margin-top: var(--padding-m); */
+    /* margin-bottom: var(--padding-s); */
+    color: var(--clr-magenta);
+    margin: 0;
+
+}
+
+article>h3 {
+    font-size: var(--fs-300);
+    font-weight: 500;
+    border: none;
+    padding: 0;
+    margin: 0;
+}
+
+article>p+h2,
+article>p+h3,
+article>p+h4,
+article>p+ul,
+article>p+ol {
+    margin-top: 1.8rem;
+}
+
+article>ul,
+article>ol {
+    list-style: inside;
+    padding-left: var(--padding-s);
+
+}
+
+article>ul>*+*,
+article>ol>*+* {
+    margin-top: 0.8rem;
+}
+
+article>ul>li,
+article>ol>li {
+    line-height: 1.3rem;
+    padding-left: 1rem;
+    font-size: var(--fs-300);
+}
+
+
+article>blockquote {
+    border-left: solid 0.2rem var(--clr-magenta);
+}
+
+
+article>blockquote {
+    font-style: italic;
+    margin-top: var(--padding-m);
+    margin-bottom: var(--padding-m);
+    padding-left: var(--padding-m);
+}
+
+article>p>a {
+    text-decoration: underline 0.05rem blue;
+    color: blue;
+}
+
+
+#support {
+    flex-grow: 1;
+}
+
+#support>p {
+    line-height: 3rem;
+}
+
+#support>p>a {
+    color: rgb(38, 38, 38);
+    text-decoration: underline 0.2rem rgb(38, 38, 38);
+}
+
+
+footer,
+.support {
+    /* margin-top: 3rem; */
+    background-color: rgba(211, 211, 211, 0.2);
+    height: 50vh;
+    display: flex;
+    align-items: center;
+}
+
+.banner-content {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(16, 1fr);
+    margin: 3rem 4%;
+    gap: 2rem;
+}
+
+.banner-content>* {
+    font-family: var(--ff-sans);
+}
+
+.banner-content>article>p {
+    line-height: 2.5rem;
+}
+
+.secondary-nav {
+    all: unset;
+    margin-top: .4rem;
+    position: sticky;
+    grid-column: span 2;
+    grid-row: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    height: max-content;
+    padding-right: max(4rem, 30%);
+    top: 10rem;
+    bottom: 101vh;
+    z-index: 1;
+}
+
+.secondary-nav-btns {
+    display: flex;
+    flex-direction: column;
+    margin-top: 1rem;
+    font-size: 1.5rem;
+    font-weight: 300;
+    align-items: flex-end;
+    padding: 0;
+    /* padding-right: 5rem; */
+    /* width: max-content; */
+
+}
+
+.secondary-nav-btns>li,
+.secondary-nav-btns>li>a {
+    width: max-content;
+    text-align: right;
+    position: relative;
+}
+
+.document-tag {
+    /* background-color: rgba(137, 43, 226, 0.115); */
+    padding: 0.1rem 0.6rem 0.1rem 0;
+    font-weight: 600;
+    font-size: 0.8rem;
+    width: max-content;
+    color: rgba(137, 43, 226, 0.6);
+    /* color: orangered; */
+    color: rgba(0, 0, 0, 0.4);
+    position: relative;
+    top: 0.6rem;
+    text-transform: uppercase;
+}
+
+/** ABOUT TEAM */
+.team {
+    grid-column: 4/ -1;
+}
+
+.team>*+* {
+    margin-top: 3rem;
+}

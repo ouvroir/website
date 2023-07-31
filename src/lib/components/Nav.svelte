@@ -1,67 +1,152 @@
 <script lang="ts">
 	import { fly } from 'svelte/transition';
-	import { t, locale, locales } from '$i18n/i18n';
 	import { page } from '$app/stores';
 	import { goto } from '$app/navigation';
-	import { getRedirectRoute } from '$i18n/routesLangMap';
-	import Logo from '$lib/assets/ouvroir-logo.svg';
+	import { t, rt, locale } from '$i18n/i18n';
+	import { showPresentation } from '$lib/stores';
 
-	const selectLangOnChange = () => {
-		const newRoute = getRedirectRoute($page.route.id as string, $page.url.pathname, $locale);
-		goto(newRoute, { invalidateAll: true, noScroll: true });
+	export let lang: string;
+
+	/**
+	 * TODO: should make sure that slug is translated
+	 */
+	const getLangRedirectUrl = (route: string) => {
+		let url: string = '/accueil';
+
+		const getUrl = (name: string) => {
+			return `/${$rt(`route.${name}`)}${$page.params.slug ? '/' + $page.params.slug : ''}`;
+		};
+
+		if (route.includes('home')) url = `/${$rt('route.home')}`;
+		else if (route.includes('news')) url = getUrl('news');
+		else if (route.includes('projects')) url = getUrl('projects');
+		else if (route.includes('services')) url = getUrl('services');
+		else if (route.includes('about')) url = getUrl('about');
+
+		return url;
 	};
+
+	let active: string;
+	let langRedirectUrl: string = '/';
+	page.subscribe((page) => {
+		langRedirectUrl = $page.route.id ? getLangRedirectUrl($page.route.id) : '/';
+		if ($page.route.id) {
+			const match = $page.route.id.match(/\/\[(\w+)=\1\]/);
+			if (match) active = match[1];
+			else active = 'home';
+		}
+	});
 
 	let visible = false;
 	setTimeout(() => {
 		visible = true;
 	}, 500);
+
+	let scrollY: number;
+	const handleScroll = (e: Event) => {
+		const nav = document.querySelector('nav.main');
+		const top = nav?.getBoundingClientRect().top ?? 0;
+		// console.log({ top, scrollY });
+
+		if ($showPresentation) {
+			if (top === 0) {
+				$showPresentation = false;
+				$showPresentation = $showPresentation;
+			}
+		} else {
+			if (scrollY <= 40) nav?.classList.remove('nav-shadow');
+			else if (scrollY > 40) nav?.classList.add('nav-shadow');
+		}
+	};
 </script>
 
-<nav aria-labelledby={`${$t('aria.nav.label')}`}>
-	{#if visible}
-		<img class="logo" src={Logo} alt="ll" transition:fly={{ x: 60, duration: 1000 }} />
-	{:else}
-		<img class="logo invisible" src={Logo} alt="ll" />
-	{/if}
+<svelte:window on:scroll={handleScroll} bind:scrollY />
 
-	<div class="logo-text">
-		<h1>OUVROIR</h1>
-		<p>d'histoire de l'art et de muséologie numériques</p>
-	</div>
+<nav aria-labelledby={`${$t('aria.nav.label')}`} class="main">
+	<a href={`/${$t('route.home')}`} class="logo">
+		{#if visible}
+			<img
+				class="logo-img"
+				src="/ouvroir-logo.svg"
+				alt="ll"
+				transition:fly={{ x: 60, duration: 1000 }}
+			/>
+		{:else}
+			<img class="logo-img invisible" src="/ouvroir-logo.svg" alt="ll" />
+		{/if}
+
+		<div class="logo-text">
+			<h1>Ouvroir</h1>
+			<p>d'histoire de l'art et de muséologie numériques</p>
+		</div>
+	</a>
 	<ul>
-		<li><a href={`/${$t('route.base')}`}>{$t('nav.home')}</a></li>
-		<li><a href={`/${$t('route.projects')}`}>{$t('nav.projects')}</a></li>
-		<li><a href={`/${$t('route.services')}`}>{$t('nav.services')}</a></li>
-		<li><a href={`/${$t('route.about')}`}>{$t('nav.about')}</a></li>
+		<!-- <li>
+			<a class={`nav-link ${active === 'home' ? 'active' : ''}`} href="/">{$t('nav.home')}</a>
+		</li> -->
+		<li>
+			<a class={`nav-link ${active === 'news' ? 'active' : ''}`} href={`/${$t('route.news')}`}
+				>{$t('nav.news')}</a
+			>
+		</li>
+		<li>
+			<a
+				class={`nav-link ${active === 'projects' ? 'active' : ''}`}
+				href={`/${$t('route.projects')}`}>{$t('nav.projects')}</a
+			>
+		</li>
+		<li>
+			<a
+				class={`nav-link ${active === 'services' ? 'active' : ''}`}
+				href={`${$t('route.services.presentation')}`}>{$t('nav.services')}</a
+			>
+		</li>
+		<li>
+			<a
+				class={`nav-link ${active === 'about' ? 'active' : ''}`}
+				href={`${$t('route.about.presentation')}`}>{$t('nav.about')}</a
+			>
+		</li>
 	</ul>
 	<div class="locale-container">
-		<label for="locale">{$t('nav.locale.label')}</label>
-		<select
-			id="locale"
-			bind:value={$locale}
-			on:change={selectLangOnChange}
-			aria-label={`${$t('aria.locales.label')}`}
+		<a
+			data-sveltekit-reload
+			class={`lang-btn ${$locale === 'fr' ? 'active' : ''}`}
+			rel="alternate"
+			href={$locale === 'fr' ? $page.url.pathname : langRedirectUrl}
+			hreflang="fr">fr</a
 		>
-			{#each locales as l}
-				<option aria-label={`${$t('aria.locales.' + l)}`} value={l}>{l}</option>
-			{/each}
-		</select>
+		<span>/</span>
+		<a
+			data-sveltekit-reload
+			class={`lang-btn ${$locale === 'en' ? 'active' : ''}`}
+			rel="alternate"
+			href={$locale === 'en' ? $page.url.pathname : langRedirectUrl}
+			hreflang="en">en</a
+		>
 	</div>
 </nav>
 
 <style>
-	.locale-container {
-		display: flex;
-		align-items: end;
-		gap: 1rem;
-	}
-
-	.invisible {
-		visibility: hidden;
-	}
-
 	.logo {
-		max-width: 3.5rem;
+		display: flex;
+		gap: 1rem;
+		grid-column: span 2;
+		cursor: pointer;
+	}
+
+	.lang-btn {
+		font-size: 1.1rem;
+		position: relative;
+	}
+
+	.nav-link {
+		position: relative;
+	}
+
+	.logo-img {
+		/* z-index: -1; */
+		max-width: 3.7rem;
 		fill: var(--clr-magenta);
 		color: var(--clr-magenta);
 	}
@@ -73,16 +158,38 @@
 		z-index: 1;
 	}
 	.logo-text > h1 {
-		font-size: 1.3rem;
+		font-family: var(--ff-logo) !important;
+		font-weight: 700;
+		font-size: 1.6rem;
 		margin-bottom: 0.2rem;
 		color: var(--clr-magenta);
 	}
 
 	.logo-text > p {
-		font-size: 0.8rem;
-		font-family: var(--ff-ui);
+		font-size: 0.85rem;
+		font-family: var(--ff-logo) !important;
 		line-height: 1rem;
-		font-weight: 200;
+		font-weight: 300;
 		width: 10rem;
+	}
+
+	.locale-container {
+		display: flex;
+		align-items: end;
+		gap: 1rem;
+		grid-column: 8/9;
+	}
+
+	.locale-container > *:first-child {
+		margin-left: auto;
+	}
+
+	.invisible {
+		visibility: hidden;
+	}
+
+	ul > li > a {
+		text-transform: uppercase;
+		font-size: 1rem;
 	}
 </style>

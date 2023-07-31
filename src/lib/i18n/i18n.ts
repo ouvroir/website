@@ -30,9 +30,19 @@ export const t = derived(locale, ($locale) => (key: string, vars = {}) =>
     translate($locale, key, vars)
 );
 
+/**
+ * Reverse translation
+ */
+export const rt = derived(locale, ($locale) => (key: string, vars = {}) => {
+    const lang = $locale === "fr" ? "en" : "fr";
+    return translate(lang, key, vars)
+}
+);
+
 export const importMdFile = derived(locale, ($locale) => (path: string) => {
     const basePath = 'labouvroir/'
     const test = `${basePath}${path}-${$locale}.md`
     console.log("🚀 ~ file: i18n.ts:38 ~ getFullPath ~ test:", test)
     return import(`../${basePath}${path}-${$locale}.md`)
 })
+
