@@ -2,6 +2,8 @@ import adapter from '@sveltejs/adapter-static';
 import { vitePreprocess } from '@sveltejs/kit/vite';
 import { mdsvex } from 'mdsvex';
 
+const dev = process.argv.includes('dev');
+
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
 	kit: {
@@ -11,6 +13,9 @@ const config = {
 		adapter: adapter(),
 		prerender: {
 			handleHttpError: (err) => console.log('[handleHttpError]', err)
+		},
+		paths: {
+			base: dev ? '' : process.env.BASE_PATH
 		},
 		alias: {
 			$lib: 'src/lib/*',
