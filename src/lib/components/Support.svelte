@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { base } from '$app/paths';
+
 	export let content;
 </script>
 
@@ -11,19 +13,19 @@
 			<ul class="support-logos">
 				<li>
 					<a href="https://www.umontreal.ca/">
-						<img src="/logos/support/udem.svg" alt="logo Université de Montréal" />
+						<img src={`${base}/logos/support/udem.svg`} alt="logo Université de Montréal" />
 					</a>
 				</li>
 				<li>
 					<a href="https://www.innovation.ca/">
-						<img src="/logos/support/cfi.svg" alt="logo" />
+						<img src={`${base}/logos/support/cfi.svg`} alt="logo" />
 					</a>
 				</li>
 				<li>
 					<a
 						href="https://www.economie.gouv.qc.ca/bibliotheques/programmes/aide-financiere/programme-de-soutien-aux-organismes-de-recherche-et-dinnovation-pso/cofinancement-du-gouvernement-du-quebec-aux-programmes-de-la-fondation-canadienne-pour-linnovation-fci/fonds-dinnovation/"
 					>
-						<img src="/logos/support/quebec.svg" alt="logo Québec" />
+						<img src={`${base}/logos/support/quebec.svg`} alt="logo Québec" />
 					</a>
 				</li>
 			</ul>

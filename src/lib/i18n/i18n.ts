@@ -39,10 +39,3 @@ export const rt = derived(locale, ($locale) => (key: string, vars = {}) => {
 }
 );
 
-export const importMdFile = derived(locale, ($locale) => (path: string) => {
-    const basePath = 'labouvroir/'
-    const test = `${basePath}${path}-${$locale}.md`
-    console.log("🚀 ~ file: i18n.ts:38 ~ getFullPath ~ test:", test)
-    return import(`../${basePath}${path}-${$locale}.md`)
-})
-

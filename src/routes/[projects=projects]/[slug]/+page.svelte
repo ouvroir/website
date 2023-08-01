@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { base } from '$app/paths';
 	export let data;
 </script>
 
@@ -10,7 +11,7 @@
 			<li>{t}</li>
 		{/each}
 	</ul>
-	<img src="/sample1.jpg" alt="" />
+	<img src={`${base}/sample1.jpg`} alt="" />
 	<p class="project-description">{data.meta?.description}</p>
 	<div class="infos">
 		<div class="info">

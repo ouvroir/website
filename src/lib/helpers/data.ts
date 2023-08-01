@@ -102,9 +102,6 @@ const setup = {
 export async function fetchData(lang: string, type: keyof typeof setup) {
     const iteralbleFiles = Object.entries(await setup[type](lang))
 
-    if (type === 'blog')
-        console.log(await setup[type](lang))
-
     return await Promise.all(
         iteralbleFiles
             .filter(([path]) => !path.includes('template'))

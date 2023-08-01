@@ -5,6 +5,7 @@
 	import Cieco from '$lib/components/logos/Cieco.svelte';
 	import { fade } from 'svelte/transition';
 	import { page } from '$app/stores';
+	import { base } from '$app/paths';
 	import { locale, t } from '$lib/i18n/i18n';
 	import { showPresentation } from '$lib/stores.js';
 	import '$lib/styles/reset.css';
@@ -21,7 +22,7 @@
 		showPresentation.set(false);
 	}
 
-	$: addGap = $page.route.id === '/[news=news]';
+	$: addGap = $page && $page.route.id === '/[news=news]';
 </script>
 
 {#if $showPresentation}
@@ -51,7 +52,7 @@
 						<Cieco />
 					</li>
 					<li class="logo-crihn">
-						<img src="/logos/support/crihn.png" alt="" />
+						<img src={`${base}/logos/support/crihn.png`} alt="" />
 					</li>
 				</ul>
 			</footer>

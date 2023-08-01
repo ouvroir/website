@@ -31,7 +31,6 @@
 	$: infoPageTitle = $t(`${section}.title`);
 	$: infoPageSection = $t(`${section}.${slugToSection[$page.params.slug]}`);
 	$: navLinks = $page.route.id?.includes('about') ? aboutLinks : servicesLinks;
-	$: console.log('----- THIS SECTION', section);
 </script>
 
 <nav class="secondary-nav">
@@ -47,7 +46,7 @@
 						{$t(`${section}.${l}`)}
 					</a>
 				{:else}
-					<a href="#support" on:click|preventDefault={l === 'support' ? scrollIntoView : null}>
+					<a href="#support">
 						{$t(`${section}.${l}`)}
 					</a>
 				{/if}

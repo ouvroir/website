@@ -4,6 +4,7 @@
 	import { goto } from '$app/navigation';
 	import { t, rt, locale } from '$i18n/i18n';
 	import { showPresentation } from '$lib/stores';
+	import { base } from '$app/paths';
 
 	export let lang: string;
 
@@ -67,12 +68,12 @@
 		{#if visible}
 			<img
 				class="logo-img"
-				src="/ouvroir-logo.svg"
+				src={`${base}/ouvroir-logo.svg`}
 				alt="ll"
 				transition:fly={{ x: 60, duration: 1000 }}
 			/>
 		{:else}
-			<img class="logo-img invisible" src="/ouvroir-logo.svg" alt="ll" />
+			<img class="logo-img invisible" src={`${base}/ouvroir-logo.svg`} alt="ll" />
 		{/if}
 
 		<div class="logo-text">

@@ -4,6 +4,7 @@
 	import Venn from '$lib/components/logos/Venn.svelte';
 	import Calendar from '$lib/components/logos/Calendar.svelte';
 	import { fade } from 'svelte/transition';
+	import { base } from '$app/paths';
 
 	export let data;
 
@@ -42,7 +43,7 @@
 	</header>
 
 	<article class={`project bg`}>
-		<img src="/sample1.jpg" alt="" />
+		<img src={`${base}/sample1.jpg`} alt="" />
 		<div class="project-content">
 			<h1 class="project-title">{bigProject.meta.title}</h1>
 			<p class="project-description">{bigProject.meta.description}</p>

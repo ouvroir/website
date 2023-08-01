@@ -2,6 +2,7 @@
 	import { onMount } from 'svelte';
 	import { writable } from 'svelte/store';
 	import { page } from '$app/stores';
+	import { base } from '$app/paths';
 
 	/**
 	 * TODO: Refactor tags on click and change
@@ -80,7 +81,7 @@
 						<p>
 							{t}
 						</p>
-						<img src="/logos/xmark.svg" alt="" />
+						<img src={`${base}/logos/xmark.svg`} alt="" />
 					</div>
 				</li>
 			{/each}
@@ -94,7 +95,7 @@
 		<div class="filter-display">
 			<button class="select-btn" id="select-btn" on:click={filterOnClick}>
 				<span>FILTERS</span>
-				<img src="/logos/circle-plus-solid.svg" alt="" />
+				<img src={`${base}/logos/circle-plus-solid.svg`} alt="" />
 			</button>
 			<ul class="selected-filters">
 				{#each selectedDocuments as s}
@@ -106,7 +107,7 @@
 					>
 						<div>
 							<p>{s}</p>
-							<img src="/logos/xmark.svg" alt="" />
+							<img src={`${base}/logos/xmark.svg`} alt="" />
 						</div>
 					</li>
 				{/each}
@@ -117,7 +118,7 @@
 					<li class="display-li tag" id={s} on:click={tagOnClick} on:keypress={tagOnClick}>
 						<div>
 							<p>{s}</p>
-							<img src="/logos/xmark.svg" alt="" />
+							<img src={`${base}/logos/xmark.svg`} alt="" />
 						</div>
 					</li>
 				{/each}

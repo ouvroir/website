@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { base } from '$app/paths';
 	import { t } from '$i18n/i18n';
 </script>
 
@@ -20,27 +21,27 @@
 			<ul class="logos">
 				<li>
 					<a href="https://github.com/ouvroir"
-						><img src="/logos/brands/github.svg" alt="Logo github" /></a
+						><img src={`${base}/logos/brands/github.svg`} alt="Logo github" /></a
 					>
 				</li>
 				<li>
 					<a href="https://twitter.com/labouvroir"
-						><img src="/logos/brands/twitter.svg" alt="Logo Twitter" /></a
+						><img src={`${base}/logos/brands/twitter.svg`} alt="Logo Twitter" /></a
 					>
 				</li>
 				<li>
 					<a href="https://hypothes.is/groups/pM5dq7b4/ouvroir"
-						><img src="/logos/brands/hypothesis.svg" alt="Logo Hypothesis" /></a
+						><img src={`${base}/logos/brands/hypothesis.svg`} alt="Logo Hypothesis" /></a
 					>
 				</li>
 				<li>
 					<a href="https://hypothes.is/groups/pM5dq7b4/ouvroir"
-						><img src="/logos/brands/element.svg" alt="Logo Element" /></a
+						><img src={`${base}/logos/brands/element.svg`} alt="Logo Element" /></a
 					>
 				</li>
 				<li>
 					<a href="https://www.zotero.org/groups/2480242/ouvroir"
-						><img id="zotero" src="/logos/brands/zotero.svg" alt="Logo github" /></a
+						><img id="zotero" src={`${base}/logos/brands/zotero.svg`} alt="Logo github" /></a
 					>
 				</li>
 			</ul>
@@ -48,7 +49,7 @@
 				<label for="newsletter">S’abonner à l’infolettre :</label>
 				<div class="input">
 					<input type="email" id="newsletter" />
-					<button type="submit"><img src="/logos/paper-plane.svg" alt="" /></button>
+					<button type="submit"><img src={`${base}/logos/paper-plane.svg`} alt="" /></button>
 				</div>
 			</form>
 		</section>
@@ -56,11 +57,11 @@
 		<section id="about">
 			<h1>
 				À propos <a href={`${$t('route.about')}/presentation`}
-					><img src="/logos/link-solid.svg" alt="link logo" /></a
+					><img src={`${base}/logos/link-solid.svg`} alt="link logo" /></a
 				>
 			</h1>
 			<a id="cieco" href="https://cieco.umontreal.ca/">
-				<img id="cieco" src="/logos/support/cieco-grey.svg" alt="Logo CIÉCO" />
+				<img id="cieco" src={`${base}/logos/support/cieco-grey.svg`} alt="Logo CIÉCO" />
 			</a>
 			<p>
 				L’Ouvroir d’histoire de l’art et de muséologie numérique de l’Université de Montréal, est un

@@ -1,7 +1,5 @@
 import { base } from "$app/paths"
 
-console.log('------- BASE', base)
-
 
 const translations: { [locale: string]: { [path: string]: string } } = {
     'en': {
