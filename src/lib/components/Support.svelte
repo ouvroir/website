@@ -49,10 +49,6 @@
 		color: rgb(38, 38, 38);
 	}
 
-	article > p > a {
-		color: lightgray;
-	}
-
 	.support-logos {
 		display: flex;
 		flex-direction: row;

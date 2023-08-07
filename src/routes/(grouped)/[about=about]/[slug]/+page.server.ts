@@ -1,5 +1,5 @@
 import { fetchData } from "$lib/helpers/data.ts"
-import { Member } from "$lib/types.d.ts"
+import type { Member } from "$lib/types.d.ts"
 
 export const load = async (event) => {
 

@@ -113,18 +113,6 @@
 		font-weight: 500;
 	}
 
-	#credits {
-		display: flex;
-		flex-direction: row;
-		grid-column: 1/-1;
-	}
-	#credits > p {
-		margin-left: auto;
-		padding-top: 2rem;
-		font-weight: 200;
-		font-size: 1rem;
-	}
-
 	section > h1 {
 		font-size: 2rem;
 		margin-bottom: 1.5rem;

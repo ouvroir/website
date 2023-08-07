@@ -99,27 +99,22 @@
 			</button>
 			<ul class="selected-filters">
 				{#each selectedDocuments as s}
-					<li
-						class="display-li tag-doc"
-						id={s}
-						on:click={documentOnClick}
-						on:keypress={documentOnClick}
-					>
-						<div>
+					<li class="display-li tag-doc" id={s}>
+						<button on:click={documentOnClick}>
 							<p>{s}</p>
 							<img src={`${base}/logos/xmark.svg`} alt="" />
-						</div>
+						</button>
 					</li>
 				{/each}
 				{#if selectedDocuments.length > 0 && selectedTags.length > 0}
 					<li class="separator" />
 				{/if}
 				{#each selectedTags as s}
-					<li class="display-li tag" id={s} on:click={tagOnClick} on:keypress={tagOnClick}>
-						<div>
+					<li class="display-li tag" id={s}>
+						<button on:click={tagOnClick}>
 							<p>{s}</p>
 							<img src={`${base}/logos/xmark.svg`} alt="" />
-						</div>
+						</button>
 					</li>
 				{/each}
 			</ul>
@@ -268,6 +263,7 @@
 		flex-direction: column;
 		gap: 0.3rem;
 		max-height: 25rem;
+		min-width: 10rem;
 		flex-wrap: wrap;
 		/* overflow-x: auto; */
 	}
@@ -299,6 +295,7 @@
 	}
 
 	.display-li {
+		all: unset;
 		height: fit-content;
 		background-color: rgba(137, 43, 226, 0.115);
 		padding: 0.1rem 0.6rem;
@@ -307,7 +304,8 @@
 		cursor: pointer;
 	}
 
-	.display-li > div {
+	.display-li > button {
+		all: unset;
 		display: flex;
 		flex-direction: row;
 		align-items: center;

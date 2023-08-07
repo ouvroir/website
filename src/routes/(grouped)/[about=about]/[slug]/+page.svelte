@@ -1,8 +1,9 @@
 <script lang="ts">
 	import { t } from '$i18n/i18n';
+	import { page } from '$app/stores';
+	import TeamCard from '$lib/components/TeamCard.svelte';
 	import type { Member } from '$lib/types';
 
-	import TeamCard from '$lib/components/TeamCard.svelte';
 	export let data;
 
 	let dir: Member[], coord: Member[], members: Member[];
@@ -17,7 +18,7 @@
 	{@html data.html}
 {/if}
 
-{#if data.team && data.team.length > 0}
+{#if (data.team && data.team.length > 0 && $page.params.slug === 'membres') || $page.params.slug === 'members'}
 	<section>
 		<h2>{$t('about.team.dir_sc')}</h2>
 		<ul class="team">

@@ -1,33 +1,5 @@
 import type { Handle } from '@sveltejs/kit';
-
-const getLangFromParam = (param: Partial<Record<string, string>>) => {
-    const paramLangMap: { [key: string]: { [key: string]: string } } = {
-        news: {
-            news: 'en',
-            actualites: 'fr'
-        },
-        projects: {
-            projects: 'en',
-            projets: 'fr'
-        },
-        services: {
-            'our-services': 'en',
-            'nos-services': 'fr'
-        },
-        about: {
-            about: 'en',
-            'a-propos': 'fr'
-        }
-    };
-
-    let lang = null
-    Object.keys(param).forEach(key => {
-        if (key in paramLangMap) {
-            lang = paramLangMap[key][param[key] as string]
-        }
-    })
-    return lang
-}
+import { getLangFromParam } from '$i18n/i18n'
 
 
 export const handle = (({ event, resolve }) => {
@@ -48,6 +20,7 @@ export const handle = (({ event, resolve }) => {
     return resolve(event, {
         transformPageChunk: ({ html }) => html.replace('%lang%', lang as string)
     });
+
 
 }) satisfies Handle;
 

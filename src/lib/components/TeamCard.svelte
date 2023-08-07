@@ -1,58 +1,170 @@
 <script lang="ts">
 	import type { Member } from '$lib/types';
+	import { memberExpaned } from '$lib/stores';
+	import { slide } from 'svelte/transition';
+	import { goto } from '$app/navigation';
 
 	export let data: Member;
 
-	const imgBasePath = '$lib/labouvroir/equipe/profile-img/';
+	const handleClick = (e: MouseEvent) => {
+		if ((e.target as HTMLElement)?.tagName === 'A') return;
+
+		if ($memberExpaned !== data.meta.slug) {
+			memberExpaned.set(data.meta.slug);
+		} else memberExpaned.set('');
+	};
 </script>
 
 <li class="member-card">
-	{#if data.meta.img}
-		<img src={`/team/${data.meta.img}`} alt="" />
-	{:else}
-		<div class="empty-img" />
-	{/if}
-
-	<article class="member-content">
-		<h1>
-			{data.meta.firstname}
-			{data.meta.lastname}
-		</h1>
-		<div class="meta">
-			<span />
-		</div>
-		<p>{data.meta.description}</p>
-	</article>
+	<button tabindex="0" aria-expanded={$memberExpaned === data.meta.slug} on:click={handleClick}>
+		<article class="member-content">
+			<header id={`${data.meta.slug}`}>
+				{#if data.meta.img}
+					<img src={`/team/${data.meta.img}`} alt="" />
+				{:else}
+					<div class="empty-img" />
+				{/if}
+				<div class="header-text">
+					<h1>
+						{data.meta.firstname}
+						{data.meta.lastname}
+					</h1>
+					<p class="short-description">{data.meta.description}</p>
+					<ul class="meta-list">
+						<div class="meta">
+							<span>mail</span>
+							<a href={`mailto:${data.meta.mail}`}>{data.meta.mail}</a>
+						</div>
+						{#if data.meta.permalink}
+							<div class="meta">
+								<span>permalink</span>
+								<a href={`${data.meta.permalink}`}>{data.meta.permalink}</a>
+							</div>
+						{/if}
+						{#if data.meta.projects && data.meta.projects.length > 0}
+							<div class="meta">
+								<span>projets</span>
+								<ul>
+									{#each data.meta.projects as p}
+										<li>{p}</li>
+									{/each}
+								</ul>
+							</div>
+						{/if}
+						{#if data.meta.tags && data.meta.tags.length > 0}
+							<div class="meta">
+								<span>tags</span>
+								<ul>
+									{#each data.meta.tags as tag}
+										<li>{tag}</li>
+									{/each}
+								</ul>
+							</div>
+						{/if}
+					</ul>
+				</div>
+			</header>
+			{#if $memberExpaned === data.meta.slug}
+				<main class="long-description" transition:slide={{ axis: 'y' }}>
+					{@html data.html}
+				</main>
+			{/if}
+		</article>
+	</button>
 </li>
 
 <style>
-	.member-card {
+	.long-description {
+		display: block;
+		padding: 2rem 0;
+		width: 80%;
+	}
+	button {
+		all: unset;
+		cursor: pointer;
+	}
+
+	button:hover h1::after {
+		position: absolute;
+		content: '';
+		top: 1.8rem;
+		left: 0;
+		width: 100%;
+		height: 0.2rem;
+		background-color: orangered;
+	}
+	h1 {
+		position: relative;
+		width: fit-content;
+		cursor: pointer;
+	}
+
+	header {
 		display: flex;
 		flex-direction: row;
 		gap: 2rem;
 	}
 
-	.member-card > img,
-	div {
-		min-width: 10rem;
-		min-height: 10rem;
-		max-height: 10rem;
+	header > img,
+	.empty-img {
+		min-width: 13rem;
+		min-height: 13rem;
+		max-height: 13rem;
 		background-color: lightgray;
 		filter: grayscale();
 	}
 
-	.member-content > * + * {
+	.header-text > * + * {
+		margin-top: 1rem;
+	}
+
+	header p {
+		width: 100%;
+		line-height: 1.5rem;
+	}
+
+	header h1 {
+		margin-top: 0.5rem;
+		font-size: 1.5rem;
+	}
+
+	.short-description {
+		font-style: italic;
+		font-size: 1rem;
+	}
+
+	.meta-list > * + * {
 		margin-top: 0.7rem;
 	}
 
-	.member-content > p {
-		width: 100%;
+	.meta {
+		display: flex;
+		flex-direction: row;
+		font-size: 0.9rem;
+		align-items: baseline;
+		gap: 1rem;
+		filter: opacity(0.8);
+	}
+	.meta > span {
+		display: block;
+		font-family: var(--ff-mono);
+		color: orangered;
 		font-weight: 300;
-		line-height: 1.8rem;
+		font-size: 0.85rem;
 	}
 
-	.member-content > h1 {
-		margin-top: 0.5rem;
-		font-size: 1.5rem;
+	.meta > ul {
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		gap: 0.6rem;
+	}
+
+	.meta > ul > li {
+		width: fit-content;
+	}
+
+	.meta > ul > li:not(:last-child)::after {
+		content: ', ';
 	}
 </style>

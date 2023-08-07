@@ -301,6 +301,7 @@ footer,
     top: 10rem;
     bottom: 101vh;
     z-index: 1;
+    margin-top: 0;
 }
 
 .secondary-nav-btns {

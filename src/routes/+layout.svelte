@@ -60,7 +60,7 @@
 	</section>
 {/if}
 
-<Nav lang={data.lang} />
+<Nav />
 
 <main class={`${addGap ? 'addGap' : ''}`} bind:offsetHeight>
 	<slot />

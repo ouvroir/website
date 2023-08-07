@@ -1,17 +1,17 @@
 import { fetchData } from '$lib/helpers/data'
 import { redirect } from '@sveltejs/kit'
+import { base } from '$app/paths'
 
 export const prerender = true
 
 export const load = async (event) => {
-
     let support = null
 
-    if (event.url.pathname === '/') {
+    if (event.url.pathname === `${base}/`) {
         if (event.locals.lang === 'fr')
-            throw redirect(301, '/accueil')
+            throw redirect(301, `${base}/accueil`)
         else
-            throw redirect(301, '/home')
+            throw redirect(301, `${base}/home`)
     }
 
     if (event.route.id && (

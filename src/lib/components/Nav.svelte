@@ -1,12 +1,11 @@
 <script lang="ts">
 	import { fly } from 'svelte/transition';
 	import { page } from '$app/stores';
-	import { goto } from '$app/navigation';
 	import { t, rt, locale } from '$i18n/i18n';
 	import { showPresentation } from '$lib/stores';
 	import { base } from '$app/paths';
-
-	export let lang: string;
+	import { invalidateAll, goto } from '$app/navigation';
+	import { getLangFromParam } from '$i18n/i18n';
 
 	/**
 	 * TODO: should make sure that slug is translated
@@ -14,11 +13,12 @@
 	const getLangRedirectUrl = (route: string) => {
 		let url: string = '/accueil';
 
+		console.log('[Nav] locale used in getLangRedirectUrl', $locale);
 		const getUrl = (name: string) => {
-			return `/${$rt(`route.${name}`)}${$page.params.slug ? '/' + $page.params.slug : ''}`;
+			return `${base}${$rt(`route.${name}`)}${$page.params.slug ? '/' + $page.params.slug : ''}`;
 		};
 
-		if (route.includes('home')) url = `/${$rt('route.home')}`;
+		if (route.includes('home')) url = `${base}${$rt('route.home')}`;
 		else if (route.includes('news')) url = getUrl('news');
 		else if (route.includes('projects')) url = getUrl('projects');
 		else if (route.includes('services')) url = getUrl('services');
@@ -29,13 +29,16 @@
 
 	let active: string;
 	let langRedirectUrl: string = '/';
-	page.subscribe((page) => {
+	let enHref = $locale === 'en' ? $page.url.pathname : langRedirectUrl;
+	let frHref = $locale === 'fr' ? $page.url.pathname : langRedirectUrl;
+	page.subscribe(() => {
 		langRedirectUrl = $page.route.id ? getLangRedirectUrl($page.route.id) : '/';
-		if ($page.route.id) {
-			const match = $page.route.id.match(/\/\[(\w+)=\1\]/);
-			if (match) active = match[1];
-			else active = 'home';
-		}
+		enHref = $locale === 'en' ? $page.url.pathname : langRedirectUrl;
+		frHref = $locale === 'fr' ? $page.url.pathname : langRedirectUrl;
+
+		const match = $page.route.id?.match(/\/\[(\w+)=\1\]/);
+		if (match) active = match[1];
+		else active = 'home';
 	});
 
 	let visible = false;
@@ -111,18 +114,26 @@
 	</ul>
 	<div class="locale-container">
 		<a
-			data-sveltekit-reload
+			on:click={() => {
+				$locale = 'fr';
+				invalidateAll();
+				goto(frHref);
+			}}
 			class={`lang-btn ${$locale === 'fr' ? 'active' : ''}`}
 			rel="alternate"
-			href={$locale === 'fr' ? $page.url.pathname : langRedirectUrl}
+			href={frHref}
 			hreflang="fr">fr</a
 		>
-		<span>/</span>
+		<span>|</span>
 		<a
-			data-sveltekit-reload
+			on:click={() => {
+				$locale = 'en';
+				invalidateAll();
+				goto(enHref);
+			}}
+			href={enHref}
 			class={`lang-btn ${$locale === 'en' ? 'active' : ''}`}
 			rel="alternate"
-			href={$locale === 'en' ? $page.url.pathname : langRedirectUrl}
 			hreflang="en">en</a
 		>
 	</div>
