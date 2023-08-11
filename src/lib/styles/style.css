@@ -17,6 +17,12 @@
     --fw-tags: 300;
 
     --filter-margin: 3rem;
+
+    --body-line-height: 1.9rem;
+
+    --bg-clr-presentation: rgb(35, 35, 35);
+    --bg-clr-presentation: rgba(48, 55, 66, 1);
+    --presentation-stroke: solid 0.4rem rgba(245, 245, 245, 0.631);
 }
 
 * {
@@ -100,14 +106,6 @@ a {
     background-color: orangered;
 }
 
-p {
-    line-height: 1.9rem;
-}
-
-p+p {
-    margin-top: 1rem;
-}
-
 .pinned-projects,
 .projects-list {
     grid-column: 2/-1;
@@ -174,27 +172,22 @@ p+p {
     color: rgb(118, 118, 118);
 }
 
-article>* {
+.text-body>* {
     font-family: var(--ff-sans);
 }
 
-
-
-/* article>p {
-    font-size: 1.2rem;
-} */
-
-article>h2 {
-    font-size: var(--fs-400);
-    font-weight: 500;
-    /* margin-top: var(--padding-m); */
-    /* margin-bottom: var(--padding-s); */
-    color: var(--clr-magenta);
-    margin: 0;
-
+.text-body>p {
+    line-height: var(--body-line-height);
 }
 
-article>h3 {
+.text-body>h2 {
+    font-size: var(--fs-400);
+    font-weight: 500;
+    color: var(--clr-magenta);
+    margin: 0;
+}
+
+.text-body>h3 {
     font-size: var(--fs-300);
     font-weight: 500;
     border: none;
@@ -202,50 +195,71 @@ article>h3 {
     margin: 0;
 }
 
-article>p+h2,
-article>p+h3,
-article>p+h4,
-article>p+ul,
-article>p+ol {
+.text-body>p+* {
+    margin-top: 1rem;
+}
+
+.text-body>*+h2,
+.text-body>*+h3,
+.text-body>*+h4 {
     margin-top: 1.8rem;
 }
 
-article>ul,
-article>ol {
-    list-style: inside;
-    padding-left: var(--padding-s);
-
+.text-body>*+ul,
+.text-body>*+ol {
+    margin-top: 1rem;
+    margin-bottom: 1.5rem;
 }
 
-article>ul>*+*,
-article>ol>*+* {
+.text-body>h2+*,
+.text-body>h3+*,
+.text-body>h4+* {
     margin-top: 0.8rem;
 }
 
-article>ul>li,
-article>ol>li {
-    line-height: 1.3rem;
-    padding-left: 1rem;
-    font-size: var(--fs-300);
+.text-body>ul,
+.text-body>ol {
+    list-style: inside;
+    padding-left: 1.5rem;
 }
 
+.text-body>ul>*,
+.text-body>ol>* {
+    line-height: var(--body-line-height);
+}
 
-article>blockquote {
+.text-body>ul>*+*,
+.text-body>ol>*+* {
+    margin-top: 0.2rem;
+}
+
+.text-body>blockquote {
     border-left: solid 0.2rem var(--clr-magenta);
-}
-
-
-article>blockquote {
     font-style: italic;
     margin-top: var(--padding-m);
     margin-bottom: var(--padding-m);
     padding-left: var(--padding-m);
 }
 
-article>p>a {
-    text-decoration: underline 0.05rem blue;
-    color: blue;
+.text-body a {
+    color: orangered;
 }
+
+.text-body a:hover {
+    text-decoration: underline 0.05rem orangered;
+}
+
+
+.toc-link {
+    color: rgba(0, 0, 0, 0.584);
+    text-decoration: none;
+}
+
+.toc .toc-active {
+    color: orangered;
+    font-weight: 500;
+}
+
 
 
 #support {
@@ -326,7 +340,7 @@ footer,
 
 .document-tag {
     /* background-color: rgba(137, 43, 226, 0.115); */
-    padding: 0.1rem 0.6rem 0.1rem 0;
+    padding: 0.2rem 0rem;
     font-weight: 600;
     font-size: 0.8rem;
     width: max-content;
@@ -346,3 +360,5 @@ footer,
 .team>*+* {
     margin-top: 3rem;
 }
+
+@media screen and (min-width: 821px) and (max-width: 1024px) {}

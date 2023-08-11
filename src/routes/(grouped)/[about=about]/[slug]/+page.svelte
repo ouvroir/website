@@ -14,8 +14,14 @@
 	}
 </script>
 
+<svelte:head>
+	<title>{$t('head.about')}</title>
+</svelte:head>
+
 {#if data.html}
-	{@html data.html}
+	<article class="text-body">
+		{@html data.html}
+	</article>
 {/if}
 
 {#if (data.team && data.team.length > 0 && $page.params.slug === 'membres') || $page.params.slug === 'members'}

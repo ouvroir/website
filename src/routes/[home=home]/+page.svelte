@@ -14,6 +14,10 @@
 	const bigProject = projects.pop();
 </script>
 
+<svelte:head>
+	<title>{$t('head.home')}</title>
+</svelte:head>
+
 <section class="news-wrapper" in:fade={{ delay: 0, duration: 1000 }}>
 	<header class="section-header">
 		<h1 class="section-title">Latest news</h1>
@@ -220,14 +224,15 @@
 	}
 
 	.news {
-		display: flex;
-		flex-direction: row;
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+		grid-auto-flow: dense;
 		gap: 4rem;
 	}
 
-	.news-li {
-		position: relative;
-	}
+	/* .news-li {
+		min-width: 10rem;
+	} */
 
 	.section-title {
 		/* color: orangered; */
@@ -303,7 +308,11 @@
 
 	.projects {
 		grid-column: span 4;
-		columns: 2;
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(50%, 1fr));
+		grid-auto-flow: dense;
+		/* columns: 2; */
+
 		margin-bottom: 3rem;
 	}
 

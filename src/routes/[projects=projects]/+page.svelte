@@ -1,9 +1,13 @@
 <script lang="ts">
 	import ProjectLItem from '$lib/components/ProjectLItem.svelte';
 	import FilterPanel from '$lib/components/FilterPanel.svelte';
-	import type { Project } from '$lib/types.js';
+	import { showPresentation } from '$lib/stores.js';
 
+	import type { Project } from '$lib/types.js';
+	import { t } from '$i18n/i18n.js';
 	export let data;
+
+	showPresentation.set(false);
 
 	const tags = data.projects
 		.reduce((acc, p) => {
@@ -33,6 +37,10 @@
 		.filter((d) => !d.meta.tags.includes('CIÉCO'))
 		.filter((d) => filterTags(d, selectedTags));
 </script>
+
+<svelte:head>
+	<title>{$t('head.projects')}</title>
+</svelte:head>
 
 <FilterPanel {tags} bind:selectedTags />
 

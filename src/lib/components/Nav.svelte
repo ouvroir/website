@@ -1,11 +1,10 @@
 <script lang="ts">
-	import { fly } from 'svelte/transition';
 	import { page } from '$app/stores';
 	import { t, rt, locale } from '$i18n/i18n';
 	import { showPresentation } from '$lib/stores';
 	import { base } from '$app/paths';
 	import { invalidateAll, goto } from '$app/navigation';
-	import { getLangFromParam } from '$i18n/i18n';
+	import Ouvroir from './Ouvroir.svelte';
 
 	/**
 	 * TODO: should make sure that slug is translated
@@ -13,7 +12,6 @@
 	const getLangRedirectUrl = (route: string) => {
 		let url: string = '/accueil';
 
-		console.log('[Nav] locale used in getLangRedirectUrl', $locale);
 		const getUrl = (name: string) => {
 			return `${base}${$rt(`route.${name}`)}${$page.params.slug ? '/' + $page.params.slug : ''}`;
 		};
@@ -41,11 +39,6 @@
 		else active = 'home';
 	});
 
-	let visible = false;
-	setTimeout(() => {
-		visible = true;
-	}, 500);
-
 	let scrollY: number;
 	const handleScroll = (e: Event) => {
 		const nav = document.querySelector('nav.main');
@@ -66,24 +59,11 @@
 
 <svelte:window on:scroll={handleScroll} bind:scrollY />
 
-<nav aria-labelledby={`${$t('aria.nav.label')}`} class="main">
-	<a href={`${$t('route.home')}`} class="logo">
-		{#if visible}
-			<img
-				class="logo-img"
-				src={`${base}/ouvroir-logo.svg`}
-				alt="ll"
-				transition:fly={{ x: 60, duration: 1000 }}
-			/>
-		{:else}
-			<img class="logo-img invisible" src={`${base}/ouvroir-logo.svg`} alt="ll" />
-		{/if}
-
-		<div class="logo-text">
-			<h1>Ouvroir</h1>
-			<p>d'histoire de l'art et de muséologie numériques</p>
-		</div>
-	</a>
+<nav
+	aria-labelledby={`${$t('aria.nav.label')}`}
+	class={`main ${$showPresentation ? 'add-bg' : ''}`}
+>
+	<Ouvroir />
 	<ul>
 		<!-- <li>
 			<a class={`nav-link ${active === 'home' ? 'active' : ''}`} href="/">{$t('nav.home')}</a>
@@ -140,13 +120,6 @@
 </nav>
 
 <style>
-	.logo {
-		display: flex;
-		gap: 1rem;
-		grid-column: span 2;
-		cursor: pointer;
-	}
-
 	.lang-btn {
 		font-size: 1.1rem;
 		position: relative;
@@ -156,33 +129,8 @@
 		position: relative;
 	}
 
-	.logo-img {
-		/* z-index: -1; */
-		max-width: 3.7rem;
-		fill: var(--clr-magenta);
-		color: var(--clr-magenta);
-	}
-
-	.logo-text {
-		/* border-left: solid 0.5px var(--clr-magenta); */
-		padding-right: 1rem;
-		background-color: var(--clr-bg);
-		z-index: 1;
-	}
-	.logo-text > h1 {
-		font-family: var(--ff-logo) !important;
-		font-weight: 700;
-		font-size: 1.6rem;
-		margin-bottom: 0.2rem;
-		color: var(--clr-magenta);
-	}
-
-	.logo-text > p {
-		font-size: 0.85rem;
-		font-family: var(--ff-logo) !important;
-		line-height: 1rem;
-		font-weight: 300;
-		width: 10rem;
+	ul {
+		width: max-content;
 	}
 
 	.locale-container {
@@ -203,5 +151,13 @@
 	ul > li > a {
 		text-transform: uppercase;
 		font-size: 1rem;
+	}
+
+	.add-bg {
+		background-color: var(--bg-clr-presentation);
+	}
+
+	.add-bg * {
+		color: white;
 	}
 </style>

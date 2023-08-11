@@ -23,10 +23,10 @@
 		? ['Events', 'Articles', 'Meeting reports']
 		: [];
 
-	const handleClickOutside = (event: MouseEvent) => {
+	const handleClickOutside = (e: MouseEvent) => {
 		const menu = document.getElementById('dropdown');
 		const btn = document.getElementById('select-btn');
-		if (menu && btn && !menu.contains(event.target) && !btn.contains(event.target)) {
+		if (menu && btn && !menu.contains(e.target) && !btn.contains(e.target)) {
 			$isOpen = false;
 		}
 	};
@@ -70,25 +70,6 @@
 		};
 	});
 </script>
-
-<!-- {#if showFilters}
-	<section in:slide={{ axis: 'y' }} class="filter-panel">
-		<!-- <h1>Thématiques</h1> 
-		<ul>
-			{#each tags as t}
-				<li id={t}>
-					<div>
-						<p>
-							{t}
-						</p>
-						<img src={`${base}/logos/xmark.svg`} alt="" />
-					</div>
-				</li>
-			{/each}
-		</ul>
-	</section>
-{/if} 
--->
 
 <section class="filter-panel">
 	<div class="filter-container">
@@ -234,7 +215,7 @@
 		position: relative;
 		top: 0;
 		left: 0;
-		/* min-width: max-content; */
+		width: fit-content;
 	}
 
 	.dropdown {
@@ -244,11 +225,11 @@
 		display: flex;
 		flex-direction: row;
 		flex-wrap: wrap;
+		width: max-content;
 		gap: 2rem;
 		background-color: rgb(254, 254, 254);
 		padding: 1.5rem;
 		border: 1px solid #ddd;
-		width: 50%;
 		box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
 		z-index: 2;
 	}
@@ -259,13 +240,10 @@
 	}
 
 	.dropdown-list {
-		display: flex;
-		flex-direction: column;
+		display: grid;
+		grid-auto-flow: column;
+		grid-template-rows: repeat(10, auto);
 		gap: 0.3rem;
-		max-height: 25rem;
-		min-width: 10rem;
-		flex-wrap: wrap;
-		/* overflow-x: auto; */
 	}
 
 	.dropdown-li {
@@ -273,7 +251,7 @@
 		/* border: solid 0.25rem black; */
 		/* border-color: black; */
 		padding: 0.3rem 1rem 0.3rem 0;
-		width: 100%;
+		width: max-content;
 		/* background-color: rgba(211, 211, 211, 0.3); */
 		transition: all 0.05s ease-in;
 		/* font-size: 0.9rem; */
@@ -298,7 +276,7 @@
 		all: unset;
 		height: fit-content;
 		background-color: rgba(137, 43, 226, 0.115);
-		padding: 0.1rem 0.6rem;
+		padding: 0.4rem 0.6rem;
 		font-size: 0.9rem;
 		font-weight: 300;
 		cursor: pointer;

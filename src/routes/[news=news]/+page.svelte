@@ -1,10 +1,15 @@
 <script lang="ts">
-	export let data;
-	import PostCard from '$lib/components/PostCard.svelte';
+	import { t } from '$lib/i18n/i18n.js';
 	import FilterPanel from '$lib/components/FilterPanel.svelte';
+	import NewsCard from '$lib/components/NewsCard.svelte';
+	import { showPresentation } from '$lib/stores.js';
 
-	const posts = [...data.posts, ...data.posts];
+	export let data;
+	showPresentation.set(false);
+
+	const posts = data.news;
 	const tags = posts.reduce((acc, p) => {
+		if (!p.meta.tags) return acc;
 		p.meta.tags.forEach((t) => {
 			if (!acc.includes(t)) acc.push(t);
 		});
@@ -24,16 +29,20 @@
 	const selectedTags: string[] = [];
 </script>
 
+<svelte:head>
+	<title>{$t('head.news')}</title>
+</svelte:head>
+
 <FilterPanel {tags} {selectedDocuments} {selectedTags} />
 
 <div class="tags-container">
 	<ul />
 </div>
-<div class="container">
+<ul class="container">
 	{#each posts as post}
-		<PostCard {post} />
+		<NewsCard {post} />
 	{/each}
-</div>
+</ul>
 
 <style>
 	.tags-container {

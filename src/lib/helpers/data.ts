@@ -28,11 +28,7 @@ async function getProjectFiles(lang: string) {
     return paths
 }
 async function getCrFiles(lang: string) {
-    let paths
-    lang === 'fr'
-        ? paths = await import.meta.glob(`$lib/labouvroir/cr/*-fr.md`)
-        : paths = await import.meta.glob(`$lib/labouvroir/cr/*-en.md`)
-    return paths
+    return await import.meta.glob(`$lib/labouvroir/cr/*.md`)
 }
 async function getSupportFiles(lang: string) {
     let paths

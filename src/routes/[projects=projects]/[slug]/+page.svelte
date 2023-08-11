@@ -1,7 +1,12 @@
 <script lang="ts">
+	import { t } from '$i18n/i18n.js';
 	import { base } from '$app/paths';
 	export let data;
 </script>
+
+<svelte:head>
+	<title>{data.meta.title}</title>
+</svelte:head>
 
 <h1>{data.meta?.title}</h1>
 
@@ -37,19 +42,7 @@
 	</div>
 </div>
 
-<div class="text-content">
-	<h2>Introduction</h2>
-	{@html data.html}
-	<p>
-		Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ipsa ducimus aperiam culpa consequatur
-		aspernatur. Nobis dolore sed molestias ullam architecto temporibus asperiores corrupti, mollitia
-		obcaecati numquam maxime dicta, pariatur iure.
-	</p>
-	<h2>More titles</h2>
-	{@html data.html}
-	{@html data.html}
-	{@html data.html}
-	{@html data.html}
+<div class="text-body">
 	{@html data.html}
 </div>
 
@@ -82,9 +75,8 @@
 		margin-top: 1.3rem;
 	}
 
-	.text-content {
+	.text-body {
 		grid-column: 5/-1;
-		/* padding-left: 1rem; */
 		padding-right: 1rem;
 	}
 

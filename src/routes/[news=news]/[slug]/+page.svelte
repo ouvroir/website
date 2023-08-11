@@ -1,28 +1,83 @@
 <script lang="ts">
+	import { onMount } from 'svelte';
+
 	export let data;
 
 	const { post } = data;
+
+	function scrollToTarget(event: MouseEvent) {
+		event.preventDefault();
+		const targetId = (event.target as HTMLElement).getAttribute('href');
+		const targetElement = document.querySelector(targetId);
+		const offset = 150; // set your desired offset here
+		const top = targetElement.getBoundingClientRect().top + window.scrollY - offset;
+		window.scrollTo({ top, behavior: 'smooth' });
+	}
+
+	onMount(() => {
+		const doc = document.querySelector('.text-body');
+		const headings = doc.querySelectorAll('h2, h3, h4');
+		const nav = document.querySelector('.toc');
+
+		if (!nav || !doc || !headings) return;
+
+		headings.forEach((heading) => {
+			if (!heading.textContent) return;
+
+			heading.id = heading.textContent
+				.toLowerCase()
+				.replace(/ /g, '-')
+				.replace(/[^\w-]+/g, '');
+
+			const li = document.createElement('li');
+			const a = document.createElement('a');
+
+			a.href = `#${heading.id}`;
+			a.classList.add('toc-link');
+			a.textContent = heading.textContent;
+			a.addEventListener('click', scrollToTarget);
+
+			li.appendChild(a);
+			nav?.appendChild(li);
+		});
+
+		const observer = new IntersectionObserver(
+			(entries) => {
+				entries.forEach((entry, index) => {
+					const id = entry.target.getAttribute('id');
+					const navLink = nav.querySelector(`.toc a[href="#${id}"]`);
+					if (navLink && id && entry.isIntersecting) {
+						nav.querySelectorAll('.toc-link').forEach((l) => l.classList.remove('toc-active'));
+						navLink.classList.add('toc-active');
+					}
+				});
+			},
+			{
+				rootMargin: '25% 0% -75% 0%',
+				threshold: 0
+			}
+		);
+
+		headings.forEach((heading) => {
+			observer.observe(heading);
+		});
+	});
 </script>
 
 <div class="toc-container">
-	<nav class="toc">
-		<h1>Expots - Premières éxplorations</h1>
-		<h2>Hello World</h2>
-		<h2>Urna condimentum mattis pellentesque id nibh tortor id</h2>
-		<h2>At imperdiet dui accumsan sit amet</h2>
-	</nav>
+	<nav class="toc"></nav>
 </div>
 
 <h1>{post?.meta.title}</h1>
 
-<article>
-	{@html post.html}
+<article class="text-body">
+	{@html post?.html}
 </article>
 
 <aside class="aside">
 	<div class="meta">
 		<div>
-			<span class="author">{post.meta.author}</span> | <span>{post.meta.date.split('T')[0]}</span>
+			<span class="author">{post?.meta.author}</span> | <span>{post?.meta.date.split('T')[0]}</span>
 		</div>
 		<p class="project-description">{post?.meta.description}</p>
 	</div>
@@ -70,19 +125,9 @@
 		color: rgba(0, 0, 0, 0.584);
 		background-color: rgba(211, 211, 211, 0.2);
 		position: sticky;
-	}
-
-	nav > h1 {
-		padding: 0;
-		color: rgb(255, 68, 0);
-	}
-	nav > h2 {
-		padding-left: 0.7rem;
-	}
-
-	nav > * {
-		font-size: 0.8rem;
-		/* text-align: left; */
+		list-style: none;
+		font-size: 0.9rem;
+		font-weight: 400;
 	}
 
 	aside > .meta {

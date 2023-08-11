@@ -65,7 +65,7 @@
 				</div>
 			</header>
 			{#if $memberExpaned === data.meta.slug}
-				<main class="long-description" transition:slide={{ axis: 'y' }}>
+				<main class="text-body" transition:slide={{ axis: 'y' }}>
 					{@html data.html}
 				</main>
 			{/if}
@@ -74,7 +74,7 @@
 </li>
 
 <style>
-	.long-description {
+	.text-body {
 		display: block;
 		padding: 2rem 0;
 		width: 80%;

@@ -1,6 +1,9 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import { t } from '$i18n/i18n';
+	import { showPresentation } from '$lib/stores.js';
+
+	showPresentation.set(false);
 
 	const aboutLinks = ['presentation', 'team', 'coc', 'support'];
 	const servicesLinks = ['presentation', 'equipement', 'reservation', 'meetups'];

@@ -11,6 +11,14 @@ const translations: { [locale: string]: { [path: string]: string } } = {
         'aria.locales.en': 'english',
         'aria.projects.carousel': 'projects carousel',
 
+        // svelte:head
+        'head.home': 'Ouvroir',
+        'head.news': 'News',
+        'head.projects': 'Projects',
+        'head.services': 'Our services',
+        'head.about': 'About Ouvroir',
+
+
         // Header
         'header.subtitle': 'a <span class="clr:red">digital</span> art history and museology lab.',
         'header.description': "L’Ouvroir is a Digital Art History and Museology lab at the Université de Montréal dedicated to support the work conducted within the framework of the Partnership « New Uses of Collections in Art Museums »",
@@ -70,6 +78,10 @@ const translations: { [locale: string]: { [path: string]: string } } = {
 
         // UI
         'ui.btt': 'Back to top',
+        'card.blog': 'Blog',
+        'card.event': 'Event',
+        'card.meeting': 'Meeting notes',
+        'card.speaker': 'speaker·s',
     },
     'fr': {
         // ARIA labels
@@ -84,6 +96,13 @@ const translations: { [locale: string]: { [path: string]: string } } = {
         'aria.locales.fr': 'français',
         'aria.locales.en': 'anglais',
         'aria.projects.carousel': 'carousel des projets',
+
+        // svelte:head
+        'head.home': 'Ouvroir',
+        'head.news': 'Actualités',
+        'head.projects': 'Projets',
+        'head.services': 'Nos services',
+        'head.about': 'À propos',
 
         // Header
         'header.subtitle': 'd’histoire de l’art et de muséologie <span class="clr:red">numériques</span>.',
@@ -143,6 +162,10 @@ const translations: { [locale: string]: { [path: string]: string } } = {
 
         // UI
         'ui.btt': 'Haut de la page',
+        'card.blog': 'Blog',
+        'card.event': 'Événement',
+        'card.meeting': 'Compte-rendu',
+        'card.speaker': 'conférencier·ère·s',
     }
 }
 
