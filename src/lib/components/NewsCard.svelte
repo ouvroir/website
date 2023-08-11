@@ -18,19 +18,18 @@
 	};
 
 	$: type = post.meta.type as 'blog' | 'event' | 'meeting';
+	// $: post.meta.slug ? null : encodeURIComponent
 </script>
 
 <li>
-	<a href={`${$t('route.news')}/${post.meta.slug}`} class={`post-card `}>
+	<a href={`${$t('route.news')}/${post.meta.slug}?type=${post.meta.type}`} class={`post-card `}>
 		<span class="document-tag">{$t(`card.${post.meta.type}`)}</span>
 		<h1 class={`${smallerTitle()}`}>
-			<a href={`${$t('route.news')}/${post.meta.slug}`}>
-				{#if type === 'meeting'}
-					{post.meta.date.split('T')[0]}
-				{:else}
-					{post.meta.title}
-				{/if}
-			</a>
+			{#if type === 'meeting'}
+				{post.meta.date.split('T')[0]}
+			{:else}
+				{post.meta.title}
+			{/if}
 		</h1>
 		<div class="post-card-main">
 			{#if type === 'blog'}

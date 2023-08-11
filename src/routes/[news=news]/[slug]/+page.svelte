@@ -1,9 +1,9 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-
+	import { t } from '$lib/i18n/i18n.js';
 	export let data;
 
-	const { post } = data;
+	$: post = data.post;
 
 	function scrollToTarget(event: MouseEvent) {
 		event.preventDefault();
@@ -15,6 +15,7 @@
 	}
 
 	onMount(() => {
+		if (post?.meta.type !== 'blog') return;
 		const doc = document.querySelector('.text-body');
 		const headings = doc.querySelectorAll('h2, h3, h4');
 		const nav = document.querySelector('.toc');
@@ -64,24 +65,66 @@
 	});
 </script>
 
-<div class="toc-container">
-	<nav class="toc"></nav>
-</div>
+{#if post && post.meta.type === 'blog'}
+	<div class="toc-container">
+		<nav class="toc"></nav>
+	</div>
+{/if}
 
-<h1>{post?.meta.title}</h1>
+{#if post && post.meta.type === 'event'}
+	<aside class="aside-left">
+		<div class="meta-left">
+			<p class="date">
+				{post.meta.dateStart.split('T')[0]}
+				{post.meta.dateStart === post.meta.dateEnd ? '' : ` - ${post.meta.dateEnd}`}
+			</p>
+			<p class="time-place">{post.meta.timeStart} - {post.meta.timeStart} @ {post.meta.place}</p>
+		</div>
+		<div class="meta-left">
+			<span class="label">{$t('news.summary')}</span>
+			<p class="description">{post?.meta.description}</p>
+		</div>
+		<div class="meta-left">
+			<span class="label">{$t('news.speaker')}</span>
+			{#if Array.isArray(post.meta.participants)}
+				<ul class="participants-ul">
+					{#each post?.meta.participants as p}
+						<li class="participant">{post?.meta.participants.join(',')}</li>
+					{/each}
+				</ul>
+			{:else}
+				<p class="participant">{post?.meta.participants.join(',')}</p>
+			{/if}
+		</div>
+		<div class="meta-left">
+			<a class="register" href={post?.meta.link}>{$t('news.register')}</a>
+		</div>
+	</aside>
+{/if}
+
+<h1>
+	{#if post && post.meta.type === 'meeting'}
+		{post?.meta.date.split('T')[0]}
+	{:else}
+		{post?.meta.title}
+	{/if}
+</h1>
 
 <article class="text-body">
 	{@html post?.html}
 </article>
 
-<aside class="aside">
-	<div class="meta">
-		<div>
-			<span class="author">{post?.meta.author}</span> | <span>{post?.meta.date.split('T')[0]}</span>
+{#if post && post.meta.type === 'blog'}
+	<aside class="aside-right">
+		<div class="meta">
+			<div>
+				<span class="author">{post?.meta.author}</span> |
+				<span>{post?.meta.date.split('T')[0]}</span>
+			</div>
+			<p class="project-description">{post?.meta.description}</p>
 		</div>
-		<p class="project-description">{post?.meta.description}</p>
-	</div>
-</aside>
+	</aside>
+{/if}
 
 <style>
 	article {
@@ -91,7 +134,7 @@
 		/* padding-right: 1rem; */
 	}
 
-	aside {
+	.aside-right {
 		display: contents;
 	}
 
@@ -114,8 +157,6 @@
 
 	.toc {
 		width: 90%;
-		position: sticky;
-		position: -webkit-sticky;
 		display: flex;
 		flex-direction: column;
 		gap: 1rem;
@@ -124,13 +165,12 @@
 		padding: 1rem 1rem;
 		color: rgba(0, 0, 0, 0.584);
 		background-color: rgba(211, 211, 211, 0.2);
-		position: sticky;
 		list-style: none;
 		font-size: 0.9rem;
 		font-weight: 400;
 	}
 
-	aside > .meta {
+	.aside-right > .meta {
 		grid-column: 7/9;
 		grid-row: 2;
 		/* padding-left: 2rem;
@@ -139,6 +179,51 @@
 		padding: 0rem 1rem;
 		margin-left: 1rem;
 		/* background-color: rgba(211, 211, 211, 0.2); */
+	}
+
+	.aside-left {
+		position: sticky;
+		height: fit-content;
+		top: 12rem;
+		bottom: 8rem;
+		grid-row: 2;
+		grid-column: span 2;
+		/* padding-top: 1.5rem; */
+		width: 90%;
+		border-top: solid 0.5px rgba(255, 68, 0, 0.461);
+		border-width: 50%;
+	}
+
+	.aside-left > * + * {
+		margin-top: 1.5rem;
+	}
+
+	.meta-left > .date {
+		color: orangered;
+		font-size: 1rem;
+		font-weight: 300;
+		margin-bottom: 0.5rem;
+		margin-top: 1.5rem;
+	}
+	.meta-left .label {
+		display: block;
+		font-weight: 500;
+		margin-bottom: 0.5rem;
+	}
+
+	.meta-left .description {
+		line-height: 1.2rem;
+		font-weight: 300;
+	}
+	.participant {
+		font-weight: 300;
+	}
+
+	.aside-left a {
+		color: orangered;
+	}
+	.aside-left a:hover {
+		text-decoration: underline orangered;
 	}
 
 	.author {

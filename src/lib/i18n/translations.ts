@@ -70,6 +70,11 @@ const translations: { [locale: string]: { [path: string]: string } } = {
         'services.equipement': 'Equipement',
         'services.reservation': 'Reservation',
 
+        // News
+        'news.summary': 'Summary',
+        'news.register': 'Register',
+        'news.speaker': 'Speaker·s',
+
         // Events
         'events.title': "Our events",
 
@@ -153,6 +158,11 @@ const translations: { [locale: string]: { [path: string]: string } } = {
         'services.equipement': 'Équipements',
         'services.reservation': 'Réservations',
         'services.meetups': 'Rencontres',
+
+        // News
+        'news.summary': 'Résumé',
+        'news.register': 'Inscription',
+        'news.speaker': 'Conférencier·ère·s',
 
         // Events
         'events.title': "Nos évenements",

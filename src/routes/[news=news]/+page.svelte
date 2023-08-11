@@ -8,7 +8,7 @@
 	showPresentation.set(false);
 
 	const filterTags = (d, selectedTags: string[]) => {
-		if (selectedTags.length === 0 || d.meta.tags) return true;
+		if (selectedTags.length === 0 || !d.meta.tags) return true;
 		let contains = false;
 		d.meta.tags.forEach((t) => {
 			if (selectedTags.includes(t)) contains = true;
@@ -19,9 +19,13 @@
 	let selectedDocuments: string[] = ['event', 'blog'];
 	let selectedTags: string[] = [];
 
-	$: posts = data.news.filter(
-		(d) => selectedDocuments.includes(d.meta.type) && filterTags(d, selectedTags)
-	);
+	$: posts = data.news
+		.filter((d) => selectedDocuments.includes(d.meta.type) && filterTags(d, selectedTags))
+		.sort((a, b) => {
+			const aDate = a.meta.type === 'event' ? a.meta.dateStart : a.meta.date;
+			const bDate = b.meta.type === 'event' ? b.meta.dateStart : b.meta.date;
+			return aDate - bDate;
+		});
 
 	$: tags =
 		data.news.reduce((acc, p) => {

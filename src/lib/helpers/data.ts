@@ -84,7 +84,7 @@ const setup = {
     'projects': getProjectFiles,
     'blog': getBlogFiles,
     'team': getTeamFiles,
-    'cr': getCrFiles,
+    'meeting': getCrFiles,
     'support': getSupportFiles,
     'event': getEventFiles,
     'about': getAboutFiles,
