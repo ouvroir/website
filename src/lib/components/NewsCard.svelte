@@ -3,8 +3,6 @@
 
 	export let post;
 
-	const type: 'blog' | 'event' | 'meeting' = post.meta.type;
-
 	// If description is too short, decrease height of card
 	const smallerCard = () => {
 		if (!post.meta.description) return '';
@@ -18,6 +16,8 @@
 			if (post.meta.title.length > 50) return 'smaller-title';
 			else return '';
 	};
+
+	$: type = post.meta.type as 'blog' | 'event' | 'meeting';
 </script>
 
 <li>

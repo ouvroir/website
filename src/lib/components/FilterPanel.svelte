@@ -3,6 +3,7 @@
 	import { writable } from 'svelte/store';
 	import { page } from '$app/stores';
 	import { base } from '$app/paths';
+	import { t } from '$lib/i18n/i18n';
 
 	/**
 	 * TODO: Refactor tags on click and change
@@ -19,9 +20,7 @@
 	let showFilters = false;
 	setTimeout(() => (showFilters = true), 50);
 
-	const documentTypes = $page.route.id?.includes('news')
-		? ['Events', 'Articles', 'Meeting reports']
-		: [];
+	const documentTypes = $page.route.id?.includes('news') ? ['event', 'blog', 'meeting'] : [];
 
 	const handleClickOutside = (e: MouseEvent) => {
 		const menu = document.getElementById('dropdown');
@@ -48,6 +47,7 @@
 	};
 	const documentOnClick = (e: MouseEvent) => {
 		if (e.target) {
+			console.log(e.currentTarget, e.currentTarget.id);
 			selectedDocuments.splice(selectedDocuments.indexOf(e.currentTarget.id), 1);
 		}
 		selectedDocuments = selectedDocuments;
@@ -81,8 +81,8 @@
 			<ul class="selected-filters">
 				{#each selectedDocuments as s}
 					<li class="display-li tag-doc" id={s}>
-						<button on:click={documentOnClick}>
-							<p>{s}</p>
+						<button on:click={documentOnClick} id={s}>
+							<p>{$t(`card.${s}`)}</p>
 							<img src={`${base}/logos/xmark.svg`} alt="" />
 						</button>
 					</li>
@@ -92,7 +92,7 @@
 				{/if}
 				{#each selectedTags as s}
 					<li class="display-li tag" id={s}>
-						<button on:click={tagOnClick}>
+						<button on:click={tagOnClick} id={s}>
 							<p>{s}</p>
 							<img src={`${base}/logos/xmark.svg`} alt="" />
 						</button>
@@ -107,18 +107,18 @@
 						<div class="filter-section">
 							<h1>Documents</h1>
 							<ul class="dropdown-list">
-								{#each documentTypes as t}
-									<li class="dropdown-li" id={t}>
+								{#each documentTypes as p}
+									<li class="dropdown-li" id={p}>
 										<div>
-											<label for={`checkbox-${t}`}>
+											<label for={`checkbox-${p}`}>
 												<input
 													type="checkbox"
-													id={`checkbox-${t}`}
-													name={t}
-													checked={selectedDocuments.includes(t)}
+													id={`checkbox-${p}`}
+													name={p}
+													checked={selectedDocuments.includes(p)}
 													on:change={onDocumentChange}
 												/>
-												{t}
+												{$t(`card.${p}`)}
 											</label>
 										</div>
 									</li>
