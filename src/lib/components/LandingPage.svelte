@@ -4,6 +4,7 @@
 	import { base } from '$app/paths';
 	import OuvroirPres from './logos/OuvroirPres.svelte';
 	import Ouvroir from './Ouvroir.svelte';
+	import { smallScreen } from '$lib/stores';
 
 	let presentationElt: HTMLElement;
 </script>
@@ -14,14 +15,18 @@
 	transition:slide={{ axis: 'y', delay: 0, duration: 1000 }}
 >
 	<article bind:this={presentationElt} class="presentation" out:fade={{ duration: 500 }}>
-		<div class="stroke-2"></div>
-		<div class="stroke-3"></div>
+		{#if !smallScreen}
+			<div class="stroke-2"></div>
+			<div class="stroke-3"></div>
+		{/if}
 		<div class="logo-ouvroir">
 			<OuvroirPres />
 		</div>
 		<h1>Laboratoire <span class="ovr">Ouvroir</span></h1>
 		<h2 class="subtitle">d’histoire de l’art et de muséologie numériques</h2>
-		<div class="stroke-1"></div>
+		{#if !smallScreen}
+			<div class="stroke-1"></div>
+		{/if}
 		<p class="description">
 			L’Ouvroir d’histoire de l’art et de muséologie numérique de l’Université de Montréal, est un
 			laboratoire de recherche destiné à soutenir le travail conduit dans le cadre du Partenariat « <em
@@ -115,6 +120,21 @@
 		/* grid-column: 2 / -2; */
 		overflow: hidden;
 		background-color: var(--bg-clr-presentation);
+		/* background-image: linear-gradient(
+			to right bottom,
+			#303742,
+			#303742,
+			#303742,
+			#303742,
+			#303742,
+			#343d53,
+			#3f4163,
+			#504371,
+			#863f81,
+			#c02b75,
+			#ed1b50,
+			#ff4500
+		); */
 		color: white;
 	}
 

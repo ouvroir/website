@@ -5,14 +5,13 @@
 	import LandingPage from '$lib/components/LandingPage.svelte';
 	import { page } from '$app/stores';
 	import { locale, t } from '$lib/i18n/i18n';
-	import { showPresentation } from '$lib/stores.js';
+	import { showPresentation, screenType, screenWidth } from '$lib/stores.js';
 	import '$lib/styles/reset.css';
 	import '$lib/styles/style.css';
 
 	export let data;
 
 	let offsetHeight: number;
-	let screenWidth: number;
 
 	locale.set(data.lang);
 
@@ -23,7 +22,7 @@
 	}
 
 	$: addGap = $page && $page.route.id === '/[news=news]';
-	$: console.log('screenWidth', screenWidth);
+	$: console.log('screen', $screenType, $screenWidth);
 </script>
 
 {#if $showPresentation}
@@ -32,7 +31,7 @@
 
 <Nav />
 
-<main class={`${addGap ? 'addGap' : ''}`} bind:offsetHeight bind:clientWidth={screenWidth}>
+<main class={`${addGap ? 'addGap' : ''}`} bind:offsetHeight bind:clientWidth={$screenWidth}>
 	<slot />
 </main>
 
@@ -43,7 +42,9 @@
 {/if}
 
 <Support content={data.support} />
-<Footer />
+{#if $screenType === 'desktop' || $screenType === 'tablet-horizontal'}
+	<Footer />
+{/if}
 
 <style>
 	.btt-container {
@@ -57,5 +58,11 @@
 		font-family: var(--ff-sans);
 		font-weight: 300;
 		margin: 0rem 4% 4rem auto;
+	}
+
+	@media screen and (min-width: 821px) and (max-width: 1024px) {
+		.btt-btn {
+			margin: 0rem auto 4rem 4%;
+		}
 	}
 </style>

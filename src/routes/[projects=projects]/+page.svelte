@@ -98,18 +98,10 @@
 		font-weight: 300;
 	}
 
-	/* .aside {
-		grid-column: span 2;
-		padding-right: 4rem;
-		position: sticky;
-		top: 9rem;
+	/** Small screens */
+	@media screen and (max-width: 820px) {
+		.section-title {
+			grid-column: 1/-1;
+		}
 	}
-	.tags {
-		display: flex;
-		flex-direction: row;
-		gap: 1rem;
-		flex-wrap: wrap;
-		height: min-content;
-		justify-content: end;
-	} */
 </style>

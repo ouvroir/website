@@ -36,6 +36,7 @@
 		gap: 1rem;
 		grid-column: span 2;
 		cursor: pointer;
+		min-width: max-content;
 	}
 
 	.logo-text {

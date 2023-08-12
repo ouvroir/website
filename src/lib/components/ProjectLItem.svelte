@@ -27,27 +27,30 @@
 	};
 </script>
 
-<li
-	class={`project-item ${header ? 'accent' : ''}`}
-	on:click={handleClick}
-	on:keypress={handleClick}
->
-	{#if header}
-		<span class="card-header">Livrable CIÉCO</span>
-	{/if}
-	<a href={`${$t('route.projects')}/${data.meta.slug}`}>
-		<h1 on:mouseover={onMouseOver} on:mouseout={onMouseOut} on:focus on:blur>{data.meta.title}</h1>
-	</a>
-	<ul class="tags">
-		{#each data.meta.tags as t}
-			<li>{t}</li>
-		{/each}
-	</ul>
+<li>
+	<a
+		class={`project-item ${header ? 'accent' : ''}`}
+		href={`${$t('route.projects')}/${data.meta.slug}`}
+	>
+		{#if header}
+			<span class="card-header">Livrable CIÉCO</span>
+		{/if}
+		<a href={`${$t('route.projects')}/${data.meta.slug}`}>
+			<h1 on:mouseover={onMouseOver} on:mouseout={onMouseOut} on:focus on:blur>
+				{data.meta.title}
+			</h1>
+		</a>
+		<ul class="tags">
+			{#each data.meta.tags as t}
+				<li>{t}</li>
+			{/each}
+		</ul>
 
-	<p class="project-description">
-		{data.meta.description} Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi laboriosam
-		illo ducimus perspiciatis nesciunt, magnam ipsum facilis hic modi, harum a.
-	</p>
+		<p class="project-description">
+			{data.meta.description} Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi laboriosam
+			illo ducimus perspiciatis nesciunt, magnam ipsum facilis hic modi, harum a.
+		</p>
+	</a>
 </li>
 
 <style>
@@ -87,5 +90,7 @@
 		margin-top: 0.5rem;
 		font-weight: 300;
 		font-size: 0.9rem;
+		flex-wrap: wrap;
+		row-gap: 0.5rem;
 	}
 </style>

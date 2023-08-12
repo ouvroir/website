@@ -1,9 +1,12 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { t } from '$lib/i18n/i18n.js';
+	import { screenType } from '$lib/stores.js';
 	export let data;
 
 	$: post = data.post;
+
+	const smallScreen = $screenType === 'mobile' || $screenType === 'tablet-vertical';
 
 	function scrollToTarget(event: MouseEvent) {
 		event.preventDefault();
@@ -15,7 +18,7 @@
 	}
 
 	onMount(() => {
-		if (post?.meta.type !== 'blog') return;
+		if (post?.meta.type !== 'blog' || smallScreen) return;
 		const doc = document.querySelector('.text-body');
 		const headings = doc.querySelectorAll('h2, h3, h4');
 		const nav = document.querySelector('.toc');
@@ -65,18 +68,17 @@
 	});
 </script>
 
-{#if post && post.meta.type === 'blog'}
+{#if post && post.meta.type === 'blog' && !smallScreen}
 	<div class="toc-container">
 		<nav class="toc"></nav>
 	</div>
 {/if}
 
-{#if post && post.meta.type === 'event'}
+{#if post && post.meta.type === 'event' && !smallScreen}
 	<aside class="aside-left">
 		<div class="meta-left">
 			<p class="date">
 				{post.meta.dateStart.split('T')[0]}
-				{post.meta.dateStart === post.meta.dateEnd ? '' : ` - ${post.meta.dateEnd}`}
 			</p>
 			<p class="time-place">{post.meta.timeStart} - {post.meta.timeStart} @ {post.meta.place}</p>
 		</div>
@@ -102,16 +104,19 @@
 	</aside>
 {/if}
 
-<h1>
-	{#if post && post.meta.type === 'meeting'}
-		{post?.meta.date.split('T')[0]}
-	{:else}
-		{post?.meta.title}
-	{/if}
-</h1>
-
-<article class="text-body">
-	{@html post?.html}
+<article>
+	<header>
+		<h1>
+			{#if post && post.meta.type === 'meeting'}
+				{post?.meta.date.split('T')[0]}
+			{:else}
+				{post?.meta.title}
+			{/if}
+		</h1>
+	</header>
+	<div class="text-body">
+		{@html post?.html}
+	</div>
 </article>
 
 {#if post && post.meta.type === 'blog'}
@@ -127,7 +132,11 @@
 {/if}
 
 <style>
-	article {
+	article,
+	header {
+		display: contents;
+	}
+	.text-body {
 		grid-column: 3/7;
 		grid-row: 2/5;
 		font-size: 1.1rem;
@@ -191,7 +200,6 @@
 		/* padding-top: 1.5rem; */
 		width: 90%;
 		border-top: solid 0.5px rgba(255, 68, 0, 0.461);
-		border-width: 50%;
 	}
 
 	.aside-left > * + * {
@@ -235,5 +243,39 @@
 		/* max-height: fit-content; */
 		grid-row: 2;
 		font-size: 0.9rem;
+	}
+
+	/** Mobile */
+	@media screen and (max-width: 820px) {
+		header {
+			display: block;
+			grid-column: 1/-1;
+		}
+
+		h1 {
+			margin-top: 1rem;
+			padding-bottom: 3rem;
+		}
+
+		.text-body {
+			grid-column: 1/-1;
+			grid-row: 3;
+		}
+
+		.aside-right {
+			display: block;
+			grid-column: 1/-1;
+		}
+		.aside-right > .meta {
+			padding: 0;
+			margin-left: 0;
+		}
+	}
+
+	@media screen and (min-width: 481px) and (max-width: 820px) {
+		.text-body,
+		.project-description {
+			width: 85%;
+		}
 	}
 </style>

@@ -101,10 +101,6 @@
 		border-left: solid 0.3rem orangered;
 		width: 65%;
 	}
-
-	h1 > a > img {
-		/* width: fit-content; */
-	}
 	h1 > a > img:hover {
 		cursor: pointer;
 	}
@@ -184,5 +180,8 @@
 		width: 10rem;
 		height: auto;
 		bottom: 1rem;
+	}
+
+	@media screen and (max-width: 820px) {
 	}
 </style>

@@ -75,6 +75,8 @@
 		flex-direction: column;
 		gap: 1rem;
 		cursor: pointer;
+		/* max-width: max-content; */
+		width: 100%;
 	}
 	.post-card:hover:after {
 		content: '';
@@ -102,7 +104,6 @@
 	.post-card-main {
 		/* border-top: solid 0.5px rgba(0, 0, 0, 0.2); */
 		/* padding: 1rem 0; */
-		padding-bottom: 1rem;
 	}
 	.post-card-main > * + * {
 		margin-top: 0.4rem;
@@ -123,10 +124,6 @@
 		font-size: 0.9rem;
 		padding-top: 0.5rem;
 		border-top: solid 0.5px rgba(0, 0, 0, 0.2);
-	}
-
-	.post-card {
-		width: 19rem;
 	}
 
 	h1 {
@@ -172,5 +169,11 @@
 
 	.underline {
 		text-decoration-color: rgba(255, 68, 0, 0.847);
+	}
+
+	@media screen and (max-width: 850px) {
+		.post-card-main {
+			padding-bottom: 0;
+		}
 	}
 </style>

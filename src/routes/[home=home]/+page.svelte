@@ -5,13 +5,16 @@
 	import Calendar from '$lib/components/logos/Calendar.svelte';
 	import { fade } from 'svelte/transition';
 	import { base } from '$app/paths';
+	import { screenType } from '$lib/stores';
 
 	export let data;
 
-	const events = [...data.events];
-	const posts = data.posts;
-	const projects = data.projects.slice(0, 5);
-	const bigProject = projects.pop();
+	$: events = [...data.events];
+	$: posts = data.posts.slice(0, 5);
+	$: news = [...events, ...posts];
+	$: projects = data.projects.slice(0, 5);
+	$: bigProject = projects.pop();
+	$: smallScreen = $screenType === 'mobile' || $screenType === 'tablet-vertical';
 </script>
 
 <svelte:head>
@@ -26,14 +29,29 @@
 	</header>
 
 	<ul class="news">
-		{#each events as e}
+		{#each news as e}
 			<li class="news-li addhover">
-				<article class="news-content">
-					<span class="document-tag">Event</span>
-					<h1>{e.meta.dateStart.split('T')[0]}</h1>
-					<p class="news-content-infos">{e.meta.timeStart} - {e.meta.timeEnd} @ {e.meta.place}</p>
-					<h2>{e.meta.title}</h2>
-				</article>
+				<a href={`${$t('route.news')}/${e.meta.slug}?type=${e.meta.type}`}>
+					<article class="news-content">
+						<span class="document-tag">{$t(`card.${e.meta.type}`)}</span>
+						<h1>
+							{#if e.meta.type === 'event'}
+								{e.meta.dateStart.split('T')[0]}
+							{:else if e.meta.type === 'blog'}
+								{e.meta.title}
+							{/if}
+						</h1>
+
+						<p class="news-content-infos">{e.meta.timeStart} - {e.meta.timeEnd} @ {e.meta.place}</p>
+						<h2>
+							{#if e.meta.type === 'event'}
+								{e.meta.title}
+							{:else if e.meta.type === 'blog'}
+								{e.meta.description}
+							{/if}
+						</h2>
+					</article>
+				</a>
 			</li>
 		{/each}
 	</ul>
@@ -46,21 +64,25 @@
 		<a href={$t('route.projects')}>Tous les projets</a>
 	</header>
 
-	<article class={`project bg`}>
-		<img src={`${base}/sample1.jpg`} alt="" />
-		<div class="project-content">
-			<h1 class="project-title">{bigProject.meta.title}</h1>
-			<p class="project-description">{bigProject.meta.description}</p>
-		</div>
-	</article>
+	{#if !smallScreen}
+		<article class={`project bg`}>
+			<img src={`${base}/sample1.jpg`} alt="" />
+			<div class="project-content">
+				<h1 class="project-title">{bigProject.meta.title}</h1>
+				<p class="project-description">{bigProject.meta.description}</p>
+			</div>
+		</article>
+	{/if}
 
 	<ul class="projects">
 		{#each projects as p, i}
 			<li>
-				<article class="project sm addhover">
-					<h1 class="project-title">{p.meta.title}</h1>
-					<p class="project-description">{p.meta.description}</p>
-				</article>
+				<a href={`${$t('route.projects')}/${p.meta.slug}`}>
+					<article class="project sm addhover">
+						<h1 class="project-title">{p.meta.title}</h1>
+						<p class="project-description">{p.meta.description}</p>
+					</article>
+				</a>
 			</li>
 		{/each}
 	</ul>
@@ -76,9 +98,11 @@
 
 	<ul class="services-list">
 		<li class="services-li">
-			<span class="services-logo-container">
-				<Vr />
-			</span>
+			{#if !smallScreen}
+				<span class="services-logo-container">
+					<Vr />
+				</span>
+			{/if}
 			<h2>Prêt de matériel</h2>
 			<p>
 				L’ouvroir met à disposition de l'équipement de pointe pour la numérisation, l’enregistrement
@@ -87,17 +111,21 @@
 			<a href={$t('route.services.equipement')}>Voir tout l’équipement disponible</a>
 		</li>
 		<li class="services-li">
-			<span class="services-logo-container">
-				<Calendar />
-			</span>
+			{#if !smallScreen}
+				<span class="services-logo-container">
+					<Calendar />
+				</span>
+			{/if}
 			<h2>Réservation de salle</h2>
 			<p>Des locaux sont à disposition pour le travail individuel ou en groupe.</p>
 			<a href={$t('route.services.reservation')}>Réserver une salle</a>
 		</li>
 		<li class="services-li">
-			<span class="services-logo-container">
-				<Venn />
-			</span>
+			{#if !smallScreen}
+				<span class="services-logo-container">
+					<Venn />
+				</span>
+			{/if}
 			<h2>Rencontres</h2>
 			<p>
 				De nombreux événements sont organisés pour vous aider le travail en environnements
@@ -199,14 +227,6 @@
 		align-items: baseline;
 	}
 
-	/* .section-header > *:first-child {
-		margin-left: auto;
-	}
-
-	.section-header > *:last-child {
-		margin-right: auto;
-	} */
-
 	.header-separator {
 		position: relative;
 		top: 0.3rem;
@@ -228,11 +248,13 @@
 		grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
 		grid-auto-flow: dense;
 		gap: 4rem;
+		row-gap: 2rem;
 	}
 
-	/* .news-li {
+	.news-li {
 		min-width: 10rem;
-	} */
+		position: relative;
+	}
 
 	.section-title {
 		/* color: orangered; */
@@ -316,6 +338,11 @@
 		margin-bottom: 3rem;
 	}
 
+	.projects a,
+	.news-li a {
+		color: unset;
+	}
+
 	.project {
 		position: relative;
 		margin-bottom: 2rem;
@@ -325,10 +352,9 @@
 		cursor: pointer;
 	}
 
-	.project > img {
+	.bg > img {
 		position: absolute;
-		width: 100%;
-		min-height: 25vh;
+		max-width: 100%;
 		object-fit: cover;
 		z-index: -1;
 		filter: grayscale();
@@ -359,14 +385,68 @@
 	} */
 
 	.bg {
-		position: relative;
 		grid-column: span 4;
 		grid-row: span 2;
-		height: 50vh !important;
+		/* height: 50vh !important; */
 		margin-right: 2rem;
 	}
 
 	.project-content > h1 {
 		font-size: 2.5rem;
+	}
+
+	@media screen and (max-width: 821px) {
+		.projects-wrapper > article {
+			width: max-content;
+		}
+		.bg {
+			grid-column: 1/-1;
+			height: fit-content !important;
+		}
+
+		.projects {
+			display: flex;
+			flex-wrap: wrap;
+		}
+		.project {
+			min-width: 20rem;
+			width: 100%;
+			padding: 0;
+		}
+
+		.services-wrapper {
+			margin-bottom: 0;
+		}
+		.section-title {
+			margin-bottom: 3rem !important;
+			width: 50%;
+		}
+
+		#services > h1 {
+			padding: 0;
+			padding-top: 2rem;
+			border-top: solid 0.5px orangered;
+			font-size: 2rem;
+		}
+
+		.separator {
+			margin: 0;
+		}
+
+		.services-list {
+			display: flex;
+			flex-direction: column;
+			padding: 0;
+			gap: 2rem;
+		}
+		.services-li {
+			max-width: unset;
+		}
+		.services-li > h2 {
+			text-align: left;
+		}
+		.services-li > span {
+			display: inline;
+		}
 	}
 </style>

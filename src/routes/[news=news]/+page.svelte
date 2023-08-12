@@ -63,9 +63,34 @@
 		/* margin-top: 1rem; */
 		grid-column: 2/-2;
 		display: grid;
-		grid-template-columns: repeat(3, 1fr);
-		column-gap: 3rem;
-		row-gap: 4rem;
+		grid-template-columns: repeat(auto-fit, minmax(15rem, 18rem));
+		grid-auto-flow: dense;
+		gap: 3rem;
 		flex-wrap: wrap;
+	}
+
+	/** All touch screens */
+	@media screen and (max-width: 1024px) {
+		.container {
+			grid-column: 1/-1;
+		}
+	}
+
+	/** Tablet horizontal */
+	@media screen and (min-width: 821px) and (max-width: 1024px) {
+		.container {
+			grid-column: 1/-1;
+			grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+
+			/* column-gap: 0; */
+		}
+	}
+
+	/** Mobile and Tablet vertical */
+	@media screen and (max-width: 820px) {
+		.container {
+			grid-column: 1/-1;
+			grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+		}
 	}
 </style>
