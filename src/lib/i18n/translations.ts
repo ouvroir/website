@@ -69,6 +69,7 @@ const translations: { [locale: string]: { [path: string]: string } } = {
         'services.meetups': 'Meet-ups',
         'services.equipement': 'Equipement',
         'services.reservation': 'Reservation',
+        'services.coc': 'Code of conduct',
 
         // News
         'news.summary': 'Summary',
@@ -158,6 +159,7 @@ const translations: { [locale: string]: { [path: string]: string } } = {
         'services.equipement': 'Équipements',
         'services.reservation': 'Réservations',
         'services.meetups': 'Rencontres',
+        'services.coc': 'Code de conduite',
 
         // News
         'news.summary': 'Résumé',

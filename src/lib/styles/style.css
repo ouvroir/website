@@ -173,7 +173,8 @@ a {
 
 .text-body>p,
 .text-body>h2,
-.text-body>h3 {
+.text-body>h3,
+.text-body>blockquote {
     line-height: var(--body-line-height);
 }
 
@@ -231,11 +232,9 @@ a {
 }
 
 .text-body>blockquote {
-    border-left: solid 0.2rem var(--clr-magenta);
-    font-style: italic;
-    margin-top: var(--padding-m);
-    margin-bottom: var(--padding-m);
-    padding-left: var(--padding-m);
+    margin: 1.5rem 0;
+    margin-left: 1rem;
+    /* font-style: italic; */
 }
 
 .text-body a {

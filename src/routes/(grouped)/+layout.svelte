@@ -34,8 +34,11 @@
 	$: smallScreen = $screenType === 'mobile' || $screenType === 'tablet-vertical';
 	$: section = $page.route.id?.match(/\/\[(\w+)=\1\]/)?.[1];
 	$: infoPageTitle = $t(`${section}.title`);
-	$: infoPageSection = $t(`${section}.${slugToSection[$page.params.slug]}`);
+	$: infoPageSection = $page.params.slug
+		? $t(`${section}.${slugToSection[$page.params.slug]}`)
+		: '';
 	$: navLinks = $page.route.id?.includes('about') ? aboutLinks : servicesLinks;
+	// $: console.log('BUILD TESTING SLUG', section);
 </script>
 
 {#if !smallScreen}

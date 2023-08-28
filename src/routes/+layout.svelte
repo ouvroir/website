@@ -15,7 +15,7 @@
 
 	locale.set(data.lang);
 
-	if (!$page.route.id!.includes('home')) {
+	if ($page.route.id && !$page.route.id.includes('home')) {
 		showPresentation.set(false);
 	}
 

@@ -35,7 +35,6 @@ export const t = derived(locale, ($locale) => (key: string, vars = {}) =>
  */
 export const rt = derived(locale, ($locale) => (key: string, vars = {}) => {
     const lang = $locale === "fr" ? "en" : "fr";
-    console.log('[i18n] should translate from', $locale, 'to', lang)
     return translate(lang, key, vars)
 });
 
