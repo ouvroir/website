@@ -1,10 +1,17 @@
 import { fetchData } from "$lib/helpers/data"
 
-export const load = async (event) => {
+const types: { [type: string]: 'blog' | 'event' | 'meeting' } = {
+    blog: 'blog',
+    event: 'event',
+    meeting: 'meeting',
+    evenement: 'event',
+    reunion: 'meeting'
+}
 
-    // Cannot use searchParams, so parse parameter manually
-    const match = event.url.href.match(/\?type=?(\w+)/)
-    const type = match ? match[1] : 'blog' as 'blog' | 'event' | 'meeting'
+export const load = async (event) => {
+    const type = types[event.params.newsType]
+    console.log('DEBUG TYPE', event.url.href)
+    console.log('DEBUG TYPE', type)
 
     let post
     if (type === 'blog') {

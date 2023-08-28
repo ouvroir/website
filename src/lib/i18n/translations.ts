@@ -75,6 +75,9 @@ const translations: { [locale: string]: { [path: string]: string } } = {
         'news.summary': 'Summary',
         'news.register': 'Register',
         'news.speaker': 'Speaker·s',
+        'news.type.blog': 'blog',
+        'news.type.event': 'event',
+        'news.type.meeting': 'meeting',
 
         // Events
         'events.title': "Our events",
@@ -165,6 +168,9 @@ const translations: { [locale: string]: { [path: string]: string } } = {
         'news.summary': 'Résumé',
         'news.register': 'Inscription',
         'news.speaker': 'Conférencier·ère·s',
+        'news.type.blog': 'blog',
+        'news.type.event': 'evenement',
+        'news.type.meeting': 'reunion',
 
         // Events
         'events.title': "Nos évenements",

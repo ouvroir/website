@@ -22,7 +22,10 @@
 </script>
 
 <li>
-	<a href={`${$t('route.news')}/${post.meta.slug}?type=${post.meta.type}`} class={`post-card `}>
+	<a
+		href={`${$t('route.news')}/${$t(`news.type.${post.meta.type}`)}/${post.meta.slug}`}
+		class={`post-card `}
+	>
 		<span class="document-tag">{$t(`card.${post.meta.type}`)}</span>
 		<h1 class={`${smallerTitle()}`}>
 			{#if type === 'meeting'}
