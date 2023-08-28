@@ -3,7 +3,7 @@
 	import { page } from '$app/stores';
 	import { t, rt, locale } from '$i18n/i18n';
 	import { invalidateAll, goto } from '$app/navigation';
-	import { showPresentation, screenType } from '$lib/stores';
+	import { showPresentation, screenType, showNavMenu } from '$lib/stores';
 	import Ouvroir from './Ouvroir.svelte';
 	import NavLinks from './NavLinks.svelte';
 	import { slide } from 'svelte/transition';
@@ -54,9 +54,8 @@
 		}
 	};
 
-	let showNavMenu: boolean = false;
 	const toggleNavMenu = () => {
-		showNavMenu = !showNavMenu;
+		$showNavMenu = !$showNavMenu;
 	};
 
 	const handleClickOutside = (e: MouseEvent) => {
@@ -118,12 +117,12 @@
 {:else}
 	<header class="nav-header">
 		<h1 class="small-logo">Ouvroir</h1>
-		<button class={`menu-btn ${showNavMenu ? 'menu-btn-active' : ''}`} on:click={toggleNavMenu}
+		<button class={`menu-btn ${$showNavMenu ? 'menu-btn-active' : ''}`} on:click={toggleNavMenu}
 			>Menu</button
 		>
 	</header>
-	{#if showNavMenu}
-		<div transition:slide={{ axis: 'x' }} class="nav-menu-container">
+	{#if $showNavMenu}
+		<div in:slide={{ axis: 'x' }} out:slide={{ axis: 'x', delay: 200 }} class="nav-menu-container">
 			<div class="nav-menu">
 				<div class="title-container">
 					<div class="menu-logo-text">
@@ -173,6 +172,7 @@
 	}
 	.menu-btn {
 		all: unset;
+		position: relative;
 		grid-column: 8/9;
 		width: fit-content;
 		font-weight: 600;
@@ -180,8 +180,13 @@
 		cursor: pointer;
 		transition: color ease-in-out 0.2s;
 	}
-	.menu-btn-active {
-		color: orangered;
+	.menu-btn-active::after {
+		position: absolute;
+		content: '';
+		width: 100%;
+		top: 1.3rem;
+		left: 0;
+		border-bottom: solid 0.1rem orangered;
 	}
 	.nav-menu-container {
 		position: fixed;

@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { t } from '$lib/i18n/i18n';
 	import { page } from '$app/stores';
-	import { screenType } from '$lib/stores';
+	import { screenType, showPresentation, showNavMenu } from '$lib/stores';
 
 	let active: string;
 
@@ -10,35 +10,45 @@
 		if (match) active = match[1];
 		else active = 'home';
 	});
+
+	const hideNavMenu = () => {
+		showNavMenu.set(false);
+	};
+
+	$: clrWhite = $showPresentation ? 'nl-white' : '';
 </script>
 
 <ul class="nav-links">
 	{#if $screenType === 'mobile' || $screenType === 'tablet-vertical'}
 		<li>
-			<a class={`nav-link ${active === 'home' ? 'active' : ''}`} href={`${$t('route.home')}`}
-				>{$t('nav.home')}</a
+			<a
+				on:click={hideNavMenu}
+				class={`nav-link ${active === 'home' ? 'active' : ''} ${clrWhite}`}
+				href={`${$t('route.home')}`}>{$t('nav.home')}</a
 			>
 		</li>
 	{/if}
 	<li>
-		<a class={`nav-link ${active === 'news' ? 'active' : ''}`} href={`${$t('route.news')}`}
-			>{$t('nav.news')}</a
-		>
-	</li>
-	<li>
-		<a class={`nav-link ${active === 'projects' ? 'active' : ''}`} href={`${$t('route.projects')}`}
-			>{$t('nav.projects')}</a
+		<a
+			class={`nav-link ${active === 'news' ? 'active' : ''} ${clrWhite}`}
+			href={`${$t('route.news')}`}>{$t('nav.news')}</a
 		>
 	</li>
 	<li>
 		<a
-			class={`nav-link ${active === 'services' ? 'active' : ''}`}
+			class={`nav-link ${active === 'projects' ? 'active' : ''} ${clrWhite}`}
+			href={`${$t('route.projects')}`}>{$t('nav.projects')}</a
+		>
+	</li>
+	<li>
+		<a
+			class={`nav-link ${active === 'services' ? 'active' : ''} ${clrWhite}`}
 			href={`${$t('route.services.presentation')}`}>{$t('nav.services')}</a
 		>
 	</li>
 	<li>
 		<a
-			class={`nav-link ${active === 'about' ? 'active' : ''}`}
+			class={`nav-link ${active === 'about' ? 'active' : ''} ${clrWhite}`}
 			href={`${$t('route.about.presentation')}`}>{$t('nav.about')}</a
 		>
 	</li>
@@ -62,6 +72,10 @@
 	.nav-link {
 		text-transform: uppercase;
 		font-size: 1rem;
+	}
+
+	.nl-white {
+		color: white;
 	}
 
 	/** Small screens */

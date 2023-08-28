@@ -1,33 +1,32 @@
 <script lang="ts">
-	import { slide, fade } from 'svelte/transition';
+	import { fade } from 'svelte/transition';
 	import CiecoWhite from './logos/CiecoWhite.svelte';
-	import { base } from '$app/paths';
 	import OuvroirPres from './logos/OuvroirPres.svelte';
-	import Ouvroir from './Ouvroir.svelte';
-	import { smallScreen } from '$lib/stores';
+	import Udem from './logos/Udem.svelte';
+	import { screenType } from '$lib/stores';
 
 	let presentationElt: HTMLElement;
 </script>
 
-<section
-	class="presentation-wrapper fill-vh"
-	id="presentation"
-	transition:slide={{ axis: 'y', delay: 0, duration: 1000 }}
->
+<section class="presentation-wrapper fill-vh" id="presentation">
 	<article bind:this={presentationElt} class="presentation" out:fade={{ duration: 500 }}>
-		{#if !smallScreen}
+		{#if $screenType === 'desktop'}
 			<div class="stroke-2"></div>
 			<div class="stroke-3"></div>
 		{/if}
-		<div class="logo-ouvroir">
-			<OuvroirPres />
+		<div class="title-container">
+			<div>
+				<h1>Laboratoire <span class="ovr">Ouvroir</span></h1>
+				<h2 class="subtitle">d’histoire de l’art et de muséologie numériques</h2>
+			</div>
+			<div class="logo-ouvroir">
+				<OuvroirPres width="7rem" />
+			</div>
 		</div>
-		<h1>Laboratoire <span class="ovr">Ouvroir</span></h1>
-		<h2 class="subtitle">d’histoire de l’art et de muséologie numériques</h2>
-		{#if !smallScreen}
+		{#if $screenType === 'desktop'}
 			<div class="stroke-1"></div>
 		{/if}
-		<p class="description">
+		<p>
 			L’Ouvroir d’histoire de l’art et de muséologie numérique de l’Université de Montréal, est un
 			laboratoire de recherche destiné à soutenir le travail conduit dans le cadre du Partenariat « <em
 				class="s-1erdp_PvG-Jl">Des nouveaux usages des collections dans les musées d’art</em
@@ -42,40 +41,49 @@
 			numérique.
 		</p>
 
-		<p class="description-crihn">
+		<p>
 			L’Ouvroir est membre du <em
 				>Centre de recherche interuniversitaire sur les humanités numériques</em
-			>, CRIHN.
+			>, <a href="https://www.crihn.org/" class="s-1erdp_PvG-Jl">CRIHN</a>.
 		</p>
-
-		<div class="cieco">
-			<CiecoWhite />
-		</div>
-
-		<!-- <ul class="presentation-logos">
-			<li class="logo-cieco">
-				<Cieco />
-			</li>
-			<li class="logo-crihn">
-				<img src={`${base}/logos/support/crihn.png`} alt="" />
-			</li>
-		</ul> -->
+		{#if $screenType === 'desktop'}
+			<div class="cieco">
+				<CiecoWhite />
+			</div>
+		{:else}
+			<div class="logos">
+				<div class="cieco">
+					<CiecoWhite />
+				</div>
+				<Udem width="25rem" fontColor="white" />
+			</div>
+		{/if}
 	</article>
 </section>
 
 <style>
+	.logos {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+	}
+
 	.cieco {
 		position: absolute;
 		width: 15rem;
 		top: 35%;
 		right: 14%;
 	}
+	.title-container {
+		display: flex;
+		flex-direction: row;
+	}
 	.logo-ouvroir {
 		all: unset;
 		display: block;
-		position: absolute;
-		left: 47%;
-		top: 7%;
+		position: relative;
+		left: 2rem;
+		top: -1rem;
 		width: 8rem;
 	}
 	.stroke-1,
@@ -87,7 +95,7 @@
 
 	.stroke-1 {
 		left: 3%;
-		top: 25%;
+		top: 12rem;
 		width: 80%;
 		height: 0;
 		border-top: var(--presentation-stroke);
@@ -102,13 +110,6 @@
 		border-left: var(--presentation-stroke);
 		transform: rotate(10deg);
 	}
-	/* .stroke-3 {
-		left: 10%;
-		bottom: 15%;
-		height: 15rem;
-		border-left: var(--presentation-stroke);
-		transform: rotate(10deg);
-	} */
 
 	/** Presentation */
 
@@ -120,22 +121,8 @@
 		/* grid-column: 2 / -2; */
 		overflow: hidden;
 		background-color: var(--bg-clr-presentation);
-		/* background-image: linear-gradient(
-			to right bottom,
-			#303742,
-			#303742,
-			#303742,
-			#303742,
-			#303742,
-			#343d53,
-			#3f4163,
-			#504371,
-			#863f81,
-			#c02b75,
-			#ed1b50,
-			#ff4500
-		); */
 		color: white;
+		overflow-y: scroll;
 	}
 
 	.presentation {
@@ -190,43 +177,49 @@
 		margin-top: 2rem;
 	}
 
-	.presentation-footer {
-		display: block;
-		height: fit-content;
-		padding: 0;
-		margin-top: 4rem;
+	@media screen and (max-width: 1100px) {
+		h1 {
+			line-height: 3rem;
+		}
+		.subtitle {
+			line-height: 2rem;
+			margin-bottom: 0;
+		}
+		.presentation p {
+			width: 80%;
+		}
+		.presentation > p {
+			/* margin-top: 2rem; */
+		}
+		.cieco {
+			position: static;
+			float: left;
+			margin-top: 2rem;
+			margin-right: 2rem;
+			width: 10rem;
+		}
+		.title-container {
+			margin-bottom: 3rem;
+		}
 	}
 
-	.presentation-logos {
-		display: flex;
-		width: 100%;
-		flex-direction: row;
-		align-items: center;
-		gap: 10rem;
-		position: relative;
-		margin: 6rem 0;
-	}
+	@media screen and (max-width: 480px) {
+		.title-container {
+			flex-direction: column;
+		}
+		.subtitle {
+			line-height: 2rem;
+			margin-bottom: 0;
+		}
 
-	.presentation-logos::after {
-		content: '';
-		position: absolute;
-		top: -25%;
-		left: -25%;
-		width: 150%;
-		height: 150%;
-		/* background-color: rgba(0, 0, 0, 0.2); */
-	}
+		.logo-ouvroir {
+			/* position: relative; */
+			left: 25%;
+			top: 2rem;
+		}
 
-	.logo-cieco {
-		width: 12rem;
-		margin-left: auto;
-	}
-
-	.logo-crihn {
-		margin-right: auto;
-	}
-
-	.logo-crihn > img {
-		max-width: 25rem;
+		.presentation p {
+			width: 90%;
+		}
 	}
 </style>

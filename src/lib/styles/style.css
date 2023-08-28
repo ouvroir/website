@@ -118,15 +118,20 @@ a {
     /* border-top: solid 0.5px lightgrey; */
 }
 
+.project-item {
+    position: relative;
+    pointer-events: all;
+    transition: all 0.2s ease-in-out;
+}
 
 .project-item:hover {
     cursor: pointer;
 }
 
-.project-item::after {
+/* .project-item::after {
     transition: all 1s ease-in-out;
     opacity: 0;
-}
+} */
 
 .project-item:hover::after {
     content: '';
@@ -139,9 +144,6 @@ a {
     width: 300%;
     z-index: -1;
     opacity: 1;
-    /* box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.246); */
-    /* border-bottom: solid 0.5px rgba(0, 0, 0, 0.246); */
-    /* border-top: solid 0.5px rgba(0, 0, 0, 0.246); */
 }
 
 .project-item:first-child:hover::after {

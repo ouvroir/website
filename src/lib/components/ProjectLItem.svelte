@@ -27,7 +27,7 @@
 	};
 </script>
 
-<li>
+<li class="project-item">
 	<a
 		class={`project-item ${header ? 'accent' : ''}`}
 		href={`${$t('route.projects')}/${data.meta.slug}`}
@@ -54,12 +54,6 @@
 </li>
 
 <style>
-	.project-item {
-		position: relative;
-		pointer-events: all;
-		transition: all 0.2s ease-in-out;
-	}
-
 	h1 {
 		font-size: var(--fs-title-card);
 		/* transition: color 0.2s ease-in-out; */

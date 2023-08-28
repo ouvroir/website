@@ -18,3 +18,5 @@ export const screenType = derived(screenWidth, ($screenWidth) => {
 export const smallScreen = derived(screenType, ($screenType) => {
     return $screenType === 'mobile' || $screenType === 'tablet-vertical';
 })
+
+export const showNavMenu = writable(false);

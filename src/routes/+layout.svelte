@@ -15,8 +15,6 @@
 
 	locale.set(data.lang);
 
-	console.log('LAYOUT has been loaded');
-
 	if (!$page.route.id!.includes('home')) {
 		showPresentation.set(false);
 	}
