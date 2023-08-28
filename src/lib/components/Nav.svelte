@@ -64,7 +64,7 @@
 		const btn = document.querySelector('.menu-btn');
 		console.log(menu);
 		if (menu && !menu.contains(e.target) && btn && !btn.contains(e.target)) {
-			showNavMenu = false;
+			$showNavMenu = false;
 		}
 	};
 
