@@ -9,9 +9,16 @@
 
 	export let data;
 
-	$: events = [...data.events];
-	$: posts = data.posts.slice(0, 5);
-	$: news = [...events, ...posts];
+	$: news = [...data.events, ...data.posts]
+		.sort((a, b) => {
+			let aDate = a.meta.type === 'event' ? a.meta.dateStart : a.meta.date;
+			let bDate = b.meta.type === 'event' ? b.meta.dateStart : b.meta.date;
+
+			aDate = aDate.split('T')[0];
+			bDate = bDate.split('T')[0];
+			return bDate.localeCompare(aDate);
+		})
+		.slice(0, 4);
 	$: projects = data.projects.slice(0, 5);
 	$: bigProject = projects.pop();
 	$: smallScreen = $screenType === 'mobile' || $screenType === 'tablet-vertical';
