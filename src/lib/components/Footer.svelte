@@ -125,6 +125,7 @@
 
 	.adress > p {
 		margin: 0;
+		line-height: 1.5rem;
 	}
 	a {
 		margin-top: 1rem;

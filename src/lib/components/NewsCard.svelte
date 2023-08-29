@@ -7,9 +7,9 @@
 
 	// If title is too long, decrease font size
 	const smallerTitle = () => {
-		if (type === 'blog' || type === 'event')
-			if (post.meta.title.length > 50) return 'smaller-title';
-			else return '';
+		if (post.meta.type === 'meeting') return '';
+		if (post.meta.title.length > 50) return 'smaller-title';
+		else return '';
 	};
 
 	$: type = post.meta.type as 'blog' | 'event' | 'meeting';

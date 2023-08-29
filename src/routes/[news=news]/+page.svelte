@@ -16,8 +16,8 @@
 		return contains;
 	};
 
-	let selectedDocuments: string[] = ['event', 'blog'];
-	let selectedTags: string[] = [];
+	$: selectedDocuments = ['event', 'blog'];
+	$: selectedTags = [] as string[];
 
 	$: posts = data.news
 		.filter((d) => selectedDocuments.includes(d.meta.type) && filterTags(d, selectedTags))
