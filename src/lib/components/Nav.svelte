@@ -16,10 +16,12 @@
 		let url: string = '/accueil';
 
 		const getUrl = (name: string) => {
-			return `${base}${$rt(`route.${name}`)}${$page.params.slug ? '/' + $page.params.slug : ''}`;
+			if ($page.route.id?.includes('news') || $page.route.id?.includes('projects'))
+				return `${$rt(`route.${name}`)}`;
+			else return `${$rt(`route.${name}`)}${$page.params.slug ? '/' + $page.params.slug : ''}`;
 		};
 
-		if (route.includes('home')) url = `${base}${$rt('route.home')}`;
+		if (route.includes('home')) url = `${$rt('route.home')}`;
 		else if (route.includes('news')) url = getUrl('news');
 		else if (route.includes('projects')) url = getUrl('projects');
 		else if (route.includes('services')) url = getUrl('services');

@@ -16,7 +16,7 @@
 		equipement: 'equipement',
 		reservation: 'reservation',
 		reservations: 'reservation',
-		meetups: 'meetups',
+		'meet-ups': 'meetups',
 		rencontres: 'meetups',
 		members: 'team',
 		'code-of-conduct': 'coc',

@@ -4,7 +4,7 @@ import { fetchData } from "$lib/helpers/data"
 export const load = async (event) => {
 
     let file
-    if (event.params.slug === 'rencontres' || event.params.slug === 'meetups')
+    if (event.params.slug === 'rencontres' || event.params.slug === 'meet-ups')
         file = await fetchData(event.locals.lang, 'services-meet')
     else if (event.params.slug === 'equipement' || event.params.slug === 'equipements')
         file = await fetchData(event.locals.lang, 'services-equip')

@@ -3,12 +3,7 @@
 
 	export let post;
 
-	// If description is too short, decrease height of card
-	const smallerCard = () => {
-		if (!post.meta.description) return '';
-		if (post.meta.description.length < 100) return 'smaller-card';
-		else return '';
-	};
+	const maxDescriptionLen = 150;
 
 	// If title is too long, decrease font size
 	const smallerTitle = () => {
@@ -21,10 +16,10 @@
 	// $: post.meta.slug ? null : encodeURIComponent
 </script>
 
-<li>
+<li class="post-card-container">
 	<a
 		href={`${$t('route.news')}/${$t(`news.type.${post.meta.type}`)}/${post.meta.slug}`}
-		class={`post-card `}
+		class={`post-card`}
 	>
 		<span class="document-tag">{$t(`card.${post.meta.type}`)}</span>
 		<h1 class={`${smallerTitle()}`}>
@@ -52,7 +47,15 @@
 					</div>
 				</div>
 			{/if}
-			<p class="description">{post.meta.description}</p>
+			<p class="description">
+				{#if post.meta.description}
+					{post.meta.description.length > maxDescriptionLen
+						? post.meta.description.slice(0, maxDescriptionLen) + '...'
+						: post.meta.description}
+				{:else}
+					...
+				{/if}
+			</p>
 		</div>
 		{#if post.meta.tags && post.meta.tags.length}
 			<ul class="tags">
@@ -72,14 +75,16 @@
 </li>
 
 <style>
+	.post-card-container  {
+		width: 10rem;
+	}
 	.post-card {
 		position: relative;
 		display: flex;
 		flex-direction: column;
 		gap: 1rem;
 		cursor: pointer;
-		/* max-width: max-content; */
-		width: 100%;
+		width: 100% !important;
 	}
 	.post-card:hover:after {
 		content: '';
@@ -90,6 +95,9 @@
 		height: 110%;
 		background-color: rgba(0, 0, 0, 0.03);
 		z-index: -1;
+	}
+	.post-card > * {
+		min-height: max-content;
 	}
 
 	.post-card:hover > h1 {
@@ -107,6 +115,8 @@
 	.post-card-main {
 		/* border-top: solid 0.5px rgba(0, 0, 0, 0.2); */
 		/* padding: 1rem 0; */
+		height: max-content;
+		margin-bottom: auto;
 	}
 	.post-card-main > * + * {
 		margin-top: 0.4rem;
@@ -120,13 +130,14 @@
 	.tags {
 		display: flex;
 		flex-direction: row;
-		margin-top: auto;
-		/* flex-wrap: wrap; */
-		gap: 1rem;
+		flex-wrap: wrap;
+		column-gap: 0.7rem;
+		row-gap: 0.5rem;
 		font-weight: 300;
 		font-size: 0.9rem;
 		padding-top: 0.5rem;
 		border-top: solid 0.5px rgba(0, 0, 0, 0.2);
+		font-size: 0.8rem;
 	}
 
 	h1 {
@@ -164,7 +175,7 @@
 		font-weight: 300;
 		display: block;
 		margin-bottom: 0;
-		top: 0.5rem;
+		top: 1.3rem;
 	}
 	.speaker + ul {
 		color: orangered;

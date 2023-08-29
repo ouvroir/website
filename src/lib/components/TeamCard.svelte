@@ -2,7 +2,7 @@
 	import type { Member } from '$lib/types';
 	import { memberExpaned } from '$lib/stores';
 	import { slide } from 'svelte/transition';
-	import { goto } from '$app/navigation';
+	import { base } from '$app/paths';
 
 	export let data: Member;
 
@@ -20,7 +20,7 @@
 		<article class="member-content">
 			<header id={`${data.meta.slug}`}>
 				{#if data.meta.img}
-					<img src={`/team/${data.meta.img}`} alt="" />
+					<img src={`${base}/team/${data.meta.img}`} alt="" />
 				{:else}
 					<div class="empty-img" />
 				{/if}

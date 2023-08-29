@@ -22,9 +22,12 @@
 	$: posts = data.news
 		.filter((d) => selectedDocuments.includes(d.meta.type) && filterTags(d, selectedTags))
 		.sort((a, b) => {
-			const aDate = a.meta.type === 'event' ? a.meta.dateStart : a.meta.date;
-			const bDate = b.meta.type === 'event' ? b.meta.dateStart : b.meta.date;
-			return aDate - bDate;
+			let aDate = a.meta.type === 'event' ? a.meta.dateStart : a.meta.date;
+			let bDate = b.meta.type === 'event' ? b.meta.dateStart : b.meta.date;
+
+			aDate = aDate.split('T')[0];
+			bDate = bDate.split('T')[0];
+			return bDate.localeCompare(aDate);
 		});
 
 	$: tags =

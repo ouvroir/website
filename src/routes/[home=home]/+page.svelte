@@ -31,7 +31,7 @@
 	<ul class="news">
 		{#each news as e}
 			<li class="news-li addhover">
-				<a href={`${$t('route.news')}/${$t(`news.types.${e.meta.type}`)}/${e.meta.slug}`}>
+				<a href={`${$t('route.news')}/${$t(`news.type.${e.meta.type}`)}/${e.meta.slug}`}>
 					<article class="news-content">
 						<span class="document-tag">{$t(`card.${e.meta.type}`)}</span>
 						<h1>

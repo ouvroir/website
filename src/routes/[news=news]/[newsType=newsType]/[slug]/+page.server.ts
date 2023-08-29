@@ -10,8 +10,6 @@ const types: { [type: string]: 'blog' | 'event' | 'meeting' } = {
 
 export const load = async (event) => {
     const type = types[event.params.newsType]
-    console.log('DEBUG TYPE', event.url.href)
-    console.log('DEBUG TYPE', type)
 
     let post
     if (type === 'blog') {
