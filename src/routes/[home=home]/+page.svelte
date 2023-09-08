@@ -99,8 +99,8 @@
 
 <section class="services-wrapper" id="services">
 	<h1>
-		En soutient aux communautés étudiantes et professorales de l'Université de Montréal, l’Ouvroir
-		offre plusieurs services
+		L’Ouvroir offre plusieurs services en soutien en appui de la communauté de recherche en
+		muséologie et histoire de l’art tant pour les étudiant·e·s que pour les professeur·e·s
 	</h1>
 
 	<ul class="services-list">

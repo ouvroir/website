@@ -229,7 +229,6 @@
 		flex-direction: row;
 		column-gap: 0.5rem;
 		row-gap: 0.2rem;
-
 		flex-wrap: wrap;
 	}
 	.participant {
