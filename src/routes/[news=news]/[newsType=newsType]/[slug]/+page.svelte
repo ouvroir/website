@@ -90,8 +90,8 @@
 			<span class="label">{$t('news.speaker')}</span>
 			{#if Array.isArray(post.meta.participants)}
 				<ul class="participants-ul">
-					{#each post?.meta.participants as p}
-						<li class="participant">{post?.meta.participants.join(',')}</li>
+					{#each post?.meta.participants as p, i}
+						<li class="participant">{p}{i === post.meta.participants.length - 1 ? '' : ', '}</li>
 					{/each}
 				</ul>
 			{:else}
@@ -223,8 +223,18 @@
 		line-height: 1.2rem;
 		font-weight: 300;
 	}
+
+	.participants-ul {
+		display: flex;
+		flex-direction: row;
+		column-gap: 0.5rem;
+		row-gap: 0.2rem;
+
+		flex-wrap: wrap;
+	}
 	.participant {
 		font-weight: 300;
+		min-width: max-content;
 	}
 
 	.aside-left a {
