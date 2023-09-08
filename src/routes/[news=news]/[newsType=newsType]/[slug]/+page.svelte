@@ -74,8 +74,20 @@
 	</div>
 {/if}
 
+{#if post && post.meta.type === 'blog'}
+	<aside class="aside-blog">
+		<div class="meta">
+			<div>
+				<span class="author">{post?.meta.author}</span> |
+				<span>{post?.meta.date.split('T')[0]}</span>
+			</div>
+			<p class="project-description">{post?.meta.description}</p>
+		</div>
+	</aside>
+{/if}
+
 {#if post && post.meta.type === 'event' && !smallScreen}
-	<aside class="aside-left">
+	<aside class="aside-event">
 		<div class="meta-left">
 			<p class="date">
 				{post.meta.dateStart.split('T')[0]}
@@ -119,18 +131,6 @@
 	</div>
 </article>
 
-{#if post && post.meta.type === 'blog'}
-	<aside class="aside-right">
-		<div class="meta">
-			<div>
-				<span class="author">{post?.meta.author}</span> |
-				<span>{post?.meta.date.split('T')[0]}</span>
-			</div>
-			<p class="project-description">{post?.meta.description}</p>
-		</div>
-	</aside>
-{/if}
-
 <style>
 	article,
 	header {
@@ -143,10 +143,6 @@
 		/* padding-right: 1rem; */
 	}
 
-	.aside-right {
-		display: contents;
-	}
-
 	h1 {
 		grid-column: 3/-1;
 		grid-row: 1;
@@ -154,10 +150,17 @@
 		padding-bottom: 4rem;
 	}
 
+	.aside-blog {
+		grid-row: 2;
+		grid-column: 1/3;
+		max-width: 90%;
+		margin-bottom: 3rem;
+	}
+
 	.toc-container {
 		position: sticky;
 		grid-column: 1/3;
-		grid-row: 2/5;
+		grid-row: 3;
 		height: fit-content;
 		top: 10rem;
 		bottom: 10rem;
@@ -179,18 +182,7 @@
 		font-weight: 400;
 	}
 
-	.aside-right > .meta {
-		grid-column: 7/9;
-		grid-row: 2;
-		/* padding-left: 2rem;
-		padding-right: 2rem;*/
-		margin-bottom: 2rem;
-		padding: 0rem 1rem;
-		margin-left: 1rem;
-		/* background-color: rgba(211, 211, 211, 0.2); */
-	}
-
-	.aside-left {
+	.aside-event {
 		position: sticky;
 		height: fit-content;
 		top: 12rem;
@@ -202,7 +194,7 @@
 		border-top: solid 0.5px rgba(255, 68, 0, 0.461);
 	}
 
-	.aside-left > * + * {
+	.aside-event > * + * {
 		margin-top: 1.5rem;
 	}
 
@@ -236,15 +228,16 @@
 		min-width: max-content;
 	}
 
-	.aside-left a {
+	.aside-event a {
 		color: orangered;
 	}
-	.aside-left a:hover {
+	.aside-event a:hover {
 		text-decoration: underline orangered;
 	}
 
 	.author {
 		color: orangered;
+		line-height: var(--body-line-height);
 	}
 
 	.project-description {
@@ -269,15 +262,6 @@
 		.text-body {
 			grid-column: 1/-1;
 			grid-row: 3;
-		}
-
-		.aside-right {
-			display: block;
-			grid-column: 1/-1;
-		}
-		.aside-right > .meta {
-			padding: 0;
-			margin-left: 0;
 		}
 	}
 
