@@ -70,7 +70,7 @@
 	}
 
 	.nav-link {
-		text-transform: uppercase;
+		text-transform: capitalize;
 		font-size: 1rem;
 	}
 
