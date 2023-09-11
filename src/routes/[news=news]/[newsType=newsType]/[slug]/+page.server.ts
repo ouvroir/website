@@ -3,8 +3,8 @@ import { fetchData } from "$lib/helpers/data"
 const types: { [type: string]: 'blog' | 'event' | 'meeting' } = {
     blog: 'blog',
     event: 'event',
-    meeting: 'meeting',
     evenement: 'event',
+    meeting: 'meeting',
     reunion: 'meeting'
 }
 

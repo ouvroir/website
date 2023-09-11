@@ -3,6 +3,7 @@
 	import FilterPanel from '$lib/components/FilterPanel.svelte';
 	import NewsCard from '$lib/components/NewsCard.svelte';
 	import { showPresentation } from '$lib/stores.js';
+	import { building } from '$app/environment';
 
 	export let data;
 	showPresentation.set(false);
@@ -16,7 +17,7 @@
 		return contains;
 	};
 
-	$: selectedDocuments = ['event', 'blog'];
+	$: selectedDocuments = building ? ['event', 'blog', 'meeting'] : ['event', 'blog'];
 	$: selectedTags = [] as string[];
 
 	$: posts = data.news

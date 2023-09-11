@@ -12,7 +12,7 @@ const config = {
 		// See https://kit.svelte.dev/docs/adapters for more information about adapters.
 		adapter: adapter(),
 		prerender: {
-			handleHttpError: (err) => console.log('[buildError]', err)
+			// handleHttpError: (err) => console.log('[buildError]', err)
 		},
 		paths: {
 			base: dev ? '' : process.env.BASE_PATH
