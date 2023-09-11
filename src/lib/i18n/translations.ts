@@ -49,6 +49,20 @@ const translations: { [locale: string]: { [path: string]: string } } = {
         // Homepage
         'home.projects.title': 'Latest projects & publications',
         'home.events.title': 'Upcoming events',
+        'home.news.latest': 'Latest news',
+        'home.news.all': 'All news',
+        'home.projects.highlight': 'Highlighted projects',
+        'home.projects.all': 'All projects',
+        'home.services.title': 'In support of the student and faculty communities at the University of Montreal, the Ouvroir offers several services',
+        'home.services.equipement.title': 'Borrowing of equipment',
+        'home.services.equipement': 'The Ouvroir provides state-of-the-art equipment for digitization, audio-visual recording, and collaborative work.',
+        'home.services.equipement.cta': 'See our equipment',
+        'home.services.reservation.title': 'Office and meeting room reservation',
+        'home.services.reservation': 'Office desks and meeting rooms are available for individual or team work.',
+        'home.services.reservation.cta': 'Reserve a space',
+        'home.services.meetups.title': 'Meet-ups',
+        'home.services.meetups': 'Many events are organized to help you with work in digital environments.',
+        'home.services.meetups.cta': 'Get in touch',
 
         // About
         'about.title': 'About',
@@ -140,8 +154,21 @@ const translations: { [locale: string]: { [path: string]: string } } = {
         'route.services.meetups': `${base}/nos-services/rencontres`,
 
         // Homepage
-        'home.projects.title': 'Projets & publications',
+        'home.projects.title': 'Projets à l’affice',
         'home.events.title': 'Nos événements',
+        'home.news.latest': 'Dernières nouvelles',
+        'home.news.all': "Toute l’actualité",
+        'home.projects.all': 'Tous les projets',
+        'home.services.title': 'En soutient aux communautés étudiantes et professorales de l’Université de Montréal, l’Ouvroir offre plusieurs services',
+        'home.services.equipement.title': 'Prêt de matériel',
+        'home.services.equipement': 'L’ouvroir met à disposition de l’équipement de pointe pour la numérisation, l’enregistrement audio-visuel et le travail collaboratif.',
+        'home.services.equipement.cta': 'Voir tout l’équipement disponible',
+        'home.services.reservation.title': 'Réservation de salle',
+        'home.services.reservation': 'Des locaux sont à disposition pour le travail individuel ou en groupe.',
+        'home.services.reservation.cta': 'Réserver un espace',
+        'home.services.meetups.title': 'Rencontres',
+        'home.services.meetups': 'De nombreux événements sont organisés pour vous aider le travail en environnements numériques.',
+        'home.services.meetups.cta': 'Nous rencontrer',
 
         // About
         'about.title': 'À propos',

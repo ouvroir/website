@@ -30,9 +30,9 @@
 
 <section class="news-wrapper" in:fade={{ delay: 0, duration: 1000 }}>
 	<header class="section-header">
-		<h1 class="section-title">Latest news</h1>
+		<h1 class="section-title">{$t('home.news.latest')}</h1>
 		<div class="header-separator" />
-		<a href={$t('route.news')}>Toute l’actualité</a>
+		<a href={$t('route.news')}>{$t('home.news.all')}</a>
 	</header>
 
 	<ul class="news">
@@ -66,9 +66,9 @@
 
 <section class="projects-wrapper" in:fade={{ delay: 500, duration: 1000 }}>
 	<header class="section-header">
-		<h1 class="section-title">Highlighted projects</h1>
+		<h1 class="section-title">{$t('home.projects.title')}</h1>
 		<div class="header-separator" />
-		<a href={$t('route.projects')}>Tous les projets</a>
+		<a href={$t('route.projects')}>{$t('home.projects.all')}</a>
 	</header>
 
 	{#if !smallScreen}
@@ -99,8 +99,7 @@
 
 <section class="services-wrapper" id="services">
 	<h1>
-		L’Ouvroir offre plusieurs services en soutien en appui de la communauté de recherche en
-		muséologie et histoire de l’art tant pour les étudiant·e·s que pour les professeur·e·s
+		{$t('home.services.title')}
 	</h1>
 
 	<ul class="services-list">
@@ -110,12 +109,11 @@
 					<Vr />
 				</span>
 			{/if}
-			<h2>Prêt de matériel</h2>
+			<h2>{$t('home.services.equipement.title')}</h2>
 			<p>
-				L’ouvroir met à disposition de l'équipement de pointe pour la numérisation, l’enregistrement
-				audio-visuel et le travail collaboratif.
+				{$t('home.services.equipement')}
 			</p>
-			<a href={$t('route.services.equipement')}>Voir tout l’équipement disponible</a>
+			<a href={$t('route.services.equipement')}>{$t('home.services.equipement.cta')}</a>
 		</li>
 		<li class="services-li">
 			{#if !smallScreen}
@@ -123,9 +121,9 @@
 					<Calendar />
 				</span>
 			{/if}
-			<h2>Réservation de salle</h2>
-			<p>Des locaux sont à disposition pour le travail individuel ou en groupe.</p>
-			<a href={$t('route.services.reservation')}>Réserver une salle</a>
+			<h2>{$t('home.services.reservation.title')}</h2>
+			<p>{$t('home.services.reservation')}</p>
+			<a href={$t('route.services.reservation')}>{$t('home.services.reservation.cta')}</a>
 		</li>
 		<li class="services-li">
 			{#if !smallScreen}
@@ -133,12 +131,11 @@
 					<Venn />
 				</span>
 			{/if}
-			<h2>Rencontres</h2>
+			<h2>{$t('home.services.meetups.title')}</h2>
 			<p>
-				De nombreux événements sont organisés pour vous aider le travail en environnements
-				numériques.
+				{$t('home.services.meetups')}
 			</p>
-			<a href={$t('route.services.meetups')}>Nous rencontrer</a>
+			<a href={$t('route.services.meetups')}>{$t('home.services.meetups.cta')}</a>
 		</li>
 	</ul>
 </section>

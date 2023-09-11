@@ -17,7 +17,6 @@ export const load = async (event) => {
         post = posts.find(p => p.meta.slug === event.params.slug)
     }
     else {
-
         const basePath = type === 'meeting'
             ? '/src/lib/labouvroir/cr/'
             : '/src/lib/labouvroir/evenements/'
