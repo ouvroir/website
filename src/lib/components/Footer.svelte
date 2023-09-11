@@ -20,27 +20,34 @@
 			<h1>Suivez-nous</h1>
 			<ul class="logos">
 				<li>
-					<a href="https://github.com/ouvroir"
+					<a href="https://github.com/ouvroir" rel="external" target="_blank"
 						><img src={`${base}/logos/brands/github.svg`} alt="Logo github" /></a
 					>
 				</li>
 				<li>
-					<a href="https://twitter.com/labouvroir"
+					<a href="https://twitter.com/labouvroir" rel="external" target="_blank"
 						><img src={`${base}/logos/brands/twitter.svg`} alt="Logo Twitter" /></a
 					>
 				</li>
 				<li>
-					<a href="https://hypothes.is/groups/pM5dq7b4/ouvroir"
+					<a href="https://hypothes.is/groups/pM5dq7b4/ouvroir" rel="external" target="_blank"
 						><img src={`${base}/logos/brands/hypothesis.svg`} alt="Logo Hypothesis" /></a
 					>
 				</li>
 				<li>
-					<a href="https://hypothes.is/groups/pM5dq7b4/ouvroir"
-						><img src={`${base}/logos/brands/element.svg`} alt="Logo Element" /></a
+					<a
+						href="https://matrix.to/#/!AaxspHhzNUgFJpDKTr:matrix.org?via=matrix.org"
+						rel="external"
+						target="_blank"><img src={`${base}/logos/brands/element.svg`} alt="Logo Element" /></a
 					>
 				</li>
 				<li>
-					<a href="https://www.zotero.org/groups/2480242/ouvroir"
+					<a href="https://mobilizon.fr/@ouvroir_lab" rel="external" target="_blank"
+						><img src={`${base}/logos/brands/mobilizon.svg`} alt="Logo Mobilizon" /></a
+					>
+				</li>
+				<li>
+					<a href="https://www.zotero.org/groups/2480242/ouvroir" rel="external" target="_blank"
 						><img id="zotero" src={`${base}/logos/brands/zotero.svg`} alt="Logo github" /></a
 					>
 				</li>
@@ -60,7 +67,7 @@
 					><img src={`${base}/logos/link-solid.svg`} alt="link logo" /></a
 				>
 			</h1>
-			<a id="cieco" href="https://cieco.umontreal.ca/">
+			<a id="cieco" href="https://cieco.umontreal.ca/" rel="external" target="_blank">
 				<img id="cieco" src={`${base}/logos/support/cieco-grey.svg`} alt="Logo CIÉCO" />
 			</a>
 			<p>

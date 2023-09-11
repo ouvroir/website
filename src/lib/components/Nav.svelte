@@ -129,7 +129,7 @@
 				<div class="title-container">
 					<div class="menu-logo-text">
 						<h1 class="menu-title">Ouvroir</h1>
-						<p class="menu-subtitle">d'histoire de l'art et <br />de muséologies numériques</p>
+						<p class="menu-subtitle">d’histoire de l'art et <br />de muséologies numériques</p>
 					</div>
 				</div>
 				<NavLinks />

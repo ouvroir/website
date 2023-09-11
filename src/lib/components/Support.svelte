@@ -12,18 +12,20 @@
 			</article>
 			<ul class="support-logos">
 				<li>
-					<a href="https://www.umontreal.ca/">
+					<a href="https://www.umontreal.ca/" rel="external" target="_blank">
 						<img src={`${base}/logos/support/udem.svg`} alt="logo Université de Montréal" />
 					</a>
 				</li>
 				<li>
-					<a href="https://www.innovation.ca/">
+					<a href="https://www.innovation.ca/" rel="external" target="_blank">
 						<img src={`${base}/logos/support/cfi.svg`} alt="logo" />
 					</a>
 				</li>
 				<li>
 					<a
 						href="https://www.economie.gouv.qc.ca/bibliotheques/programmes/aide-financiere/programme-de-soutien-aux-organismes-de-recherche-et-dinnovation-pso/cofinancement-du-gouvernement-du-quebec-aux-programmes-de-la-fondation-canadienne-pour-linnovation-fci/fonds-dinnovation/"
+						rel="external"
+						target="_blank"
 					>
 						<img src={`${base}/logos/support/quebec.svg`} alt="logo Québec" />
 					</a>
