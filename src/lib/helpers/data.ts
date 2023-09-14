@@ -98,17 +98,26 @@ const setup = {
 export async function fetchData(lang: string, type: keyof typeof setup) {
     const iteralbleFiles = Object.entries(await setup[type](lang))
 
-    return await Promise.all(
+    const mdFiles = await Promise.all(
         iteralbleFiles
             .filter(([path]) => !path.includes('template'))
             .map(async ([path, resolver]) => {
-                const doc = await resolver()
+                const md = await resolver()
                 return {
-                    meta: doc.metadata,
+                    meta: md.metadata,
                     path: path,
-                    html: doc.default.render().html
+                    html: md.default.render().html
                 }
             })
     )
+
+    // Only filters contents that are not drafts
+    // Contents needs to have meta otherwise it will be NOT be filtered out
+    return mdFiles.filter(md => {
+        if (!md.meta) return true
+        if ('draft' in md.meta)
+            return !md.meta.draft
+        return true
+    })
 }
 
