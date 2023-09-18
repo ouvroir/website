@@ -41,7 +41,7 @@
 		/* border-bottom: solid 0.1rem orangered; */
 		/* background-color: rgb(38, 38, 38); */
 		background-color: rgba(255, 68, 0, 0.1);
-		background-color: rgba(137, 43, 226, 0.3);
+		background-color: rgba(255, 68, 0, 0.4);
 	}
 
 	article {
