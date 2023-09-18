@@ -232,9 +232,10 @@ a {
 }
 
 .text-body>blockquote {
-    margin: 1.5rem 0;
-    margin-left: 1rem;
+    margin-bottom: 1.5rem;
+    padding: 1.5rem 1rem;
     /* font-style: italic; */
+    background-color: rgba(211, 211, 211, 0.2);
 }
 
 .text-body a {
