@@ -4,12 +4,12 @@
 	import { page } from '$app/stores';
 	import { base } from '$app/paths';
 	import { t } from '$lib/i18n/i18n';
+	import { disabledNewsTypes, selectedNewsTypes } from '$lib/stores';
 
 	/**
 	 * TODO: Refactor tags on click and change
 	 */
 
-	export let selectedDocuments: string[] = [];
 	export let selectedTags: string[] = [];
 	export let tags: string[] = [];
 
@@ -32,10 +32,10 @@
 
 	const onDocumentChange = (e: MouseEvent) => {
 		if (e.target) {
-			if (e.target.checked) selectedDocuments.push(e.target.name);
-			else selectedDocuments = selectedDocuments.filter((s) => s !== e.target.name);
+			if (e.target.checked) $selectedNewsTypes.push(e.target.name);
+			else $selectedNewsTypes = $selectedNewsTypes.filter((s) => s !== e.target.name);
 		}
-		selectedDocuments = selectedDocuments;
+		$selectedNewsTypes = $selectedNewsTypes;
 	};
 
 	const onTagsChange = (e: MouseEvent) => {
@@ -48,9 +48,9 @@
 	const documentOnClick = (e: MouseEvent) => {
 		if (e.target) {
 			console.log(e.currentTarget, e.currentTarget.id);
-			selectedDocuments.splice(selectedDocuments.indexOf(e.currentTarget.id), 1);
+			$selectedNewsTypes.splice($selectedNewsTypes.indexOf(e.currentTarget.id), 1);
 		}
-		selectedDocuments = selectedDocuments;
+		$selectedNewsTypes = $selectedNewsTypes;
 	};
 
 	const tagOnClick = (e: MouseEvent) => {
@@ -60,7 +60,7 @@
 		selectedTags = selectedTags;
 	};
 
-	$: console.log(selectedDocuments);
+	$: console.log($selectedNewsTypes);
 
 	onMount(() => {
 		document.addEventListener('click', handleClickOutside);
@@ -79,7 +79,7 @@
 				<img src={`${base}/logos/circle-plus-solid.svg`} alt="" />
 			</button>
 			<ul class="selected-filters">
-				{#each selectedDocuments as s}
+				{#each $selectedNewsTypes as s}
 					<li class="display-li tag-doc" id={s}>
 						<button on:click={documentOnClick} id={s}>
 							<p>{$t(`card.${s}`)}</p>
@@ -87,7 +87,7 @@
 						</button>
 					</li>
 				{/each}
-				{#if selectedDocuments.length > 0 && selectedTags.length > 0}
+				{#if $selectedNewsTypes.length > 0 && selectedTags.length > 0}
 					<li class="separator" />
 				{/if}
 				{#each selectedTags as s}
@@ -115,7 +115,7 @@
 													type="checkbox"
 													id={`checkbox-${p}`}
 													name={p}
-													checked={selectedDocuments.includes(p)}
+													checked={$selectedNewsTypes.includes(p)}
 													on:change={onDocumentChange}
 												/>
 												{$t(`card.${p}`)}

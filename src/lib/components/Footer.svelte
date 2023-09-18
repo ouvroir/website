@@ -21,12 +21,12 @@
 			<ul class="logos">
 				<li>
 					<a href="https://github.com/ouvroir" rel="external" target="_blank"
-						><img src={`${base}/logos/brands/github.svg`} alt="Logo github" /></a
+						><img class="bigger" src={`${base}/logos/brands/github.svg`} alt="Logo github" /></a
 					>
 				</li>
 				<li>
 					<a href="https://twitter.com/labouvroir" rel="external" target="_blank"
-						><img src={`${base}/logos/brands/twitter.svg`} alt="Logo Twitter" /></a
+						><img class="bigger" src={`${base}/logos/brands/twitter.svg`} alt="Logo Twitter" /></a
 					>
 				</li>
 				<li>
@@ -153,6 +153,10 @@
 
 	img {
 		width: 1.5rem;
+	}
+
+	.bigger {
+		width: 2rem;
 	}
 
 	input {
