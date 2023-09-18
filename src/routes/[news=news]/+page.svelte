@@ -2,8 +2,8 @@
 	import { t } from '$lib/i18n/i18n.js';
 	import FilterPanel from '$lib/components/FilterPanel.svelte';
 	import NewsCard from '$lib/components/NewsCard.svelte';
-	import { showPresentation } from '$lib/stores.js';
-	import { building } from '$app/environment';
+	import { showPresentation, selectedNewsTypes, disabledNewsTypes } from '$lib/stores.js';
+	import { onMount } from 'svelte';
 
 	export let data;
 	showPresentation.set(false);
@@ -17,11 +17,10 @@
 		return contains;
 	};
 
-	$: selectedDocuments = building ? ['event', 'blog', 'meeting'] : ['event', 'blog'];
 	$: selectedTags = [] as string[];
 
 	$: posts = data.news
-		.filter((d) => selectedDocuments.includes(d.meta.type) && filterTags(d, selectedTags))
+		.filter((d) => $selectedNewsTypes.includes(d.meta.type) && filterTags(d, selectedTags))
 		.sort((a, b) => {
 			let aDate = a.meta.type === 'event' ? a.meta.dateStart : a.meta.date;
 			let bDate = b.meta.type === 'event' ? b.meta.dateStart : b.meta.date;
@@ -31,6 +30,14 @@
 			return bDate.localeCompare(aDate);
 		});
 
+	$: $disabledNewsTypes = ['event', 'blog', 'meeting'].filter(
+		(t) => posts && posts.filter((p) => p.meta.type === t).length === 0
+	);
+
+	$selectedNewsTypes = $selectedNewsTypes.filter((t) => !$disabledNewsTypes.includes(t));
+
+	$: console.log('disabledNewTypes', $disabledNewsTypes);
+
 	$: tags =
 		data.news.reduce((acc, p) => {
 			if (!p.meta.tags) return acc;
@@ -39,13 +46,22 @@
 			});
 			return acc;
 		}, []) ?? null;
+
+	onMount(() => {
+		if (window.location.hash) {
+			const el = document.getElementById(window.location.hash.slice(1));
+			if (el) {
+				el.scrollIntoView();
+			}
+		}
+	});
 </script>
 
 <svelte:head>
 	<title>{$t('head.news')}</title>
 </svelte:head>
 
-<FilterPanel {tags} bind:selectedDocuments bind:selectedTags />
+<FilterPanel {tags} bind:selectedTags />
 
 <div class="tags-container">
 	<ul />

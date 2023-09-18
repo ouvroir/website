@@ -26,6 +26,8 @@ export const load = async (event) => {
         return meeting
     })
 
+    console.log(meetings)
+
     return {
         news: [...posts, ...events, ...meetings]
     }

@@ -1,4 +1,6 @@
 import { writable, derived } from "svelte/store";
+import { building } from '$app/environment';
+
 
 export const showPresentation = writable(true);
 
@@ -20,3 +22,6 @@ export const smallScreen = derived(screenType, ($screenType) => {
 })
 
 export const showNavMenu = writable(false);
+
+export const selectedNewsTypes = writable(building ? ['event', 'blog', 'meeting'] : ['event', 'blog'])
+export const disabledNewsTypes = writable([] as string[])
