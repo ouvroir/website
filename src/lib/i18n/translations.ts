@@ -154,12 +154,12 @@ const translations: { [locale: string]: { [path: string]: string } } = {
         'route.services.meetups': `${base}/nos-services/rencontres`,
 
         // Homepage
-        'home.projects.title': 'Projets à l’affice',
+        'home.projects.title': 'Projets à l’affiche',
         'home.events.title': 'Nos événements',
         'home.news.latest': 'Dernières nouvelles',
         'home.news.all': "Toute l’actualité",
         'home.projects.all': 'Tous les projets',
-        'home.services.title': 'En soutient aux communautés étudiantes et professorales de l’Université de Montréal, l’Ouvroir offre plusieurs services',
+        'home.services.title': 'En soutien aux communautés étudiantes et professorales de l’Université de Montréal, l’Ouvroir offre plusieurs services',
         'home.services.equipement.title': 'Prêt de matériel',
         'home.services.equipement': 'L’ouvroir met à disposition de l’équipement de pointe pour la numérisation, l’enregistrement audio-visuel et le travail collaboratif.',
         'home.services.equipement.cta': 'Voir tout l’équipement disponible',
