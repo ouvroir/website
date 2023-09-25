@@ -36,8 +36,8 @@
 
 		<p>
 			Sa création permet de doter le Canada d’un équipement de recherche dédié à l’expérimentation
-			et le développement d’innovations dans le domaine de l’histoire de l’art et de la muséologie
-			numérique.
+			et le développement d’innovations dans les domaines de l’histoire de l’art et de la muséologie
+			numériques.
 		</p>
 
 		<p>
