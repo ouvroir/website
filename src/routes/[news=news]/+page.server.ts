@@ -1,14 +1,12 @@
-import { fetchData } from '$lib/helpers/data.js'
+import { fetchData, createSlugFromFilename } from '$lib/helpers/data.js'
 
-const createSlugFromFilename = (filename: string) => {
-    filename = filename.split('/').at(-1)!
-    return encodeURIComponent(filename.replace('.md', ''))
-}
+
 
 export const load = async (event) => {
     let posts = await fetchData(event.locals.lang, 'blog')
     posts = posts.map(post => {
         post.meta.type = 'blog'
+        post.meta.slug = createSlugFromFilename(post.path)
         return post
     })
 
@@ -25,8 +23,6 @@ export const load = async (event) => {
         meeting.meta.slug = createSlugFromFilename(meeting.path)
         return meeting
     })
-
-    console.log(meetings)
 
     return {
         news: [...posts, ...events, ...meetings]

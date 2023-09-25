@@ -121,3 +121,7 @@ export async function fetchData(lang: string, type: keyof typeof setup) {
     })
 }
 
+export function createSlugFromFilename(filename: string) {
+    filename = filename.split('/').at(-1)!
+    return encodeURIComponent(filename.replace('.md', ''))
+}

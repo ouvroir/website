@@ -60,8 +60,6 @@
 		selectedTags = selectedTags;
 	};
 
-	$: console.log($selectedNewsTypes);
-
 	onMount(() => {
 		document.addEventListener('click', handleClickOutside);
 		return () => {

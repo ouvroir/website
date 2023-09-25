@@ -59,12 +59,7 @@
 		font-size: var(--fs-title);
 		margin-bottom: 3rem;
 		max-inline-size: 25ch;
-		line-height: 2.5rem;
-	}
-
-	h2 {
-		font-size: 1.3rem;
-		margin-bottom: 1rem;
+		line-height: 3.3rem;
 	}
 
 	img {

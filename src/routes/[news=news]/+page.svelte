@@ -36,8 +36,6 @@
 
 	$selectedNewsTypes = $selectedNewsTypes.filter((t) => !$disabledNewsTypes.includes(t));
 
-	$: console.log('disabledNewTypes', $disabledNewsTypes);
-
 	$: tags =
 		data.news.reduce((acc, p) => {
 			if (!p.meta.tags) return acc;
