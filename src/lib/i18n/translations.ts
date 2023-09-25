@@ -21,7 +21,7 @@ const translations: { [locale: string]: { [path: string]: string } } = {
 
         // Header
         'header.subtitle': 'a <span class="clr:red">digital</span> art history and museology lab.',
-        'header.description': "L’Ouvroir is a Digital Art History and Museology lab at the Université de Montréal dedicated to support the work conducted within the framework of the Partnership « New Uses of Collections in Art Museums »",
+        'header.description': "L’Ouvroir is a Digital Art History and Museology lab at the Université de Montréal dedicated to support the work conducted within the framework of the Partnership «&nbspNew Uses of Collections in Art Museums&nbsp»",
 
         // Navigation bar
         'nav.home': 'Home',
