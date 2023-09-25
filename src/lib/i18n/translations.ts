@@ -53,14 +53,14 @@ const translations: { [locale: string]: { [path: string]: string } } = {
         'home.news.all': 'All news',
         'home.projects.highlight': 'Highlighted projects',
         'home.projects.all': 'All projects',
-        'home.services.title': 'In support of the student and faculty communities at the University of Montreal, the Ouvroir offers several services',
-        'home.services.equipement.title': 'Borrowing of equipment',
-        'home.services.equipement': 'The Ouvroir provides state-of-the-art equipment for digitization, audio-visual recording, and collaborative work.',
-        'home.services.equipement.cta': 'See our equipment',
+        'home.services.title': 'In support of the student and faculty communities at the University of Montreal, Ouvroir offers several services',
+        'home.services.equipement.title': 'Borrowing equipment',
+        'home.services.equipement': 'Ouvroir provides state-of-the-art equipment for digitization, audio-visual recording, and collaborative work.',
+        'home.services.equipement.cta': 'See available equipment',
         'home.services.reservation.title': 'Office and meeting room reservation',
         'home.services.reservation': 'Office desks and meeting rooms are available for individual or team work.',
-        'home.services.reservation.cta': 'Reserve a space',
-        'home.services.meetups.title': 'Meet-ups',
+        'home.services.reservation.cta': 'Book a space',
+        'home.services.meetups.title': 'Meet ups',
         'home.services.meetups': 'Many events are organized to help you with work in digital environments.',
         'home.services.meetups.cta': 'Get in touch',
 
@@ -80,9 +80,9 @@ const translations: { [locale: string]: { [path: string]: string } } = {
         // Services
         'services.title': 'Our services',
         'services.presentation': 'Presentation',
-        'services.meetups': 'Meet-ups',
+        'services.meetups': 'Meet ups',
         'services.equipement': 'Equipement',
-        'services.reservation': 'Reservation',
+        'services.reservation': 'Booking',
         'services.coc': 'Code of conduct',
 
         // News
@@ -129,7 +129,7 @@ const translations: { [locale: string]: { [path: string]: string } } = {
 
         // Header
         'header.subtitle': 'd’histoire de l’art et de muséologie <span class="clr:red">numériques</span>.',
-        'header.description': "L’Ouvroir d’histoire de l’art et de muséologie numérique de l’Université de Montréal, est un laboratoire de recherche destiné à soutenir le travail conduit dans le cadre du Partenariat « Des nouveaux usages des collections dans les musées d’art »",
+        'header.description': "L’Ouvroir d’histoire de l’art et de muséologie numérique de l’Université de Montréal est un laboratoire de recherche destiné à soutenir le travail conduit dans le cadre du Partenariat «&nbspDes nouveaux usages des collections dans les musées d’art&nbsp»",
 
         // Navigation bar
         'nav.home': 'Accueil',
@@ -203,7 +203,7 @@ const translations: { [locale: string]: { [path: string]: string } } = {
         'events.title': "Nos évenements",
 
         // Error
-        'error.title': "Oups! La page demandée n'a pas pu être retrouvée.",
+        'error.title': "Oups! La page demandée n’a pas pu être retrouvée.",
 
         // UI
         'ui.btt': 'Haut de la page',
