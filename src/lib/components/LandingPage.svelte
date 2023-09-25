@@ -27,18 +27,17 @@
 			<div class="stroke-1"></div>
 		{/if}
 		<p>
-			L’Ouvroir d’histoire de l’art et de muséologie numérique de l’Université de Montréal, est un
-			laboratoire de recherche destiné à soutenir le travail conduit dans le cadre du Partenariat « <em
+			L’Ouvroir d’histoire de l’art et de muséologie numérique de l’Université de Montréal est un
+			laboratoire de recherche destiné à soutenir le travail conduit dans le cadre du Partenariat «&nbsp<em
 				class="s-1erdp_PvG-Jl">Des nouveaux usages des collections dans les musées d’art</em
-			>
-			»
+			>&nbsp»
 			<a href="https://cieco.umontreal.ca/" class="s-1erdp_PvG-Jl">CIÉCO</a> dirigé par Johanne Lamoureux.
 		</p>
 
 		<p>
 			Sa création permet de doter le Canada d’un équipement de recherche dédié à l’expérimentation
-			et le développement d’innovations dans le domaine de l’histoire de l’art et de la muséologie
-			numérique.
+			et le développement d’innovations dans les domaines de l’histoire de l’art et de la muséologie
+			numériques.
 		</p>
 
 		<p>
