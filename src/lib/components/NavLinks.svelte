@@ -62,6 +62,8 @@
 		max-width: 100%;
 		gap: 1.5rem;
 		row-gap: 1rem;
+
+		padding-bottom: var(--nav-links-padding-bottom);
 	}
 
 	.nav-link {

@@ -259,6 +259,7 @@
 		align-items: end;
 		gap: 1rem;
 		grid-column: 8/9;
+		padding-bottom: var(--nav-links-padding-bottom);
 	}
 
 	.locale-container > *:first-child {
