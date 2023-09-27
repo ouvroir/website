@@ -1,7 +1,5 @@
 <script lang="ts">
 	import { t } from '$lib/i18n/i18n';
-	import { base } from '$app/paths';
-	import { fly } from 'svelte/transition';
 	import { showPresentation } from '$lib/stores';
 
 	let visible = false;
@@ -12,7 +10,7 @@
 		  }, 500);
 </script>
 
-<a href={`${$t('route.home')}`} class={`logo ${$showPresentation ? 'hidden' : ''}`}>
+<a href={`${$t('route.home')}`} class={`${$showPresentation ? 'hidden' : ''}`}>
 	<svg viewBox="0 0 2166 604" fill="none" xmlns="http://www.w3.org/2000/svg">
 		<rect width="2166" height="604" />
 		<path
@@ -38,43 +36,6 @@
 		position: relative;
 		top: 0.4rem;
 	}
-	.logo {
-		display: flex;
-		gap: 1rem;
-		grid-column: span 2;
-		cursor: pointer;
-		min-width: max-content;
-	}
-
-	.logo-text {
-		/* border-left: solid 0.5px var(--clr-magenta); */
-		padding-right: 1rem;
-		background-color: var(--clr-bg);
-		z-index: 1;
-		transition: all 0.5s ease-in-out;
-	}
-	.logo-text > h1 {
-		font-family: var(--ff-logo) !important;
-		font-weight: 700;
-		font-size: 1.2rem;
-		margin-bottom: 0.2rem;
-		color: var(--clr-magenta);
-	}
-
-	.logo-text > p {
-		font-size: 0.7rem;
-		font-family: var(--ff-logo) !important;
-		line-height: 1rem;
-		font-weight: 300;
-		width: 10rem;
-	}
-	.logo-img {
-		/* z-index: -1; */
-		max-width: 3.5rem;
-		fill: var(--clr-magenta);
-		color: var(--clr-magenta);
-	}
-
 	.hidden {
 		visibility: hidden;
 	}
