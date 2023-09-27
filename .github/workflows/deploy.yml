@@ -24,7 +24,7 @@ jobs:
 
       - name: Put assets in static folder
         run: |
-          ./copy-assets.sh
+          ./copyAssets.sh
 
       - name: build
         env:
