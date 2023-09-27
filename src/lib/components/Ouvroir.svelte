@@ -31,6 +31,9 @@
 </a>
 
 <style>
+	a {
+		grid-column: span 2;
+	}
 	svg {
 		width: 13rem;
 		position: relative;

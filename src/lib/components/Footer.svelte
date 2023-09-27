@@ -212,6 +212,7 @@
 		flex-direction: row;
 		column-gap: 6rem;
 		margin-top: 2rem;
+		margin-left: 1rem;
 	}
 
 	@media screen and (max-width: 820px) {
