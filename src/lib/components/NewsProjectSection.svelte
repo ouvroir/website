@@ -41,14 +41,13 @@
 		padding-top: 2rem;
 		color: lightgray;
 		font-weight: 600;
-		/* text-decoration: underline 0.5rem orangered; */
 	}
 
 	p {
 		position: relative;
 		grid-column: span 3;
 		color: lightgrey;
-		text-decoration: underline 0.2rem orangered;
+		text-decoration: underline 0.2rem var(--clr-accent);
 		font-size: 1.6rem;
 		bottom: 5rem;
 	}

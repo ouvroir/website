@@ -106,7 +106,7 @@ export async function fetchData(lang: string, type: keyof typeof setup) {
                 return {
                     meta: md.metadata,
                     path: path,
-                    html: md.default.render().html
+                    html: md.default.render().html,
                 }
             })
     )

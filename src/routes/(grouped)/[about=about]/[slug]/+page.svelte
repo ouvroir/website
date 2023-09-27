@@ -53,7 +53,7 @@
 	}
 
 	h2 {
-		color: orangered;
+		color: var(--clr-accent);
 		/* color: rgb(0, 0, 0, 0.7); */
 		font-size: 1rem;
 		text-transform: uppercase;

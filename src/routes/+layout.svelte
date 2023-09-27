@@ -52,7 +52,7 @@
 	}
 
 	.btt-btn {
-		color: orangered;
+		color: var(--clr-accent);
 		font-family: var(--ff-sans);
 		font-weight: 300;
 		margin: 0rem 4% 4rem auto;

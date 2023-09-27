@@ -101,7 +101,7 @@
 	}
 
 	.post-card:hover > h1 {
-		text-decoration-color: orangered;
+		text-decoration-color: var(--clr-accent);
 	}
 
 	.post-card > * {
@@ -154,12 +154,12 @@
 	}
 
 	.author {
-		color: orangered;
+		color: var(--clr-accent);
 	}
 
 	.date {
 		display: block;
-		color: orangered;
+		color: var(--clr-accent);
 		margin-bottom: 0.5rem;
 	}
 
@@ -170,7 +170,6 @@
 
 	.speaker {
 		position: relative;
-		/* color: orangered; */
 		font-size: 0.9rem;
 		font-weight: 300;
 		display: block;
@@ -178,7 +177,7 @@
 		top: 1.3rem;
 	}
 	.speaker + ul {
-		color: orangered;
+		color: var(--clr-accent);
 	}
 
 	.underline {

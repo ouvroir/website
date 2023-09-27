@@ -142,7 +142,7 @@
 
 <style>
 	section a {
-		color: orangered;
+		color: var(--clr-accent);
 		font-weight: 300;
 	}
 	.separator {
@@ -210,7 +210,7 @@
 	}
 
 	.services-li a {
-		color: orangered;
+		color: var(--clr-accent);
 	}
 
 	.services-logo-container {
@@ -234,7 +234,7 @@
 	.header-separator {
 		position: relative;
 		top: 0.3rem;
-		border-right: solid 1px orangered;
+		border-right: solid 1px var(--clr-accent);
 		height: 1.5rem;
 		width: fit-content;
 		margin: 0 0.8rem;
@@ -261,7 +261,7 @@
 	}
 
 	.section-title {
-		/* color: orangered; */
+		/* color: var(--clr-accent); */
 		font-weight: 300;
 		font-size: 2rem;
 		width: fit-content;
@@ -296,7 +296,7 @@
 		font-size: 0.9rem;
 		font-weight: 300;
 		margin-top: 0.2rem;
-		color: orangered;
+		color: var(--clr-accent);
 	}
 
 	.document-tag {
@@ -306,16 +306,16 @@
 
 	.news-content > h1 {
 		font-size: 1.5rem;
-		/* color: orangered; */
+		/* color: var(--clr-accent); */
 		font-weight: 400;
-		/* text-decoration: underline 0.2rem orangered; */
+		/* text-decoration: underline 0.2rem var(--clr-accent); */
 	}
 
 	.news-content > h2 {
 		font-weight: 400;
 		line-height: 1.4rem;
 		border-top: solid 0.5px rgba(0, 0, 0, 0.2);
-		/* border-top: solid 0.5px orangered; */
+		/* border-top: solid 0.5px var(--clr-accent); */
 		padding-top: 0.6rem;
 	}
 
@@ -429,7 +429,7 @@
 		#services > h1 {
 			padding: 0;
 			padding-top: 2rem;
-			border-top: solid 0.5px orangered;
+			border-top: solid 0.5px var(--clr-accent);
 			font-size: 2rem;
 		}
 

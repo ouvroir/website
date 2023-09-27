@@ -176,7 +176,7 @@
 		min-height: 10rem;
 		padding: 1rem 1rem;
 		color: rgba(0, 0, 0, 0.584);
-		background-color: rgba(211, 211, 211, 0.2);
+		background-color: var(--clr-accent-light);
 		list-style: none;
 		font-size: 0.9rem;
 		font-weight: 400;
@@ -199,7 +199,7 @@
 	}
 
 	.meta-left > .date {
-		color: orangered;
+		color: var(--clr-accent);
 		font-size: 1rem;
 		font-weight: 300;
 		margin-bottom: 0.5rem;
@@ -229,14 +229,14 @@
 	}
 
 	.aside-event a {
-		color: orangered;
+		color: var(--clr-accent);
 	}
 	.aside-event a:hover {
-		text-decoration: underline orangered;
+		text-decoration: underline var(--clr-accent);
 	}
 
 	.author {
-		color: orangered;
+		color: var(--clr-accent);
 		line-height: var(--body-line-height);
 	}
 

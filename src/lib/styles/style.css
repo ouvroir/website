@@ -20,6 +20,10 @@
 
     --body-line-height: 1.9rem;
 
+    --clr-accent: orangered;
+    --clr-accent-light: rgba(211, 211, 211, 0.2);
+
+
     --bg-clr-presentation: #303742;
     --presentation-stroke: solid 0.4rem rgba(245, 245, 245, 0.631);
 }
@@ -57,9 +61,10 @@ nav {
     left: 0px;
     align-items: end;
     background-color: white;
-    padding-bottom: 4rem;
-    padding-top: 2rem;
-    max-height: 15vh;
+    padding: 0 4%;
+    padding-top: 0.3rem;
+    padding-bottom: 1.2rem;
+    max-height: 10vh;
     z-index: 3;
     transition: all 0.5s ease-in-out;
     grid-auto-flow: dense !important;
@@ -67,16 +72,11 @@ nav {
 
 .nav-shadow {
     box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.1);
-    /* background-color: rgba(243, 243, 243); */
-    /* background-color: rgba(145, 145, 145); */
-    /* color: white; */
 }
 
 
 main {
-    /* min-height: 70vh; */
     margin-bottom: 3rem;
-    /* gap: 2rem; */
 }
 
 .addGap {
@@ -100,7 +100,7 @@ a {
     width: 100%;
     left: 0;
     height: 0.15rem;
-    background-color: orangered;
+    background-color: var(--clr-accent);
 }
 
 .pinned-projects,
@@ -156,7 +156,7 @@ a {
     right: .7rem; */
     padding-left: 0.5rem;
     margin-top: 1rem;
-    border-left: solid 3px orangered;
+    border-left: solid 3px var(--clr-accent);
     line-height: 1.5rem;
 }
 
@@ -235,15 +235,15 @@ a {
     margin-bottom: 1.5rem;
     padding: 1.5rem 1rem;
     /* font-style: italic; */
-    background-color: rgba(211, 211, 211, 0.2);
+    background-color: var(--clr-accent-light);
 }
 
 .text-body a {
-    color: orangered;
+    color: var(--clr-accent);
 }
 
 .text-body a:hover {
-    text-decoration: underline 0.05rem orangered;
+    text-decoration: underline 0.05rem var(--clr-accent);
 }
 
 
@@ -253,7 +253,7 @@ a {
 }
 
 .toc .toc-active {
-    color: orangered;
+    color: var(--clr-accent);
     font-weight: 500;
 }
 
@@ -276,8 +276,9 @@ a {
 footer,
 .support {
     /* margin-top: 3rem; */
-    background-color: rgba(211, 211, 211, 0.2);
-    height: 50vh;
+    background-color: var(--clr-accent-light);
+
+    height: max-content;
     display: flex;
     align-items: center;
 }
@@ -343,7 +344,7 @@ footer,
     font-size: 0.8rem;
     width: max-content;
     color: rgba(137, 43, 226, 0.6);
-    /* color: orangered; */
+    /* color: var(--clr-accent); */
     color: rgba(0, 0, 0, 0.4);
     position: relative;
     top: 0.6rem;

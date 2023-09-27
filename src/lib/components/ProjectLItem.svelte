@@ -60,8 +60,7 @@
 	}
 
 	.project-item:hover > a > h1 {
-		text-decoration: underline 0.2rem orangered;
-		/* color: orangered; */
+		text-decoration: underline 0.2rem var(--clr-accent);
 	}
 
 	.project-description {
@@ -75,7 +74,7 @@
 	.card-header {
 		display: block;
 		font-size: 0.9rem;
-		color: orangered;
+		color: var(--clr-accent);
 		font-weight: 300;
 		margin-bottom: 0.5rem;
 	}

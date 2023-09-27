@@ -155,7 +155,7 @@
 	h1 {
 		font-weight: 600;
 		margin-bottom: 1rem;
-		border-bottom: solid 0.1rem orangered;
+		border-bottom: solid 0.1rem var(--clr-accent);
 		width: max-content;
 	}
 
@@ -181,7 +181,6 @@
 	.select-btn {
 		all: unset;
 		position: relative;
-		/* color: orangered; */
 		display: flex;
 		flex-direction: row;
 		align-items: center;
@@ -196,17 +195,15 @@
 	.select-btn:hover {
 		cursor: pointer;
 		position: relative;
-		/* text-decoration: underline 3px orangered; */
 	}
 	.select-btn:hover::after {
 		cursor: pointer;
 		position: absolute;
 		content: '';
 		height: 0.2rem;
-		background-color: orangered;
+		background-color: var(--clr-accent);
 		width: 75%;
 		bottom: 0.06rem;
-		/* text-decoration: underline 3px orangered; */
 	}
 
 	.dropdown-wrapper {
@@ -258,8 +255,8 @@
 
 	.dropdown-li:hover {
 		cursor: pointer;
-		border-color: orangered;
-		background-color: orangered;
+		border-color: var(--clr-accent);
+		background-color: var(--clr-accent);
 		color: white;
 	}
 

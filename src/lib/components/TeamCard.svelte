@@ -91,7 +91,7 @@
 		left: 0;
 		width: 100%;
 		height: 0.2rem;
-		background-color: orangered;
+		background-color: var(--clr-accent);
 	}
 	h1 {
 		position: relative;
@@ -148,7 +148,7 @@
 	.meta > span {
 		display: block;
 		font-family: var(--ff-mono);
-		color: orangered;
+		color: var(--clr-accent);
 		font-weight: 300;
 		font-size: 0.85rem;
 	}

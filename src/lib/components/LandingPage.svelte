@@ -28,8 +28,8 @@
 		{/if}
 		<p>
 			L’Ouvroir d’histoire de l’art et de muséologie numérique de l’Université de Montréal est un
-			laboratoire de recherche destiné à soutenir le travail conduit dans le cadre du Partenariat «&nbsp<em
-				class="s-1erdp_PvG-Jl">Des nouveaux usages des collections dans les musées d’art</em
+			laboratoire de recherche destiné à soutenir le travail conduit dans le cadre du Partenariat
+			«&nbsp<em class="s-1erdp_PvG-Jl">Des nouveaux usages des collections dans les musées d’art</em
 			>&nbsp»
 			<a href="https://cieco.umontreal.ca/" class="s-1erdp_PvG-Jl">CIÉCO</a> dirigé par Johanne Lamoureux.
 		</p>
@@ -139,7 +139,7 @@
 	}
 
 	.presentation a {
-		color: orangered;
+		color: var(--clr-accent);
 	}
 
 	.presentation p {
@@ -162,13 +162,12 @@
 
 	.ovr {
 		font-family: var(--ff-logo) !important;
-		color: orangered;
+		color: var(--clr-accent);
 	}
 
 	.subtitle {
 		font-size: 1.3rem;
 		font-weight: 300;
-		/* color: orangered; */
 		margin-bottom: 3rem;
 	}
 

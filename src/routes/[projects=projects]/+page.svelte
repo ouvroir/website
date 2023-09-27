@@ -80,7 +80,7 @@
 		/* right: 4rem; */
 		grid-column: 2/5;
 		height: 100%;
-		/* border-right: solid 0.05rem orangered; */
+		/* border-right: solid 0.05rem var(--clr-accent); */
 		padding-right: 0rem;
 		margin-top: var(--filter-margin);
 		margin-bottom: 2rem;
@@ -91,9 +91,9 @@
 		padding-top: 0.5rem;
 		/* margin-bottom: 1rem; */
 		/* text-align: right; */
-		/* color: orangered; */
-		/* text-decoration: underline 0.1rem orangered; */
-		color: orangered;
+		/* color: var(--clr-accent); */
+		/* text-decoration: underline 0.1rem var(--clr-accent); */
+		color: var(--clr-accent);
 		grid-column: 2;
 		font-weight: 300;
 	}

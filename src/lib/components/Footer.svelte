@@ -12,11 +12,9 @@
 				<p>Pavillion Lionel-Groulx, local C-8132</p>
 				<p>3150 rue Jean-Brillant, Montréal H3T 1N8</p>
 			</div>
-
 			<h2>Nous contacter</h2>
 			<a href="mailto:ouvroir@umontreal.ca">ouvroir@umontreal.ca</a>
-		</section>
-		<section id="social">
+
 			<h1>Suivez-nous</h1>
 			<ul class="logos">
 				<li>
@@ -74,8 +72,18 @@
 				L’Ouvroir d’histoire de l’art et de muséologie numérique de l’Université de Montréal, est un
 				laboratoire de recherche destiné à soutenir le travail conduit dans le cadre du Partenariat
 				« <em>Des nouveaux usages des collections dans les musées d’art</em> »
-				<a href="https://cieco.umontreal.ca/">CIÉCO</a> dirigé par Johanne Lamoureux.
+				<a rel="external" target="_blank" href="https://cieco.umontreal.ca/">CIÉCO</a> dirigé par Johanne
+				Lamoureux.
 			</p>
+
+			<div>
+				<p id="crinh">
+					L’Ouvroir est membre du « <em
+						>Centre de recherche interuniversitaire sur les humanités numériques</em
+					>
+					» <a rel="external" target="_blank" href="https://www.crihn.org/">CRIHN</a>
+				</p>
+			</div>
 		</section>
 		<!-- <section id="credits">
 			<p>Ouvroir. An inclusive and open-source space | 2023</p>
@@ -84,29 +92,35 @@
 </footer>
 
 <style>
+	#crinh {
+		border-left: none !important;
+		padding-left: 0 !important;
+		margin-top: 1.5rem;
+	}
 	section {
-		grid-column: 1/5;
+		grid-column: 1/6;
 	}
 
 	section > p {
 		line-height: 1.5rem;
 	}
 
-	#social {
-		margin-left: 2rem;
-		grid-column: 5/9;
+	#contact > * + h1 {
+		margin-top: 3rem;
 	}
 
 	#about {
 		margin-left: 2rem;
-		grid-column: 9/-1;
+		grid-column: 7/-1;
 		/* font-weight: 500; */
 	}
 
-	#about > p {
+	#about > p,
+	#about > div > p {
 		padding-left: 0.7rem;
-		border-left: solid 0.3rem orangered;
+		border-left: solid 0.3rem var(--clr-accent);
 		width: 65%;
+		line-height: 1.5rem;
 	}
 	h1 > a > img:hover {
 		cursor: pointer;
@@ -118,14 +132,12 @@
 
 	section > h1 {
 		font-size: 2rem;
-		margin-bottom: 1.5rem;
-		/* color: orangered; */
+		margin-bottom: 1.2rem;
 		font-weight: bold;
 	}
 
 	section > h2 {
 		font-weight: 600;
-		/* color: orangered; */
 		margin-top: 1.5rem;
 		margin-bottom: 0.5rem;
 	}
@@ -136,7 +148,7 @@
 	}
 	a {
 		margin-top: 1rem;
-		text-decoration: underline 0.1rem orangered;
+		text-decoration: underline 0.1rem var(--clr-accent);
 		cursor: pointer;
 	}
 
@@ -147,7 +159,7 @@
 		column-gap: 1.5rem;
 		row-gap: 0.5rem;
 		padding-top: 0.3rem;
-		margin-bottom: 2rem;
+		margin-bottom: 1.5rem;
 		width: 90%;
 	}
 
@@ -161,7 +173,6 @@
 
 	input {
 		width: 90%;
-		/* border-color: orangered; */
 	}
 
 	.input {
@@ -177,8 +188,8 @@
 		cursor: pointer;
 	}
 	button > img:hover {
-		fill: orangered;
-		color: orangered;
+		fill: var(--clr-accent);
+		color: var(--clr-accent);
 	}
 
 	#zotero {

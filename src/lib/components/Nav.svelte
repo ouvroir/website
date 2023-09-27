@@ -188,7 +188,7 @@
 		width: 100%;
 		top: 1.3rem;
 		left: 0;
-		border-bottom: solid 0.1rem orangered;
+		border-bottom: solid 0.1rem var(--clr-accent);
 	}
 	.nav-menu-container {
 		position: fixed;
