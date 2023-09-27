@@ -40,6 +40,7 @@
 	});
 
 	let scrollY: number;
+	let prevScrollY: number = 0;
 	const handleScroll = (e: Event) => {
 		const nav = document.querySelector('nav.main');
 		const top = nav?.getBoundingClientRect().top ?? 0;
@@ -51,6 +52,14 @@
 				$showPresentation = $showPresentation;
 			}
 		} else {
+			// if scrolling down
+			if (prevScrollY - scrollY > 0) {
+				nav?.classList.remove('hide-nav');
+			} else {
+				nav?.classList.add('hide-nav');
+			}
+			prevScrollY = scrollY;
+
 			if (scrollY <= 40) nav?.classList.remove('nav-shadow');
 			else if (scrollY > 40) nav?.classList.add('nav-shadow');
 		}
@@ -264,6 +273,10 @@
 
 	.add-bg * {
 		color: white;
+	}
+
+	.hide-nav {
+		transform: translateY(-100%);
 	}
 
 	/** Small screens */

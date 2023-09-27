@@ -66,7 +66,7 @@ nav {
     padding-bottom: 1.2rem;
     max-height: 10vh;
     z-index: 3;
-    transition: all 0.5s ease-in-out;
+    transition: all 0.3s ease;
     grid-auto-flow: dense !important;
 }
 
