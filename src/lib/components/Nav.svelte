@@ -43,13 +43,13 @@
 	let prevScrollY: number = 0;
 	const handleScroll = (e: Event) => {
 		const nav = document.querySelector('nav.main');
-		const top = nav?.getBoundingClientRect().top ?? 0;
-		// console.log({ top, scrollY });
+		const top = nav?.getBoundingClientRect().top ?? 500;
+		console.log({ top, scrollY });
 
 		if ($showPresentation) {
-			if (top === 0) {
+			if (top <= 0) {
+				nav?.classList.remove('bottom-nav');
 				$showPresentation = false;
-				$showPresentation = $showPresentation;
 			}
 		} else {
 			// if scrolling down
@@ -64,6 +64,8 @@
 			else if (scrollY > 40) nav?.classList.add('nav-shadow');
 		}
 	};
+
+	$: console.log('showPresentation', $showPresentation);
 
 	const toggleNavMenu = () => {
 		$showNavMenu = !$showNavMenu;
@@ -94,7 +96,7 @@
 {#if !smallScreen}
 	<nav
 		aria-labelledby={`${$t('aria.nav.label')}`}
-		class={`main ${$showPresentation ? 'add-bg' : ''}`}
+		class={`main ${$showPresentation ? 'bottom-nav' : ''}`}
 	>
 		<Ouvroir />
 		<NavLinks />
@@ -265,10 +267,6 @@
 
 	.invisible {
 		visibility: hidden;
-	}
-
-	.add-bg {
-		background-color: var(--bg-clr-presentation);
 	}
 
 	.add-bg * {

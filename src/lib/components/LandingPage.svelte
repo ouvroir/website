@@ -113,7 +113,7 @@
 	/** Presentation */
 
 	.fill-vh {
-		height: 85vh;
+		height: 90vh;
 	}
 
 	.presentation-wrapper {

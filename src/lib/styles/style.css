@@ -66,8 +66,19 @@ nav {
     padding-bottom: 1.2rem;
     max-height: 10vh;
     z-index: 3;
-    transition: all 0.3s ease;
+    transition: transform 0.3s ease;
     grid-auto-flow: dense !important;
+}
+
+.bottom-nav {
+    position: absolute;
+    top: 90vh;
+    background-color: var(--bg-clr-presentation);
+    transition: none;
+}
+
+.bottom-nav>* {
+    color: white;
 }
 
 .nav-shadow {
