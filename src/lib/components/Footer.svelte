@@ -1,6 +1,8 @@
 <script lang="ts">
 	import { base } from '$app/paths';
 	import { t } from '$i18n/i18n';
+	import CrihnLogo from './logos/CrihnLogo.svelte';
+	import CiecoLogo from './logos/CiecoLogo.svelte';
 </script>
 
 <footer>
@@ -65,9 +67,7 @@
 					><img src={`${base}/logos/link-solid.svg`} alt="link logo" /></a
 				>
 			</h1>
-			<a id="cieco" href="https://cieco.umontreal.ca/" rel="external" target="_blank">
-				<img id="cieco" src={`${base}/logos/support/cieco-grey.svg`} alt="Logo CIÉCO" />
-			</a>
+
 			<p>
 				L’Ouvroir d’histoire de l’art et de muséologie numérique de l’Université de Montréal, est un
 				laboratoire de recherche destiné à soutenir le travail conduit dans le cadre du Partenariat
@@ -76,13 +76,24 @@
 				Lamoureux.
 			</p>
 
-			<div>
-				<p id="crinh">
-					L’Ouvroir est membre du « <em
-						>Centre de recherche interuniversitaire sur les humanités numériques</em
-					>
-					» <a rel="external" target="_blank" href="https://www.crihn.org/">CRIHN</a>
-				</p>
+			<p id="crinh">
+				L’Ouvroir est membre du « <em
+					>Centre de recherche interuniversitaire sur les humanités numériques</em
+				>
+				» <a rel="external" target="_blank" href="https://www.crihn.org/">CRIHN</a>
+			</p>
+			<div class="support-logos-container">
+				<a
+					id="cieco-logo-container"
+					href="https://cieco.umontreal.ca/"
+					rel="external"
+					target="_blank"
+				>
+					<CiecoLogo />
+				</a>
+				<a id="logo-crihn-container" href="https://www.crihn.org/" rel="external" target="_blank">
+					<CrihnLogo />
+				</a>
 			</div>
 		</section>
 		<!-- <section id="credits">
@@ -115,11 +126,10 @@
 		/* font-weight: 500; */
 	}
 
-	#about > p,
-	#about > div > p {
+	#about > p {
 		padding-left: 0.7rem;
 		border-left: solid 0.3rem var(--clr-accent);
-		width: 65%;
+		width: 80%;
 		line-height: 1.5rem;
 	}
 	h1 > a > img:hover {
@@ -197,12 +207,11 @@
 		width: 5rem;
 	}
 
-	#cieco {
-		position: relative;
-		float: right;
-		width: 10rem;
-		height: auto;
-		bottom: 1rem;
+	.support-logos-container {
+		display: flex;
+		flex-direction: row;
+		column-gap: 6rem;
+		margin-top: 2rem;
 	}
 
 	@media screen and (max-width: 820px) {
