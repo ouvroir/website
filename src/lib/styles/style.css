@@ -213,6 +213,10 @@ a {
     font-weight: 500;
 }
 
+.text-body>h2 {
+    margin-bottom: 1.4rem;
+}
+
 .text-body>*+ul,
 .text-body>*+ol {
     margin-top: 1rem;

@@ -63,7 +63,7 @@
 
 		<section id="about">
 			<h1>
-				À propos <a href={`${$t('route.about')}/presentation`}
+				À propos <a href={`${$t('route.about')}`}
 					><img src={`${base}/logos/link-solid.svg`} alt="link logo" /></a
 				>
 			</h1>
