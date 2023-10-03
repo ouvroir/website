@@ -7,9 +7,17 @@
 
 	page.subscribe(() => {
 		const match = $page.route.id?.match(/\/\[(\w+)=\1\]/);
-		if (match) active = match[1];
-		else active = 'home';
+		if (match) {
+			active = match[1];
+			if (
+				active === 'about' &&
+				($page.params.about === 'nos-services' || $page.params.about === 'our-services')
+			)
+				active = 'services';
+		} else active = 'home';
 	});
+
+	$: console.log($page.params);
 
 	const hideNavMenu = () => {
 		showNavMenu.set(false);
@@ -43,13 +51,13 @@
 	<li>
 		<a
 			class={`nav-link ${active === 'services' ? 'active' : ''} ${clrWhite}`}
-			href={`${$t('route.services.presentation')}`}>{$t('nav.services')}</a
+			href={`${$t('route.services')}`}>{$t('nav.services')}</a
 		>
 	</li>
 	<li>
 		<a
 			class={`nav-link ${active === 'about' ? 'active' : ''} ${clrWhite}`}
-			href={`${$t('route.about.presentation')}`}>{$t('nav.about')}</a
+			href={`${$t('route.about')}`}>{$t('nav.about')}</a
 		>
 	</li>
 </ul>

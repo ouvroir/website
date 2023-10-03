@@ -1,5 +1,5 @@
 
-async function getBlogFiles(lang: string) {
+async function getBlogs(lang: string) {
     let paths
     lang === 'fr'
         ? paths = await import.meta.glob(`$lib/labouvroir/blog/*-fr.md`)
@@ -13,21 +13,21 @@ async function getEventFiles(lang: string) {
         : paths = await import.meta.glob(`$lib/labouvroir/evenements/*-en.md`)
     return paths
 }
-async function getTeamFiles(lang: string) {
+async function getTeam(lang: string) {
     let paths
     lang === 'fr'
         ? paths = await import.meta.glob(`$lib/labouvroir/equipe/*-fr.md`)
         : paths = await import.meta.glob(`$lib/labouvroir/equipe/*-en.md`)
     return paths
 }
-async function getProjectFiles(lang: string) {
+async function getProjects(lang: string) {
     let paths
     lang === 'fr'
         ? paths = await import.meta.glob(`$lib/labouvroir/projets/*-fr.md`)
         : paths = await import.meta.glob(`$lib/labouvroir/projets/*-en.md`)
     return paths
 }
-async function getCrFiles(lang: string) {
+async function getCr(lang: string) {
     return await import.meta.glob(`$lib/labouvroir/cr/*.md`)
 }
 async function getSupportFiles(lang: string) {
@@ -37,7 +37,7 @@ async function getSupportFiles(lang: string) {
         : paths = await import.meta.glob(`$lib/labouvroir/lab/financement-en.md`)
     return paths
 }
-async function getAboutFiles(lang: string) {
+async function getAbout(lang: string) {
     let paths
     lang === 'fr'
         ? paths = await import.meta.glob(`$lib/labouvroir/about-fr.md`)
@@ -80,19 +80,28 @@ async function getServicesMeet(lang: string) {
     return paths
 }
 
+async function getServices(lang: string) {
+    let paths
+    lang === 'fr'
+        ? paths = await import.meta.glob(`$lib/labouvroir/lab/services-fr.md`)
+        : paths = await import.meta.glob(`$lib/labouvroir/lab/services-en.md`)
+    return paths
+}
+
 const setup = {
-    'projects': getProjectFiles,
-    'blog': getBlogFiles,
-    'team': getTeamFiles,
-    'meeting': getCrFiles,
+    'projects': getProjects,
+    'blog': getBlogs,
+    'team': getTeam,
+    'meeting': getCr,
     'support': getSupportFiles,
     'event': getEventFiles,
-    'about': getAboutFiles,
+    'about': getAbout,
     'coc': getCocFiles,
     'services-presentation': getServicesPresentation,
     'services-equip': getSevicesEquip,
     'services-reservation': getServicesReservation,
     'services-meet': getServicesMeet,
+    'services': getServices,
 }
 
 export async function fetchData(lang: string, type: keyof typeof setup) {

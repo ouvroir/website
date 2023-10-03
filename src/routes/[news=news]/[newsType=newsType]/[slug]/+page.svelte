@@ -1,77 +1,17 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
 	import { t } from '$lib/i18n/i18n.js';
 	import { screenType } from '$lib/stores.js';
+	import Tree from '$lib/components/Tree.svelte';
+
 	export let data;
 
 	$: post = data.post;
 
 	const smallScreen = $screenType === 'mobile' || $screenType === 'tablet-vertical';
-
-	function scrollToTarget(event: MouseEvent) {
-		event.preventDefault();
-		const targetId = (event.target as HTMLElement).getAttribute('href');
-		const targetElement = document.querySelector(targetId);
-		const offset = 150; // set your desired offset here
-		const top = targetElement.getBoundingClientRect().top + window.scrollY - offset;
-		window.scrollTo({ top, behavior: 'smooth' });
-	}
-
-	onMount(() => {
-		if (post?.meta.type !== 'blog' || smallScreen) return;
-		const doc = document.querySelector('.text-body');
-		const headings = doc.querySelectorAll('h2, h3, h4');
-		const nav = document.querySelector('.toc');
-
-		if (!nav || !doc || !headings) return;
-
-		headings.forEach((heading) => {
-			if (!heading.textContent) return;
-
-			heading.id = heading.textContent
-				.toLowerCase()
-				.replace(/ /g, '-')
-				.replace(/[^\w-]+/g, '');
-
-			const li = document.createElement('li');
-			const a = document.createElement('a');
-
-			a.href = `#${heading.id}`;
-			a.classList.add('toc-link');
-			a.textContent = heading.textContent;
-			a.addEventListener('click', scrollToTarget);
-
-			li.appendChild(a);
-			nav?.appendChild(li);
-		});
-
-		const observer = new IntersectionObserver(
-			(entries) => {
-				entries.forEach((entry, index) => {
-					const id = entry.target.getAttribute('id');
-					const navLink = nav.querySelector(`.toc a[href="#${id}"]`);
-					if (navLink && id && entry.isIntersecting) {
-						nav.querySelectorAll('.toc-link').forEach((l) => l.classList.remove('toc-active'));
-						navLink.classList.add('toc-active');
-					}
-				});
-			},
-			{
-				rootMargin: '25% 0% -75% 0%',
-				threshold: 0
-			}
-		);
-
-		headings.forEach((heading) => {
-			observer.observe(heading);
-		});
-	});
 </script>
 
 {#if post && post.meta.type === 'blog' && !smallScreen}
-	<div class="toc-container">
-		<nav class="toc"></nav>
-	</div>
+	<Tree />
 {/if}
 
 {#if post && post.meta.type === 'blog'}
@@ -155,31 +95,6 @@
 		grid-column: 1/3;
 		max-width: 90%;
 		margin-bottom: 3rem;
-	}
-
-	.toc-container {
-		position: sticky;
-		grid-column: 1/3;
-		grid-row: 3;
-		height: fit-content;
-		top: 10rem;
-		bottom: 10rem;
-		z-index: 0;
-	}
-
-	.toc {
-		width: 90%;
-		display: flex;
-		flex-direction: column;
-		gap: 1rem;
-		align-items: start;
-		min-height: 10rem;
-		padding: 1rem 1rem;
-		color: rgba(0, 0, 0, 0.584);
-		background-color: var(--clr-accent-light);
-		list-style: none;
-		font-size: 0.9rem;
-		font-weight: 400;
 	}
 
 	.aside-event {

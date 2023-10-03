@@ -44,7 +44,7 @@
 	const handleScroll = (e: Event) => {
 		const nav = document.querySelector('nav.main');
 		const top = nav?.getBoundingClientRect().top ?? 500;
-		console.log({ top, scrollY });
+		// console.log({ top, scrollY });
 
 		if ($showPresentation) {
 			if (top <= 0) {
