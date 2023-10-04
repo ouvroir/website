@@ -1,6 +1,6 @@
+<!-- width="218.629px"
+height="77.636px" -->
 <svg
-	width="218.629px"
-	height="77.636px"
 	viewBox="0 0 218.629 77.636"
 	version="1.1"
 	xmlns="http://www.w3.org/2000/svg"
@@ -61,3 +61,10 @@
 		</g>
 	</g>
 </svg>
+
+<style>
+	svg {
+		height: 100%;
+		width: auto;
+	}
+</style>

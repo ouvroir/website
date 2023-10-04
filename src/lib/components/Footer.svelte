@@ -209,10 +209,21 @@
 
 	.support-logos-container {
 		display: flex;
+		height: 7rem;
 		flex-direction: row;
-		column-gap: 6rem;
+		flex-wrap: wrap;
+		/* column-gap: 25%; */
 		margin-top: 2rem;
 		margin-left: 1rem;
+	}
+
+	#logo-crihn-container {
+		width: max-content;
+	}
+	#logo-crihn-container {
+		width: fit-content;
+		margin-right: 70%;
+		margin-left: auto;
 	}
 
 	@media screen and (max-width: 820px) {

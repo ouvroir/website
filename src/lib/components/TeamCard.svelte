@@ -3,6 +3,7 @@
 	import { memberExpaned } from '$lib/stores';
 	import { slide } from 'svelte/transition';
 	import { base } from '$app/paths';
+	import { t } from '$lib/i18n/i18n';
 
 	export let data: Member;
 
@@ -16,7 +17,7 @@
 </script>
 
 <li class="member-card">
-	<button tabindex="0" aria-expanded={$memberExpaned === data.meta.slug} on:click={handleClick}>
+	<a href={`${$t('route.about.member')}/${data.meta.slug}`}>
 		<article class="member-content">
 			<header id={`${data.meta.slug}`}>
 				{#if data.meta.img}
@@ -35,12 +36,12 @@
 							<span>mail</span>
 							<a href={`mailto:${data.meta.mail}`}>{data.meta.mail}</a>
 						</div>
-						{#if data.meta.permalink}
+						<!-- {#if data.meta.permalink}
 							<div class="meta">
 								<span>permalink</span>
 								<a href={`${data.meta.permalink}`}>{data.meta.permalink}</a>
 							</div>
-						{/if}
+						{/if} -->
 						{#if data.meta.projects && data.meta.projects.length > 0}
 							<div class="meta">
 								<span>projets</span>
@@ -51,7 +52,7 @@
 								</ul>
 							</div>
 						{/if}
-						{#if data.meta.tags && data.meta.tags.length > 0}
+						<!-- {#if data.meta.tags && data.meta.tags.length > 0}
 							<div class="meta">
 								<span>tags</span>
 								<ul>
@@ -60,31 +61,30 @@
 									{/each}
 								</ul>
 							</div>
-						{/if}
+						{/if} -->
 					</ul>
 				</div>
 			</header>
-			{#if $memberExpaned === data.meta.slug}
-				<main class="text-body" transition:slide={{ axis: 'y' }}>
-					{@html data.html}
-				</main>
-			{/if}
 		</article>
-	</button>
+	</a>
 </li>
 
 <style>
+	.member-card {
+		width: 100%;
+	}
+
+	.member-card > a {
+		all: unset;
+		cursor: pointer;
+	}
 	.text-body {
 		display: block;
 		padding: 2rem 0;
 		width: 80%;
 	}
-	button {
-		all: unset;
-		cursor: pointer;
-	}
 
-	button:hover h1::after {
+	.member-card > a:hover h1::after {
 		position: absolute;
 		content: '';
 		top: 1.8rem;

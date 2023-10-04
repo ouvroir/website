@@ -63,3 +63,10 @@
 		/>
 	</g>
 </svg>
+
+<style>
+	svg {
+		height: 100%;
+		width: auto;
+	}
+</style>
