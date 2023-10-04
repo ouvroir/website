@@ -150,7 +150,7 @@ const translations: { [locale: string]: { [path: string]: string } } = {
         'route.about.coc': `${base}/a-propos/code-de-conduite`,
         'route.services.presentation': `${base}/nos-services`,
         'route.services.equipement': `${base}/nos-services#quipements`,
-        'route.services.reservation': `${base}/nos-services#rservation`,
+        'route.services.reservation': `${base}/nos-services#rservations`,
         'route.services.meetups': `${base}/nos-services#points-de-rencontre`,
 
         // Homepage
