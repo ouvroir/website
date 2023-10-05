@@ -6,7 +6,7 @@
 	showPresentation.set(false);
 
 	$: smallScreen = $screenType === 'mobile' || $screenType === 'tablet-vertical';
-	$: section = $page.route.id?.match(/\/\[(\w+)=\1\]/)?.[1];
+	// $: section = $page.route.id?.match(/\/\[(\w+)=\1\]/)?.[1];
 </script>
 
 {#if !smallScreen}
@@ -59,7 +59,7 @@
 
 	.info-page-header > h1 {
 		font-size: 2.5rem;
-		padding-bottom: 3rem;
+		padding-bottom: var(--padding-title);
 	}
 
 	.bigger {

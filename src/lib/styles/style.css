@@ -16,6 +16,8 @@
     --fs-title: 3rem;
     --fs-title-card: 2.5rem;
 
+    --padding-title: 3rem;
+
     --fs-tags: 0.9rem;
     --fw-tags: 300;
 
@@ -45,7 +47,6 @@ body {
     min-width: 100%;
     width: 100%;
     /* overflow: hidden; */
-    scroll-behavior: smooth;
     font-family: var(--ff-sans);
 }
 

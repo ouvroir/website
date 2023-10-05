@@ -1,90 +1,76 @@
 <script lang="ts">
 	import type { Member } from '$lib/types';
-	import { memberExpaned } from '$lib/stores';
-	import { slide } from 'svelte/transition';
 	import { base } from '$app/paths';
 	import { t } from '$lib/i18n/i18n';
+	import TeamCardMeta from './TeamCardMeta.svelte';
+	import { page } from '$app/stores';
 
 	export let data: Member;
+	let pageMode: boolean;
 
-	const handleClick = (e: MouseEvent) => {
-		if ((e.target as HTMLElement)?.tagName === 'A') return;
-
-		if ($memberExpaned !== data.meta.slug) {
-			memberExpaned.set(data.meta.slug);
-		} else memberExpaned.set('');
-	};
+	page.subscribe((p) => {
+		if (p.params.members) pageMode = true;
+	});
 </script>
 
-<li class="member-card">
-	<a href={`${$t('route.about.member')}/${data.meta.slug}`}>
-		<article class="member-content">
-			<header id={`${data.meta.slug}`}>
-				{#if data.meta.img}
+{#if pageMode}
+	<article class="team-card team-card-page">
+		<div class="header-page-mode">
+			{#if data.meta.img}
+				<div class="img-container">
 					<img src={`${base}/team/${data.meta.img}`} alt="" />
-				{:else}
-					<div class="empty-img" />
-				{/if}
-				<div class="header-text">
-					<h1>
-						{data.meta.firstname}
-						{data.meta.lastname}
-					</h1>
-					<p class="short-description">{data.meta.description}</p>
-					<ul class="meta-list">
-						<div class="meta">
-							<span>mail</span>
-							<a href={`mailto:${data.meta.mail}`}>{data.meta.mail}</a>
-						</div>
-						<!-- {#if data.meta.permalink}
-							<div class="meta">
-								<span>permalink</span>
-								<a href={`${data.meta.permalink}`}>{data.meta.permalink}</a>
-							</div>
-						{/if} -->
-						{#if data.meta.projects && data.meta.projects.length > 0}
-							<div class="meta">
-								<span>projets</span>
-								<ul>
-									{#each data.meta.projects as p}
-										<li>{p}</li>
-									{/each}
-								</ul>
-							</div>
-						{/if}
-						<!-- {#if data.meta.tags && data.meta.tags.length > 0}
-							<div class="meta">
-								<span>tags</span>
-								<ul>
-									{#each data.meta.tags as tag}
-										<li>{tag}</li>
-									{/each}
-								</ul>
-							</div>
-						{/if} -->
-					</ul>
 				</div>
-			</header>
-		</article>
-	</a>
-</li>
+			{:else}
+				<div class="img-container">
+					<div class="empty-img" />
+				</div>
+			{/if}
+			<div class="header-page-mode-text">
+				<h2>{$t(`about.team.${data.meta.status}`)}</h2>
+				<p class="short-description">{data.meta.description}</p>
+			</div>
+		</div>
+		<TeamCardMeta meta={data.meta} />
+	</article>
+{:else}
+	<article class="team-card">
+		{#if data.meta.img}
+			<div class="img-container">
+				<img src={`${base}/team/${data.meta.img}`} alt="" />
+			</div>
+		{:else}
+			<div class="img-container">
+				<div class="empty-img" />
+			</div>
+		{/if}
+		<div class={`header-text `}>
+			{#if !pageMode}
+				<h1>
+					{data.meta.firstname}
+					{data.meta.lastname}
+				</h1>
+			{/if}
+			<p class="short-description">{data.meta.description}</p>
+			<TeamCardMeta meta={data.meta} />
+		</div>
+	</article>
+{/if}
 
 <style>
-	.member-card {
+	.team-card {
 		width: 100%;
+		display: flex;
+		flex-direction: row;
+		column-gap: 1rem;
+		row-gap: 1.5rem;
+		/* align-items: center; */
 	}
 
-	.member-card > a {
-		all: unset;
-		cursor: pointer;
-	}
-	.text-body {
+	.team-card-page {
 		display: block;
-		padding: 2rem 0;
-		width: 80%;
 	}
 
-	.member-card > a:hover h1::after {
+	.team-card:hover h1::after {
 		position: absolute;
 		content: '';
 		top: 1.8rem;
@@ -93,37 +79,60 @@
 		height: 0.2rem;
 		background-color: var(--clr-accent);
 	}
+
+	.header-page-mode {
+		/* max-height: 15rem; */
+		display: flex;
+		flex-direction: row;
+		column-gap: 1.5rem;
+		margin-bottom: 1.5rem;
+		padding-bottom: 1.5rem;
+		border-bottom: solid 2px var(--clr-accent-light);
+	}
+	.header-page-mode-text {
+		padding-top: 0.5rem;
+		/* max-width: 22rem; */
+		/* min-width: 5rem; */
+	}
+
+	.header-page-mode h2 {
+		position: sticky;
+		height: fit-content;
+		top: 5rem;
+		font-size: 1.2rem;
+		margin-bottom: 1rem;
+		color: var(--clr-accent);
+	}
+
 	h1 {
 		position: relative;
 		width: fit-content;
 		cursor: pointer;
 	}
 
-	header {
-		display: flex;
-		flex-direction: row;
-		gap: 2rem;
+	.img-container {
+		/* height: fit-content; */
 	}
-
-	header > img,
+	.img-container > img,
 	.empty-img {
+		width: 13rem;
 		min-width: 13rem;
 		min-height: 13rem;
-		max-height: 13rem;
 		background-color: lightgray;
 		filter: grayscale();
+		/* align-self: flex-start; */
 	}
 
 	.header-text > * + * {
 		margin-top: 1rem;
 	}
 
-	header p {
-		width: 100%;
+	.team-card p {
 		line-height: 1.5rem;
+		/* width: 40%; */
 	}
 
-	header h1 {
+	.team-card h1 {
 		margin-top: 0.5rem;
 		font-size: 1.5rem;
 	}
@@ -133,38 +142,9 @@
 		font-size: 1rem;
 	}
 
-	.meta-list > * + * {
-		margin-top: 0.7rem;
-	}
-
-	.meta {
-		display: flex;
-		flex-direction: row;
-		font-size: 0.9rem;
-		align-items: baseline;
-		gap: 1rem;
-		filter: opacity(0.8);
-	}
-	.meta > span {
-		display: block;
-		font-family: var(--ff-mono);
-		color: var(--clr-accent);
-		font-weight: 300;
-		font-size: 0.85rem;
-	}
-
-	.meta > ul {
-		display: flex;
-		flex-direction: row;
-		flex-wrap: wrap;
-		gap: 0.6rem;
-	}
-
-	.meta > ul > li {
-		width: fit-content;
-	}
-
-	.meta > ul > li:not(:last-child)::after {
-		content: ', ';
+	@media screen and (min-width: 821px) and (max-width: 1024px) {
+		.header-page-mode {
+			flex-wrap: wrap;
+		}
 	}
 </style>

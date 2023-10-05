@@ -1,10 +1,14 @@
 <script lang="ts">
 	import { t } from '$i18n/i18n';
-	import TeamCard from '$lib/components/TeamCard.svelte';
 	import type { Member } from '$lib/types';
 	import { aboutPageTitle } from '$lib/stores.js';
+	import { setContext } from 'svelte';
+
+	import TeamCard from '$lib/components/TeamCard.svelte';
 
 	export let data;
+
+	$: setContext('team', data.team);
 
 	$: dir = data.team ? data.team.filter((d: Member) => d.meta.status === 'dir_sc') : [];
 	$: members = data.team ? data.team.filter((d: Member) => d.meta.status === 'member') : [];
@@ -21,24 +25,36 @@
 	<article class="text-body">
 		{@html data.html}
 		{#if data.team}
-			<h2>{$t('about.team')}</h2>
+			<h2 id="about-team-title">{$t('about.team')}</h2>
 			<div class="team-section">
 				<h3>{$t('about.team.dir_sc')}</h3>
 				<ul class="team">
 					{#each dir as m}
-						<TeamCard data={m} />
+						<li>
+							<a href={`${$t('route.about.member')}/${m.meta.slug}`}>
+								<TeamCard data={m} />
+							</a>
+						</li>
 					{/each}
 				</ul>
 				<h3>{$t('about.team.coord')}</h3>
 				<ul class="team">
 					{#each coord as m}
-						<TeamCard data={m} />
+						<li>
+							<a href={`${$t('route.about.member')}/${m.meta.slug}`}>
+								<TeamCard data={m} />
+							</a>
+						</li>
 					{/each}
 				</ul>
 				<h3>{$t('about.team.members')}</h3>
 				<ul class="team">
 					{#each members as m}
-						<TeamCard data={m} />
+						<li>
+							<a href={`${$t('route.about.member')}/${m.meta.slug}`}>
+								<TeamCard data={m} />
+							</a>
+						</li>
 					{/each}
 				</ul>
 			</div>
@@ -47,8 +63,16 @@
 {/if}
 
 <style>
+	#about-team-title {
+		margin-bottom: 2.5rem;
+	}
 	.team-section {
 		display: contents;
+	}
+
+	ul a {
+		all: unset;
+		cursor: pointer;
 	}
 
 	h3 {
