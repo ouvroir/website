@@ -4,7 +4,7 @@
 	import Footer from '$components/Footer.svelte';
 	import LandingPage from '$lib/components/LandingPage.svelte';
 	import { page } from '$app/stores';
-	import { locale, t } from '$lib/i18n/i18n';
+	import { t } from '$lib/i18n/i18n';
 	import { showPresentation, screenType, screenWidth } from '$lib/stores.js';
 	import '$lib/styles/reset.css';
 	import '$lib/styles/style.css';
@@ -13,14 +13,11 @@
 
 	let offsetHeight: number;
 
-	locale.set(data.lang);
-
 	if ($page.route.id && !$page.route.id.includes('home')) {
 		showPresentation.set(false);
 	}
 
 	$: addGap = $page && $page.route.id === '/[news=news]';
-	// $: console.log('screen', $screenType, $screenWidth);
 </script>
 
 {#if $showPresentation}
@@ -40,6 +37,7 @@
 {/if}
 
 <Support content={data.support} />
+
 {#if $screenType === 'desktop' || $screenType === 'tablet-horizontal'}
 	<Footer />
 {/if}

@@ -17,8 +17,6 @@
 		} else active = 'home';
 	});
 
-	$: console.log($page.params);
-
 	const hideNavMenu = () => {
 		showNavMenu.set(false);
 	};

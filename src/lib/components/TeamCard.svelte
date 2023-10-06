@@ -96,9 +96,6 @@
 	}
 
 	.header-page-mode h2 {
-		position: sticky;
-		height: fit-content;
-		top: 5rem;
 		font-size: 1.2rem;
 		margin-bottom: 1rem;
 		color: var(--clr-accent);

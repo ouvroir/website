@@ -2,21 +2,12 @@
 	import ProjectLItem from '$lib/components/ProjectLItem.svelte';
 	import FilterPanel from '$lib/components/FilterPanel.svelte';
 	import { showPresentation } from '$lib/stores.js';
-
 	import type { Project } from '$lib/types.js';
-	import { t } from '$i18n/i18n.js';
+	import { t, localize } from '$i18n/i18n';
+
 	export let data;
 
 	showPresentation.set(false);
-
-	const tags = data.projects
-		.reduce((acc, p) => {
-			p.meta.tags.forEach((t: string) => {
-				if (!acc.includes(t)) acc.push(t);
-			});
-			return acc;
-		}, [])
-		.sort();
 
 	let selectedTags: string[] = [];
 
@@ -29,13 +20,24 @@
 		return contains;
 	};
 
-	$: ciecoProjects = data.projects
+	$: allProjects = $localize(data.projects);
+
+	$: ciecoProjects = allProjects
 		.filter((d) => d.meta.tags.includes('CIÉCO'))
 		.filter((d) => filterTags(d, selectedTags));
 
-	$: projects = data.projects
+	$: projects = allProjects
 		.filter((d) => !d.meta.tags.includes('CIÉCO'))
 		.filter((d) => filterTags(d, selectedTags));
+
+	$: tags = allProjects
+		.reduce((acc, p) => {
+			p.meta.tags.forEach((t: string) => {
+				if (!acc.includes(t)) acc.push(t);
+			});
+			return acc;
+		}, [])
+		.sort();
 </script>
 
 <svelte:head>

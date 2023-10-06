@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { base } from '$app/paths';
 	import { page } from '$app/stores';
 	import { t, rt, locale } from '$i18n/i18n';
 	import { invalidateAll, goto } from '$app/navigation';
@@ -25,14 +24,16 @@
 		else if (route.includes('news')) url = getUrl('news');
 		else if (route.includes('projects')) url = getUrl('projects');
 		else if (route.includes('services')) url = getUrl('services');
-		else if (route.includes('about')) url = getUrl('about');
-
+		else if (route.includes('about')) {
+			route.includes('members') ? (url = getUrl('about.member')) : (url = getUrl('about'));
+		}
 		return url;
 	};
 
 	let langRedirectUrl: string = '/';
 	let enHref = $locale === 'en' ? $page.url.pathname : langRedirectUrl;
 	let frHref = $locale === 'fr' ? $page.url.pathname : langRedirectUrl;
+
 	page.subscribe(() => {
 		langRedirectUrl = $page.route.id ? getLangRedirectUrl($page.route.id) : '/';
 		enHref = $locale === 'en' ? $page.url.pathname : langRedirectUrl;
@@ -65,8 +66,6 @@
 		}
 	};
 
-	$: console.log('showPresentation', $showPresentation);
-
 	const toggleNavMenu = () => {
 		$showNavMenu = !$showNavMenu;
 	};
@@ -75,7 +74,6 @@
 		if (!showNavMenu) return;
 		const menu = document.querySelector('.nav-menu-container');
 		const btn = document.querySelector('.menu-btn');
-		console.log(menu);
 		if (menu && !menu.contains(e.target) && btn && !btn.contains(e.target)) {
 			$showNavMenu = false;
 		}
@@ -147,11 +145,6 @@
 				<!-- <Footer /> -->
 				<div class="locale-container">
 					<a
-						on:click={() => {
-							$locale = 'fr';
-							invalidateAll();
-							goto(frHref);
-						}}
 						class={`lang-btn ${$locale === 'fr' ? 'active' : ''}`}
 						rel="alternate"
 						href={frHref}
@@ -159,11 +152,6 @@
 					>
 					<span>|</span>
 					<a
-						on:click={() => {
-							$locale = 'en';
-							invalidateAll();
-							goto(enHref);
-						}}
 						href={enHref}
 						class={`lang-btn ${$locale === 'en' ? 'active' : ''}`}
 						rel="alternate"

@@ -1,8 +1,7 @@
 import { fetchData } from '$lib/helpers/data';
 
-
-export const load = async ({ locals }) => {
+export const load = async () => {
     return {
-        projects: await fetchData(locals.lang, 'projects')
+        projects: await fetchData('projects')
     };
 }

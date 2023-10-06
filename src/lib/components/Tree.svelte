@@ -45,8 +45,6 @@
 			a.textContent = heading.textContent;
 			a.addEventListener('click', scrollToTarget);
 
-			console.log(heading.tagName);
-
 			const li = document.createElement('li');
 			li.classList.add(heading.tagName === 'H2' ? 'toc-h2' : 'toc-h3');
 			li.appendChild(a);

@@ -46,15 +46,14 @@
 		selectedTags = selectedTags;
 	};
 	const documentOnClick = (e: MouseEvent) => {
-		if (e.target) {
-			console.log(e.currentTarget, e.currentTarget.id);
+		if (e.currentTarget) {
 			$selectedNewsTypes.splice($selectedNewsTypes.indexOf(e.currentTarget.id), 1);
 		}
 		$selectedNewsTypes = $selectedNewsTypes;
 	};
 
 	const tagOnClick = (e: MouseEvent) => {
-		if (e.target) {
+		if (e.currentTarget) {
 			selectedTags.splice(selectedTags.indexOf(e.currentTarget.id), 1);
 		}
 		selectedTags = selectedTags;

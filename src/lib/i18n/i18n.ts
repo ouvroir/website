@@ -5,7 +5,7 @@ import translations from "./translations";
 // Code greatly inspired by:
 // https://dev.to/danawoodman/svelte-quick-tip-adding-basic-internationalization-i18n-to-you-app-2lm
 
-export const locale = writable("fr");
+export const locale = writable("fr" as 'fr' | 'en');
 export const locales = Object.keys(translations);
 
 export function translate(locale: string, key: string, vars: { [key: string]: string }) {
@@ -66,3 +66,8 @@ export const getLangFromParam = (param: Partial<Record<string, string>>) => {
     })
     return lang
 }
+
+export const localize = derived(locale, ($locale) => (data) => {
+    if (!Array.isArray(data)) return null
+    return data.filter(d => d.path.includes(`-${$locale}.md`))
+})

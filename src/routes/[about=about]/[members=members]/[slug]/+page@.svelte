@@ -1,13 +1,9 @@
 <script lang="ts">
 	import TeamCard from '$lib/components/TeamCard.svelte';
 
-	import { screenType, screenWidth } from '$lib/stores.js';
-
 	export let data;
 
 	const m = data.member;
-
-	$: console.log($screenType, $screenWidth);
 </script>
 
 <section>
@@ -30,7 +26,12 @@
 		scroll-behavior: auto;
 	}
 	header {
-		grid-column: 1/-3;
+		/** TODO Need to find a solution to stop sticky when scroll to far down */
+		/* position: sticky;
+		height: fit-content;
+		top: 4rem; */
+		bottom: 200rem;
+		grid-column: 1/5;
 		font-size: var(--fs-title);
 		padding-bottom: var(--padding-title);
 	}
@@ -38,7 +39,7 @@
 	aside {
 		position: sticky;
 		height: fit-content;
-		top: 7rem;
+		top: 10rem;
 		left: 0;
 		grid-column: 1/5;
 		grid-row: 2;

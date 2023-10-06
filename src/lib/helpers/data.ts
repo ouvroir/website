@@ -1,92 +1,27 @@
 
-async function getBlogs(lang: string) {
-    let paths
-    lang === 'fr'
-        ? paths = await import.meta.glob(`$lib/labouvroir/blog/*-fr.md`)
-        : paths = await import.meta.glob(`$lib/labouvroir/blog/*-en.md`)
-    return paths
-}
-async function getEventFiles(lang: string) {
-    let paths
-    lang === 'fr'
-        ? paths = await import.meta.glob(`$lib/labouvroir/evenements/*-fr.md`)
-        : paths = await import.meta.glob(`$lib/labouvroir/evenements/*-en.md`)
-    return paths
-}
-async function getTeam(lang: string) {
-    let paths
-    lang === 'fr'
-        ? paths = await import.meta.glob(`$lib/labouvroir/equipe/*-fr.md`)
-        : paths = await import.meta.glob(`$lib/labouvroir/equipe/*-en.md`)
-    return paths
-}
-async function getProjects(lang: string) {
-    let paths
-    lang === 'fr'
-        ? paths = await import.meta.glob(`$lib/labouvroir/projets/*-fr.md`)
-        : paths = await import.meta.glob(`$lib/labouvroir/projets/*-en.md`)
-    return paths
-}
-async function getCr(lang: string) {
-    return await import.meta.glob(`$lib/labouvroir/cr/*.md`)
-}
-async function getSupportFiles(lang: string) {
-    let paths
-    lang === 'fr'
-        ? paths = await import.meta.glob(`$lib/labouvroir/lab/financement-fr.md`)
-        : paths = await import.meta.glob(`$lib/labouvroir/lab/financement-en.md`)
-    return paths
-}
-async function getAbout(lang: string) {
-    let paths
-    lang === 'fr'
-        ? paths = await import.meta.glob(`$lib/labouvroir/about-fr.md`)
-        : paths = await import.meta.glob(`$lib/labouvroir/about-en.md`)
-    return paths
-}
-async function getCocFiles(lang: string) {
-    let paths
-    lang === 'fr'
-        ? paths = await import.meta.glob(`$lib/labouvroir/lab/codeDeConduite-fr.md`)
-        : paths = await import.meta.glob(`$lib/labouvroir/lab/codeDeConduite-en.md`)
-    return paths
-}
-async function getServicesPresentation(lang: string) {
-    let paths
-    lang === 'fr'
-        ? paths = await import.meta.glob(`$lib/labouvroir/lab/services/presentation-fr.md`)
-        : paths = await import.meta.glob(`$lib/labouvroir/lab/services/presentation-en.md`)
-    return paths
-}
-async function getSevicesEquip(lang: string) {
-    let paths
-    lang === 'fr'
-        ? paths = await import.meta.glob(`$lib/labouvroir/lab/services/equipements-fr.md`)
-        : paths = await import.meta.glob(`$lib/labouvroir/lab/services/equipements-en.md`)
-    return paths
-}
-async function getServicesReservation(lang: string) {
-    let paths
-    lang === 'fr'
-        ? paths = await import.meta.glob(`$lib/labouvroir/lab/services/reservation-fr.md`)
-        : paths = await import.meta.glob(`$lib/labouvroir/lab/services/reservation-en.md`)
-    return paths
-}
-async function getServicesMeet(lang: string) {
-    let paths
-    lang === 'fr'
-        ? paths = await import.meta.glob(`$lib/labouvroir/lab/services/rencontres-fr.md`)
-        : paths = await import.meta.glob(`$lib/labouvroir/lab/services/rencontres-en.md`)
-    return paths
-}
+const getBlogs = async () =>
+    await import.meta.glob(`$lib/labouvroir/blog/*.md`)
 
-async function getServices(lang: string) {
-    let paths
-    lang === 'fr'
-        ? paths = await import.meta.glob(`$lib/labouvroir/lab/services-fr.md`)
-        : paths = await import.meta.glob(`$lib/labouvroir/lab/services-en.md`)
-    return paths
-}
+const getEvents = async () =>
+    await import.meta.glob(`$lib/labouvroir/evenements/*.md`)
+
+const getCr = async () =>
+    await import.meta.glob(`$lib/labouvroir/cr/*.md`)
+
+const getTeam = async () =>
+    await import.meta.glob(`$lib/labouvroir/equipe/*.md`)
+
+const getProjects = async () =>
+    await import.meta.glob(`$lib/labouvroir/projets/*.md`)
+
+const getSupportFiles = async () =>
+    await import.meta.glob(`$lib/labouvroir/lab/financement-*.md`)
+
+const getAbout = async () =>
+    await import.meta.glob(`$lib/labouvroir/about-*.md`)
+
+const getServices = async () =>
+    await import.meta.glob(`$lib/labouvroir/lab/services-*.md`)
 
 const setup = {
     'projects': getProjects,
@@ -94,28 +29,25 @@ const setup = {
     'team': getTeam,
     'meeting': getCr,
     'support': getSupportFiles,
-    'event': getEventFiles,
+    'event': getEvents,
     'about': getAbout,
-    'coc': getCocFiles,
-    'services-presentation': getServicesPresentation,
-    'services-equip': getSevicesEquip,
-    'services-reservation': getServicesReservation,
-    'services-meet': getServicesMeet,
     'services': getServices,
 }
 
-export async function fetchData(lang: string, type: keyof typeof setup) {
-    const iteralbleFiles = Object.entries(await setup[type](lang))
+export async function fetchData(type: keyof typeof setup) {
+
+    const iteralbleFiles = Object.entries(await setup[type]())
 
     const mdFiles = await Promise.all(
         iteralbleFiles
             .filter(([path]) => !path.includes('template'))
             .map(async ([path, resolver]) => {
                 const md = await resolver()
+                const mdHtml = md.default.render().html
                 return {
                     meta: md.metadata,
                     path: path,
-                    html: md.default.render().html,
+                    html: mdHtml,
                 }
             })
     )
@@ -128,6 +60,7 @@ export async function fetchData(lang: string, type: keyof typeof setup) {
             return !md.meta.draft
         return true
     })
+
 }
 
 export function createSlugFromFilename(filename: string) {

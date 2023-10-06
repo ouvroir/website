@@ -4,6 +4,7 @@
 	import NewsCard from '$lib/components/NewsCard.svelte';
 	import { showPresentation, selectedNewsTypes, disabledNewsTypes } from '$lib/stores.js';
 	import { onMount } from 'svelte';
+	import { localize } from '$i18n/i18n';
 
 	export let data;
 	showPresentation.set(false);
@@ -19,7 +20,7 @@
 
 	$: selectedTags = [] as string[];
 
-	$: posts = data.news
+	$: posts = $localize(data.news)
 		.filter((d) => $selectedNewsTypes.includes(d.meta.type) && filterTags(d, selectedTags))
 		.sort((a, b) => {
 			let aDate = a.meta.type === 'event' ? a.meta.dateStart : a.meta.date;
@@ -37,7 +38,7 @@
 	$selectedNewsTypes = $selectedNewsTypes.filter((t) => !$disabledNewsTypes.includes(t));
 
 	$: tags =
-		data.news.reduce((acc, p) => {
+		posts.reduce((acc, p) => {
 			if (!p.meta.tags) return acc;
 			p.meta.tags.forEach((t) => {
 				if (!acc.includes(t)) acc.push(t);

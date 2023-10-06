@@ -1,8 +1,8 @@
 import { fetchData } from '$lib/helpers/data.js'
 
-export const load = async ({ params, locals }) => {
+export const load = async ({ params }) => {
 
-    const members = await fetchData(locals.lang, 'team')
+    const members = await fetchData('team')
     const member = members.find(member => member.meta.slug === params.slug)
 
     return {

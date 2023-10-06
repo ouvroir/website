@@ -1,12 +1,12 @@
 import type { Handle } from '@sveltejs/kit';
-import { getLangFromParam } from '$i18n/i18n'
-
+import { getLangFromParam, locale } from '$i18n/i18n'
+import { get } from 'svelte/store';
 
 export const handle = (({ event, resolve }) => {
 
     // current locale is set based on url. If locale cannot be deduced from url (ie from '/'), 
     // a check is made to see if locale is set in locals (meaning that user as already visited at least one page).
-    let lang: 'fr' | 'en' | null = getLangFromParam(event.params) ?? event.locals.lang as 'fr' | 'en' | null
+    let lang: 'fr' | 'en' = getLangFromParam(event.params) ?? get(locale) as 'fr' | 'en'
 
     // As a fallback, look at the accept-language header
     if (!lang) {
@@ -15,7 +15,7 @@ export const handle = (({ event, resolve }) => {
             : 'fr'
     }
 
-    event.locals = { ...event.locals, lang }
+    locale.set(lang)
 
     return resolve(event, {
         transformPageChunk: ({ html }) => html.replace('%lang%', lang as string)

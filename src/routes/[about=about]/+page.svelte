@@ -2,28 +2,29 @@
 	import { t } from '$i18n/i18n';
 	import type { Member } from '$lib/types';
 	import { aboutPageTitle } from '$lib/stores.js';
-	import { setContext } from 'svelte';
+	import { localize } from '$i18n/i18n';
 
 	import TeamCard from '$lib/components/TeamCard.svelte';
 
 	export let data;
 
-	$: setContext('team', data.team);
+	$: doc = $localize(data.doc)[0];
+	$: team = $localize(data.team);
 
-	$: dir = data.team ? data.team.filter((d: Member) => d.meta.status === 'dir_sc') : [];
-	$: members = data.team ? data.team.filter((d: Member) => d.meta.status === 'member') : [];
-	$: coord = data.team ? data.team.filter((d: Member) => d.meta.status === 'coord') : [];
+	$: dir = team ? team.filter((d: Member) => d.meta.status === 'dir_sc') : [];
+	$: members = team ? team.filter((d: Member) => d.meta.status === 'member') : [];
+	$: coord = team ? team.filter((d: Member) => d.meta.status === 'coord') : [];
 
-	$: $aboutPageTitle = data.meta.title;
+	$: $aboutPageTitle = doc.meta.title;
 </script>
 
 <svelte:head>
 	<title>{$t('head.about')}</title>
 </svelte:head>
 
-{#if data.html}
+{#if doc.html}
 	<article class="text-body">
-		{@html data.html}
+		{@html doc.html}
 		{#if data.team}
 			<h2 id="about-team-title">{$t('about.team')}</h2>
 			<div class="team-section">

@@ -1,14 +1,19 @@
 <script lang="ts">
 	import { base } from '$app/paths';
+	import { localize } from '$lib/i18n/i18n';
+	import { page } from '$app/stores';
 
 	export let content;
+
+	$: showSupport = $page.route.id?.includes('about') || $page.route.id?.includes('home');
+	$: doc = content ? $localize(content)[0] : null;
 </script>
 
-{#if content}
+{#if doc && showSupport}
 	<section class="support">
 		<div class="banner-content">
 			<article id="support">
-				{@html content.html}
+				{@html doc.html}
 			</article>
 			<ul class="support-logos">
 				<li>
