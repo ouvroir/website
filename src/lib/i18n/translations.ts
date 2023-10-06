@@ -42,9 +42,12 @@ const translations: { [locale: string]: { [path: string]: string } } = {
         'route.about.member': `${base}/about/members`,
         'route.about.coc': `${base}/about/code-of-conduct`,
         'route.services.presentation': `${base}/our-services`,
-        'route.services.equipement': `${base}/our-services#quipements`,
+        'route.services.equipement': `${base}/our-services#equipements`,
         'route.services.reservation': `${base}/our-services#reservation`,
         'route.services.meetups': `${base}/our-services#meet-ups`,
+        // 'route.services.equipement': `${base}/our-services#quipements`,
+        // 'route.services.reservation': `${base}/our-services#reservation`,
+        // 'route.services.meetups': `${base}/our-services#meet-ups`,
 
         // Homepage
         'home.projects.title': 'Latest projects & publications',
@@ -150,9 +153,9 @@ const translations: { [locale: string]: { [path: string]: string } } = {
         'route.about.member': `${base}/a-propos/membres`,
         'route.about.coc': `${base}/a-propos/code-de-conduite`,
         'route.services.presentation': `${base}/nos-services`,
-        'route.services.equipement': `${base}/nos-services#quipements`,
-        'route.services.reservation': `${base}/nos-services#rservations`,
-        'route.services.meetups': `${base}/nos-services#points-de-rencontre`,
+        'route.services.equipement': `${base}/nos-services`,
+        'route.services.reservation': `${base}/nos-services`,
+        'route.services.meetups': `${base}/nos-services`,
 
         // Homepage
         'home.projects.title': 'Projets à l’affiche',

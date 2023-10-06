@@ -49,7 +49,6 @@
 	const handleScroll = (e: Event) => {
 		const nav = document.querySelector('nav.main');
 		const top = nav?.getBoundingClientRect().top ?? 500;
-		// console.log({ top, scrollY });
 
 		if ($showPresentation) {
 			if (top <= 0) {
@@ -64,7 +63,6 @@
 				nav?.classList.add('hide-nav');
 			}
 			prevScrollY = scrollY;
-
 			if (scrollY <= 40) nav?.classList.remove('nav-shadow');
 			else if (scrollY > 40) nav?.classList.add('nav-shadow');
 		}
@@ -105,11 +103,6 @@
 
 		<div class="locale-container">
 			<a
-				on:click={() => {
-					$locale = 'fr';
-					invalidateAll();
-					goto(frHref);
-				}}
 				class={`lang-btn ${$locale === 'fr' ? 'active' : ''}`}
 				rel="alternate"
 				href={frHref}
@@ -117,11 +110,6 @@
 			>
 			<span>|</span>
 			<a
-				on:click={() => {
-					$locale = 'en';
-					invalidateAll();
-					goto(enHref);
-				}}
 				href={enHref}
 				class={`lang-btn ${$locale === 'en' ? 'active' : ''}`}
 				rel="alternate"

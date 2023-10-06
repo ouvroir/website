@@ -13,7 +13,7 @@ const config = {
 		adapter: adapter(),
 		prerender: {
 			// handleHttpError: (err) => console.log('[buildError]', err)
-			handleMissingId: (err) => console.log('[buildWarning]', err)
+			handleMissingId: 'warn'
 		},
 		paths: {
 			base: dev ? '' : process.env.BASE_PATH

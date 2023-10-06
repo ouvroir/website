@@ -9,7 +9,7 @@
 	export let data;
 
 	$: doc = $localize(data.doc)[0];
-	$: team = $localize(data.team);
+	$: team = data.team.length > 0 ? $localize(data.team) : [];
 
 	$: dir = team ? team.filter((d: Member) => d.meta.status === 'dir_sc') : [];
 	$: members = team ? team.filter((d: Member) => d.meta.status === 'member') : [];
@@ -25,7 +25,7 @@
 {#if doc.html}
 	<article class="text-body">
 		{@html doc.html}
-		{#if data.team}
+		{#if team && team.length > 0}
 			<h2 id="about-team-title">{$t('about.team')}</h2>
 			<div class="team-section">
 				<h3>{$t('about.team.dir_sc')}</h3>
