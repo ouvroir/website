@@ -25,7 +25,11 @@
 		else if (route.includes('projects')) url = getUrl('projects');
 		else if (route.includes('services')) url = getUrl('services');
 		else if (route.includes('about')) {
-			route.includes('members') ? (url = getUrl('about.member')) : (url = getUrl('about'));
+			if (route.includes('members')) url = getUrl('about.member');
+			else {
+				if ($page.params.about === 'about') url = getUrl('about');
+				else url = getUrl('services');
+			}
 		}
 		return url;
 	};
