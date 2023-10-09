@@ -47,8 +47,7 @@
 		</ul>
 
 		<p class="project-description">
-			{data.meta.description} Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi laboriosam
-			illo ducimus perspiciatis nesciunt, magnam ipsum facilis hic modi, harum a.
+			{data.meta.description}
 		</p>
 	</a>
 </li>

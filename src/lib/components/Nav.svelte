@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/stores';
-	import { t, rt, locale } from '$i18n/i18n';
-	import { invalidateAll, goto } from '$app/navigation';
+	import { t, rt, locale, getLangFromParam } from '$i18n/i18n';
 	import { showPresentation, screenType, showNavMenu } from '$lib/stores';
 	import Ouvroir from './Ouvroir.svelte';
 	import NavLinks from './NavLinks.svelte';
@@ -39,6 +38,7 @@
 	let frHref = $locale === 'fr' ? $page.url.pathname : langRedirectUrl;
 
 	page.subscribe(() => {
+		locale.set(getLangFromParam($page.params));
 		langRedirectUrl = $page.route.id ? getLangRedirectUrl($page.route.id) : '/';
 		enHref = $locale === 'en' ? $page.url.pathname : langRedirectUrl;
 		frHref = $locale === 'fr' ? $page.url.pathname : langRedirectUrl;
@@ -89,6 +89,8 @@
 			document.removeEventListener('click', handleClickOutside);
 		};
 	});
+
+	$: console.log('Locale has changed to', $locale);
 </script>
 
 <svelte:window on:scroll={handleScroll} bind:scrollY />
@@ -104,8 +106,11 @@
 		<div class="locale-container">
 			<a
 				class={`lang-btn ${$locale === 'fr' ? 'active' : ''}`}
-				rel="alternate"
 				href={frHref}
+				rel="alternate"
+				on:click={() => {
+					locale.set('fr');
+				}}
 				hreflang="fr">fr</a
 			>
 			<span>|</span>
@@ -113,6 +118,9 @@
 				href={enHref}
 				class={`lang-btn ${$locale === 'en' ? 'active' : ''}`}
 				rel="alternate"
+				on:click={() => {
+					locale.set('en');
+				}}
 				hreflang="en">en</a
 			>
 		</div>

@@ -38,7 +38,11 @@ export const rt = derived(locale, ($locale) => (key: string, vars = {}) => {
     return translate(lang, key, vars)
 });
 
-export const paramLangMap: { [key: string]: { [key: string]: string } } = {
+export const paramLangMap: { [key: string]: { [key: string]: 'fr' | 'en' } } = {
+    home: {
+        home: 'en',
+        accueil: 'fr'
+    },
     news: {
         news: 'en',
         actualites: 'fr'
@@ -47,18 +51,16 @@ export const paramLangMap: { [key: string]: { [key: string]: string } } = {
         projects: 'en',
         projets: 'fr'
     },
-    services: {
+    about: {
+        'about': 'en',
+        'a-propos': 'fr',
         'our-services': 'en',
         'nos-services': 'fr'
-    },
-    about: {
-        about: 'en',
-        'a-propos': 'fr'
     }
 };
 
 export const getLangFromParam = (param: Partial<Record<string, string>>) => {
-    let lang = null
+    let lang: 'fr' | 'en' = 'fr'
     Object.keys(param).forEach(key => {
         if (key in paramLangMap) {
             lang = paramLangMap[key][param[key] as string]
