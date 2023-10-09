@@ -89,6 +89,10 @@ const translations: { [locale: string]: { [path: string]: string } } = {
         'services.reservation': 'Booking',
         'services.coc': 'Code of conduct',
 
+        // Projects 
+        'projects.cieco.title': 'CIÉCO deliverables',
+        'projects.rd.title': 'Research and development',
+
         // News
         'news.summary': 'Summary',
         'news.register': 'Register',
@@ -195,6 +199,10 @@ const translations: { [locale: string]: { [path: string]: string } } = {
         'services.reservation': 'Réservations',
         'services.meetups': 'Rencontres',
         'services.coc': 'Code de conduite',
+
+        // Projects 
+        'projects.cieco.title': 'Livrables CIÉCO',
+        'projects.rd.title': 'Recherches et développements',
 
         // News
         'news.summary': 'Résumé',

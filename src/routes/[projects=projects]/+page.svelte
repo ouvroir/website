@@ -23,12 +23,10 @@
 	$: allProjects = $localize(data.projects);
 
 	$: ciecoProjects = allProjects
-		.filter((d) => d.meta.tags.includes('CIÉCO'))
+		.filter((d) => d.meta.cieco)
 		.filter((d) => filterTags(d, selectedTags));
 
-	$: projects = allProjects
-		.filter((d) => !d.meta.tags.includes('CIÉCO'))
-		.filter((d) => filterTags(d, selectedTags));
+	$: projects = allProjects.filter((d) => !d.meta.cieco).filter((d) => filterTags(d, selectedTags));
 
 	$: tags = allProjects
 		.reduce((acc, p) => {
@@ -48,7 +46,7 @@
 
 {#if ciecoProjects.length > 0}
 	<div class="section-title">
-		<h2>Livrables CIÉCO</h2>
+		<h2>{$t('projects.cieco.title')}</h2>
 	</div>
 {/if}
 <ul class="pinned-projects">
@@ -59,7 +57,7 @@
 
 {#if projects.length > 0}
 	<div class="section-title">
-		<h2>Recherches et développements</h2>
+		<h2>{$t('projects.rd.title')}</h2>
 	</div>
 {/if}
 <!-- 

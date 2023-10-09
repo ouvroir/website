@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { t } from '$i18n/i18n.js';
 	import { base } from '$app/paths';
 	export let data;
 </script>
