@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { t } from '$lib/i18n/i18n.js';
+	import { t, dateToLocalizedString } from '$lib/i18n/i18n.js';
 	import { screenType } from '$lib/stores.js';
 	import Tree from '$lib/components/Tree.svelte';
 
@@ -19,7 +19,7 @@
 		<div class="meta">
 			<div>
 				<span class="author">{post?.meta.author}</span> |
-				<span>{post?.meta.date.split('T')[0]}</span>
+				<span>{$dateToLocalizedString(post?.meta.date.split('T')[0])}</span>
 			</div>
 			<p class="project-description">{post?.meta.description}</p>
 		</div>
@@ -30,9 +30,9 @@
 	<aside class="aside-event">
 		<div class="meta-left">
 			<p class="date">
-				{post.meta.dateStart.split('T')[0]}
+				{$dateToLocalizedString(post.meta.dateStart.split('T')[0])}
 			</p>
-			<p class="time-place">{post.meta.timeStart} - {post.meta.timeStart} @ {post.meta.place}</p>
+			<p class="time-place">{post.meta.timeStart} - {post.meta.timeEnd} @ {post.meta.place}</p>
 		</div>
 		<div class="meta-left">
 			<span class="label">{$t('news.summary')}</span>

@@ -73,3 +73,13 @@ export const localize = derived(locale, ($locale) => (data) => {
     if (!Array.isArray(data)) return null
     return data.filter(d => d.path.includes(`-${$locale}.md`))
 })
+
+export const dateToLocalizedString = derived(locale, ($locale) => (dateString: string) => {
+    const l = $locale === 'fr' ? 'fr-CA' : 'en-CA'
+    const date = new Date(dateString)
+    return date.toLocaleDateString(l, {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+    })
+})

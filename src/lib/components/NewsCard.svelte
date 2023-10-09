@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { t } from '$i18n/i18n';
+	import { t, dateToLocalizedString } from '$i18n/i18n';
 
 	export let post;
 
@@ -24,7 +24,7 @@
 		<span class="document-tag">{$t(`card.${post.meta.type}`)}</span>
 		<h1 class={`${smallerTitle()}`}>
 			{#if type === 'meeting'}
-				{post.meta.date.split('T')[0]}
+				{$dateToLocalizedString(post.meta.date.split('T')[0])}
 			{:else}
 				{post.meta.title}
 			{/if}
@@ -33,11 +33,11 @@
 			{#if type === 'blog'}
 				<div>
 					<span class="author">{post.meta.author}</span> |
-					<span>{post.meta.date.split('T')[0]}</span>
+					<span>{$dateToLocalizedString(post.meta.date.split('T')[0])}</span>
 				</div>
 			{:else if type === 'event'}
 				<div>
-					<span class="date">{post.meta.dateStart.split('T')[0]}</span>
+					<span class="date">{$dateToLocalizedString(post.meta.dateStart.split('T')[0])}</span>
 					<div class="time-place">
 						<span class="time">
 							{post.meta.timeStart} - {post.meta.timeEnd}
