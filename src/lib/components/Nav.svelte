@@ -2,10 +2,10 @@
 	import { page } from '$app/stores';
 	import { t, rt, locale, getLangFromParam } from '$i18n/i18n';
 	import { showPresentation, screenType, showNavMenu } from '$lib/stores';
-	import Ouvroir from './Ouvroir.svelte';
-	import NavLinks from './NavLinks.svelte';
 	import { slide } from 'svelte/transition';
 	import { onMount } from 'svelte';
+	import Ouvroir from './Ouvroir.svelte';
+	import NavLinks from './NavLinks.svelte';
 
 	/**
 	 * TODO: should make sure that slug is translated
@@ -22,12 +22,14 @@
 		if (route.includes('home')) url = `${$rt('route.home')}`;
 		else if (route.includes('news')) url = getUrl('news');
 		else if (route.includes('projects')) url = getUrl('projects');
-		else if (route.includes('services')) url = getUrl('services');
+		// else if (route.includes('services')) url = getUrl('services');
 		else if (route.includes('about')) {
 			if (route.includes('members')) url = getUrl('about.member');
 			else {
-				if ($page.params.about === 'about') url = getUrl('about');
-				else url = getUrl('services');
+				if ($page.params.about === 'about' || $page.params.about === 'a-propos')
+					url = getUrl('about');
+				else if ($page.params.about === 'our-services' || $page.params.about === 'nos-services')
+					url = getUrl('services');
 			}
 		}
 		return url;
