@@ -198,4 +198,10 @@
 		background-color: var(--clr-accent);
 		border: solid 1px var(--clr-accent);
 	}
+
+	@media screen and (max-width: 1024px) {
+		.banner {
+			width: 50%;
+		}
+	}
 </style>
