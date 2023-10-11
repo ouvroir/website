@@ -34,6 +34,8 @@
     --presentation-stroke: solid 0.4rem rgba(245, 245, 245, 0.631);
 }
 
+
+
 * {
     box-sizing: border-box;
     inline-size: auto;
@@ -385,6 +387,19 @@ footer,
 
 .team>*+* {
     margin-top: 3rem;
+}
+
+/* Carousel image */
+img.incoming {
+    opacity: 1;
+}
+
+img.outgoing-right {
+    transform: translateX(100%);
+}
+
+img.outgoing-left {
+    transform: translateX(-100%);
 }
 
 
