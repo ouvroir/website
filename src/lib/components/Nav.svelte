@@ -89,8 +89,6 @@
 			document.removeEventListener('click', handleClickOutside);
 		};
 	});
-
-	$: console.log('Locale has changed to', $locale);
 </script>
 
 <svelte:window on:scroll={handleScroll} bind:scrollY />
@@ -103,7 +101,7 @@
 		<Ouvroir />
 		<NavLinks />
 
-		<div class="locale-container">
+		<div class={`locale-container ${$showPresentation ? 'white' : ''}`}>
 			<a
 				class={`lang-btn ${$locale === 'fr' ? 'active' : ''}`}
 				href={frHref}
@@ -252,6 +250,10 @@
 
 	.locale-container > *:first-child {
 		margin-left: auto;
+	}
+
+	.white > * {
+		color: white;
 	}
 
 	.invisible {
