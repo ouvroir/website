@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { localize } from '$lib/i18n/i18n';
+	import { base } from '$app/paths';
 
 	export let data;
 
@@ -104,10 +105,10 @@
 >
 	<img
 		class="active-img"
-		src={`/images/projects/banners/${current.meta.bannerImage}`}
+		src={`${base}/images/projects/banners/${current.meta.bannerImage}`}
 		alt="Hello"
 	/>
-	<img id="outgoing" src={`/images/projects/banners/${next.meta.bannerImage}`} alt="Hello" />
+	<img id="outgoing" src={`${base}/images/projects/banners/${next.meta.bannerImage}`} alt="Hello" />
 	<div class="banner">
 		<h1 class="title">{current.meta.title}</h1>
 		<p class="description">{current.meta.description}</p>
