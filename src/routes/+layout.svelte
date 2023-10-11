@@ -18,6 +18,8 @@
 	}
 
 	$: addGap = $page && $page.route.id === '/[news=news]';
+
+	$: console.log($screenType, $screenWidth);
 </script>
 
 {#if $showPresentation}

@@ -10,10 +10,6 @@
 
 <section class="presentation-wrapper fill-vh" id="presentation">
 	<article bind:this={presentationElt} class="presentation" out:fade={{ duration: 500 }}>
-		{#if $screenType === 'desktop'}
-			<div class="stroke-2"></div>
-			<div class="stroke-3"></div>
-		{/if}
 		<div class="title-container">
 			<div>
 				<h1>Laboratoire <span class="ovr">Ouvroir</span></h1>
@@ -23,9 +19,7 @@
 				<OuvroirPres width="7rem" />
 			</div>
 		</div>
-		{#if $screenType === 'desktop'}
-			<div class="stroke-1"></div>
-		{/if}
+
 		<p>
 			L’Ouvroir d’histoire de l’art et de muséologie numérique de l’Université de Montréal est un
 			laboratoire de recherche destiné à soutenir le travail conduit dans le cadre du Partenariat

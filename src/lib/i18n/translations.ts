@@ -50,7 +50,7 @@ const translations: { [locale: string]: { [path: string]: string } } = {
         // 'route.services.meetups': `${base}/our-services#meet-ups`,
 
         // Homepage
-        'home.projects.title': 'Latest projects & publications',
+        'home.projects.title': 'CIÉCO projects',
         'home.events.title': 'Upcoming events',
         'home.news.latest': 'Latest news',
         'home.news.all': 'All news',
@@ -66,6 +66,7 @@ const translations: { [locale: string]: { [path: string]: string } } = {
         'home.services.meetups.title': 'Meet ups',
         'home.services.meetups': 'Many events are organized to help you with work in digital environments.',
         'home.services.meetups.cta': 'Get in touch',
+        'home.recurring': 'Get in touch with Ouvroir',
 
         // About
         'about.title': 'About',
@@ -162,7 +163,7 @@ const translations: { [locale: string]: { [path: string]: string } } = {
         'route.services.meetups': `${base}/nos-services`,
 
         // Homepage
-        'home.projects.title': 'Projets à l’affiche',
+        'home.projects.title': 'Les projets CIÉCO',
         'home.events.title': 'Nos événements',
         'home.news.latest': 'Dernières nouvelles',
         'home.news.all': "Toute l’actualité",
@@ -177,6 +178,8 @@ const translations: { [locale: string]: { [path: string]: string } } = {
         'home.services.meetups.title': 'Rencontres',
         'home.services.meetups': 'De nombreux événements sont organisés pour vous aider le travail en environnements numériques.',
         'home.services.meetups.cta': 'Nous rencontrer',
+        'home.recurring': 'Rencontrer l’Ouvroir',
+
 
         // About
         'about.title': 'À propos',

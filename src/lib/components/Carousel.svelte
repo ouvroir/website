@@ -12,7 +12,7 @@
 	let touchEndX = 0;
 
 	const setIndex = (idx: number) => {
-		clearInterval(interval);
+		// clearInterval(interval);
 		const direction = idx > currentIndex ? 'fromRight' : 'fromLeft';
 		nextIndex = idx;
 		currentIndex = idx;
@@ -20,7 +20,7 @@
 	};
 	const increaseIndex = () => {
 		const outgoing = document.querySelector('#outgoing');
-		outgoing?.classList.remove('outgoing-left');
+		// outgoing?.classList.remove('outgoing-left');
 		nextIndex = (currentIndex + 1) % data.length;
 		startTransition('fromRight');
 	};
@@ -195,8 +195,8 @@
 	}
 
 	.carousel-active {
-		background-color: var(--clr-accent);
-		border: solid 1px var(--clr-accent);
+		background-color: white;
+		border: solid 1px white;
 	}
 
 	@media screen and (max-width: 1024px) {

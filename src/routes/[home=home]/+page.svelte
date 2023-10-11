@@ -1,15 +1,16 @@
 <script lang="ts">
-	import { t } from '$i18n/i18n';
+	import { t, dateToLocalizedString, localize } from '$i18n/i18n';
+	import { fade } from 'svelte/transition';
+	import { screenType } from '$lib/stores';
 	import Vr from '$lib/components/logos/Vr.svelte';
 	import Venn from '$lib/components/logos/Venn.svelte';
 	import Calendar from '$lib/components/logos/Calendar.svelte';
-	import { fade } from 'svelte/transition';
-	import { base } from '$app/paths';
-	import { screenType } from '$lib/stores';
+	import Carousel from '$lib/components/Carousel.svelte';
+	import HomeListItem from '$lib/components/HomeListItem.svelte';
 
 	export let data;
 
-	$: news = [...data.events, ...data.posts]
+	$: news = $localize([...data.events, ...data.posts])
 		.sort((a, b) => {
 			let aDate = a.meta.type === 'event' ? a.meta.dateStart : a.meta.date;
 			let bDate = b.meta.type === 'event' ? b.meta.dateStart : b.meta.date;
@@ -19,8 +20,7 @@
 			return bDate.localeCompare(aDate);
 		})
 		.slice(0, 4);
-	$: projects = data.projects.slice(0, 5);
-	$: bigProject = projects.pop();
+	$: projects = $localize(data.projects.filter((p) => p.meta.cieco));
 	$: smallScreen = $screenType === 'mobile' || $screenType === 'tablet-vertical';
 </script>
 
@@ -28,22 +28,49 @@
 	<title>{$t('head.home')}</title>
 </svelte:head>
 
-<section class="news-wrapper" in:fade={{ delay: 0, duration: 1000 }}>
+<section class="section-wrapper" in:fade={{ delay: 0, duration: 1000 }}>
 	<header class="section-header">
 		<h1 class="section-title">{$t('home.news.latest')}</h1>
-		<div class="header-separator" />
+		<!-- <div class="header-separator" /> -->
 		<a href={$t('route.news')}>{$t('home.news.all')}</a>
 	</header>
 
-	<ul class="news">
+	<ul class="list-item">
 		{#each news as e}
-			<li class="news-li addhover">
+			{#if e.meta.type === 'event'}
+				<HomeListItem href={`${$t('route.news')}/${$t(`news.type.${e.meta.type}`)}/${e.meta.slug}`}>
+					<span class="document-tag" slot="document-tag">
+						{$t(`card.${e.meta.type}`)}
+					</span>
+					<h1 slot="title" class="card-item-title">{e.meta.title}</h1>
+					<p slot="date" class="card-item-date">
+						{$dateToLocalizedString(e.meta.dateStart.split('T')[0])}
+					</p>
+					<p slot="time" class="card-item-time">
+						{e.meta.timeStart} - {e.meta.timeEnd} @ {e.meta.place}
+					</p>
+				</HomeListItem>
+			{:else if e.meta.type === 'blog'}
+				<HomeListItem href={`${$t('route.news')}/${$t(`news.type.${e.meta.type}`)}/${e.meta.slug}`}>
+					<span class="document-tag" slot="document-tag">
+						{$t(`card.${e.meta.type}`)}
+					</span>
+					<h1 slot="title" class="card-item-title">{e.meta.title}</h1>
+					<p slot="date" class="card-item-date">
+						{$dateToLocalizedString(e.meta.dateStart.split('T')[0])}
+					</p>
+					<p slot="description" class="card-item-description">
+						{e.meta.description}
+					</p>
+				</HomeListItem>
+			{/if}
+			<!-- <li class="news-li addhover">
 				<a href={`${$t('route.news')}/${$t(`news.type.${e.meta.type}`)}/${e.meta.slug}`}>
 					<article class="news-content">
 						<span class="document-tag">{$t(`card.${e.meta.type}`)}</span>
 						<h1>
 							{#if e.meta.type === 'event'}
-								{e.meta.dateStart.split('T')[0]}
+								{$dateToLocalizedString(e.meta.dateStart.split('T')[0])}
 							{:else if e.meta.type === 'blog'}
 								{e.meta.title}
 							{/if}
@@ -59,43 +86,33 @@
 						</h2>
 					</article>
 				</a>
-			</li>
+			</li> -->
 		{/each}
 	</ul>
 </section>
 
-<section class="projects-wrapper" in:fade={{ delay: 500, duration: 1000 }}>
+<section class="section-wrapper" in:fade={{ delay: 500, duration: 1000 }}>
 	<header class="section-header">
 		<h1 class="section-title">{$t('home.projects.title')}</h1>
-		<div class="header-separator" />
+		<!-- <div class="header-separator" /> -->
 		<a href={$t('route.projects')}>{$t('home.projects.all')}</a>
 	</header>
 
-	{#if !smallScreen}
-		<article class={`project bg`}>
-			<img src={`${base}/sample1.jpg`} alt="" />
-			<div class="project-content">
-				<h1 class="project-title">{bigProject.meta.title}</h1>
-				<p class="project-description">{bigProject.meta.description}</p>
-			</div>
-		</article>
-	{/if}
+	<div>
+		<Carousel data={projects} />
+	</div>
 
-	<ul class="projects">
+	<ul class="list-item">
 		{#each projects as p, i}
-			<li>
-				<a href={`${$t('route.projects')}/${p.meta.slug}`}>
-					<article class="project sm addhover">
-						<h1 class="project-title">{p.meta.title}</h1>
-						<p class="project-description">{p.meta.description}</p>
-					</article>
-				</a>
-			</li>
+			<HomeListItem href={`${$t('route.projects')}/${p.meta.slug}`}>
+				<h1 slot="title" class="card-item-title">{p.meta.title}</h1>
+				<p slot="description" class="card-item-description">{p.meta.description}</p>
+			</HomeListItem>
 		{/each}
 	</ul>
 </section>
 
-<div class="separator" />
+<!-- <div class="separator" /> -->
 
 <section class="services-wrapper" id="services">
 	<h1>
@@ -141,14 +158,80 @@
 </section>
 
 <style>
+	.section-wrapper {
+		grid-column: 2 / -2;
+		margin-top: 4rem;
+		margin-bottom: 3rem;
+	}
+
+	section > * + * {
+		margin-top: 4rem;
+	}
+
+	.section-header {
+		width: 100%;
+		display: flex;
+		flex-direction: row;
+		align-items: baseline;
+		flex-wrap: wrap;
+		column-gap: 1.5rem;
+		row-gap: 1rem;
+	}
+
 	section a {
 		color: var(--clr-accent);
 		font-weight: 300;
 	}
+
+	.section-title {
+		/* color: var(--clr-accent); */
+		font-weight: 300;
+		font-size: 2rem;
+		width: max-content;
+	}
+
 	.separator {
 		grid-column: 3 /-3;
 		border-bottom: solid 0.5px transparent;
 		margin-top: 6rem;
+	}
+
+	.list-item {
+		position: static;
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+		grid-auto-flow: dense;
+		gap: 4rem;
+		row-gap: 2rem;
+	}
+
+	.card-item-title {
+		font-size: 1.2rem;
+		font-weight: 400;
+		line-height: 1.5rem;
+	}
+
+	.card-item-description {
+		font-size: 0.9rem;
+		font-weight: 300;
+		margin-top: 0.2rem;
+		line-height: 1.3rem;
+	}
+
+	.card-item-date,
+	.card-item-time {
+		font-weight: 300;
+		font-size: 0.8rem;
+	}
+
+	.card-item-date {
+		color: var(--clr-accent);
+		font-weight: 400;
+	}
+
+	.document-tag {
+		display: block;
+		padding-bottom: 0.5rem;
 	}
 
 	/** Services*/
@@ -157,28 +240,18 @@
 		grid-column: 1 / -1;
 		position: relative;
 		/* margin-top: 3rem; */
+		margin-top: 3rem;
 		margin-bottom: 7rem;
 		line-height: 3rem;
 		font-weight: 300;
 	}
-
-	/* .services-wrapper::after {
-		content: '';
-		position: absolute;
-		top: -25%;
-		left: -25%;
-		width: 150%;
-		height: 150%;
-		background-color: rgba(137, 43, 226, 0.4);
-		z-index: -1;
-	} */
 
 	.services-wrapper > h1 {
 		font-size: 2.5rem;
 		margin-bottom: 2rem;
 		/* text-justify: center; */
 		width: 100%;
-		padding: 3rem 10rem;
+		padding: 1rem 10rem;
 	}
 
 	.services-list {
@@ -223,14 +296,6 @@
 		margin-bottom: 1rem;
 	}
 
-	/** News */
-
-	.section-header {
-		display: flex;
-		flex-direction: row;
-		align-items: baseline;
-	}
-
 	.header-separator {
 		position: relative;
 		top: 0.3rem;
@@ -240,190 +305,9 @@
 		margin: 0 0.8rem;
 	}
 
-	.news-wrapper {
-		grid-column: 1 / -1;
-		margin-top: 4rem;
-		position: relative;
-		margin-bottom: 3rem;
-	}
-
-	.news {
-		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
-		grid-auto-flow: dense;
-		gap: 4rem;
-		row-gap: 2rem;
-	}
-
-	.news-li {
-		min-width: 10rem;
-		position: relative;
-	}
-
-	.section-title {
-		/* color: var(--clr-accent); */
-		font-weight: 300;
-		font-size: 2rem;
-		width: fit-content;
-
-		margin-bottom: 3rem;
-	}
-
-	.news-content {
-		position: relative;
-	}
-
-	.news-content > * + * {
-		margin-top: 0.4rem;
-	}
-
-	.news-content:hover {
-		cursor: pointer;
-	}
-
-	.addhover:hover::after {
-		position: absolute;
-		content: '';
-		width: calc(100% + 1rem);
-		height: calc(100% + 1rem);
-		top: -0.2rem;
-		left: -0.5rem;
-		cursor: pointer;
-		background-color: rgba(211, 211, 211, 0.3);
-		z-index: -1;
-	}
-	.news-content-infos {
-		font-size: 0.9rem;
-		font-weight: 300;
-		margin-top: 0.2rem;
-		color: var(--clr-accent);
-	}
-
-	.document-tag {
-		display: block;
-		padding-bottom: 0.5rem;
-	}
-
-	.news-content > h1 {
-		font-size: 1.5rem;
-		/* color: var(--clr-accent); */
-		font-weight: 400;
-		/* text-decoration: underline 0.2rem var(--clr-accent); */
-	}
-
-	.news-content > h2 {
-		font-weight: 400;
-		line-height: 1.4rem;
-		border-top: solid 0.5px rgba(0, 0, 0, 0.2);
-		/* border-top: solid 0.5px var(--clr-accent); */
-		padding-top: 0.6rem;
-	}
-
-	.projects-wrapper {
-		display: contents;
-	}
-
-	.projects-wrapper > .section-header {
-		grid-column: 1 / -2;
-		margin-top: 5rem;
-	}
-	.projects-wrapper > .section-header h1 {
-		/* margin-top: 6rem; */
-		margin-bottom: 5rem;
-	}
-
-	.projects {
-		grid-column: span 4;
-		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(50%, 1fr));
-		grid-auto-flow: dense;
-		/* columns: 2; */
-
-		margin-bottom: 3rem;
-	}
-
-	.projects a,
-	.news-li a {
-		color: unset;
-	}
-
-	.project {
-		position: relative;
-		margin-bottom: 2rem;
-		grid-column: span 2;
-	}
-	.project:hover {
-		cursor: pointer;
-	}
-
-	.bg > img {
-		position: absolute;
-		max-width: 100%;
-		object-fit: cover;
-		z-index: -1;
-		filter: grayscale();
-	}
-
-	.project-content {
-		background-color: rgb(38, 38, 38, 0.7);
-		color: white;
-		padding: 1rem;
-	}
-
-	.project-title {
-		font-size: 1.5rem;
-		font-weight: 400;
-		line-height: 2rem;
-	}
-
-	.project-description {
-		line-height: 1.5rem;
-	}
-
-	.sm {
-		padding: 0.5rem 1rem;
-	}
-
-	/* .sm:hover {
-		background-color: rgba(211, 211, 211, 0.474);
-	} */
-
-	.bg {
-		grid-column: span 4;
-		grid-row: span 2;
-		/* height: 50vh !important; */
-		margin-right: 2rem;
-	}
-
-	.project-content > h1 {
-		font-size: 2.5rem;
-	}
-
 	@media screen and (max-width: 821px) {
-		.projects-wrapper > article {
-			width: max-content;
-		}
-		.bg {
-			grid-column: 1/-1;
-			height: fit-content !important;
-		}
-
-		.projects {
-			display: flex;
-			flex-wrap: wrap;
-		}
-		.project {
-			min-width: 20rem;
-			width: 100%;
-			padding: 0;
-		}
-
 		.services-wrapper {
 			margin-bottom: 0;
-		}
-		.section-title {
-			margin-bottom: 3rem !important;
-			width: 50%;
 		}
 
 		#services > h1 {
@@ -431,10 +315,6 @@
 			padding-top: 2rem;
 			border-top: solid 0.5px var(--clr-accent);
 			font-size: 2rem;
-		}
-
-		.separator {
-			margin: 0;
 		}
 
 		.services-list {
@@ -451,6 +331,12 @@
 		}
 		.services-li > span {
 			display: inline;
+		}
+	}
+
+	@media screen and (max-width: 480px) {
+		.section-wrapper {
+			grid-column: 1/-1;
 		}
 	}
 </style>
