@@ -1,9 +1,10 @@
 <script lang="ts">
 	import TeamCard from '$lib/components/TeamCard.svelte';
+	import { localize } from '$lib/i18n/i18n.js';
 
 	export let data;
 
-	const m = data.member;
+	$: m = $localize(data.member)[0];
 </script>
 
 <section>

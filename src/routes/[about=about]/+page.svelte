@@ -3,7 +3,6 @@
 	import type { Member } from '$lib/types';
 	import { aboutPageTitle } from '$lib/stores.js';
 	import { localize } from '$i18n/i18n';
-
 	import TeamCard from '$lib/components/TeamCard.svelte';
 
 	export let data;
@@ -33,7 +32,7 @@
 					{#each dir as m}
 						<li>
 							<a href={`${$t('route.about.member')}/${m.meta.slug}`}>
-								<TeamCard data={m} />
+								<TeamCard bind:data={m} />
 							</a>
 						</li>
 					{/each}
@@ -43,7 +42,7 @@
 					{#each coord as m}
 						<li>
 							<a href={`${$t('route.about.member')}/${m.meta.slug}`}>
-								<TeamCard data={m} />
+								<TeamCard bind:data={m} />
 							</a>
 						</li>
 					{/each}
@@ -53,7 +52,7 @@
 					{#each members as m}
 						<li>
 							<a href={`${$t('route.about.member')}/${m.meta.slug}`}>
-								<TeamCard data={m} />
+								<TeamCard bind:data={m} />
 							</a>
 						</li>
 					{/each}
