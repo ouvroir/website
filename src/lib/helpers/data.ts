@@ -43,7 +43,8 @@ export async function fetchData(type: keyof typeof setup) {
             .filter(([path]) => !path.includes('template'))
             .map(async ([path, resolver]) => {
                 const md = await resolver()
-                const mdHtml = md.default.render().html
+                let mdHtml = md.default.render().html
+                mdHtml = mdHtml.replace(/<a /g, "<a target='_blank' rel='external'")
                 return {
                     meta: md.metadata,
                     path: path,
