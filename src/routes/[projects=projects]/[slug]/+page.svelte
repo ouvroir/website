@@ -1,41 +1,45 @@
 <script lang="ts">
 	import { base } from '$app/paths';
+	import { localize, t } from '$lib/i18n/i18n.js';
+
 	export let data;
+
+	$: project = $localize(data.projects)[0];
 </script>
 
 <svelte:head>
-	<title>{data.meta.title}</title>
+	<title>{project.meta.title}</title>
 </svelte:head>
 
 <article>
 	<header>
-		<h1>{data.meta?.title}</h1>
+		<h1>{project.meta?.title}</h1>
 
 		<div class="meta">
 			<ul class="tags">
-				{#each data.meta.tags as t}
+				{#each project.meta.tags as t}
 					<li>{t}</li>
 				{/each}
 			</ul>
 			<img src={`${base}/sample1.jpg`} alt="" />
-			<p class="project-description">{data.meta?.description}</p>
+			<p class="project-description">{project.meta?.description}</p>
 			<div class="infos">
 				<div class="info">
-					<span>since</span>
-					<p>{data.meta?.since}</p>
+					<span>{$t('projects.infos.started')}</span>
+					<p>{project.meta?.since}</p>
 				</div>
 				<div class="info">
-					<span>status</span>
+					<span>{$t('projects.infos.status')}</span>
 					<p>ongoing</p>
 				</div>
 				<div class="info">
-					<span>project manager</span>
-					<p>{data.meta?.lead}</p>
+					<span>{$t('projects.infos.pm')}</span>
+					<p>{project.meta?.lead}</p>
 				</div>
 				<div class="info">
-					<span>team</span>
+					<span>{$t('projects.infos.team')}</span>
 					<ul class="team-members">
-						{#each data.meta.team as t}
+						{#each project.meta.team as t}
 							<li>{t}</li>
 						{/each}
 					</ul>
@@ -44,7 +48,7 @@
 		</div>
 	</header>
 	<div class="text-body">
-		{@html data.html}
+		{@html project.html}
 	</div>
 </article>
 
@@ -103,7 +107,7 @@
 		font-family: var(--ff-mono);
 		color: red;
 		font-weight: 300;
-		margin-bottom: 0.3rem;
+		margin-bottom: 0.6rem;
 		font-size: 0.9rem;
 	}
 

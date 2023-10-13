@@ -1,11 +1,12 @@
 <script lang="ts">
 	import { t, dateToLocalizedString } from '$lib/i18n/i18n.js';
 	import { screenType } from '$lib/stores.js';
+	import { localize } from '$lib/i18n/i18n.js';
 	import Tree from '$lib/components/Tree.svelte';
 
 	export let data;
 
-	$: post = data.post;
+	$: post = $localize(data.post)[0];
 
 	const smallScreen = $screenType === 'mobile' || $screenType === 'tablet-vertical';
 </script>

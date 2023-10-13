@@ -93,6 +93,13 @@ const translations: { [locale: string]: { [path: string]: string } } = {
         // Projects 
         'projects.cieco.title': 'CIÉCO deliverables',
         'projects.rd.title': 'Research and development',
+        'projects.infos.started': 'started',
+        'projects.infos.status': 'status',
+        'projects.infos.status.ongoing': 'ongoing',
+        'projects.infos.status.archived': 'archived',
+        'projects.infos.status.planned': 'planned',
+        'projects.infos.team': 'team',
+        'projects.infos.pm': 'project manager',
 
         // News
         'news.summary': 'Summary',
@@ -206,6 +213,13 @@ const translations: { [locale: string]: { [path: string]: string } } = {
         // Projects 
         'projects.cieco.title': 'Livrables CIÉCO',
         'projects.rd.title': 'Recherches et développements',
+        'projects.infos.started': 'début',
+        'projects.infos.status': 'statut',
+        'projects.infos.status.ongoing': 'en cours',
+        'projects.infos.status.archived': 'archivé',
+        'projects.infos.status.planned': 'planifié',
+        'projects.infos.team': 'équipe',
+        'projects.infos.pm': 'chef⸱fe de projet',
 
         // News
         'news.summary': 'Résumé',
