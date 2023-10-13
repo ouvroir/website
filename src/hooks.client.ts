@@ -1,11 +1,8 @@
 import type { Handle } from '@sveltejs/kit';
-import { building } from '$app/environment';
 import { getLangFromParam } from '$i18n/i18n'
 
-export const handle = (({ event, resolve }) => {
-    if (building)
-        console.log('[hooks.buildMode] crawling', event.url.pathname)
 
+export const handle = (({ event, resolve }) => {
     // current locale is set based on url. If locale cannot be deduced from url (ie from '/'), 
     // a check is made to see if locale is set in locals (meaning that user as already visited at least one page).
     let lang: 'fr' | 'en' | null = getLangFromParam(event.params) || null

@@ -3,6 +3,8 @@ import { redirect } from '@sveltejs/kit'
 import { base } from '$app/paths'
 import { get } from 'svelte/store'
 import { locale } from '$i18n/i18n'
+import { building } from '$app/environment';
+
 
 export const prerender = true
 
@@ -22,6 +24,9 @@ export const load = async (event) => {
 
         support = await fetchData('support')
     }
+
+    if (building)
+        console.log('[layout.buildMode] crawling', event.url.pathname)
 
     return {
         support
