@@ -16,7 +16,9 @@
 		const getUrl = (name: string) => {
 			if ($page.route.id?.includes('news') || $page.route.id?.includes('projects'))
 				return `${$rt(`route.${name}`)}`;
-			else return `${$rt(`route.${name}`)}${$page.params.slug ? '/' + $page.params.slug : ''}`;
+			else if ($page.route.id?.includes('memb')) {
+				return `${$rt(`route.${name}`)}/${$page.params.name}`;
+			} else return `${$rt(`route.${name}`)}${$page.params.slug ? '/' + $page.params.slug : ''}`;
 		};
 
 		if (route.includes('home')) url = `${$rt('route.home')}`;
