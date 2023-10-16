@@ -45,9 +45,6 @@ const translations: { [locale: string]: { [path: string]: string } } = {
         'route.services.equipement': `${base}/our-services`,
         'route.services.reservation': `${base}/our-services`,
         'route.services.meetups': `${base}/our-services`,
-        // 'route.services.equipement': `${base}/our-services#quipements`,
-        // 'route.services.reservation': `${base}/our-services#reservation`,
-        // 'route.services.meetups': `${base}/our-services#meet-ups`,
 
         // Homepage
         'home.projects.title': 'CIÉCO projects',

@@ -1,3 +1,5 @@
+import type { OuvroirData } from "$lib/types"
+
 
 const getBlogs = async () =>
     await import.meta.glob(`$lib/labouvroir/blog/*.md`)
@@ -49,7 +51,7 @@ export async function fetchData(type: keyof typeof setup) {
                     meta: md.metadata,
                     path: path,
                     html: mdHtml,
-                }
+                } as OuvroirData
             })
     )
 

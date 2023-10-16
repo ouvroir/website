@@ -2,9 +2,8 @@
 	import ProjectLItem from '$lib/components/ProjectLItem.svelte';
 	import FilterPanel from '$lib/components/FilterPanel.svelte';
 	import { showPresentation } from '$lib/stores.js';
-	import type { Project } from '$lib/types.js';
 	import { t, localize } from '$i18n/i18n';
-
+	import type { Project } from '$lib/types.js';
 	export let data;
 
 	showPresentation.set(false);
@@ -20,7 +19,7 @@
 		return contains;
 	};
 
-	$: allProjects = $localize(data.projects);
+	$: allProjects = $localize(data.projects) as Project[];
 
 	$: ciecoProjects = allProjects
 		.filter((d) => d.meta.cieco)

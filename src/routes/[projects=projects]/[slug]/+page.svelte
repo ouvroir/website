@@ -13,7 +13,7 @@
 
 <article>
 	<header>
-		<h1>{project.meta?.title}</h1>
+		<h1>{project.meta.title}</h1>
 
 		<div class="meta">
 			<ul class="tags">

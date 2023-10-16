@@ -1,6 +1,6 @@
 import { derived, writable } from "svelte/store";
 import translations from "./translations";
-
+import type { Project, Member, Event, OuvroirData } from '$lib/types'
 
 // Code greatly inspired by:
 // https://dev.to/danawoodman/svelte-quick-tip-adding-basic-internationalization-i18n-to-you-app-2lm
@@ -69,10 +69,11 @@ export const getLangFromParam = (param: Partial<Record<string, string>>) => {
     return lang
 }
 
-export const localize = derived(locale, ($locale) => (data) => {
-    if (!Array.isArray(data)) return null
-    return data.filter(d => d.path.includes(`-${$locale}.md`))
-})
+export const localize = derived(locale, ($locale) =>
+    <T extends OuvroirData[]>(data: T): T => {
+        if (!Array.isArray(data)) throw new Error('cannot localize data')
+        return data.filter(d => d.path.includes(`-${$locale}.md`)) as T;
+    })
 
 export const dateToLocalizedString = derived(locale, ($locale) => (dateString: string) => {
     const l = $locale === 'fr' ? 'fr-CA' : 'en-CA'
