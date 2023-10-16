@@ -12,12 +12,12 @@
 <ul class="meta-list">
 	<div class="meta">
 		<span>mail</span>
-		<a href={`mailto:${meta.mail}`}>{meta.mail}</a>
+		<a rel="external" href={`mailto:${meta.mail}`}>{meta.mail}</a>
 	</div>
 	{#if meta.permalink && pageMode}
 		<div class="meta">
 			<span>permalink</span>
-			<a href={`${meta.permalink}`}>{meta.permalink}</a>
+			<a rel="external" href={`${meta.permalink}`}>{meta.permalink}</a>
 		</div>
 	{/if}
 	{#if meta.projects && meta.projects.length > 0}
