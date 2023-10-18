@@ -31,9 +31,9 @@
 				<ul class="team">
 					{#each dir as m}
 						<li>
-							<!-- <a href={`${$t('route.about.member')}/${m.meta.slug}`}>
+							<a href={`${$t('route.about.member')}/${m.meta.slug}`}>
 								<TeamCard bind:data={m} />
-							</a> -->
+							</a>
 						</li>
 					{/each}
 				</ul>
@@ -41,9 +41,9 @@
 				<ul class="team">
 					{#each coord as m}
 						<li>
-							<!-- <a href={`${$t('route.about.member')}/${m.meta.slug}`}>
+							<a href={`${$t('route.about.member')}/${m.meta.slug}`}>
 								<TeamCard bind:data={m} />
-							</a> -->
+							</a>
 						</li>
 					{/each}
 				</ul>
@@ -51,9 +51,9 @@
 				<ul class="team">
 					{#each members as m}
 						<li>
-							<!-- <a href={`${$t('route.about.member')}/${m.meta.slug}`}>
+							<a href={`${$t('route.about.member')}/${m.meta.slug}`}>
 								<TeamCard bind:data={m} />
-							</a> -->
+							</a>
 						</li>
 					{/each}
 				</ul>
