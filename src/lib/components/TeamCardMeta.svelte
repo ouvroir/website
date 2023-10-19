@@ -9,42 +9,44 @@
 	});
 </script>
 
-<ul class="meta-list">
-	<div class="meta">
-		<span>mail</span>
-		{#if meta.mail}
-			<a rel="external" href={`mailto:${meta.mail}`}>{meta.mail}</a>
-		{/if}
-	</div>
-	{#if meta.permalink && pageMode}
+{#if meta}
+	<ul class="meta-list">
 		<div class="meta">
-			<span>permalink</span>
-			{#if meta.permalink}
-				<a rel="external" href={`${meta.permalink}`}>{meta.permalink}</a>
+			<span>mail</span>
+			{#if meta.mail}
+				<a rel="external" href={`mailto:${meta.mail}`}>{meta.mail}</a>
 			{/if}
 		</div>
-	{/if}
-	{#if meta.projects && meta.projects.length > 0}
-		<div class="meta">
-			<span>projets</span>
-			<ul>
-				{#each meta.projects as p}
-					<li>{p}</li>
-				{/each}
-			</ul>
-		</div>
-	{/if}
-	{#if meta.tags && meta.tags.length > 0 && pageMode}
-		<div class="meta">
-			<span>tags</span>
-			<ul>
-				{#each meta.tags as tag}
-					<li>{tag}</li>
-				{/each}
-			</ul>
-		</div>
-	{/if}
-</ul>
+		{#if meta.permalink && pageMode}
+			<div class="meta">
+				<span>permalink</span>
+				{#if meta.permalink}
+					<a rel="external" href={`${meta.permalink}`}>{meta.permalink}</a>
+				{/if}
+			</div>
+		{/if}
+		{#if meta.projects && meta.projects.length > 0}
+			<div class="meta">
+				<span>projets</span>
+				<ul>
+					{#each meta.projects as p}
+						<li>{p}</li>
+					{/each}
+				</ul>
+			</div>
+		{/if}
+		{#if meta.tags && meta.tags.length > 0 && pageMode}
+			<div class="meta">
+				<span>tags</span>
+				<ul>
+					{#each meta.tags as tag}
+						<li>{tag}</li>
+					{/each}
+				</ul>
+			</div>
+		{/if}
+	</ul>
+{/if}
 
 <style>
 	a {
