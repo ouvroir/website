@@ -19,7 +19,7 @@
 	{#if meta.permalink && pageMode}
 		<div class="meta">
 			<span>permalink</span>
-			{#if meta.mail}
+			{#if meta.permalink}
 				<a rel="external" href={`${meta.permalink}`}>{meta.permalink}</a>
 			{/if}
 		</div>
