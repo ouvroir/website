@@ -12,7 +12,7 @@ const config = {
 		// See https://kit.svelte.dev/docs/adapters for more information about adapters.
 		adapter: adapter(),
 		prerender: {
-			entries: ['*', '/a-propos/membres/emchateau']
+			entries: ['*', '/about', '/a-propos']
 		},
 		paths: {
 			base: dev ? '' : process.env.BASE_PATH
