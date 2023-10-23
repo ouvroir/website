@@ -11,7 +11,7 @@
 	 * TODO: should make sure that slug is translated
 	 */
 	const getLangRedirectUrl = (route: string) => {
-		let url: string = '/accueil';
+		let url: string = $t('route.home');
 
 		const getUrl = (name: string) => {
 			if ($page.route.id?.includes('news') || $page.route.id?.includes('projects'))
