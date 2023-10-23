@@ -22,15 +22,10 @@
 		if (route.includes('home')) url = `${$rt('route.home')}`;
 		else if (route.includes('news')) url = getUrl('news');
 		else if (route.includes('projects')) url = getUrl('projects');
-		// else if (route.includes('services')) url = getUrl('services');
+		else if (route.includes('services')) url = getUrl('services');
 		else if (route.includes('about')) {
 			if (route.includes('members')) url = getUrl('about.member');
-			else {
-				if ($page.params.about === 'about' || $page.params.about === 'a-propos')
-					url = getUrl('about');
-				else if ($page.params.about === 'our-services' || $page.params.about === 'nos-services')
-					url = getUrl('services');
-			}
+			else url = getUrl('about');
 		}
 		return url;
 	};
