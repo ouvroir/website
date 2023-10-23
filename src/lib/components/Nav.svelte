@@ -7,6 +7,9 @@
 	import Ouvroir from './Ouvroir.svelte';
 	import NavLinks from './NavLinks.svelte';
 
+	let scrollY: number = 0;
+	let prevScrollY: number = 0;
+
 	/**
 	 * TODO: should make sure that slug is translated
 	 */
@@ -35,14 +38,15 @@
 	let frHref = $locale === 'fr' ? $page.url.pathname : langRedirectUrl;
 
 	page.subscribe(() => {
+		// reset scroll on page change
+		scrollY = 0;
+
 		locale.set(getLangFromParam($page.params));
 		langRedirectUrl = $page.route.id ? getLangRedirectUrl($page.route.id) : '/';
 		enHref = $locale === 'en' ? $page.url.pathname : langRedirectUrl;
 		frHref = $locale === 'fr' ? $page.url.pathname : langRedirectUrl;
 	});
 
-	let scrollY: number;
-	let prevScrollY: number = 0;
 	const handleScroll = (e: Event) => {
 		const nav = document.querySelector('nav.main');
 		const top = nav?.getBoundingClientRect().top ?? 500;
@@ -54,10 +58,12 @@
 			}
 		} else {
 			// if scrolling down
-			if (prevScrollY - scrollY > 0) {
-				nav?.classList.remove('hide-nav');
-			} else {
+			if (prevScrollY - scrollY < 0) {
+				console.log('scrolling down', prevScrollY - scrollY);
 				nav?.classList.add('hide-nav');
+			} else {
+				console.log('scrolling up', prevScrollY - scrollY);
+				nav?.classList.remove('hide-nav');
 			}
 			prevScrollY = scrollY;
 			if (scrollY <= 40) nav?.classList.remove('nav-shadow');
@@ -263,6 +269,9 @@
 
 	.hide-nav {
 		transform: translateY(-100%);
+	}
+	.show-nav {
+		transform: translateY(100%);
 	}
 
 	/** Small screens */
