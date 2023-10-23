@@ -18,18 +18,26 @@
 		return contains;
 	};
 
+	function sortByDate(a, b) {
+		let aDate = a.meta.type === 'event' ? a.meta.dateStart : a.meta.date;
+		let bDate = b.meta.type === 'event' ? b.meta.dateStart : b.meta.date;
+
+		aDate = aDate.split('T')[0];
+		bDate = bDate.split('T')[0];
+		return bDate.localeCompare(aDate);
+	}
+
 	$: selectedTags = [] as string[];
+
+	$: meetings = $selectedNewsTypes.includes('meeting')
+		? data.meetings.sort((a, b) => sortByDate(a, b))
+		: [];
+
+	$: console.log(meetings);
 
 	$: posts = $localize(data.news)
 		.filter((d) => $selectedNewsTypes.includes(d.meta.type) && filterTags(d, selectedTags))
-		.sort((a, b) => {
-			let aDate = a.meta.type === 'event' ? a.meta.dateStart : a.meta.date;
-			let bDate = b.meta.type === 'event' ? b.meta.dateStart : b.meta.date;
-
-			aDate = aDate.split('T')[0];
-			bDate = bDate.split('T')[0];
-			return bDate.localeCompare(aDate);
-		});
+		.sort((a, b) => sortByDate(a, b));
 
 	$: $disabledNewsTypes = ['event', 'blog', 'meeting'].filter(
 		(t) => posts && posts.filter((p) => p.meta.type === t).length === 0
@@ -70,6 +78,11 @@
 		{#each posts as post}
 			<NewsCard {post} />
 		{/each}
+		{#if meetings}
+			{#each meetings as m}
+				<NewsCard post={m} />
+			{/each}
+		{/if}
 	</ul>
 {/if}
 

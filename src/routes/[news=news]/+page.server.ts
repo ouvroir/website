@@ -22,7 +22,10 @@ export const load = async () => {
         return meeting
     })
 
+    console.log('found', meetings.length, 'meetings')
+
     return {
-        news: [...posts, ...events, ...meetings]
+        news: [...posts, ...events],
+        meetings
     }
 }
