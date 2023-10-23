@@ -4,7 +4,7 @@
 	xmlns="http://www.w3.org/2000/svg"
 	xmlns:xlink="http://www.w3.org/1999/xlink"
 	viewBox="0 0 51.4 36.45"
-	fill="white"
+	fill="black"
 >
 	<defs>
 		<style>
@@ -14,7 +14,6 @@
 
 			.cls-2 {
 				clip-path: url(#clippath);
-				fill: white;
 			}
 
 			.cls-3 {
@@ -65,7 +64,4 @@
 </svg>
 
 <style>
-	* {
-		fill: white !important;
-	}
 </style>

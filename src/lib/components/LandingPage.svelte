@@ -9,49 +9,51 @@
 </script>
 
 <section class="presentation-wrapper fill-vh" id="presentation">
-	<article bind:this={presentationElt} class="presentation" out:fade={{ duration: 500 }}>
+	<div class="presentation-container">
 		<div class="title-container">
+			<div class="logo-ouvroir">
+				<OuvroirPres width="7rem" />
+			</div>
 			<div>
 				<h1>Laboratoire <span class="ovr">Ouvroir</span></h1>
 				<h2 class="subtitle">d’histoire de l’art et de muséologie numériques</h2>
 			</div>
-			<div class="logo-ouvroir">
-				<OuvroirPres width="7rem" />
-			</div>
 		</div>
+		<article bind:this={presentationElt} class="presentation" out:fade={{ duration: 500 }}>
+			<p>
+				L’Ouvroir d’histoire de l’art et de muséologie numérique de l’Université de Montréal est un
+				laboratoire de recherche destiné à soutenir le travail conduit dans le cadre du Partenariat
+				«&nbsp<em class="s-1erdp_PvG-Jl"
+					>Des nouveaux usages des collections dans les musées d’art</em
+				>&nbsp»
+				<a href="https://cieco.umontreal.ca/" class="s-1erdp_PvG-Jl">CIÉCO</a> dirigé par Johanne Lamoureux.
+			</p>
 
-		<p>
-			L’Ouvroir d’histoire de l’art et de muséologie numérique de l’Université de Montréal est un
-			laboratoire de recherche destiné à soutenir le travail conduit dans le cadre du Partenariat
-			«&nbsp<em class="s-1erdp_PvG-Jl">Des nouveaux usages des collections dans les musées d’art</em
-			>&nbsp»
-			<a href="https://cieco.umontreal.ca/" class="s-1erdp_PvG-Jl">CIÉCO</a> dirigé par Johanne Lamoureux.
-		</p>
+			<p>
+				Sa création permet de doter le Canada d’un équipement de recherche dédié à l’expérimentation
+				et le développement d’innovations dans les domaines de l’histoire de l’art et de la
+				muséologie numériques.
+			</p>
 
-		<p>
-			Sa création permet de doter le Canada d’un équipement de recherche dédié à l’expérimentation
-			et le développement d’innovations dans les domaines de l’histoire de l’art et de la muséologie
-			numériques.
-		</p>
-
-		<p>
-			L’Ouvroir est membre du <em
-				>Centre de recherche interuniversitaire sur les humanités numériques</em
-			>, <a href="https://www.crihn.org/" class="s-1erdp_PvG-Jl">CRIHN</a>.
-		</p>
-		{#if $screenType === 'desktop'}
+			<p>
+				L’Ouvroir est membre du <em
+					>Centre de recherche interuniversitaire sur les humanités numériques</em
+				>, <a href="https://www.crihn.org/" class="s-1erdp_PvG-Jl">CRIHN</a>.
+			</p>
+			<!-- {#if $screenType === 'desktop'}
 			<div class="cieco">
 				<CiecoWhite />
 			</div>
-		{:else}
+		{:else} -->
 			<div class="logos">
 				<div class="cieco">
 					<CiecoWhite />
 				</div>
 				<Udem width="25rem" fontColor="white" />
 			</div>
-		{/if}
-	</article>
+			<!-- {/if} -->
+		</article>
+	</div>
 </section>
 
 <style>
@@ -59,15 +61,19 @@
 		display: flex;
 		flex-direction: row;
 		align-items: center;
+		gap: 5rem;
 	}
 
 	.cieco {
-		position: absolute;
-		width: 15rem;
+		position: static;
+		width: 10rem;
 		top: 35%;
 		right: 14%;
+		fill: white !important;
 	}
+
 	.title-container {
+		grid-column: 1/6;
 		display: flex;
 		flex-direction: row;
 	}
@@ -75,33 +81,9 @@
 		all: unset;
 		display: block;
 		position: relative;
-		left: 2rem;
+		/* left: 2rem; */
 		top: -1rem;
 		width: 8rem;
-	}
-	.stroke-1,
-	.stroke-2,
-	.stroke-3 {
-		position: absolute;
-		z-index: 0;
-	}
-
-	.stroke-1 {
-		left: 3%;
-		top: 12rem;
-		width: 80%;
-		height: 0;
-		border-top: var(--presentation-stroke);
-		background-color: var(--bg-clr-presentation);
-	}
-
-	.stroke-2 {
-		right: 30%;
-		right: 35%;
-		top: 10%;
-		height: 20rem;
-		border-left: var(--presentation-stroke);
-		transform: rotate(10deg);
 	}
 
 	/** Presentation */
@@ -119,8 +101,10 @@
 	}
 
 	.presentation {
-		padding-top: 5rem;
-		padding-left: 8%;
+		/* padding-top: 5rem; */
+		/* padding-left: 8%; */
+		grid-column: 2/6;
+		grid-row: 2;
 		font-size: 1.5rem;
 		font-weight: 400;
 		line-height: 2.5rem;
@@ -137,21 +121,18 @@
 	}
 
 	.presentation p {
-		width: 50%;
+		/* width: 50%; */
 		font-size: 1.2rem;
 		margin-bottom: 3rem;
 		line-height: 2rem;
 	}
 
-	.description {
-		margin-bottom: 0rem !important;
-	}
-
-	.presentation h1 {
+	.title-container h1 {
 		/* font-family: var(--ff-logo) !important; */
 		font-size: 3rem;
 		font-weight: 600;
 		margin-bottom: 1rem;
+		padding-top: 2rem;
 	}
 
 	.ovr {
@@ -180,9 +161,7 @@
 		.presentation p {
 			width: 80%;
 		}
-		.presentation > p {
-			/* margin-top: 2rem; */
-		}
+
 		.cieco {
 			position: static;
 			float: left;
