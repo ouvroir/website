@@ -12,6 +12,7 @@ export const load = async (event) => {
 
     const type = types[event.params.newsType]
 
+    
     let post
     if (type === 'blog') {
         const posts = await fetchData('blog')
@@ -19,11 +20,11 @@ export const load = async (event) => {
     }
     else {
         const basePath = type === 'meeting'
-            ? '/src/lib/labouvroir/cr/'
-            : '/src/lib/labouvroir/evenements/'
+        ? '/src/lib/labouvroir/cr/'
+        : '/src/lib/labouvroir/evenements/'
         const path = basePath + decodeURIComponent(event.params.slug) + '.md'
         const posts = await fetchData(type)
-        post = posts.filter(p => p.path === path)
+        post = posts.filter(p => p.meta.path === path)
     }
 
     return {
