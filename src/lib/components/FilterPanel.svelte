@@ -278,7 +278,10 @@
 
 	.display-li > button {
 		all: unset;
+		max-height: 1.5rem;
+		position: static;
 		display: flex;
+		height: min-content;
 		flex-direction: row;
 		align-items: center;
 		gap: 0.7rem;
