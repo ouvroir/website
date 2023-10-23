@@ -1,0 +1,198 @@
+[
+  {
+    "path": "/src/lib/labouvroir/projets/experts-en.md",
+    "brokenLinks": {
+      "metaLinks": [
+        "https://experts.huma-num.fr/xpr/about"
+      ],
+      "contentLinks": [
+        "https://experts.huma-num.fr/xpr/about",
+        "https://ihmc.ens.psl.eu/?lang=fr"
+      ]
+    }
+  },
+  {
+    "path": "/src/lib/labouvroir/projets/experts-fr.md",
+    "brokenLinks": {
+      "metaLinks": [
+        "https://experts.huma-num.fr/xpr/about"
+      ],
+      "contentLinks": [
+        "https://experts.huma-num.fr/xpr/about",
+        "https://ihmc.ens.psl.eu/?lang=fr"
+      ]
+    }
+  },
+  {
+    "path": "/src/lib/labouvroir/equipe/alice-en.md",
+    "brokenLinks": {
+      "metaLinks": [
+        null,
+        null
+      ],
+      "contentLinks": []
+    }
+  },
+  {
+    "path": "/src/lib/labouvroir/equipe/alice-fr.md",
+    "brokenLinks": {
+      "metaLinks": [
+        null,
+        null
+      ],
+      "contentLinks": []
+    }
+  },
+  {
+    "path": "/src/lib/labouvroir/equipe/emmanuel-en.md",
+    "brokenLinks": {
+      "metaLinks": [
+        null
+      ],
+      "contentLinks": [
+        "https://www.humanisti.ca"
+      ]
+    }
+  },
+  {
+    "path": "/src/lib/labouvroir/equipe/emmanuel-fr.md",
+    "brokenLinks": {
+      "metaLinks": [
+        null
+      ],
+      "contentLinks": [
+        "https://www.humanisti.ca"
+      ]
+    }
+  },
+  {
+    "path": "/src/lib/labouvroir/equipe/jessica-en.md",
+    "brokenLinks": {
+      "metaLinks": [
+        null
+      ],
+      "contentLinks": []
+    }
+  },
+  {
+    "path": "/src/lib/labouvroir/equipe/jessica-fr.md",
+    "brokenLinks": {
+      "metaLinks": [
+        null
+      ],
+      "contentLinks": []
+    }
+  },
+  {
+    "path": "/src/lib/labouvroir/equipe/lea-en.md",
+    "brokenLinks": {
+      "metaLinks": [
+        null
+      ],
+      "contentLinks": []
+    }
+  },
+  {
+    "path": "/src/lib/labouvroir/equipe/lea-fr.md",
+    "brokenLinks": {
+      "metaLinks": [
+        null
+      ],
+      "contentLinks": []
+    }
+  },
+  {
+    "path": "/src/lib/labouvroir/equipe/lena-en.md",
+    "brokenLinks": {
+      "metaLinks": [
+        null
+      ],
+      "contentLinks": []
+    }
+  },
+  {
+    "path": "/src/lib/labouvroir/equipe/lena-fr.md",
+    "brokenLinks": {
+      "metaLinks": [
+        "https://lenamk.site"
+      ],
+      "contentLinks": []
+    }
+  },
+  {
+    "path": "/src/lib/labouvroir/equipe/william-en.md",
+    "brokenLinks": {
+      "metaLinks": [
+        null
+      ],
+      "contentLinks": []
+    }
+  },
+  {
+    "path": "/src/lib/labouvroir/equipe/william-fr.md",
+    "brokenLinks": {
+      "metaLinks": [
+        null
+      ],
+      "contentLinks": []
+    }
+  },
+  {
+    "path": "/src/lib/labouvroir/equipe/zoe-en.md",
+    "brokenLinks": {
+      "metaLinks": [
+        null,
+        null
+      ],
+      "contentLinks": []
+    }
+  },
+  {
+    "path": "/src/lib/labouvroir/equipe/zoe-fr.md",
+    "brokenLinks": {
+      "metaLinks": [
+        null,
+        null
+      ],
+      "contentLinks": []
+    }
+  },
+  {
+    "path": "/src/lib/labouvroir/cr/crOuvroir2023-08-01.md",
+    "brokenLinks": {
+      "metaLinks": [],
+      "contentLinks": [
+        "https://ouvroir.umontreal.ca/website/accueil"
+      ]
+    }
+  },
+  {
+    "path": "/src/lib/labouvroir/cr/crOuvroir2023-09-13.md",
+    "brokenLinks": {
+      "metaLinks": [],
+      "contentLinks": [
+        "https://ouvroir.umontreal.ca/website/accueil"
+      ]
+    }
+  },
+  {
+    "path": "/src/lib/labouvroir/lab/services-en.md",
+    "brokenLinks": {
+      "metaLinks": [],
+      "contentLinks": [
+        "https://fr.wikipedia.org/wiki/Grace_Hopper/",
+        "https://fr.wikipedia.org/wiki/Ada_Lovelace/"
+      ]
+    }
+  },
+  {
+    "path": "/src/lib/labouvroir/lab/services-fr.md",
+    "brokenLinks": {
+      "metaLinks": [],
+      "contentLinks": [
+        "https://fr.wikipedia.org/wiki/Grace_Hopper/",
+        "https://fr.wikipedia.org/wiki/Ada_Lovelace/"
+      ]
+    }
+  }
+]

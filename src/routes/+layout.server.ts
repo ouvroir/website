@@ -9,9 +9,10 @@ import { building } from '$app/environment';
 export const prerender = true
 
 export const load = async (event) => {
+
     let support = null
 
-    if (event.url.pathname === `${base}/`) {
+    if (event.url.pathname === `${base}/` || event.url.pathname === `/`) {
         if (get(locale) === 'fr')
             throw redirect(301, `${base}/accueil`)
         else
@@ -29,6 +30,6 @@ export const load = async (event) => {
         console.log('[layout.buildMode] crawling', event.url.pathname)
 
     return {
-        support
+        support,
     }
 }

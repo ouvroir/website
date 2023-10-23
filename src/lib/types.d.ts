@@ -12,6 +12,8 @@ export type ProjectMeta = {
     cieco: boolean
     bannerImage: string
     pageImage: string
+    kind: "project"
+    path: string
 }
 
 export type EventMeta = {
@@ -25,6 +27,8 @@ export type EventMeta = {
     link: string
     description: string
     participants: string[]
+    path: string
+    kind: "event"
 }
 
 export type MemberMeta = {
@@ -34,7 +38,7 @@ export type MemberMeta = {
     slug: string
     lang: "en" | "fr"
     description: string
-    tags: strin[]
+    tags: string[]
     mail: string
     link: string
     projects: string
@@ -42,14 +46,38 @@ export type MemberMeta = {
     pronouns: string
     permalink: string
     img: string
+    path: string
+    kind: "member"
+}
+
+export type MeetingMeta = {
+    title: string
+    description: string
+    author: string
+    date: string
+    draft: boolean
+    tags: string[]
+    path: string
+    kind: "meeting"
+}
+
+export type BlogMeta = {
+    title: string
+    description: string
+    author: string
+    date: string
+    draft: boolean
+    slug: string
+    lang: 'en' | 'fr'
+    tags: string[]
+    path: string
+    kind: 'blog'
 }
 
 
 export type GenericInfos = {
-    path: string,
     html?: string
 }
-
 
 export type Project = GenericInfos & {
     meta: ProjectMeta
@@ -63,4 +91,4 @@ export type Member = GenericInfos & {
     meta: MemberMeta
 }
 
-export type OuvroirData = Project | Event | Member
+export type OuvroirData = Project | Event | Member | Meeting | Blog

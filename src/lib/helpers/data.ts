@@ -1,5 +1,5 @@
-import type { OuvroirData } from "$lib/types"
 
+import type { OuvroirData, ProjectMeta, MemberMeta, EventMeta, MeetingMeta, BlogMeta } from "$lib/types"
 
 const getBlogs = async () =>
     await import.meta.glob(`$lib/labouvroir/blog/*.md`)
@@ -25,7 +25,7 @@ const getAbout = async () =>
 const getServices = async () =>
     await import.meta.glob(`$lib/labouvroir/lab/services-*.md`)
 
-const setup = {
+export const setup = {
     'projects': getProjects,
     'blog': getBlogs,
     'team': getTeam,
@@ -45,11 +45,34 @@ export async function fetchData(type: keyof typeof setup) {
             .filter(([path]) => !path.includes('template'))
             .map(async ([path, resolver]) => {
                 const md = await resolver()
+                let meta: ProjectMeta | MemberMeta | EventMeta | undefined;
+
+                if (type === 'projects') {
+                    meta = { ...md.metadata, path, kind: 'project' } as ProjectMeta;
+                }
+                else if (type === 'team') {
+                    meta = { ...md.metadata, path, kind: 'member' } as MemberMeta;
+                }
+                else if (type === 'event') {
+                    meta = { ...md.metadata, path, kind: 'event' } as EventMeta;
+                }
+                else if (type === 'meeting') {
+                    meta = { ...md.metadata, path, kind: 'meeting' } as EventMeta;
+                }
+                else if (type === 'blog') {
+                    meta = { ...md.metadata, path, kind: 'blog' } as BlogMeta;
+                }
+                else {
+                    meta = { ...md.metadata, path, kind: 'other' }
+                }
+
+
                 let mdHtml = md.default.render().html
+
                 mdHtml = mdHtml.replace(/<a /g, "<a target='_blank' rel='external'")
+
                 return {
-                    meta: md.metadata,
-                    path: path,
+                    meta,
                     html: mdHtml,
                 } as OuvroirData
             })
