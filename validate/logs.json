@@ -7,7 +7,8 @@
       ],
       "contentLinks": [
         "https://experts.huma-num.fr/xpr/about",
-        "https://ihmc.ens.psl.eu/?lang=fr"
+        "https://ihmc.ens.psl.eu/?lang=fr",
+        "https://anr.fr/Projet-ANR-17-CE26-0006"
       ]
     }
   },
@@ -19,7 +20,8 @@
       ],
       "contentLinks": [
         "https://experts.huma-num.fr/xpr/about",
-        "https://ihmc.ens.psl.eu/?lang=fr"
+        "https://ihmc.ens.psl.eu/?lang=fr",
+        "https://anr.fr/Projet-ANR-17-CE26-0006"
       ]
     }
   },
@@ -50,7 +52,8 @@
         null
       ],
       "contentLinks": [
-        "https://www.humanisti.ca"
+        "https://www.humanisti.ca",
+        "https://anr.fr/Projet-ANR-17-CE26-0006"
       ]
     }
   },
@@ -61,7 +64,8 @@
         null
       ],
       "contentLinks": [
-        "https://www.humanisti.ca"
+        "https://www.humanisti.ca",
+        "https://anr.fr/Projet-ANR-17-CE26-0006"
       ]
     }
   },
@@ -114,7 +118,7 @@
     "path": "/src/lib/labouvroir/equipe/lena-fr.md",
     "brokenLinks": {
       "metaLinks": [
-        "https://lenamk.site"
+        null
       ],
       "contentLinks": []
     }
@@ -172,26 +176,6 @@
       "metaLinks": [],
       "contentLinks": [
         "https://ouvroir.umontreal.ca/website/accueil"
-      ]
-    }
-  },
-  {
-    "path": "/src/lib/labouvroir/lab/services-en.md",
-    "brokenLinks": {
-      "metaLinks": [],
-      "contentLinks": [
-        "https://fr.wikipedia.org/wiki/Grace_Hopper/",
-        "https://fr.wikipedia.org/wiki/Ada_Lovelace/"
-      ]
-    }
-  },
-  {
-    "path": "/src/lib/labouvroir/lab/services-fr.md",
-    "brokenLinks": {
-      "metaLinks": [],
-      "contentLinks": [
-        "https://fr.wikipedia.org/wiki/Grace_Hopper/",
-        "https://fr.wikipedia.org/wiki/Ada_Lovelace/"
       ]
     }
   }
