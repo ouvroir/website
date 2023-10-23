@@ -105,6 +105,9 @@
 	<ul class="list-item">
 		{#each projects as p, i}
 			<HomeListItem href={`${$t('route.projects')}/${p.meta.slug}`}>
+				<span class="document-tag" slot="document-tag">
+					{$t(`home.tag.project`)}
+				</span>
 				<h1 slot="title" class="card-item-title">{p.meta.title}</h1>
 				<p slot="description" class="card-item-description">{p.meta.description}</p>
 			</HomeListItem>
