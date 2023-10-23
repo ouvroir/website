@@ -59,10 +59,8 @@
 		} else {
 			// if scrolling down
 			if (prevScrollY - scrollY < 0 && scrollY > 30) {
-				console.log('scrolling down', prevScrollY - scrollY);
 				nav?.classList.add('hide-nav');
 			} else {
-				console.log('scrolling up', prevScrollY - scrollY);
 				nav?.classList.remove('hide-nav');
 			}
 			prevScrollY = scrollY;
