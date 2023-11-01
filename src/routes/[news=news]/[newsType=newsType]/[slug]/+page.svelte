@@ -8,14 +8,16 @@
 
 	$: post = $localize(data.post)[0];
 
+	$: console.log(post.meta.kind);
+
 	const smallScreen = $screenType === 'mobile' || $screenType === 'tablet-vertical';
 </script>
 
-{#if post && post.meta.type === 'blog' && !smallScreen}
+{#if post && post.meta.kind === 'blog' && !smallScreen}
 	<Tree />
 {/if}
 
-{#if post && post.meta.type === 'blog'}
+{#if post && post.meta.kind === 'blog'}
 	<aside class="aside-blog">
 		<div class="meta">
 			<div>
@@ -27,7 +29,7 @@
 	</aside>
 {/if}
 
-{#if post && post.meta.type === 'event' && !smallScreen}
+{#if post && post.meta.kind === 'event' && !smallScreen}
 	<aside class="aside-event">
 		<div class="meta-left">
 			<p class="date">
@@ -60,7 +62,7 @@
 <article>
 	<header>
 		<h1>
-			{#if post && post.meta.type === 'meeting'}
+			{#if post && post.meta.kind === 'meeting'}
 				{post?.meta.date.split('T')[0]}
 			{:else}
 				{post?.meta.title}
