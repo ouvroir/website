@@ -1,8 +1,8 @@
 <script lang="ts">
-	export let width: string = '4rem';
+	export let width: string = '30rem';
 </script>
 
-<div class="container" style={`width: ${width};`}>
+<div class="container">
 	<svg width="100%" height="100%" viewBox="0 0 575 575" xmlns="http://www.w3.org/2000/svg">
 		<g clip-path="url(#clip0_4_13)">
 			<path
@@ -16,13 +16,19 @@
 </div>
 
 <style>
+	svg {
+		width: 45rem;
+	}
 	svg,
 	svg * {
+		position: absolute;
 		overflow: visible;
 		color: white;
-		fill: white;
+		fill: transparent;
 		fill-opacity: 1;
-		stroke: white;
+		stroke: rgba(255, 255, 255, 0.05);
 		z-index: 3;
+		left: -7rem;
+		top: -3rem;
 	}
 </style>

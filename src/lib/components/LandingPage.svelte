@@ -3,17 +3,17 @@
 	import CiecoWhite from './logos/CiecoWhite.svelte';
 	import OuvroirPres from './logos/OuvroirPres.svelte';
 	import Udem from './logos/Udem.svelte';
+	import CrihnLogo from './logos/CrihnLogo.svelte';
 	import { screenType } from '$lib/stores';
 
 	let presentationElt: HTMLElement;
 </script>
 
 <section class="presentation-wrapper fill-vh" id="presentation">
+	<OuvroirPres />
 	<div class="presentation-container">
 		<div class="title-container">
-			<div class="logo-ouvroir">
-				<OuvroirPres width="7rem" />
-			</div>
+			<div class="logo-ouvroir"></div>
 			<div>
 				<h1>Laboratoire <span class="ovr">Ouvroir</span></h1>
 				<h2 class="subtitle">d’histoire de l’art et de muséologie numériques</h2>
@@ -45,35 +45,49 @@
 				<CiecoWhite />
 			</div>
 		{:else} -->
-			<div class="logos">
-				<div class="cieco">
-					<CiecoWhite />
-				</div>
-				<Udem width="25rem" fontColor="white" />
-			</div>
+
 			<!-- {/if} -->
 		</article>
+		<div class="logos">
+			<div class="cieco">
+				<CiecoWhite />
+			</div>
+			<div class="crihn">
+				<CrihnLogo color="white" />
+			</div>
+			<Udem width="17rem" fontColor="white" />
+		</div>
 	</div>
 </section>
 
 <style>
 	.logos {
+		grid-column: 4/-1;
 		display: flex;
 		flex-direction: row;
 		align-items: center;
-		gap: 5rem;
+		gap: 3rem;
+		/* max-width: 5rem; */
+		padding-top: 3rem;
 	}
 
 	.cieco {
 		position: static;
-		width: 10rem;
+		width: 8rem;
+		top: 35%;
+		right: 14%;
+		fill: white !important;
+	}
+	.crihn {
+		position: static;
+		width: 12rem;
 		top: 35%;
 		right: 14%;
 		fill: white !important;
 	}
 
 	.title-container {
-		grid-column: 1/6;
+		grid-column: 1/5;
 		display: flex;
 		flex-direction: row;
 	}
@@ -82,7 +96,7 @@
 		display: block;
 		position: relative;
 		/* left: 2rem; */
-		top: -1rem;
+		top: 1rem;
 		width: 8rem;
 	}
 
@@ -101,10 +115,10 @@
 	}
 
 	.presentation {
-		/* padding-top: 5rem; */
+		padding-top: 5.5rem;
 		/* padding-left: 8%; */
-		grid-column: 2/6;
-		grid-row: 2;
+		grid-column: 5/-2;
+		grid-row: 1;
 		font-size: 1.5rem;
 		font-weight: 400;
 		line-height: 2.5rem;
@@ -121,18 +135,15 @@
 	}
 
 	.presentation p {
-		/* width: 50%; */
-		font-size: 1.2rem;
-		margin-bottom: 3rem;
-		line-height: 2rem;
+		font-size: 1.15rem;
+		line-height: 1.7rem;
 	}
 
 	.title-container h1 {
-		/* font-family: var(--ff-logo) !important; */
 		font-size: 3rem;
 		font-weight: 600;
 		margin-bottom: 1rem;
-		padding-top: 2rem;
+		padding-top: 5rem;
 	}
 
 	.ovr {
