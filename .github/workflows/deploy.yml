@@ -4,6 +4,11 @@ on:
   push:
     branches: 'main'
   workflow_dispatch:
+    inputs:
+      ref:
+        description: Name of the target branch
+        required: false
+        default: main
 
 jobs:
   build_site:
