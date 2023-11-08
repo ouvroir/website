@@ -1,22 +1,15 @@
-import { fetchData, createSlugFromFilename } from '$lib/helpers/data.js'
+import { fetchData } from '$lib/helpers/data.js'
+import type { Blog, Event, Project } from '$lib/types'
 
 export const load = async () => {
 
-    const projects = await fetchData('projects')
+    const projects = await fetchData('projects') as Project[]
 
     let posts = await fetchData('blog')
-    posts = posts.filter(p => p.meta !== null).map(p => {
-        p.meta.type = 'blog'
-        p.meta.slug = createSlugFromFilename(p.meta.path)
-        return p
-    })
+    posts = posts.filter(p => p.meta !== null) as Blog[]
 
     let events = await fetchData('event')
-    events = events.filter(p => p.meta !== null).map(e => {
-        e.meta.type = 'event'
-        e.meta.slug = createSlugFromFilename(e.meta.path)
-        return e
-    })
+    events = events.filter(p => p.meta !== null) as Event[]
 
     return {
         projects,

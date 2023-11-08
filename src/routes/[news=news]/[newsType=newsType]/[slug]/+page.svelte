@@ -6,9 +6,8 @@
 
 	export let data;
 
-	$: post = $localize(data.post)[0];
-
-	$: console.log(post.meta.kind);
+	// $: post = $localize(data.post)[0];
+	$: post = data.post[0];
 
 	const smallScreen = $screenType === 'mobile' || $screenType === 'tablet-vertical';
 </script>
@@ -22,9 +21,9 @@
 		<div class="meta">
 			<div>
 				<span class="author">{post?.meta.author}</span> |
-				<span>{$dateToLocalizedString(post?.meta.date.split('T')[0])}</span>
+				<span>{$dateToLocalizedString(post.meta.date.split('T')[0])}</span>
 			</div>
-			<p class="project-description">{post?.meta.description}</p>
+			<p class="project-description">{post.meta.description}</p>
 		</div>
 	</aside>
 {/if}
@@ -39,7 +38,7 @@
 		</div>
 		<div class="meta-left">
 			<span class="label">{$t('news.summary')}</span>
-			<p class="description">{post?.meta.description}</p>
+			<p class="description">{post.meta.description}</p>
 		</div>
 		<div class="meta-left">
 			<span class="label">{$t('news.speaker')}</span>
@@ -50,11 +49,11 @@
 					{/each}
 				</ul>
 			{:else}
-				<p class="participant">{post?.meta.participants.join(',')}</p>
+				<p class="participant">{post.meta.participants.join(',')}</p>
 			{/if}
 		</div>
 		<div class="meta-left">
-			<a class="register" href={post?.meta.link}>{$t('news.register')}</a>
+			<a class="register" href={post.meta.link}>{$t('news.register')}</a>
 		</div>
 	</aside>
 {/if}
@@ -63,14 +62,14 @@
 	<header>
 		<h1>
 			{#if post && post.meta.kind === 'meeting'}
-				{post?.meta.date.split('T')[0]}
+				{post.meta.date.split('T')[0]}
 			{:else}
-				{post?.meta.title}
+				{post.meta.title}
 			{/if}
 		</h1>
 	</header>
 	<div class="text-body">
-		{@html post?.html}
+		{@html post.html}
 	</div>
 </article>
 

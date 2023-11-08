@@ -19,8 +19,8 @@
 	};
 
 	function sortByDate(a, b) {
-		let aDate = a.meta.type === 'event' ? a.meta.dateStart : a.meta.date;
-		let bDate = b.meta.type === 'event' ? b.meta.dateStart : b.meta.date;
+		let aDate = a.meta.kind === 'event' ? a.meta.dateStart : a.meta.date;
+		let bDate = b.meta.kind === 'event' ? b.meta.dateStart : b.meta.date;
 
 		aDate = aDate.split('T')[0];
 		bDate = bDate.split('T')[0];
@@ -33,14 +33,12 @@
 		? data.meetings.sort((a, b) => sortByDate(a, b))
 		: [];
 
-	$: console.log(meetings);
-
 	$: posts = $localize(data.news)
-		.filter((d) => $selectedNewsTypes.includes(d.meta.type) && filterTags(d, selectedTags))
+		.filter((d) => $selectedNewsTypes.includes(d.meta.kind) && filterTags(d, selectedTags))
 		.sort((a, b) => sortByDate(a, b));
 
 	$: $disabledNewsTypes = ['event', 'blog', 'meeting'].filter(
-		(t) => posts && posts.filter((p) => p.meta.type === t).length === 0
+		(t) => posts && posts.filter((p) => p.meta.kind === t).length === 0
 	);
 
 	$selectedNewsTypes = $selectedNewsTypes.filter((t) => !$disabledNewsTypes.includes(t));

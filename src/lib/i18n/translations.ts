@@ -35,6 +35,9 @@ const translations: { [locale: string]: { [path: string]: string } } = {
         // URLs
         'route.home': `${base}/home`,
         'route.news': `${base}/news`,
+        'route.news.event': `${base}/news/event`,
+        'route.news.blog': `${base}/news/blog`,
+        'route.news.meeting': `${base}/news/meeting`,
         'route.projects': `${base}/projects`,
         'route.services': `${base}/our-services`,
         'route.about': `${base}/about`,
@@ -156,6 +159,9 @@ const translations: { [locale: string]: { [path: string]: string } } = {
         // URLs
         'route.home': `${base}/accueil`,
         'route.news': `${base}/actualites`,
+        'route.news.event': `${base}/actualites/evenement`,
+        'route.news.blog': `${base}/actualites/blog`,
+        'route.news.meeting': `${base}/actualites/reunion`,
         'route.projects': `${base}/projets`,
         'route.services': `${base}/nos-services`,
         'route.about': `${base}/a-propos`,

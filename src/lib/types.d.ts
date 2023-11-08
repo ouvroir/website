@@ -1,3 +1,8 @@
+type HTML = {
+    html: string
+}
+
+
 export type ProjectMeta = {
     title: string
     description: string
@@ -15,6 +20,8 @@ export type ProjectMeta = {
     kind: "project"
     path: string
 }
+
+
 
 export type EventMeta = {
     title: string
@@ -74,21 +81,14 @@ export type BlogMeta = {
     kind: 'blog'
 }
 
-
-export type GenericInfos = {
-    html?: string
+export type GenericDocumentMeta = {
+    kind: string
+    path: string
 }
 
-export type Project = GenericInfos & {
-    meta: ProjectMeta
-}
-
-export type Event = GenericInfos & {
-    meta: EventMeta
-}
-
-export type Member = GenericInfos & {
-    meta: MemberMeta
-}
-
-export type OuvroirData = Project | Event | Member | Meeting | Blog
+export type Project = { meta: ProjectMeta, html: string }
+export type Event = { meta: EventMeta, html: string }
+export type Member = { meta: MemberMeta, html: string }
+export type Meeting = { meta: MeetingMeta, html: string }
+export type Blog = { meta: BlogMeta, html: string }
+export type GenericDocument = { meta: GenericDocumentMeta, html: string }

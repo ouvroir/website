@@ -72,6 +72,8 @@ export const getLangFromParam = (param: Partial<Record<string, string>>) => {
 export const localize = derived(locale, ($locale) =>
     <T extends OuvroirData[]>(data: T): T => {
         if (!Array.isArray(data)) throw new Error('cannot localize data')
+        if (data[0].meta.kind === 'meeting')
+            return data
         return data.filter(d => d.meta.path.includes(`-${$locale}.md`)) as T;
     })
 

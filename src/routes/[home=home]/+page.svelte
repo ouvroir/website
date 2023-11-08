@@ -12,8 +12,8 @@
 
 	$: news = $localize([...data.events, ...data.posts])
 		.sort((a, b) => {
-			let aDate = a.meta.type === 'event' ? a.meta.dateStart : a.meta.date;
-			let bDate = b.meta.type === 'event' ? b.meta.dateStart : b.meta.date;
+			let aDate = a.meta.kind === 'event' ? a.meta.dateStart : a.meta.date;
+			let bDate = b.meta.kind === 'event' ? b.meta.dateStart : b.meta.date;
 
 			aDate = aDate.split('T')[0];
 			bDate = bDate.split('T')[0];
@@ -37,10 +37,10 @@
 
 	<ul class="list-item">
 		{#each news as e}
-			{#if e.meta.type === 'event'}
-				<HomeListItem href={`${$t('route.news')}/${$t(`news.type.${e.meta.type}`)}/${e.meta.slug}`}>
+			{#if e.meta.kind === 'event'}
+				<HomeListItem href={`${$t('route.news')}/${$t(`news.type.${e.meta.kind}`)}/${e.meta.slug}`}>
 					<span class="document-tag" slot="document-tag">
-						{$t(`card.${e.meta.type}`)}
+						{$t(`card.${e.meta.kind}`)}
 					</span>
 					<h1 slot="title" class="card-item-title">{e.meta.title}</h1>
 					<p slot="date" class="card-item-date">
@@ -50,10 +50,10 @@
 						{e.meta.timeStart} - {e.meta.timeEnd} @ {e.meta.place}
 					</p>
 				</HomeListItem>
-			{:else if e.meta.type === 'blog'}
-				<HomeListItem href={`${$t('route.news')}/${$t(`news.type.${e.meta.type}`)}/${e.meta.slug}`}>
+			{:else if e.meta.kind === 'blog'}
+				<HomeListItem href={`${$t('route.news')}/${$t(`news.type.${e.meta.kind}`)}/${e.meta.slug}`}>
 					<span class="document-tag" slot="document-tag">
-						{$t(`card.${e.meta.type}`)}
+						{$t(`card.${e.meta.kind}`)}
 					</span>
 					<h1 slot="title" class="card-item-title">{e.meta.title}</h1>
 					<p slot="date" class="card-item-date">

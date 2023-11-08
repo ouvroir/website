@@ -2,8 +2,6 @@ import type { ProjectMeta, MemberMeta, EventMeta, MeetingMeta, BlogMeta } from "
 import { setup, fetchData } from "./data.ts"
 import fs from 'fs'
 
-console.log(fs.readdirSync('.'))
-
 
 type Generic = ProjectMeta | MemberMeta | EventMeta | MeetingMeta | BlogMeta;
 

@@ -16,15 +16,30 @@
 	const getLangRedirectUrl = (route: string) => {
 		let url: string = $t('route.home');
 
+		console.log(route);
+
 		const getUrl = (name: string) => {
-			if ($page.route.id?.includes('news') || $page.route.id?.includes('projects'))
-				return `${$rt(`route.${name}`)}`;
-			else return `${$rt(`route.${name}`)}${$page.params.slug ? '/' + $page.params.slug : ''}`;
+			// if ($page.route.id?.includes('news') || $page.route.id?.includes('projects'))
+			// 	return `${$rt(`route.${name}`)}`;
+
+			if ($page.url.pathname.includes('-fr') || $page.url.pathname.includes('-en')) {
+				const lang = $page.url.pathname.includes('-fr') ? 'en' : 'fr';
+				const slug = $page.params.slug.replace($locale, lang);
+				console.log('computed route', `${$rt(`route.${name}`)}/${slug}`);
+				return `${$rt(`route.${name}`)}/${slug}`;
+			} else {
+				return `${$rt(`route.${name}`)}${$page.params.slug ? '/' + $page.params.slug : ''}`;
+			}
 		};
 
 		if (route.includes('home')) url = `${$rt('route.home')}`;
-		else if (route.includes('news')) url = getUrl('news');
-		else if (route.includes('projects')) url = getUrl('projects');
+		else if (route.includes('news')) {
+			if ($page.params.newsType === 'event' || $page.params.newsType === 'evenement')
+				url = getUrl('news.event');
+			else if ($page.params.newsType === 'blog') url = getUrl('news.blog');
+			else if ($page.params.newsType === 'meeting' || $page.params.newsType === 'reunion')
+				url = getUrl('news.meeting');
+		} else if (route.includes('projects')) url = getUrl('projects');
 		else if (route.includes('services')) url = getUrl('services');
 		else if (route.includes('about')) {
 			if (route.includes('members')) url = getUrl('about.member');

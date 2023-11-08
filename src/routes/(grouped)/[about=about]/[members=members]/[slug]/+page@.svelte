@@ -1,6 +1,7 @@
 <script lang="ts">
 	import TeamCard from '$lib/components/TeamCard.svelte';
 	import { localize } from '$lib/i18n/i18n.js';
+	import { translatedSlug } from '$lib/stores.js';
 
 	export let data;
 

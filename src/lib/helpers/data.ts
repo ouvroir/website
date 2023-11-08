@@ -1,5 +1,18 @@
 
-import type { OuvroirData, ProjectMeta, MemberMeta, EventMeta, MeetingMeta, BlogMeta } from "$lib/types"
+import type {
+    GenericDocumentMeta,
+    ProjectMeta,
+    MemberMeta,
+    EventMeta,
+    MeetingMeta,
+    BlogMeta,
+    Project,
+    Event,
+    Meeting,
+    Member,
+    Blog,
+    GenericDocument
+} from "$lib/types"
 
 const getBlogs = async () =>
     await import.meta.glob(`$lib/labouvroir/blog/*.md`)
@@ -36,7 +49,36 @@ export const setup = {
     'services': getServices,
 }
 
-export async function fetchData(type: keyof typeof setup) {
+export async function fetchData(type: keyof typeof setup):
+    Promise<Project[] | Event[] | Meeting[] | Member[] | Blog[] | GenericDocument[]> {
+
+    const typeConstructors: Record<keyof typeof setup, (path: string, meta: any, html: string) => any> = {
+        projects: (path, meta, html) => ({
+            meta: { ...meta, kind: 'project', path },
+            html
+        }) as Project,
+
+        team: (path, meta, html) => ({ meta: { ...meta, kind: 'member', path }, html }) as Member,
+
+        event: (path, meta, html) => ({
+            meta: { ...meta, kind: 'event', slug: createSlugFromFilename(path), path },
+            html
+        }) as Event,
+
+        meeting: (path, meta, html) => ({
+            meta: { ...meta, kind: 'meeting', slug: createSlugFromFilename(path), path },
+            html
+        }) as Meeting,
+
+        blog: (path, meta, html) => ({
+            meta: { ...meta, kind: 'blog', slug: createSlugFromFilename(path), path },
+            html
+        }) as Blog,
+
+        support: (path, meta, html) => ({ meta: { ...meta, kind: 'support', path }, html }) as GenericDocument,
+        services: (path, meta, html) => ({ meta: { ...meta, kind: 'services', path }, html }) as GenericDocument,
+        about: (path, meta, html) => ({ meta: { ...meta, kind: 'about', path }, html }) as GenericDocument,
+    };
 
     const iteralbleFiles = Object.entries(await setup[type]())
 
@@ -45,36 +87,12 @@ export async function fetchData(type: keyof typeof setup) {
             .filter(([path]) => !path.includes('template'))
             .map(async ([path, resolver]) => {
                 const md = await resolver()
-                let meta: ProjectMeta | MemberMeta | EventMeta | undefined;
+                const mdHtml = md.default.render().html as string
 
-                if (type === 'projects') {
-                    meta = { ...md.metadata, path, kind: 'project' } as ProjectMeta;
-                }
-                else if (type === 'team') {
-                    meta = { ...md.metadata, path, kind: 'member' } as MemberMeta;
-                }
-                else if (type === 'event') {
-                    meta = { ...md.metadata, path, kind: 'event' } as EventMeta;
-                }
-                else if (type === 'meeting') {
-                    meta = { ...md.metadata, path, kind: 'meeting' } as EventMeta;
-                }
-                else if (type === 'blog') {
-                    meta = { ...md.metadata, path, kind: 'blog' } as BlogMeta;
-                }
-                else {
-                    meta = { ...md.metadata, path, kind: 'other' }
-                }
+                const constructor = typeConstructors[type]
+                if (!constructor) throw new Error(`No constructor for type ${type}`)
 
-
-                let mdHtml = md.default.render().html
-
-                mdHtml = mdHtml.replace(/<a /g, "<a target='_blank' rel='external'")
-
-                return {
-                    meta,
-                    html: mdHtml,
-                } as OuvroirData
+                return constructor(path, md.metadata, cleanHtml(mdHtml))
             })
     )
 
@@ -86,8 +104,14 @@ export async function fetchData(type: keyof typeof setup) {
             return !md.meta.draft
         return true
     })
-
 }
+
+const cleanHtml = (html: string): string => {
+    return html
+        .replace(/<a /g, "<a target='_blank' rel='external'")
+    // .replace(/<img /g, "<img loading='lazy' ")
+}
+
 
 export function createSlugFromFilename(filename: string) {
     filename = filename.split('/').at(-1)!

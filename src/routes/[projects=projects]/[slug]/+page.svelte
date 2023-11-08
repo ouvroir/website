@@ -1,10 +1,10 @@
 <script lang="ts">
 	import { base } from '$app/paths';
 	import { localize, t } from '$lib/i18n/i18n.js';
-
+	import type { Project } from '$lib/types.js';
 	export let data;
 
-	$: project = $localize(data.projects)[0];
+	$: project = $localize(data.projects)[0] as Project;
 </script>
 
 <svelte:head>

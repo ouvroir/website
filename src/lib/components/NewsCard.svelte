@@ -7,35 +7,35 @@
 
 	// If title is too long, decrease font size
 	const smallerTitle = () => {
-		if (post.meta.type === 'meeting') return '';
+		if (post.meta.kind === 'meeting') return '';
 		if (post.meta.title.length > 50) return 'smaller-title';
 		else return '';
 	};
 
-	$: type = post.meta.type as 'blog' | 'event' | 'meeting';
+	$: kind = post.meta.kind as 'blog' | 'event' | 'meeting';
 	// $: post.meta.slug ? null : encodeURIComponent
 </script>
 
 <li class="post-card-container">
 	<a
-		href={`${$t('route.news')}/${$t(`news.type.${post.meta.type}`)}/${post.meta.slug}`}
+		href={`${$t('route.news')}/${$t(`news.type.${post.meta.kind}`)}/${post.meta.slug}`}
 		class={`post-card`}
 	>
-		<span class="document-tag">{$t(`card.${post.meta.type}`)}</span>
+		<span class="document-tag">{$t(`card.${post.meta.kind}`)}</span>
 		<h1 class={`${smallerTitle()}`}>
-			{#if type === 'meeting'}
+			{#if kind === 'meeting'}
 				{$dateToLocalizedString(post.meta.date.split('T')[0])}
 			{:else}
 				{post.meta.title}
 			{/if}
 		</h1>
 		<div class="post-card-main">
-			{#if type === 'blog'}
+			{#if kind === 'blog'}
 				<div>
 					<span class="author">{post.meta.author}</span> |
 					<span>{$dateToLocalizedString(post.meta.date.split('T')[0])}</span>
 				</div>
-			{:else if type === 'event'}
+			{:else if kind === 'event'}
 				<div>
 					<span class="date">{$dateToLocalizedString(post.meta.dateStart.split('T')[0])}</span>
 					<div class="time-place">

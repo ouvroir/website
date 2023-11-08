@@ -27,3 +27,4 @@ export const disabledNewsTypes = writable([] as string[])
 
 export const aboutPageTitle = writable('');
 
+export const translatedSlug = writable('')

@@ -13,9 +13,28 @@
 	});
 </script>
 
-{#if pageMode}
-	<article class="team-card team-card-page">
-		<div class="header-page-mode">
+{#if data}
+	{#if pageMode}
+		<article class="team-card team-card-page">
+			<div class="header-page-mode">
+				{#if data.meta.img}
+					<div class="img-container">
+						<img src={`${base}/team/${data.meta.img}`} alt="" />
+					</div>
+				{:else}
+					<div class="img-container">
+						<div class="empty-img" />
+					</div>
+				{/if}
+				<div class="header-page-mode-text">
+					<h2>{$t(`about.team.${data.meta.status}`)}</h2>
+					<p class="short-description">{data.meta.description}</p>
+				</div>
+			</div>
+			<TeamCardMeta meta={data.meta} />
+		</article>
+	{:else}
+		<article class="team-card">
 			{#if data.meta.img}
 				<div class="img-container">
 					<img src={`${base}/team/${data.meta.img}`} alt="" />
@@ -25,35 +44,18 @@
 					<div class="empty-img" />
 				</div>
 			{/if}
-			<div class="header-page-mode-text">
-				<h2>{$t(`about.team.${data.meta.status}`)}</h2>
+			<div class={`header-text `}>
+				{#if !pageMode}
+					<h1>
+						{data.meta.firstname}
+						{data.meta.lastname}
+					</h1>
+				{/if}
 				<p class="short-description">{data.meta.description}</p>
+				<TeamCardMeta meta={data.meta} />
 			</div>
-		</div>
-		<TeamCardMeta meta={data.meta} />
-	</article>
-{:else}
-	<article class="team-card">
-		{#if data.meta.img}
-			<div class="img-container">
-				<img src={`${base}/team/${data.meta.img}`} alt="" />
-			</div>
-		{:else}
-			<div class="img-container">
-				<div class="empty-img" />
-			</div>
-		{/if}
-		<div class={`header-text `}>
-			{#if !pageMode}
-				<h1>
-					{data.meta.firstname}
-					{data.meta.lastname}
-				</h1>
-			{/if}
-			<p class="short-description">{data.meta.description}</p>
-			<TeamCardMeta meta={data.meta} />
-		</div>
-	</article>
+		</article>
+	{/if}
 {/if}
 
 <style>
