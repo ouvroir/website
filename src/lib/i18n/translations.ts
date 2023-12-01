@@ -11,6 +11,8 @@ const translations: { [locale: string]: { [path: string]: string } } = {
         'aria.locales.en': 'english',
         'aria.projects.carousel': 'projects carousel',
 
+        'project.img.alt': 'Image or screenshot illustrating the project',
+
         // svelte:head
         'head.home': 'Ouvroir',
         'head.news': 'News',
@@ -136,6 +138,8 @@ const translations: { [locale: string]: { [path: string]: string } } = {
         'aria.locales.fr': 'français',
         'aria.locales.en': 'anglais',
         'aria.projects.carousel': 'carousel des projets',
+
+        'project.img.alt': "Image ou capture d'écran illustrant le projet",
 
         // svelte:head
         'head.home': 'Ouvroir',

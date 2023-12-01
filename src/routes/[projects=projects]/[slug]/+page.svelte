@@ -1,8 +1,12 @@
 <script lang="ts">
 	import { base } from '$app/paths';
+	import { dev } from '$app/environment';
 	import { localize, t } from '$lib/i18n/i18n.js';
 	import type { Project } from '$lib/types.js';
 	export let data;
+
+	const devImgPath = '../src/lib/labouvroir/projets/images/';
+	const prodImgPath = `${base}/images/projets/`;
 
 	$: project = $localize(data.projects)[0] as Project;
 </script>
@@ -21,7 +25,14 @@
 					<li>{t}</li>
 				{/each}
 			</ul>
-			<img src={`${base}/sample1.jpg`} alt="" />
+			{#if project.meta.pageImage}
+				<img
+					src={`${dev ? devImgPath : prodImgPath}${project.meta.pageImage}`}
+					alt={`${$t('project.img.alt')} ${project.meta.title}`}
+				/>
+			{:else}
+				<div class="empty-img"></div>
+			{/if}
 			<p class="project-description">{project.meta?.description}</p>
 			<div class="infos">
 				<div class="info">
@@ -69,6 +80,16 @@
 		/* max-height: 18rem; */
 		filter: grayscale();
 		max-width: 100%;
+		transition: filter 0.3s ease-in-out;
+
+		&:hover {
+			filter: none;
+		}
+	}
+
+	div.empty-img {
+		height: 15rem;
+		background-color: var(--clr-accent-light);
 	}
 
 	.meta {
