@@ -105,6 +105,8 @@
 		.nav-links {
 			display: grid;
 			grid-template-columns: repeat(2, 1fr);
+			gap: 0.5rem;
+			margin-left: 4rem;
 		}
 	}
 </style>
