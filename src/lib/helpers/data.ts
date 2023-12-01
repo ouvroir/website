@@ -1,16 +1,11 @@
 
 import type {
-    GenericDocumentMeta,
-    ProjectMeta,
-    MemberMeta,
-    EventMeta,
-    MeetingMeta,
-    BlogMeta,
     Project,
     Event,
     Meeting,
     Member,
     Blog,
+    StaticDocument,
     GenericDocument
 } from "$lib/types"
 
@@ -35,6 +30,9 @@ const getSupportFiles = async () =>
 const getAbout = async () =>
     await import.meta.glob(`$lib/labouvroir/about-*.md`)
 
+const getShortPresentation = async () =>
+    await import.meta.glob(`$lib/labouvroir/lab/presentation-short-*.md`)
+
 const getServices = async () =>
     await import.meta.glob(`$lib/labouvroir/lab/services-*.md`)
 
@@ -47,10 +45,11 @@ export const setup = {
     'event': getEvents,
     'about': getAbout,
     'services': getServices,
+    'presentation': getShortPresentation,
 }
 
 export async function fetchData(type: keyof typeof setup):
-    Promise<Project[] | Event[] | Meeting[] | Member[] | Blog[] | GenericDocument[]> {
+    Promise<Project[] | Event[] | Meeting[] | Member[] | Blog[] | StaticDocument[] | GenericDocument[]> {
 
     const typeConstructors: Record<keyof typeof setup, (path: string, meta: any, html: string) => any> = {
         projects: (path, meta, html) => ({
@@ -74,10 +73,13 @@ export async function fetchData(type: keyof typeof setup):
             meta: { ...meta, kind: 'blog', slug: createSlugFromFilename(path), path },
             html
         }) as Blog,
-
-        support: (path, meta, html) => ({ meta: { ...meta, kind: 'support', path }, html }) as GenericDocument,
-        services: (path, meta, html) => ({ meta: { ...meta, kind: 'services', path }, html }) as GenericDocument,
-        about: (path, meta, html) => ({ meta: { ...meta, kind: 'about', path }, html }) as GenericDocument,
+        "presentation": (path, meta, html) => ({
+            meta: { ...meta, kind: 'presentation', path },
+            html
+        }) as StaticDocument,
+        support: (path, meta, html) => ({ meta: { ...meta, kind: 'support', path }, html }) as StaticDocument,
+        services: (path, meta, html) => ({ meta: { ...meta, kind: 'services', path }, html }) as StaticDocument,
+        about: (path, meta, html) => ({ meta: { ...meta, kind: 'about', path }, html }) as StaticDocument,
     };
 
     const iteralbleFiles = Object.entries(await setup[type]())
@@ -92,7 +94,7 @@ export async function fetchData(type: keyof typeof setup):
                 const constructor = typeConstructors[type]
                 if (!constructor) throw new Error(`No constructor for type ${type}`)
 
-                return constructor(path, md.metadata, cleanHtml(mdHtml))
+                return constructor(path, md.metadata, md.metadata.draft ? '' : cleanHtml(mdHtml))
             })
     )
 

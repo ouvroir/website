@@ -22,8 +22,8 @@
 	// $: console.log($screenType, $screenWidth);
 </script>
 
-{#if $showPresentation}
-	<LandingPage />
+{#if $showPresentation && data.shortPresentation}
+	<LandingPage content={data.shortPresentation} />
 {/if}
 
 <Nav />

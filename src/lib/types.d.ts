@@ -3,7 +3,7 @@ type HTML = {
 }
 
 
-export type ProjectMeta = {
+type ProjectMeta = {
     title: string
     description: string
     tags: string[]
@@ -23,7 +23,7 @@ export type ProjectMeta = {
 
 
 
-export type EventMeta = {
+type EventMeta = {
     title: string
     subtitle: string
     dateStart: string
@@ -38,7 +38,7 @@ export type EventMeta = {
     kind: "event"
 }
 
-export type MemberMeta = {
+type MemberMeta = {
     firstname: string
     lastname: string
     username: string
@@ -57,7 +57,7 @@ export type MemberMeta = {
     kind: "member"
 }
 
-export type MeetingMeta = {
+type MeetingMeta = {
     title: string
     description: string
     author: string
@@ -68,7 +68,7 @@ export type MeetingMeta = {
     kind: "meeting"
 }
 
-export type BlogMeta = {
+type BlogMeta = {
     title: string
     description: string
     author: string
@@ -81,7 +81,14 @@ export type BlogMeta = {
     kind: 'blog'
 }
 
-export type GenericDocumentMeta = {
+type GenericDocumentMeta = {
+    kind: string
+    path: string
+}
+
+type StaticDocumentMeta = {
+    title: string
+    draft: boolean
     kind: string
     path: string
 }
@@ -92,3 +99,6 @@ export type Member = { meta: MemberMeta, html: string }
 export type Meeting = { meta: MeetingMeta, html: string }
 export type Blog = { meta: BlogMeta, html: string }
 export type GenericDocument = { meta: GenericDocumentMeta, html: string }
+export type StaticDocument = { meta: StaticDocumentMeta, html: string }
+
+export type OuvroirData = Project | Event | Member | Meeting | Blog | StaticDocument | GenericDocument

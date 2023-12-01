@@ -4,6 +4,7 @@ import { base } from '$app/paths'
 import { get } from 'svelte/store'
 import { locale } from '$i18n/i18n'
 import { building } from '$app/environment'
+import type { StaticDocument } from '$lib/types.js'
 
 
 export const prerender = true
@@ -11,6 +12,7 @@ export const prerender = true
 export const load = async (event) => {
 
     let support = null
+    let shortPresentation = null
 
     if (event.url.pathname === `${base}/` || event.url.pathname === `/`) {
         if (get(locale) === 'fr')
@@ -22,8 +24,9 @@ export const load = async (event) => {
     if (event.route.id && (
         event.route.id.includes('home') ||
         event.route.id.includes('about'))) {
+        shortPresentation = await fetchData('presentation') as StaticDocument[]
+        support = await fetchData('support') as StaticDocument[]
 
-        support = await fetchData('support')
     }
 
     if (building) {
@@ -32,5 +35,6 @@ export const load = async (event) => {
 
     return {
         support,
+        shortPresentation
     }
 }

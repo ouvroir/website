@@ -14,6 +14,6 @@ export const load = async () => {
     return {
         projects,
         posts,
-        events,
+        events
     }
 }

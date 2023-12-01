@@ -5,8 +5,14 @@
 	import Udem from './logos/Udem.svelte';
 	import CrihnLogo from './logos/CrihnLogo.svelte';
 	import { screenType } from '$lib/stores';
+	import { localize } from '$lib/i18n/i18n';
+	import type { GenericDocument, StaticDocument } from '$lib/types';
+
+	export let content: StaticDocument[] | GenericDocument[];
 
 	let presentationElt: HTMLElement;
+
+	$: localized = $localize(content)[0] as StaticDocument;
 </script>
 
 <section class="presentation-wrapper fill-vh" id="presentation">
@@ -20,26 +26,8 @@
 			</div>
 		</div>
 		<article bind:this={presentationElt} class="presentation" out:fade={{ duration: 500 }}>
-			<p>
-				L’Ouvroir d’histoire de l’art et de muséologie numérique de l’Université de Montréal est un
-				laboratoire de recherche destiné à soutenir le travail conduit dans le cadre du Partenariat
-				«&nbsp<em class="s-1erdp_PvG-Jl"
-					>Des nouveaux usages des collections dans les musées d’art</em
-				>&nbsp»
-				<a href="https://cieco.umontreal.ca/" class="s-1erdp_PvG-Jl">CIÉCO</a> dirigé par Johanne Lamoureux.
-			</p>
+			{@html localized.html}
 
-			<p>
-				Sa création permet de doter le Canada d’un équipement de recherche dédié à l’expérimentation
-				et le développement d’innovations dans les domaines de l’histoire de l’art et de la
-				muséologie numériques.
-			</p>
-
-			<p>
-				L’Ouvroir est membre du <em
-					>Centre de recherche interuniversitaire sur les humanités numériques</em
-				>, <a href="https://www.crihn.org/" class="s-1erdp_PvG-Jl">CRIHN</a>.
-			</p>
 			<!-- {#if $screenType === 'desktop'}
 			<div class="cieco">
 				<CiecoWhite />
@@ -87,9 +75,9 @@
 	}
 
 	.title-container {
-		grid-column: 1/5;
-		display: flex;
-		flex-direction: row;
+		grid-column: 2/5;
+		/* display: flex; */
+		/* flex-direction: row; */
 	}
 	.logo-ouvroir {
 		all: unset;
@@ -130,15 +118,6 @@
 		padding: 2rem 4%; */
 	}
 
-	.presentation a {
-		color: var(--clr-accent);
-	}
-
-	.presentation p {
-		font-size: 1.15rem;
-		line-height: 1.7rem;
-	}
-
 	.title-container h1 {
 		font-size: 3rem;
 		font-weight: 600;
@@ -157,20 +136,14 @@
 		margin-bottom: 3rem;
 	}
 
-	.presentation > p + p {
-		margin-top: 2rem;
-	}
-
 	@media screen and (max-width: 1100px) {
 		h1 {
 			line-height: 3rem;
+			grid-column: 2/-1;
 		}
 		.subtitle {
 			line-height: 2rem;
 			margin-bottom: 0;
-		}
-		.presentation p {
-			width: 80%;
 		}
 
 		.cieco {
@@ -182,6 +155,17 @@
 		}
 		.title-container {
 			margin-bottom: 3rem;
+			grid-column: 2/8;
+		}
+
+		.presentation {
+			grid-column: 2/8;
+			grid-row: 2;
+			padding-top: 0;
+		}
+
+		.logos {
+			grid-column: 2/8;
 		}
 	}
 
@@ -198,10 +182,6 @@
 			/* position: relative; */
 			left: 25%;
 			top: 2rem;
-		}
-
-		.presentation p {
-			width: 90%;
 		}
 	}
 </style>

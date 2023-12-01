@@ -302,6 +302,19 @@ a {
     text-decoration: underline 0.2rem rgb(38, 38, 38);
 }
 
+.presentation a {
+    color: var(--clr-accent);
+}
+
+.presentation p {
+    font-size: 1.15rem;
+    line-height: 1.7rem;
+}
+
+.presentation>p+p {
+    margin-top: 2rem;
+}
+
 
 footer,
 .support {
@@ -503,6 +516,10 @@ img.outgoing-left {
 @media screen and (max-width: 480px) {
     .project-item>.project-description {
         max-width: 100% !important;
+    }
+
+    .presentation p {
+        width: 90%;
     }
 }
 
