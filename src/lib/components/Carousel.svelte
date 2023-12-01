@@ -1,64 +1,44 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { localize } from '$lib/i18n/i18n';
+	import { t } from '$lib/i18n/i18n';
 	import { base } from '$app/paths';
+	import { fly } from 'svelte/transition';
+	import type { Project } from '$lib/types';
 
-	export let data;
+	export let data: Project[];
 
 	let currentIndex = 0;
-	let nextIndex = 1;
 	let transitioning = false;
+	let direction: 'right' | 'left' = 'right';
 
 	let touchStartX = 0;
 	let touchEndX = 0;
 
 	const setIndex = (idx: number) => {
-		// clearInterval(interval);
-		const direction = idx > currentIndex ? 'fromRight' : 'fromLeft';
-		nextIndex = idx;
+		stopRotation();
+		direction = idx > currentIndex ? 'right' : 'left';
 		currentIndex = idx;
-		startTransition(direction);
+		transition();
+		setTimeout(() => startRotation(), 2000);
 	};
 	const increaseIndex = () => {
-		const outgoing = document.querySelector('#outgoing');
-		// outgoing?.classList.remove('outgoing-left');
-		nextIndex = (currentIndex + 1) % data.length;
-		startTransition('fromRight');
+		direction = 'right';
+		currentIndex = currentIndex < data.length - 1 ? currentIndex + 1 : 0;
+		transition();
 	};
 	const decreaseIndex = () => {
-		const outgoing = document.querySelector('#outgoing');
-		outgoing?.classList.remove('outgoing-right');
-		outgoing?.classList.add('outgoing-left');
-
-		nextIndex = currentIndex - 1;
-		if (nextIndex < 0) nextIndex = data.length - 1;
-
-		startTransition('fromLeft');
+		direction = 'left';
+		currentIndex = currentIndex > 0 ? currentIndex - 1 : data.length - 1;
+		transition();
 	};
 
-	const startTransition = (direction: 'fromLeft' | 'fromRight') => {
-		requestAnimationFrame(() => {
-			const outgoing = document.querySelector('#outgoing');
-			if (!outgoing) console.warn('No outgoing image found');
-
-			outgoing?.classList.remove('incoming');
-
-			if (direction === 'fromRight') {
-				outgoing.classList.add('outgoing-right');
-			} else {
-				outgoing.classList.add('outgoing-left');
-			}
-
-			transitioning = true;
-			currentIndex = nextIndex;
-
-			setTimeout(() => {
-				transitioning = false;
-				outgoing?.classList.remove('outgoing-right');
-				outgoing?.classList.remove('outgoing-left');
-				outgoing?.classList.add('incoming');
-			}, 500); // This should match the transition duration in CSS
-		});
+	const transition = () => {
+		console.log('set transition', true);
+		transitioning = true;
+		setTimeout(() => {
+			console.log('set transition', false);
+			transitioning = false;
+		}, 450);
 	};
 
 	const handleTouchStart = (event: TouchEvent) => {
@@ -93,8 +73,13 @@
 		return () => stopRotation();
 	});
 
-	$: current = $localize(data)[currentIndex];
-	$: next = $localize(data)[nextIndex];
+	$: current = data[currentIndex];
+	$: console.log(direction);
+	$: console.log(currentIndex);
+	$: console.log(data[currentIndex].meta.bannerImage);
+
+	$: inFlyParams = direction === 'right' ? { x: '100%' } : { x: '-100%' };
+	$: outFlyParams = direction === 'right' ? { x: '-100%' } : { x: '100%' };
 </script>
 
 <div
@@ -103,12 +88,17 @@
 	on:touchmove={handleTouchMove}
 	on:touchend={handleTouchEnd}
 >
-	<img
-		class="active-img"
-		src={`${base}/images/projects/banners/${current.meta.bannerImage}`}
-		alt="Hello"
-	/>
-	<img id="outgoing" src={`${base}/images/projects/banners/${next.meta.bannerImage}`} alt="Hello" />
+	{#if !transitioning}
+		<a href={`${$t('route.projects')}/${data[currentIndex].meta.slug}`}>
+			<img
+				class="active-img"
+				src={`${base}/images/projets/banner/${current.meta.bannerImage}`}
+				alt="Hello"
+				in:fly={inFlyParams}
+				out:fly={outFlyParams}
+			/>
+		</a>
+	{/if}
 	<div class="banner">
 		<h1 class="title">{current.meta.title}</h1>
 		<p class="description">{current.meta.description}</p>
@@ -130,7 +120,7 @@
 	.carousel {
 		position: relative;
 		grid-column: 2 / -2;
-		height: 20rem;
+		height: 30rem;
 		overflow: hidden;
 	}
 
@@ -144,6 +134,11 @@
 		left: 0;
 		opacity: 0;
 		transition: transform 0.5s ease;
+		transition: filter 0.2s ease;
+
+		&:hover {
+			filter: none;
+		}
 	}
 
 	img.active-img {
