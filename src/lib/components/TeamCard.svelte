@@ -120,6 +120,7 @@
 		background-color: lightgray;
 		filter: grayscale();
 		/* align-self: flex-start; */
+		object-fit: cover;
 	}
 
 	.header-text > * + * {

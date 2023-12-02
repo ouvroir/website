@@ -11,3 +11,5 @@ vite.config.ts.timestamp-*
 /src/lib/labouvroir/
 
 static/images/
+static/*/*.png
+static/*/*.jpg
