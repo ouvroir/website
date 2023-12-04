@@ -9,6 +9,8 @@
 	const prodImgPath = `${base}/images/projets/`;
 
 	$: project = $localize(data.projects)[0] as Project;
+
+	$: console.log('displaying image', `${prodImgPath}${project.meta.pageImage}`);
 </script>
 
 <svelte:head>
