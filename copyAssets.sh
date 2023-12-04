@@ -6,7 +6,7 @@ target_directory="./static/team"
 
 # Check if source directory exists
 if [ ! -d "$source_directory" ]; then
-  echo "Source directory does not exist."
+  echo "Source (profile-img) directory does not exist."
   exit 1
 fi
 
@@ -25,7 +25,7 @@ target_directory="./static/images/projets"
 
 # Check if source directory exists
 if [ ! -d "$source_directory" ]; then
-  echo "Source directory does not exist."
+  echo "Source (images) directory does not exist."
   exit 1
 fi
 
@@ -45,7 +45,7 @@ target_directory="./static/images/projets/banner"
 
 # Check if source directory exists
 if [ ! -d "$source_directory" ]; then
-  echo "Source directory does not exist."
+  echo "Source (banner) directory does not exist."
   exit 1
 fi
 
