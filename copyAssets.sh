@@ -38,7 +38,4 @@ fi
 # Copy all files
 cp -r "$source_directory"/* "$target_directory"
 
-
-
-
 echo "Files copied successfully!"
