@@ -28,9 +28,9 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Put assets in static folder
-        run: |
-          ./copyAssets.sh
+      # - name: Put assets in static folder
+      #   run: |
+      #     ./copyAssets.sh
 
       - name: build
         env:
