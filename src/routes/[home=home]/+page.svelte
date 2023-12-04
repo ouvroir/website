@@ -7,10 +7,11 @@
 	import Calendar from '$lib/components/logos/Calendar.svelte';
 	import Carousel from '$lib/components/Carousel.svelte';
 	import HomeListItem from '$lib/components/HomeListItem.svelte';
+	import type { Blog, Event } from '$lib/types.js';
 
 	export let data;
 
-	$: news = $localize([...data.events, ...data.posts])
+	$: news = ($localize([...data.events, ...data.posts]) as Array<Blog | Event>)
 		.sort((a, b) => {
 			let aDate = a.meta.kind === 'event' ? a.meta.dateStart : a.meta.date;
 			let bDate = b.meta.kind === 'event' ? b.meta.dateStart : b.meta.date;

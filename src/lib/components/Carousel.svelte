@@ -74,12 +74,18 @@
 	});
 
 	$: current = data[currentIndex];
-	$: console.log(direction);
-	$: console.log(currentIndex);
-	$: console.log(data[currentIndex].meta.bannerImage);
-
 	$: inFlyParams = direction === 'right' ? { x: '100%' } : { x: '-100%' };
 	$: outFlyParams = direction === 'right' ? { x: '-100%' } : { x: '100%' };
+	$: bannerImgUrl = current.meta.bannerImage
+		? `${base}/images/projets/banner/${current.meta.bannerImage}`
+		: null;
+	$: pageImgUrl = current.meta.pageImage
+		? `${base}/images/projets/${current.meta.pageImage}`
+		: null;
+	$: imgUrl = bannerImgUrl ? bannerImgUrl : pageImgUrl;
+
+	$: console.log('pageImage', data[currentIndex].meta.pageImage);
+	$: console.log('bannerImage', data[currentIndex].meta.bannerImage);
 </script>
 
 <div
@@ -92,8 +98,8 @@
 		<a href={`${$t('route.projects')}/${data[currentIndex].meta.slug}`}>
 			<img
 				class="active-img"
-				src={`${base}/images/projets/banner/${current.meta.bannerImage}`}
-				alt="Hello"
+				src={imgUrl}
+				alt={`${$t('project.img.alt')} ${data[currentIndex].meta.title}`}
 				in:fly={inFlyParams}
 				out:fly={outFlyParams}
 			/>

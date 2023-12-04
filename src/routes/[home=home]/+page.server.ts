@@ -5,10 +5,10 @@ export const load = async () => {
 
     const projects = await fetchData('projects') as Project[]
 
-    let posts = await fetchData('blog')
+    let posts = await fetchData('blog') as Blog[]
     posts = posts.filter(p => p.meta !== null) as Blog[]
 
-    let events = await fetchData('event')
+    let events = await fetchData('event') as Event[]
     events = events.filter(p => p.meta !== null) as Event[]
 
     return {

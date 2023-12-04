@@ -19,6 +19,7 @@ fi
 # Copy all files
 cp "$source_directory"/* "$target_directory"
 
+
 # Copy project images
 source_directory="./src/lib/labouvroir/projets/images"
 target_directory="./static/images/projets"
@@ -35,7 +36,7 @@ if [ ! -d "$target_directory" ]; then
   mkdir -p "$target_directory"
 fi
 
-# Copy all files
+# Copy all files and directories recursively
 cp -r "$source_directory"/* "$target_directory"
 
 echo "Files copied successfully!"
