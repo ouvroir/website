@@ -2,7 +2,7 @@
 	"name": "ouvroirv2",
 	"version": "0.0.1",
 	"private": true,
-	"homepage": "/accueil",
+	"homepage": "/",
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build",
