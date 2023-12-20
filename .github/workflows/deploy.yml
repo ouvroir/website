@@ -33,6 +33,8 @@ jobs:
           ./copyAssets.sh
 
       - name: build
+        env:
+          BASE_PATH: '/accueil'
         run: |
           npm run build
           touch build/.nojekyll
