@@ -45,7 +45,7 @@
 					</span>
 					<h1 slot="title" class="card-item-title">{e.meta.title}</h1>
 					<p slot="date" class="card-item-date">
-						{$dateToLocalizedString(e.meta.dateStart.split('T')[0])}
+						{$dateToLocalizedString(e.meta.dateStart)}
 					</p>
 					<p slot="time" class="card-item-time">
 						{e.meta.timeStart} - {e.meta.timeEnd} @ {e.meta.place}
@@ -58,7 +58,7 @@
 					</span>
 					<h1 slot="title" class="card-item-title">{e.meta.title}</h1>
 					<p slot="date" class="card-item-date">
-						{$dateToLocalizedString(e.meta.dateStart.split('T')[0])}
+						{$dateToLocalizedString(e.meta.dateStart)}
 					</p>
 					<p slot="description" class="card-item-description">
 						{e.meta.description}

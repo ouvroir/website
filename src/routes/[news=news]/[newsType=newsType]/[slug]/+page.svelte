@@ -21,7 +21,7 @@
 		<div class="meta">
 			<div>
 				<span class="author">{post?.meta.author}</span> |
-				<span>{$dateToLocalizedString(post.meta.date.split('T')[0])}</span>
+				<span>{$dateToLocalizedString(post.meta.date)}</span>
 			</div>
 			<p class="project-description">{post.meta.description}</p>
 		</div>
@@ -32,7 +32,7 @@
 	<aside class="aside-event">
 		<div class="meta-left">
 			<p class="date">
-				{$dateToLocalizedString(post.meta.dateStart.split('T')[0])}
+				{$dateToLocalizedString(post.meta.dateStart)}
 			</p>
 			<p class="time-place">{post.meta.timeStart} - {post.meta.timeEnd} @ {post.meta.place}</p>
 		</div>

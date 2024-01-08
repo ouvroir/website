@@ -24,7 +24,7 @@
 		<span class="document-tag">{$t(`card.${post.meta.kind}`)}</span>
 		<h1 class={`${smallerTitle()}`}>
 			{#if kind === 'meeting'}
-				{$dateToLocalizedString(post.meta.date.split('T')[0])}
+				{$dateToLocalizedString(post.meta.date)}
 			{:else}
 				{post.meta.title}
 			{/if}
@@ -33,11 +33,11 @@
 			{#if kind === 'blog'}
 				<div>
 					<span class="author">{post.meta.author}</span> |
-					<span>{$dateToLocalizedString(post.meta.date.split('T')[0])}</span>
+					<span>{$dateToLocalizedString(post.meta.date)}</span>
 				</div>
 			{:else if kind === 'event'}
 				<div>
-					<span class="date">{$dateToLocalizedString(post.meta.dateStart.split('T')[0])}</span>
+					<span class="date">{$dateToLocalizedString(post.meta.dateStart)}</span>
 					<div class="time-place">
 						<span class="time">
 							{post.meta.timeStart} - {post.meta.timeEnd}
