@@ -5,8 +5,9 @@
 	import { showPresentation, selectedNewsTypes, disabledNewsTypes } from '$lib/stores.js';
 	import { onMount } from 'svelte';
 	import { localize } from '$i18n/i18n';
+	import type { Blog, Event } from '$lib/types.js';
 
-	export let data;
+	export let data: Blog | Event;
 	showPresentation.set(false);
 
 	const filterTags = (d, selectedTags: string[]) => {
@@ -18,7 +19,7 @@
 		return contains;
 	};
 
-	function sortByDate(a, b) {
+	function sortByDate(a: Blog|Event, b: Blog|Event) {
 		let aDate = a.meta.kind === 'event' ? a.meta.dateStart : a.meta.date;
 		let bDate = b.meta.kind === 'event' ? b.meta.dateStart : b.meta.date;
 
