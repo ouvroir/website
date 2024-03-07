@@ -11,7 +11,7 @@
 			<h1>Nous trouver</h1>
 			<div class="adress">
 				<p>Université de Montréal</p>
-				<p>Pavillion Lionel-Groulx, local C-8132</p>
+				<p>Pavillon Lionel-Groulx, local C-8132</p>
 				<p>3150 rue Jean-Brillant, Montréal H3T 1N8</p>
 			</div>
 			<h2>Nous contacter</h2>
