@@ -100,7 +100,9 @@ export async function fetchData(
 
 				let document;
 				try {
-					document = constructor(path, md.metadata, md.metadata.draft ? '' : cleanHtml(mdHtml));
+					if ('draft' in md.metadata && md.metadata.draft !== undefined)
+						document = constructor(path, md.metadata, md.metadata.draft ? '' : cleanHtml(mdHtml));
+					else document = constructor(path, md.metadata, cleanHtml(mdHtml));
 				} catch (err) {
 					console.log('problem with file', path);
 					console.log(md.metadata);
