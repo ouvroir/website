@@ -8,11 +8,17 @@
 	export let data;
 
 	$: doc = $localize(data.doc)[0];
-	$: team = data.team.length > 0 ? $localize(data.team) : [];
+	$: team = data.team.length > 0 ? ($localize(data.team) as Member[]) : [];
 
 	$: dir = team ? team.filter((d: Member) => d.meta.status === 'dir_sc') : [];
 	$: members = team ? team.filter((d: Member) => d.meta.status === 'member') : [];
-	$: coord = team ? team.filter((d: Member) => d.meta.status === 'coord') : [];
+	$: coord = team
+		? team
+				.filter((d: Member) => d.meta.status === 'coord')
+				.sort((a: Member, b: Member) => a.meta.order! - b.meta.order!)
+		: [];
+
+	$: console.log(coord);
 
 	$: $aboutPageTitle = doc.meta.title;
 </script>
