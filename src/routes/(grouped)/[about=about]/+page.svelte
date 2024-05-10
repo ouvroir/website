@@ -10,12 +10,10 @@
 	$: doc = $localize(data.doc)[0];
 	$: team = data.team.length > 0 ? ($localize(data.team) as Member[]) : [];
 
-	$: dir = team ? team.filter((d: Member) => d.meta.status === 'dir_sc') : [];
-	$: members = team ? team.filter((d: Member) => d.meta.status === 'member') : [];
+	$: dir = team ? team.filter((d) => d.meta.status === 'dir_sc') : [];
+	$: members = team ? team.filter((d) => d.meta.status === 'member') : [];
 	$: coord = team
-		? team
-				.filter((d: Member) => d.meta.status === 'coord')
-				.sort((a: Member, b: Member) => a.meta.order! - b.meta.order!)
+		? team.filter((d) => d.meta.status === 'coord').sort((a, b) => a.meta.order! - b.meta.order!)
 		: [];
 
 	$: console.log(coord);
