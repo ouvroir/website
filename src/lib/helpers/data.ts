@@ -46,7 +46,11 @@ export async function fetchData(
 > {
 	const typeConstructors: Record<
 		keyof typeof setup,
-		(path: string, meta: any, html: string) => any
+		(
+			path: string,
+			meta: any,
+			html: string
+		) => Member | Project | Event | Meeting | Blog | StaticDocument
 	> = {
 		projects: (path, meta, html) =>
 			({
@@ -94,6 +98,11 @@ export async function fetchData(
 			.map(async ([path, resolver]) => {
 				const md = await resolver();
 				const mdHtml = md.default.render().html as string;
+				if (!md) throw new Error(`Could not import ${path}`);
+				if (!md.metadata) {
+					console.log(`Cannot read metadata from ${path}`);
+					return { meta: undefined };
+				}
 
 				const constructor = typeConstructors[type];
 				if (!constructor) throw new Error(`No constructor for type ${type}`);
@@ -105,7 +114,6 @@ export async function fetchData(
 					else document = constructor(path, md.metadata, cleanHtml(mdHtml));
 				} catch (err) {
 					console.log('problem with file', path);
-					console.log(md.metadata);
 					throw err;
 				}
 
@@ -116,7 +124,7 @@ export async function fetchData(
 	// Only filters contents that are not drafts
 	// Contents needs to have meta otherwise it will be NOT be filtered out
 	return mdFiles.filter((md) => {
-		if (!md.meta) return true;
+		if (!md.meta) return false;
 		if ('draft' in md.meta) return !md.meta.draft;
 		return true;
 	});
