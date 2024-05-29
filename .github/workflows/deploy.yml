@@ -14,6 +14,9 @@ jobs:
   build_site:
     runs-on: ubuntu-latest
     steps:
+      - name: Update Supbmodule reference
+        run: git submodule update --remote
+
       - name: Checkout
         uses: actions/checkout@v3
         with:
