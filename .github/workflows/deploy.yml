@@ -14,6 +14,9 @@ jobs:
   build_site:
     runs-on: ubuntu-latest
     steps:
+      - name: Initialize Git
+        run: git init # Optional if repository initialization is needed
+
       - name: Update Supbmodule reference
         run: git submodule update --remote
 
