@@ -74,12 +74,7 @@
 	<header>
 		<h1>
 			{#if post && post.meta.kind === 'meeting'}
-				{Date.parse(post.meta.date).toLocaleString($locale === 'fr' ? 'fr-FR' : 'en-US', {
-					weekday: 'long',
-					year: 'numeric',
-					month: 'long',
-					day: 'numeric'
-				})}
+				{$dateToLocalizedString(post.meta.date)}
 			{:else}
 				{post.meta.title}
 			{/if}
