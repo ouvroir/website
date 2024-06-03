@@ -33,10 +33,8 @@
 	};
 
 	const transition = () => {
-		console.log('set transition', true);
 		transitioning = true;
 		setTimeout(() => {
-			console.log('set transition', false);
 			transitioning = false;
 		}, 450);
 	};
@@ -83,9 +81,6 @@
 		? `${base}/images/projets/${current.meta.pageImage}`
 		: null;
 	$: imgUrl = bannerImgUrl ? bannerImgUrl : pageImgUrl;
-
-	$: console.log('pageImage', data[currentIndex].meta.pageImage);
-	$: console.log('bannerImage', data[currentIndex].meta.bannerImage);
 </script>
 
 <div

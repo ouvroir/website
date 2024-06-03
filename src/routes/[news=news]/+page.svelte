@@ -1,57 +1,50 @@
 <script lang="ts">
-	import { t } from '$lib/i18n/i18n.js';
+	import { t } from '$lib/i18n/i18n';
 	import FilterPanel from '$lib/components/FilterPanel.svelte';
 	import NewsCard from '$lib/components/NewsCard.svelte';
-	import { showPresentation, selectedNewsTypes, disabledNewsTypes } from '$lib/stores.js';
-	import { onMount } from 'svelte';
-	import { localize } from '$i18n/i18n';
-	import type { Blog, Event } from '$lib/types.js';
+	import { onMount, setContext } from 'svelte';
+	import { derived, writable } from 'svelte/store';
+	import { building } from '$app/environment';
+	import { meetings, events, blogs, showPresentation } from '$lib/stores';
+	import { sortContentByDate, getTagsfromContent, contentHasTags } from '$lib/helpers/helpers';
 
-	export let data: Blog | Event;
+	if (!events || !blogs || !meetings) throw new Error('No data found');
+
+	const selectedTags = writable([] as string[]);
+	const selectedDocTypes = writable(building ? ['event', 'blog', 'meeting'] : ['event', 'blog']);
+	const disabledNewsTypes = writable([] as string[]);
+	const tags = derived([blogs, events, meetings], ([$blogs, $events, $meetings]) =>
+		getTagsfromContent([...$events, ...$blogs, ...$meetings])
+	);
+
+	$: posts = [...$events, ...$blogs, ...$meetings]
+		.filter((d) => $selectedDocTypes.includes(d.meta.kind) && contentHasTags(d, $selectedTags))
+		.sort((a, b) => sortContentByDate(a, b));
+
+	const selectableTags = derived(
+		[events, blogs, meetings, selectedDocTypes],
+		([$events, $blogs, $meetings, $selectedDocTypes]) =>
+			getTagsfromContent(
+				[...$events, ...$blogs, ...$meetings].filter((d) => $selectedDocTypes.includes(d.meta.kind))
+			)
+	);
+
+	setContext('types', {
+		selectedDocTypes,
+		disabledNewsTypes,
+		selectedTags,
+		tags,
+		selectableTags
+	});
+
 	showPresentation.set(false);
 
-	const filterTags = (d, selectedTags: string[]) => {
-		if (selectedTags.length === 0 || !d.meta.tags) return true;
-		let contains = false;
-		d.meta.tags.forEach((t) => {
-			if (selectedTags.includes(t)) contains = true;
-		});
-		return contains;
-	};
-
-	function sortByDate(a: Blog|Event, b: Blog|Event) {
-		let aDate = a.meta.kind === 'event' ? a.meta.dateStart : a.meta.date;
-		let bDate = b.meta.kind === 'event' ? b.meta.dateStart : b.meta.date;
-
-		aDate = aDate.split('T')[0];
-		bDate = bDate.split('T')[0];
-		return bDate.localeCompare(aDate);
-	}
-
-	$: selectedTags = [] as string[];
-
-	$: meetings = $selectedNewsTypes.includes('meeting')
-		? data.meetings.sort((a, b) => sortByDate(a, b))
-		: [];
-
-	$: posts = $localize(data.news)
-		.filter((d) => $selectedNewsTypes.includes(d.meta.kind) && filterTags(d, selectedTags))
-		.sort((a, b) => sortByDate(a, b));
-
+	// If there are no posts of a certain type, disable it
 	$: $disabledNewsTypes = ['event', 'blog', 'meeting'].filter(
 		(t) => posts && posts.filter((p) => p.meta.kind === t).length === 0
 	);
 
-	$selectedNewsTypes = $selectedNewsTypes.filter((t) => !$disabledNewsTypes.includes(t));
-
-	$: tags =
-		posts.reduce((acc, p) => {
-			if (!p.meta.tags) return acc;
-			p.meta.tags.forEach((t) => {
-				if (!acc.includes(t)) acc.push(t);
-			});
-			return acc;
-		}, []) ?? null;
+	$selectedDocTypes = $selectedDocTypes.filter((t) => !$disabledNewsTypes.includes(t));
 
 	onMount(() => {
 		if (window.location.hash) {
@@ -67,7 +60,7 @@
 	<title>{$t('head.news')}</title>
 </svelte:head>
 
-<FilterPanel {tags} bind:selectedTags />
+<FilterPanel />
 
 <div class="tags-container">
 	<ul />
@@ -77,11 +70,11 @@
 		{#each posts as post}
 			<NewsCard {post} />
 		{/each}
-		{#if meetings}
-			{#each meetings as m}
+		<!-- {#if $selectedDocTypes.includes('meeting')}
+			{#each $meetings as m}
 				<NewsCard post={m} />
 			{/each}
-		{/if}
+		{/if} -->
 	</ul>
 {/if}
 

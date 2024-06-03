@@ -123,6 +123,7 @@ const translations: { [locale: string]: { [path: string]: string } } = {
         'card.blog': 'Blog',
         'card.event': 'Event',
         'card.meeting': 'Meeting notes',
+        'card.project': 'Project',
         'card.speaker': 'speaker·s',
     },
     'fr': {
@@ -249,6 +250,7 @@ const translations: { [locale: string]: { [path: string]: string } } = {
         'card.blog': 'Blog',
         'card.event': 'Événement',
         'card.meeting': 'Compte-rendu',
+        'card.project': 'Projet',
         'card.speaker': 'conférencier·ère·s',
     }
 }

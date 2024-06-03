@@ -4,15 +4,10 @@
 	import OuvroirPres from './logos/OuvroirPres.svelte';
 	import Udem from './logos/Udem.svelte';
 	import CrihnLogo from './logos/CrihnLogo.svelte';
-	import { screenType } from '$lib/stores';
-	import { localize } from '$lib/i18n/i18n';
-	import type { GenericDocument, StaticDocument } from '$lib/types';
-
-	export let content: StaticDocument[] | GenericDocument[];
+	import { presentation } from '$lib/stores';
 
 	let presentationElt: HTMLElement;
-
-	$: localized = $localize(content)[0] as StaticDocument;
+	if (!$presentation) throw new Error('No presentation data found');
 </script>
 
 <section class="presentation-wrapper fill-vh" id="presentation">
@@ -26,7 +21,7 @@
 			</div>
 		</div>
 		<article bind:this={presentationElt} class="presentation" out:fade={{ duration: 500 }}>
-			{@html localized.html}
+			{@html $presentation.html}
 
 			<!-- {#if $screenType === 'desktop'}
 			<div class="cieco">

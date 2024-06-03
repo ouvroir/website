@@ -33,6 +33,7 @@ type EventMeta = {
 	participants: string[];
 	path: string;
 	kind: 'event';
+	slug: string;
 };
 
 type MemberMeta = {
@@ -64,6 +65,7 @@ type MeetingMeta = {
 	tags: string[];
 	path: string;
 	kind: 'meeting';
+	slug: string;
 };
 
 type BlogMeta = {
@@ -79,14 +81,15 @@ type BlogMeta = {
 	kind: 'blog';
 };
 
-type GenericDocumentMeta = {
+type StaticDocumentMeta = {
+	title: string;
+	draft: boolean;
 	kind: string;
 	path: string;
 };
 
-type StaticDocumentMeta = {
-	title: string;
-	draft: boolean;
+
+type GenericDocumentMeta = {
 	kind: string;
 	path: string;
 };

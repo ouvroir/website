@@ -16,8 +16,6 @@
 	const getLangRedirectUrl = (route: string) => {
 		let url: string = $t('route.home');
 
-		console.log(route);
-
 		const getUrl = (name: string) => {
 			// if ($page.route.id?.includes('news') || $page.route.id?.includes('projects'))
 			// 	return `${$rt(`route.${name}`)}`;
@@ -25,7 +23,7 @@
 			if ($page.url.pathname.includes('-fr') || $page.url.pathname.includes('-en')) {
 				const lang = $page.url.pathname.includes('-fr') ? 'en' : 'fr';
 				const slug = $page.params.slug.replace($locale, lang);
-				console.log('computed route', `${$rt(`route.${name}`)}/${slug}`);
+				// console.log('computed route', `${$rt(`route.${name}`)}/${slug}`);
 				return `${$rt(`route.${name}`)}/${slug}`;
 			} else {
 				return `${$rt(`route.${name}`)}${$page.params.slug ? '/' + $page.params.slug : ''}`;

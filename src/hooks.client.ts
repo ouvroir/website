@@ -7,8 +7,6 @@ export const handle = (({ event, resolve }) => {
     // a check is made to see if locale is set in locals (meaning that user as already visited at least one page).
     let lang: 'fr' | 'en' | null = getLangFromParam(event.params) || null
 
-    console.log('[hooks]', event.url.pathname, event.params, getLangFromParam(event.params))
-
     // As a fallback, look at the accept-language header
     if (!lang) {
         lang = event.request.headers.get('accept-language')?.split(';')[0] === 'en'

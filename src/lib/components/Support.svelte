@@ -2,18 +2,18 @@
 	import { base } from '$app/paths';
 	import { localize } from '$lib/i18n/i18n';
 	import { page } from '$app/stores';
-
-	export let content;
+	import { support } from '$lib/stores';
 
 	$: showSupport = $page.route.id?.includes('about') || $page.route.id?.includes('home');
-	$: doc = content ? $localize(content)[0] : null;
+	if(!$support) throw new Error('No support data found');
+
 </script>
 
-{#if doc && showSupport}
+{#if showSupport}
 	<section class="support">
 		<div class="banner-content">
 			<article id="support">
-				{@html doc.html}
+				{@html $support.html}
 			</article>
 			<ul class="support-logos">
 				<li>

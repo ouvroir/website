@@ -1,47 +1,32 @@
 <script lang="ts">
 	import ProjectLItem from '$lib/components/ProjectLItem.svelte';
 	import FilterPanel from '$lib/components/FilterPanel.svelte';
-	import { showPresentation } from '$lib/stores.js';
-	import { t, localize } from '$i18n/i18n';
+	import { t } from '$i18n/i18n';
+	import { writable } from 'svelte/store';
 	import type { Project } from '$lib/types.js';
-	export let data;
+	import { projects, showPresentation } from '$lib/stores';
+	import { getTagsfromContent, contentHasTags } from '$lib/helpers/helpers';
+	import { setContext } from 'svelte';
 
 	showPresentation.set(false);
 
-	let selectedTags: string[] = [];
+	const selectedTags = writable([] as string[]);
+	const tags = writable(getTagsfromContent($projects) as string[]);
+	const selectedDocTypes = writable(['project'] as string[]);
+	setContext('types', { selectedDocTypes, selectedTags, tags, selectableTags: tags });
 
-	const filterTags = (d: Project, selectedTags: string[]) => {
-		if (selectedTags.length === 0) return true;
-		let contains = false;
-		d.meta.tags.forEach((t) => {
-			if (selectedTags.includes(t)) contains = true;
-		});
-		return contains;
-	};
-
-	$: allProjects = $localize(data.projects) as Project[];
-
-	$: ciecoProjects = allProjects
+	$: ciecoProjects = $projects
 		.filter((d) => d.meta.cieco)
-		.filter((d) => filterTags(d, selectedTags));
+		.filter((d) => contentHasTags(d, $selectedTags));
 
-	$: projects = allProjects.filter((d) => !d.meta.cieco).filter((d) => filterTags(d, selectedTags));
-
-	$: tags = allProjects
-		.reduce((acc, p) => {
-			p.meta.tags.forEach((t: string) => {
-				if (!acc.includes(t)) acc.push(t);
-			});
-			return acc;
-		}, [])
-		.sort();
+	$: projs = $projects.filter((d) => !d.meta.cieco).filter((d) => contentHasTags(d, $selectedTags));
 </script>
 
 <svelte:head>
 	<title>{$t('head.projects')}</title>
 </svelte:head>
 
-<FilterPanel {tags} bind:selectedTags />
+<FilterPanel />
 
 {#if ciecoProjects.length > 0}
 	<div class="section-title">
@@ -54,7 +39,7 @@
 	{/each}
 </ul>
 
-{#if projects.length > 0}
+{#if projs.length > 0}
 	<div class="section-title">
 		<h2>{$t('projects.rd.title')}</h2>
 	</div>
@@ -62,7 +47,7 @@
 <!-- 
 <h2 class="section-title">Ouvroir</h2> -->
 <ul class="projects-list">
-	{#each projects as p}
+	{#each projs as p}
 		<ProjectLItem data={p} />
 	{/each}
 </ul>

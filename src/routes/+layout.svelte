@@ -9,7 +9,33 @@
 	import '$lib/styles/reset.css';
 	import '$lib/styles/style.css';
 
-	export let data;
+	import {
+		allBlogs,
+		allEvents,
+		allMembers,
+		meetings,
+		allProjects,
+		allAbout,
+		allPresentations,
+		allServices,
+		allSupports,
+		presentation,
+		support
+	} from '$lib/stores.js';
+
+	export let data: null | Record<string, any[]>;
+
+	if (data) {
+		$allBlogs = data.allBlogs;
+		$allEvents = data.allEvents;
+		$meetings = data.meetings;
+		$allMembers = data.allMembers;
+		$allProjects = data.allProjects;
+		$allAbout = data.allAbouts;
+		$allPresentations = data.allPresentations;
+		$allSupports = data.allSupports;
+		$allServices = data.allServices;
+	}
 
 	let offsetHeight: number;
 
@@ -18,12 +44,10 @@
 	}
 
 	$: addGap = $page && $page.route.id === '/[news=news]';
-
-	// $: console.log($screenType, $screenWidth);
 </script>
 
-{#if $showPresentation && data.shortPresentation}
-	<LandingPage content={data.shortPresentation} />
+{#if $showPresentation && $presentation}
+	<LandingPage />
 {/if}
 
 <Nav />
@@ -38,7 +62,7 @@
 	</div>
 {/if}
 
-<Support content={data.support} />
+<Support />
 
 {#if $screenType === 'desktop' || $screenType === 'tablet-horizontal'}
 	<Footer />

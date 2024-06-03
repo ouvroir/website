@@ -1,13 +1,25 @@
 <script lang="ts">
-	import { t, dateToLocalizedString } from '$lib/i18n/i18n.js';
-	import { screenType } from '$lib/stores.js';
-	import { localize } from '$lib/i18n/i18n.js';
+	import { t, dateToLocalizedString, locale } from '$lib/i18n/i18n.js';
 	import Tree from '$lib/components/Tree.svelte';
+	import type { Readable } from 'svelte/motion';
+	import { page } from '$app/stores';
+	import { get } from 'svelte/store';
+	import { blogs, events, meetings, screenType } from '$lib/stores';
+	import type { Blog, Event, Meeting } from '$lib/types';
 
-	export let data;
+	if (!blogs || !events || !meetings) throw new Error('No data found');
 
-	// $: post = $localize(data.post)[0];
-	$: post = data.post[0];
+	function contentFromType(type: string) {
+		if (type === 'blog') return blogs;
+		else if (type === 'event' || type === 'evenement') return events;
+		else if (type === 'meeting' || type === 'reunion') return meetings;
+		else return null;
+	}
+
+	$: content = get(
+		contentFromType($page.params.newsType) as Readable<Blog[] | Event[] | Meeting[]>
+	);
+	$: post = content.find((p) => p.meta.slug === $page.params.slug);
 
 	const smallScreen = $screenType === 'mobile' || $screenType === 'tablet-vertical';
 </script>
@@ -62,7 +74,12 @@
 	<header>
 		<h1>
 			{#if post && post.meta.kind === 'meeting'}
-				{post.meta.date.split('T')[0]}
+				{Date.parse(post.meta.date).toLocaleString($locale === 'fr' ? 'fr-FR' : 'en-US', {
+					weekday: 'long',
+					year: 'numeric',
+					month: 'long',
+					day: 'numeric'
+				})}
 			{:else}
 				{post.meta.title}
 			{/if}

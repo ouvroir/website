@@ -165,6 +165,7 @@
 
 	.time-place {
 		display: block;
+		line-height: 1.3rem;
 		/* margin-bottom: 0.7rem; */
 	}
 

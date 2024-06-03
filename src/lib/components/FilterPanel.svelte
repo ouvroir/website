@@ -1,18 +1,18 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
-	import { writable } from 'svelte/store';
+	import { getContext, onMount } from 'svelte';
+	import { type Writable, writable, type Readable } from 'svelte/store';
 	import { page } from '$app/stores';
 	import { base } from '$app/paths';
 	import { t } from '$lib/i18n/i18n';
-	import { disabledNewsTypes, selectedNewsTypes } from '$lib/stores';
+
+	const { selectedDocTypes, tags, selectedTags, selectableTags } = getContext('types') as Record<
+		string,
+		Writable<string[]> | Readable<string>
+	>;
 
 	/**
 	 * TODO: Refactor tags on click and change
 	 */
-
-	export let selectedTags: string[] = [];
-	export let tags: string[] = [];
-
 	const isOpen = writable(false);
 
 	const filterOnClick = () => ($isOpen = !$isOpen);
@@ -30,33 +30,33 @@
 		}
 	};
 
-	const onDocumentChange = (e: MouseEvent) => {
+	const onDocumentChange = (e) => {
 		if (e.target) {
-			if (e.target.checked) $selectedNewsTypes.push(e.target.name);
-			else $selectedNewsTypes = $selectedNewsTypes.filter((s) => s !== e.target.name);
+			if (e.target.checked) $selectedDocTypes.push(e.target.name);
+			else $selectedDocTypes = $selectedDocTypes.filter((s) => s !== e.target.name);
 		}
-		$selectedNewsTypes = $selectedNewsTypes;
+		$selectedDocTypes = $selectedDocTypes;
 	};
 
 	const onTagsChange = (e: MouseEvent) => {
 		if (e.target) {
-			if (e.target.checked) selectedTags.push(e.target.name);
-			else selectedTags = selectedTags.filter((s) => s !== e.target.name);
+			if (e.target.checked) $selectedTags.push(e.target.name);
+			else $selectedTags = $selectedTags.filter((s) => s !== e.target.name);
 		}
-		selectedTags = selectedTags;
+		$selectedTags = $selectedTags;
 	};
 	const documentOnClick = (e: MouseEvent) => {
 		if (e.currentTarget) {
-			$selectedNewsTypes.splice($selectedNewsTypes.indexOf(e.currentTarget.id), 1);
+			$selectedDocTypes.splice($selectedDocTypes.indexOf(e.currentTarget.id), 1);
 		}
-		$selectedNewsTypes = $selectedNewsTypes;
+		$selectedDocTypes = $selectedDocTypes;
 	};
 
 	const tagOnClick = (e: MouseEvent) => {
 		if (e.currentTarget) {
-			selectedTags.splice(selectedTags.indexOf(e.currentTarget.id), 1);
+			$selectedTags.splice($selectedTags.indexOf(e.currentTarget.id), 1);
 		}
-		selectedTags = selectedTags;
+		$selectedTags = $selectedTags;
 	};
 
 	onMount(() => {
@@ -76,7 +76,7 @@
 				<img src={`${base}/logos/circle-plus-solid.svg`} alt="" />
 			</button>
 			<ul class="selected-filters">
-				{#each $selectedNewsTypes as s}
+				{#each $selectedDocTypes as s}
 					<li class="display-li tag-doc" id={s}>
 						<button on:click={documentOnClick} id={s}>
 							<p>{$t(`card.${s}`)}</p>
@@ -84,10 +84,10 @@
 						</button>
 					</li>
 				{/each}
-				{#if $selectedNewsTypes.length > 0 && selectedTags.length > 0}
+				{#if $selectedDocTypes.length > 0 && $selectedTags.length > 0}
 					<li class="separator" />
 				{/if}
-				{#each selectedTags as s}
+				{#each $selectedTags as s}
 					<li class="display-li tag" id={s}>
 						<button on:click={tagOnClick} id={s}>
 							<p>{s}</p>
@@ -112,7 +112,7 @@
 													type="checkbox"
 													id={`checkbox-${p}`}
 													name={p}
-													checked={$selectedNewsTypes.includes(p)}
+													checked={$selectedDocTypes.includes(p)}
 													on:change={onDocumentChange}
 												/>
 												{$t(`card.${p}`)}
@@ -126,22 +126,25 @@
 					<div class="filter-section">
 						<h1>Thématiques</h1>
 						<ul class="dropdown-list">
-							{#each tags as t}
-								<li class="dropdown-li" id={t}>
-									<div>
-										<label for={`checkbox-${t}`}>
-											<input
-												type="checkbox"
-												id={`checkbox-${t}`}
-												name={t}
-												checked={selectedTags.includes(t)}
-												on:change={onTagsChange}
-											/>
-											{t}
-										</label>
-									</div>
-								</li>
-							{/each}
+							{#if $tags}
+								{#each $tags as t}
+									<li class="dropdown-li" id={t}>
+										<div>
+											<label for={`checkbox-${t}`}>
+												<input
+													type="checkbox"
+													id={`checkbox-${t}`}
+													name={t}
+													checked={$selectedTags.includes(t)}
+													disabled={!$selectableTags.includes(t)}
+													on:change={onTagsChange}
+												/>
+												{t}
+											</label>
+										</div>
+									</li>
+								{/each}
+							{/if}
 						</ul>
 					</div>
 				</div>
@@ -300,6 +303,11 @@
 	input,
 	label {
 		cursor: pointer;
+	}
+
+	label:has(input[type='checkbox']:disabled) {
+		/* Styles for the label of the disabled checkbox */
+		color: #888; /* Makes the text color gray */
 	}
 
 	p {

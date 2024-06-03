@@ -1,34 +1,26 @@
 <script lang="ts">
 	import { t } from '$i18n/i18n';
-	import type { Member } from '$lib/types';
 	import { aboutPageTitle } from '$lib/stores.js';
-	import { localize } from '$i18n/i18n';
 	import TeamCard from '$lib/components/TeamCard.svelte';
+	import { members, about } from '$lib/stores.js';
 
-	export let data;
+	if(!$members || !$about) throw new Error('No data found');
 
-	$: doc = $localize(data.doc)[0];
-	$: team = data.team.length > 0 ? ($localize(data.team) as Member[]) : [];
+	$: dir = $members.filter((d) => d.meta.status === 'dir_sc');
+	$: membs = $members.filter((d) => d.meta.status === 'member');
+	$: coord = $members.filter((d) => d.meta.status === 'coord').sort((a, b) => a.meta.order! - b.meta.order!)
 
-	$: dir = team ? team.filter((d) => d.meta.status === 'dir_sc') : [];
-	$: members = team ? team.filter((d) => d.meta.status === 'member') : [];
-	$: coord = team
-		? team.filter((d) => d.meta.status === 'coord').sort((a, b) => a.meta.order! - b.meta.order!)
-		: [];
-
-	$: console.log(coord);
-
-	$: $aboutPageTitle = doc.meta.title;
+	$: $aboutPageTitle = $about.meta.title;
 </script>
 
 <svelte:head>
 	<title>{$t('head.about')}</title>
 </svelte:head>
 
-{#if doc.html}
+{#if $about.html}
 	<article class="text-body">
-		{@html doc.html}
-		{#if team && team.length > 0}
+		{@html $about.html}
+		{#if $members}
 			<h2 id="about-team-title">{$t('about.team')}</h2>
 			<div class="team-section">
 				<h3>{$t('about.team.dir_sc')}</h3>
@@ -53,7 +45,7 @@
 				</ul>
 				<h3>{$t('about.team.members')}</h3>
 				<ul class="team">
-					{#each members as m}
+					{#each membs as m}
 						<li>
 							<a href={`${$t('route.about.member')}/${m.meta.slug}`}>
 								<TeamCard bind:data={m} />

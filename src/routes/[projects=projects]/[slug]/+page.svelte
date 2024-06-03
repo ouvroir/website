@@ -1,16 +1,14 @@
 <script lang="ts">
 	import { base } from '$app/paths';
 	import { dev } from '$app/environment';
-	import { localize, t } from '$lib/i18n/i18n.js';
-	import type { Project } from '$lib/types.js';
-	export let data;
+	import { page } from '$app/stores';
+	import { t } from '$lib/i18n/i18n.js';
+	import { projects } from '$lib/stores';
 
 	const devImgPath = '../src/lib/labouvroir/projets/images/';
 	const prodImgPath = `${base}/images/projets/`;
 
-	$: project = $localize(data.projects)[0] as Project;
-
-	$: console.log('displaying image', `${prodImgPath}${project.meta.pageImage}`);
+	$: project = $projects.find((p) => p.meta.slug === $page.params.slug)!;
 </script>
 
 <svelte:head>

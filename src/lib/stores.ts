@@ -1,6 +1,6 @@
 import { writable, derived } from "svelte/store";
-import { building } from '$app/environment';
-
+import type { Blog, Event, Meeting, Member, Project, StaticDocument } from "./types";
+import { locale } from '$i18n/i18n'
 
 export const showPresentation = writable(true);
 
@@ -22,9 +22,54 @@ export const smallScreen = derived(screenType, ($screenType) => {
 })
 
 export const showNavMenu = writable(false);
-export const selectedNewsTypes = writable(building ? ['event', 'blog', 'meeting'] : ['event', 'blog'])
-export const disabledNewsTypes = writable([] as string[])
 
 export const aboutPageTitle = writable('');
 
 export const translatedSlug = writable('')
+
+
+// --- Content stores
+
+export const contentLoaded = writable(false);
+
+export const meetings = writable([] as Meeting[]);
+
+export const allBlogs = writable([] as Blog[]);
+export const blogs = derived([locale, allBlogs], ([$locale, $allBlogs]) => {
+    return $allBlogs.filter(blog => blog.meta.path.includes(`-${$locale}.md`));
+})
+
+export const allEvents = writable([] as Event[]);
+export const events = derived([locale, allEvents], ([$locale, $allEvents]) => {
+    return $allEvents.filter(event => event.meta.path.includes(`-${$locale}.md`));
+})
+
+export const allMembers = writable([] as Member[]);
+export const members = derived([locale, allMembers], ([$locale, $allMembers]) => {
+    return $allMembers.filter(member => member.meta.path.includes(`-${$locale}.md`));
+})
+
+export const allProjects = writable([] as Project[]);
+export const projects = derived([locale, allProjects], ([$locale, $allProjects]) => {
+    return $allProjects.filter(project => project.meta.path.includes(`-${$locale}.md`));
+})
+
+export const allAbout = writable([] as StaticDocument[]);
+export const about = derived([locale, allAbout], ([$locale, $allAbout]) => {
+    return $allAbout.find(about => about.meta.path.includes(`-${$locale}.md`));
+})
+
+export const allServices = writable([] as StaticDocument[]);
+export const services = derived([locale, allServices], ([$locale, $allServices]) => {
+    return $allServices.find(service => service.meta.path.includes(`-${$locale}.md`));
+})
+
+export const allSupports = writable([] as StaticDocument[]);
+export const support = derived([locale, allSupports], ([$locale, $allSupports]) => {
+    return $allSupports.find(support => support.meta.path.includes(`-${$locale}.md`));
+})
+
+export const allPresentations = writable([] as StaticDocument[]);
+export const presentation = derived([locale, allPresentations], ([$locale, $allPresentations]) => {
+    return $allPresentations.find(presentation => presentation.meta.path.includes(`-${$locale}.md`));
+})

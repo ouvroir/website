@@ -1,11 +1,11 @@
 <script lang="ts">
 	import TeamCard from '$lib/components/TeamCard.svelte';
-	import { localize } from '$lib/i18n/i18n.js';
-	import { translatedSlug } from '$lib/stores.js';
+	import { members } from '$lib/stores';
+	import { page } from '$app/stores';
 
-	export let data;
+	if (!$members) throw new Error('No data found');
 
-	$: m = $localize(data.member)[0];
+	$: m = $members.find((m) => m.meta.slug === $page.params.slug);
 </script>
 
 <section>

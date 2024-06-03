@@ -3,6 +3,7 @@ import { resolve } from 'path';
 import markdownit from 'markdown-it';
 import markdownitfm from 'markdown-it-front-matter';
 import frontmatter from 'front-matter';
+import ilcomment from 'markdown-it-inline-comments';
 
 import type {
 	Project,
@@ -87,7 +88,6 @@ export function fetchData(
 	return files
 		.map(file => {
 			const content = readFileSync(file, 'utf-8');
-
 			const meta = parseFrontMatter(content);
 			const html = cleanHtml(parseMarkdown(content));
 			return typeConstructors[type](file, meta, html);
@@ -95,8 +95,8 @@ export function fetchData(
 		.filter((content) => {
 			// Only filters contents that are not drafts
 			// Contents needs to have meta otherwise it will be NOT be filtered out
-			if(!content.meta) return false
-			if(!('draft' in content.meta)) return true
+			if (!content.meta) return false
+			if (!('draft' in content.meta)) return true
 			return !content.meta.draft;
 		})
 		.sort((a, b) => {
@@ -110,7 +110,7 @@ const parseFrontMatter = (content: string) => {
 };
 
 const parseMarkdown = (content: string) => {
-	const md = markdownit().use(markdownitfm, (fm) => null);
+	const md = markdownit().use(markdownitfm, (fm) => null).use(ilcomment);
 	return md.render(content);
 };
 

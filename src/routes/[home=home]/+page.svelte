@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { t, dateToLocalizedString, localize } from '$i18n/i18n';
+	import { t, dateToLocalizedString } from '$i18n/i18n';
 	import { fade } from 'svelte/transition';
 	import { screenType } from '$lib/stores';
 	import Vr from '$lib/components/logos/Vr.svelte';
@@ -7,21 +7,17 @@
 	import Calendar from '$lib/components/logos/Calendar.svelte';
 	import Carousel from '$lib/components/Carousel.svelte';
 	import HomeListItem from '$lib/components/HomeListItem.svelte';
-	import type { Blog, Event } from '$lib/types.js';
+	import { events, blogs, projects } from '$lib/stores';
 
-	export let data;
+	if(!events || !blogs || !projects ) throw new Error('No data found');
 
-	$: news = ($localize([...data.events, ...data.posts]) as Array<Blog | Event>)
+	$: news = [...$events, ...$blogs]
 		.sort((a, b) => {
-			let aDate = a.meta.kind === 'event' ? a.meta.dateStart : a.meta.date;
-			let bDate = b.meta.kind === 'event' ? b.meta.dateStart : b.meta.date;
-
-			aDate = aDate.split('T')[0];
-			bDate = bDate.split('T')[0];
-			return bDate.localeCompare(aDate);
+			const aDate = new Date(a.meta.kind === 'event' ? a.meta.dateStart : a.meta.date);
+			const bDate = new Date(b.meta.kind === 'event' ? b.meta.dateStart : b.meta.date);
+			return bDate.getTime() - aDate.getTime();
 		})
 		.slice(0, 4);
-	$: projects = $localize(data.projects.filter((p) => p.meta.cieco));
 	$: smallScreen = $screenType === 'mobile' || $screenType === 'tablet-vertical';
 </script>
 
@@ -100,11 +96,11 @@
 	</header>
 
 	<div>
-		<Carousel data={projects} />
+		<Carousel data={$projects} />
 	</div>
 
 	<ul class="list-item">
-		{#each projects as p, i}
+		{#each $projects as p, i}
 			<HomeListItem href={`${$t('route.projects')}/${p.meta.slug}`}>
 				<span class="document-tag" slot="document-tag">
 					{$t(`home.tag.project`)}
