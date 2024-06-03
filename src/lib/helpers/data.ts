@@ -1,3 +1,9 @@
+import { readdirSync, readFileSync } from 'fs';
+import { resolve } from 'path';
+import markdownit from 'markdown-it';
+import markdownitfm from 'markdown-it-front-matter';
+import frontmatter from 'front-matter';
+
 import type {
 	Project,
 	Event,
@@ -8,42 +14,28 @@ import type {
 	GenericDocument
 } from '$lib/types';
 
-const getBlogs = async () => await import.meta.glob(`$lib/labouvroir/blog/*.md`);
-
-const getEvents = async () => await import.meta.glob(`$lib/labouvroir/evenements/*.md`);
-
-const getCr = async () => await import.meta.glob(`$lib/labouvroir/cr/*.md`);
-
-const getTeam = async () => await import.meta.glob(`$lib/labouvroir/equipe/*.md`);
-
-const getProjects = async () => await import.meta.glob(`$lib/labouvroir/projets/*.md`);
-
-const getSupportFiles = async () => await import.meta.glob(`$lib/labouvroir/lab/financement-*.md`);
-
-const getAbout = async () => await import.meta.glob(`$lib/labouvroir/about-*.md`);
-
-const getShortPresentation = async () =>
-	await import.meta.glob(`$lib/labouvroir/lab/presentation-short-*.md`);
-
-const getServices = async () => await import.meta.glob(`$lib/labouvroir/lab/services-*.md`);
-
-export const setup = {
-	projects: getProjects,
-	blog: getBlogs,
-	team: getTeam,
-	meeting: getCr,
-	support: getSupportFiles,
-	event: getEvents,
-	about: getAbout,
-	services: getServices,
-	presentation: getShortPresentation
+const get = (path: string, filters: (fn: string) => boolean = () => true) => {
+	return readdirSync(resolve(path))
+		.filter(filters)
+		.filter((f) => f.endsWith('.md') && !f.includes('template'))
+		.map((f) => resolve(path, f));
 };
 
-export async function fetchData(
+export const setup = {
+	projects: get('src/lib/labouvroir/projets'),
+	members: get('src/lib/labouvroir/equipe'),
+	events: get('src/lib/labouvroir/evenements'),
+	meetings: get('src/lib/labouvroir/cr'),
+	blog: get('src/lib/labouvroir/blog'),
+	presentation: get('src/lib/labouvroir/lab', (fn) => fn.includes('presentation')),
+	about: get('src/lib/labouvroir', (fn) => fn.includes('about')),
+	support: get('src/lib/labouvroir/lab', (fn) => fn.includes('financement')),
+	services: get('src/lib/labouvroir/lab', (fn) => fn.includes('services'))
+};
+
+export function fetchData(
 	type: keyof typeof setup
-): Promise<
-	Project[] | Event[] | Meeting[] | Member[] | Blog[] | StaticDocument[] | GenericDocument[]
-> {
+): Project[] | Event[] | Meeting[] | Member[] | Blog[] | StaticDocument[] | GenericDocument[] {
 	const typeConstructors: Record<
 		keyof typeof setup,
 		(
@@ -58,15 +50,15 @@ export async function fetchData(
 				html
 			}) as Project,
 
-		team: (path, meta, html) => ({ meta: { ...meta, kind: 'member', path }, html }) as Member,
+		members: (path, meta, html) => ({ meta: { ...meta, kind: 'member', path }, html }) as Member,
 
-		event: (path, meta, html) =>
+		events: (path, meta, html) =>
 			({
 				meta: { ...meta, kind: 'event', slug: createSlugFromFilename(path), path },
 				html
 			}) as Event,
 
-		meeting: (path, meta, html) =>
+		meetings: (path, meta, html) =>
 			({
 				meta: { ...meta, kind: 'meeting', slug: createSlugFromFilename(path), path },
 				html
@@ -90,45 +82,37 @@ export async function fetchData(
 			({ meta: { ...meta, kind: 'about', path }, html }) as StaticDocument
 	};
 
-	const iteralbleFiles = Object.entries(await setup[type]());
+	const files = setup[type];
 
-	const mdFiles = await Promise.all(
-		iteralbleFiles
-			.filter(([path]) => !path.includes('template'))
-			.map(async ([path, resolver]) => {
-				const md = await resolver();
-				const mdHtml = md.default.render().html as string;
-				if (!md) throw new Error(`Could not import ${path}`);
-				if (!md.metadata) {
-					console.log(`Cannot read metadata from ${path}`);
-					return { meta: undefined };
-				}
+	return files
+		.map(file => {
+			const content = readFileSync(file, 'utf-8');
 
-				const constructor = typeConstructors[type];
-				if (!constructor) throw new Error(`No constructor for type ${type}`);
-
-				let document;
-				try {
-					if ('draft' in md.metadata && md.metadata.draft !== undefined)
-						document = constructor(path, md.metadata, md.metadata.draft ? '' : cleanHtml(mdHtml));
-					else document = constructor(path, md.metadata, cleanHtml(mdHtml));
-				} catch (err) {
-					console.log('problem with file', path);
-					throw err;
-				}
-
-				return document;
-			})
-	);
-
-	// Only filters contents that are not drafts
-	// Contents needs to have meta otherwise it will be NOT be filtered out
-	return mdFiles.filter((md) => {
-		if (!md.meta) return false;
-		if ('draft' in md.meta) return !md.meta.draft;
-		return true;
-	});
+			const meta = parseFrontMatter(content);
+			const html = cleanHtml(parseMarkdown(content));
+			return typeConstructors[type](file, meta, html);
+		})
+		.filter((content) => {
+			// Only filters contents that are not drafts
+			// Contents needs to have meta otherwise it will be NOT be filtered out
+			if(!content.meta) return false
+			if(!('draft' in content.meta)) return true
+			return !content.meta.draft;
+		})
+		.sort((a, b) => {
+			if (!('date' in a.meta) || !('date' in b.meta)) return 0;
+			return new Date(b.meta.date).getTime() - new Date(a.meta.date).getTime();
+		})
 }
+
+const parseFrontMatter = (content: string) => {
+	return frontmatter(content).attributes;
+};
+
+const parseMarkdown = (content: string) => {
+	const md = markdownit().use(markdownitfm, (fm) => null);
+	return md.render(content);
+};
 
 const cleanHtml = (html: string): string => {
 	return html.replace(/<a /g, "<a target='_blank' rel='external'");
