@@ -1,6 +1,8 @@
 <script lang="ts">
+	import SearchResultLi from './searchResultLi.svelte';
 	import { searchModalOpen, searchIndex } from '$lib/stores';
 	import { onMount } from 'svelte';
+	import { t } from '$lib/i18n/i18n';
 
 	const clickOutside = (e) => {
 		if (e.target.classList.contains('search-modal-bg')) {
@@ -13,7 +15,6 @@
 	let result = [];
 
 	$: result = $searchIndex.search(searchInput);
-	$: if (searchInput.length >= 3) console.log(result);
 
 	onMount(() => {
 		//disable scroll
@@ -28,6 +29,7 @@
 			<div class="input-container">
 				<label for="search-input"><i class="bx bx-search"></i></label>
 				<input
+					autofocus="true"
 					type="text"
 					id="search-input"
 					placeholder="Search"
@@ -35,11 +37,18 @@
 					bind:value={searchInput}
 				/>
 			</div>
-			<ul class="result-container">
-				{#each result as r}
-					<li>{@html r.text}</li>
+			<section class="result-container">
+				{#each Object.keys(result) as kind}
+					<h2>{$t(`search.kind.${kind}`)}</h2>
+					<ul>
+						{#each result[kind] as r}
+							<li>
+								<SearchResultLi {...r} />
+							</li>
+						{/each}
+					</ul>
 				{/each}
-			</ul>
+			</section>
 		</div>
 	</button>
 {/if}
@@ -63,6 +72,8 @@
 	}
 
 	.search-modal-container {
+		max-height: 90%;
+		overflow-y: scroll;
 		width: 50%;
 		min-height: 10%;
 		background-color: white;
@@ -100,6 +111,23 @@
 		display: flex;
 		flex-direction: column;
 		gap: 1rem;
-		padding: 1rem;
+		padding: 1rem 0;
+		text-align: left;
+
+		& h2 {
+			font-size: 1.5rem;
+			font-weight: 600;
+		}
+
+		& > ul {
+			display: flex;
+			flex-direction: column;
+			gap: 1rem;
+		}
+
+		& li {
+			font-size: 1rem;
+			text-align: left;
+		}
 	}
 </style>

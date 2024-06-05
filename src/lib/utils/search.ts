@@ -1,6 +1,7 @@
 import { get, type Readable, type Writable } from "svelte/store"
 import FlexSearch from "flexsearch"
 import * as stores from "$lib/stores"
+import { locale } from "$lib/i18n/i18n"
 
 export class SearchIndex {
     index: FlexSearch.Document<unknown>
@@ -9,6 +10,7 @@ export class SearchIndex {
     constructor() {
         this.index = new FlexSearch.Document({
             tokenize: 'forward',
+            language: get(locale),
             document: {
                 id: 'id',
                 index: ['title', 'content']
@@ -19,7 +21,7 @@ export class SearchIndex {
     add(content: any[]) {
         content.forEach((d, i) => {
 
-            const stripped = this._stripHtml(d.content)
+            const stripped = this._stripHtml(d.html)
 
             this.contentMap[i] = { slug: d.meta.slug, kind: d.meta.kind }
             this.index.add({
@@ -42,7 +44,8 @@ export class SearchIndex {
     }
 
     _getMatches(text: string, query: string, limit = 1) {
-        const regex = new RegExp(query, 'gi')
+        const escapedQuery = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // escapes special characters
+        const regex = new RegExp(escapedQuery, 'gi');
         const indexes = []
         let matches = 0
         let match
@@ -51,8 +54,8 @@ export class SearchIndex {
             matches++
         }
         return indexes.map(index => {
-            let start = index - 20
-            let end = index + 80
+            let start = index - 40
+            let end = index + 100
             const excerpt = text.substring(start, end).trim()
             return `... ${this._replaceTextWithMarker(excerpt, query)} ...`
         })
@@ -61,10 +64,14 @@ export class SearchIndex {
     search(query: string) {
         if (!query) return []
 
+        console.log('searching for:', query)
+
         const match = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
 
-        const allResults = this.index.search(match, 15)
-        const { _, result } = allResults ? allResults[0] : { _: 0, result: [] }
+        const results: number[] = []
+        this.index.search(match, 15).forEach(({ _, result }) => result.forEach(r => results.push(r)))
+        console.log('results:', results)
+
 
         const storeMap = {
             'project': stores.projects,
@@ -78,7 +85,7 @@ export class SearchIndex {
             'about': stores.about
         };
 
-        const content = result.map((_, id: number) => {
+        const content = results.map((_, id: number) => {
             const { slug, kind } = this.contentMap[id];
             const store = storeMap[kind];
             if (store) {
@@ -91,14 +98,14 @@ export class SearchIndex {
             else throw new Error(`No store found for kind ${kind}`);
         });
 
-
         const searchResult = content.map(c => {
             return {
                 slug: c.meta.slug,
+                kind: c.meta.kind,
+                title: c.meta.title,
                 text: this._getMatches(this._stripHtml(c.html), query, 1)
             }
         })
-        console.log(searchResult)
-        return searchResult
+        return Object.groupBy(searchResult, (r => r.kind))
     }
 }

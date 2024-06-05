@@ -125,6 +125,13 @@ const translations: { [locale: string]: { [path: string]: string } } = {
         'card.meeting': 'Meeting notes',
         'card.project': 'Project',
         'card.speaker': 'speaker·s',
+
+        'search.kind.blog': 'Blog post(s)',
+        'search.kind.event': 'Event(s)',
+        'search.kind.project': 'Project(s)',
+        'search.kind.member': 'Member(s)',
+        'search.kind.meeting': 'Meeting notes',
+        'search.kind.static': 'Other document(s)',
     },
     'fr': {
         // ARIA labels
@@ -252,6 +259,14 @@ const translations: { [locale: string]: { [path: string]: string } } = {
         'card.meeting': 'Compte-rendu',
         'card.project': 'Projet',
         'card.speaker': 'conférencier·ère·s',
+
+        // Search
+        'search.kind.blog': 'Billet(s) de blog',
+        'search.kind.event': 'Événement(s)',
+        'search.kind.project': 'Projet(s)',
+        'search.kind.member': 'Membre(s)',
+        'search.kind.meeting': 'Note(s) de réunion',
+        'search.kind.static': 'Autres document(s)',
     }
 }
 

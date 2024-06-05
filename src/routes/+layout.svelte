@@ -50,8 +50,7 @@
 			...stores.members.localize('fr'),
 			...stores.projects.localize('fr'),
 			stores.about.localize('fr'),
-			stores.presentation.localize('fr'),
-			stores.support.localize('fr')
+			stores.services.localize('fr')
 		]);
 		console.log('======== Creating en search index');
 		get(stores.enSearchIndex).add([
@@ -61,8 +60,7 @@
 			...stores.members.localize('en'),
 			...stores.projects.localize('en'),
 			stores.about.localize('en'),
-			stores.presentation.localize('en'),
-			stores.support.localize('en')
+			stores.services.localize('en')
 		]);
 	});
 </script>

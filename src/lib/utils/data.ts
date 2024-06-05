@@ -77,12 +77,14 @@ export function fetchData(
 				html
 			}) as StaticDocument,
 		support: (path, meta, html) =>
-			({ meta: { ...meta, kind: 'support', path }, html }) as StaticDocument,
+			({ meta: { ...meta, kind: 'static', path }, html }) as StaticDocument,
 		services: (path, meta, html) =>
-			({ meta: { ...meta, kind: 'services', path }, html }) as StaticDocument,
+			({ meta: { ...meta, kind: 'static', path }, html }) as StaticDocument,
 		about: (path, meta, html) =>
-			({ meta: { ...meta, kind: 'about', path }, html }) as StaticDocument
+			({ meta: { ...meta, kind: 'static', path }, html }) as StaticDocument
 	};
+
+	console.warn('about, services and support have kind: static');
 
 	const files = setup[type];
 
@@ -124,8 +126,4 @@ const cleanHtml = (html: string): string => {
 export function createSlugFromFilename(filename: string) {
 	filename = filename.split('/').at(-1)!;
 	return encodeURIComponent(filename.replace('.md', ''));
-}
-
-export function generateURI({ slug, kind, locale }: { slug: string; kind: string; locale: string }) {
-	return `/${kind}/${slug}`;
 }
