@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { searchModalOpen, searchIndex } from '$lib/stores';
-	import { search } from '$lib/utils/search';
+	import { onMount } from 'svelte';
 
 	const clickOutside = (e) => {
 		if (e.target.classList.contains('search-modal-bg')) {
@@ -9,10 +9,17 @@
 		e.stopPropagation();
 	};
 
-	let searchInput: string;
+	let searchInput: string = '';
 	let result = [];
 
-	$: result = search($searchIndex, searchInput);
+	$: result = $searchIndex.search(searchInput);
+	$: if (searchInput.length >= 3) console.log(result);
+
+	onMount(() => {
+		//disable scroll
+		window.addEventListener('scroll', (e) => e.preventDefault(), { passive: false });
+		return () => window.removeEventListener('scroll', (e) => e.preventDefault());
+	});
 </script>
 
 {#if $searchModalOpen}
@@ -20,9 +27,19 @@
 		<div class="search-modal-container">
 			<div class="input-container">
 				<label for="search-input"><i class="bx bx-search"></i></label>
-				<input type="text" id="search-input" placeholder="Search" bind:value={searchInput} />
+				<input
+					type="text"
+					id="search-input"
+					placeholder="Search"
+					autocomplete="off"
+					bind:value={searchInput}
+				/>
 			</div>
-			<div class="result-container"><pre>{result}</pre></div>
+			<ul class="result-container">
+				{#each result as r}
+					<li>{@html r.text}</li>
+				{/each}
+			</ul>
 		</div>
 	</button>
 {/if}

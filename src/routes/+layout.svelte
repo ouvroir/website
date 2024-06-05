@@ -6,62 +6,63 @@
 	import SearchModal from '$lib/components/searchModal.svelte';
 	import { page } from '$app/stores';
 	import { t } from '$lib/i18n/i18n';
+	import { get } from 'svelte/store';
 	import '$lib/styles/reset.css';
 	import '$lib/styles/style.css';
+	import * as stores from '$lib/stores.js';
 	import {
-		allBlogs,
-		allEvents,
-		allMembers,
-		meetings,
-		allProjects,
-		allAbout,
-		allPresentations,
-		allServices,
-		allSupports,
-		presentation,
 		searchModalOpen,
-		searchIndex,
-		showPresentation,
 		screenType,
-		screenWidth
+		showPresentation,
+		screenWidth,
+		presentation
 	} from '$lib/stores.js';
-	import { createSearchIndex } from '$lib/utils/search';
 	import { onMount } from 'svelte';
 
 	export let data: null | Record<string, any[]>;
 
 	if (data) {
-		$allBlogs = data.allBlogs;
-		$allEvents = data.allEvents;
-		$meetings = data.meetings;
-		$allMembers = data.allMembers;
-		$allProjects = data.allProjects;
-		$allAbout = data.allAbouts;
-		$allPresentations = data.allPresentations;
-		$allSupports = data.allSupports;
-		$allServices = data.allServices;
+		stores.allBlogs.set(data.allBlogs);
+		stores.allEvents.set(data.allEvents);
+		stores.meetings.set(data.meetings);
+		stores.allMembers.set(data.allMembers);
+		stores.allProjects.set(data.allProjects);
+		stores.allAbout.set(data.allAbouts);
+		stores.allPresentations.set(data.allPresentations);
+		stores.allSupports.set(data.allSupports);
+		stores.allServices.set(data.allServices);
 	}
 
 	let offsetHeight: number;
 
 	if ($page.route.id && !$page.route.id.includes('home')) {
-		showPresentation.set(false);
+		stores.showPresentation.set(false);
 	}
 
 	$: addGap = $page && $page.route.id === '/[news=news]';
 
 	onMount(() => {
-		console.log('Creating search index');
-		$searchIndex = createSearchIndex([
-			...$allBlogs,
-			...$allEvents,
-			...$meetings,
-			...$allMembers,
-			...$allProjects,
-			...$allAbout,
-			...$allPresentations,
-			...$allSupports,
-			...$allServices
+		console.log('======== Creating fr search index');
+		get(stores.frSearchIndex).add([
+			...stores.blogs.localize('fr'),
+			...stores.events.localize('fr'),
+			...get(stores.meetings),
+			...stores.members.localize('fr'),
+			...stores.projects.localize('fr'),
+			stores.about.localize('fr'),
+			stores.presentation.localize('fr'),
+			stores.support.localize('fr')
+		]);
+		console.log('======== Creating en search index');
+		get(stores.enSearchIndex).add([
+			...stores.blogs.localize('en'),
+			...stores.events.localize('en'),
+			...get(stores.meetings),
+			...stores.members.localize('en'),
+			...stores.projects.localize('en'),
+			stores.about.localize('en'),
+			stores.presentation.localize('en'),
+			stores.support.localize('en')
 		]);
 	});
 </script>

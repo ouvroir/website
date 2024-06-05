@@ -1,7 +1,9 @@
-import { writable, derived } from "svelte/store";
+import { writable, derived, get } from "svelte/store";
+import type { Writable, Readable } from "svelte/store";
 import type { Blog, Event, Meeting, Member, Project, StaticDocument } from "./types";
 import { locale } from '$i18n/i18n'
 import FlexSearch from "flexsearch";
+import { SearchIndex } from "./utils/search";
 
 export const showPresentation = writable(true);
 
@@ -35,63 +37,63 @@ export const contentLoaded = writable(false);
 
 export const meetings = writable([] as Meeting[]);
 
-function createContentStrore<T>(data: T[]) {
-    const { subscribe, set, update } = writable(data);
-
+// So here derived is improved in the sense that by default
+// it returns localized content (its original behavior) but one can
+// explicitly ask for the content in a specific locale.
+function createDerivedContentStrore<T>(contentStore: Writable<T[]>) {
+    const { subscribe } = derived([locale, contentStore], ([$locale, $contentStore]) =>
+        $contentStore.filter(d => d.meta.path.includes(`-${$locale}.md`))
+    );
     return {
         subscribe,
-        set,
-        update,
-        get: (locale: string) => subscribe((content) => content.filter(c => c.meta.path.includes(`-${locale}.md`)))
+        localize: (locale: string) => get(contentStore).filter(c => c.meta.path.includes(`-${locale}.md`)) as T[],
+        getCurrentLocale: () => get(locale)
+
     }
 }
 
-export const allBlogs = writable([] as Blog[]);
-export const blogs = derived([locale, allBlogs], ([$locale, $allBlogs]) => {
-    return $allBlogs.filter(blog => blog.meta.path.includes(`-${$locale}.md`));
-})
-
-export const allEvents = writable([] as Event[]);
-export const events = derived([locale, allEvents], ([$locale, $allEvents]) => {
-    return $allEvents.filter(event => event.meta.path.includes(`-${$locale}.md`));
-})
-
-export const allMembers = writable([] as Member[]);
-export const members = derived([locale, allMembers], ([$locale, $allMembers]) => {
-    return $allMembers.filter(member => member.meta.path.includes(`-${$locale}.md`));
-})
+// Only for static content. Seems like a duplicate from function 
+// but couldnt find a way to make it generic...
+function createDerivedStaticContentStrore<T>(contentStore: Writable<T[]>) {
+    const { subscribe } = derived([locale, contentStore], ([$locale, $contentStore]) =>
+        $contentStore.find(d => d.meta.path.includes(`-${$locale}.md`))
+    );
+    return {
+        subscribe,
+        localize: (locale: string) => get(contentStore).find(c => c.meta.path.includes(`-${locale}.md`)) as T,
+        getCurrentLocale: () => get(locale)
+    }
+}
 
 export const allProjects = writable([] as Project[]);
-export const projects = derived([locale, allProjects], ([$locale, $allProjects]) => {
-    return $allProjects.filter(project => project.meta.path.includes(`-${$locale}.md`));
-})
+export const projects = createDerivedContentStrore(allProjects);
+
+export const allBlogs = writable([] as Blog[]);
+export const blogs = createDerivedContentStrore(allBlogs);
+
+export const allEvents = writable([] as Event[]);
+export const events = createDerivedContentStrore(allEvents);
+
+export const allMembers = writable([] as Member[]);
+export const members = createDerivedContentStrore(allMembers);
 
 export const allAbout = writable([] as StaticDocument[]);
-export const about = derived([locale, allAbout], ([$locale, $allAbout]) => {
-    return $allAbout.find(about => about.meta.path.includes(`-${$locale}.md`));
-})
+export const about = createDerivedStaticContentStrore(allAbout);
 
 export const allServices = writable([] as StaticDocument[]);
-export const services = derived([locale, allServices], ([$locale, $allServices]) => {
-    return $allServices.find(service => service.meta.path.includes(`-${$locale}.md`));
-})
+export const services = createDerivedStaticContentStrore(allServices);
 
 export const allSupports = writable([] as StaticDocument[]);
-export const support = derived([locale, allSupports], ([$locale, $allSupports]) => {
-    return $allSupports.find(support => support.meta.path.includes(`-${$locale}.md`));
-})
+export const support = createDerivedStaticContentStrore(allSupports);
 
 export const allPresentations = writable([] as StaticDocument[]);
-export const presentation = derived([locale, allPresentations], ([$locale, $allPresentations]) => {
-    return $allPresentations.find(presentation => presentation.meta.path.includes(`-${$locale}.md`));
-})
+export const presentation = createDerivedStaticContentStrore(allPresentations);
 
 // -- Search related stores
 
-export const enSearchIndex = writable(null as FlexSearch.Document | null);
-export const frSearchIndex = writable(null as FlexSearch.Document | null);
-// export const searchIndex = derived([enSearchIndex, frSearchIndex, locale], ([$enSearchIndex, $frSearchIndex, $locale]) => {
-//     return $locale === 'en' ? $enSearchIndex : $frSearchIndex;
-// })
-export const searchIndex = writable(null as Document | null);
+export const enSearchIndex = writable(new SearchIndex());
+export const frSearchIndex = writable(new SearchIndex());
+export const searchIndex = derived([enSearchIndex, frSearchIndex, locale], ([$enSearchIndex, $frSearchIndex, $locale]) => {
+    return $locale === 'en' ? $enSearchIndex : $frSearchIndex;
+})
 export const searchModalOpen = writable(false);
