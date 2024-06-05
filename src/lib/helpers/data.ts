@@ -28,7 +28,7 @@ export const setup = {
 	events: get('src/lib/labouvroir/evenements'),
 	meetings: get('src/lib/labouvroir/cr'),
 	blog: get('src/lib/labouvroir/blog'),
-	presentation: get('src/lib/labouvroir/lab', (fn) => fn.includes('presentation')),
+	presentation: get('src/lib/labouvroir/lab', (fn) => fn.includes('presentation-short')),
 	about: get('src/lib/labouvroir', (fn) => fn.includes('about')),
 	support: get('src/lib/labouvroir/lab', (fn) => fn.includes('financement')),
 	services: get('src/lib/labouvroir/lab', (fn) => fn.includes('services'))
