@@ -5,7 +5,7 @@
 	import { writable } from 'svelte/store';
 	import type { Project } from '$lib/types.js';
 	import { projects, showPresentation } from '$lib/stores';
-	import { getTagsfromContent, contentHasTags } from '$lib/helpers/helpers';
+	import { getTagsfromContent, contentHasTags } from '$lib/utils/helpers';
 	import { setContext } from 'svelte';
 
 	showPresentation.set(false);

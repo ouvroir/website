@@ -1,6 +1,7 @@
 import { writable, derived } from "svelte/store";
 import type { Blog, Event, Meeting, Member, Project, StaticDocument } from "./types";
 import { locale } from '$i18n/i18n'
+import FlexSearch from "flexsearch";
 
 export const showPresentation = writable(true);
 
@@ -33,6 +34,17 @@ export const translatedSlug = writable('')
 export const contentLoaded = writable(false);
 
 export const meetings = writable([] as Meeting[]);
+
+function createContentStrore<T>(data: T[]) {
+    const { subscribe, set, update } = writable(data);
+
+    return {
+        subscribe,
+        set,
+        update,
+        get: (locale: string) => subscribe((content) => content.filter(c => c.meta.path.includes(`-${locale}.md`)))
+    }
+}
 
 export const allBlogs = writable([] as Blog[]);
 export const blogs = derived([locale, allBlogs], ([$locale, $allBlogs]) => {
@@ -73,3 +85,13 @@ export const allPresentations = writable([] as StaticDocument[]);
 export const presentation = derived([locale, allPresentations], ([$locale, $allPresentations]) => {
     return $allPresentations.find(presentation => presentation.meta.path.includes(`-${$locale}.md`));
 })
+
+// -- Search related stores
+
+export const enSearchIndex = writable(null as FlexSearch.Document | null);
+export const frSearchIndex = writable(null as FlexSearch.Document | null);
+// export const searchIndex = derived([enSearchIndex, frSearchIndex, locale], ([$enSearchIndex, $frSearchIndex, $locale]) => {
+//     return $locale === 'en' ? $enSearchIndex : $frSearchIndex;
+// })
+export const searchIndex = writable(null as Document | null);
+export const searchModalOpen = writable(false);

@@ -2,6 +2,7 @@
 	import { page } from '$app/stores';
 	import { t, rt, locale, getLangFromParam } from '$i18n/i18n';
 	import { showPresentation, screenType, showNavMenu } from '$lib/stores';
+	import SearchBar from './searchBar.svelte';
 	import { slide } from 'svelte/transition';
 	import { onMount } from 'svelte';
 	import Ouvroir from './Ouvroir.svelte';
@@ -113,28 +114,32 @@
 		class={`main ${$showPresentation ? 'bottom-nav' : ''}`}
 	>
 		<Ouvroir />
-		<NavLinks />
-
-		<div class={`locale-container ${$showPresentation ? 'white' : ''}`}>
-			<a
-				class={`lang-btn ${$locale === 'fr' ? 'active' : ''}`}
-				href={frHref}
-				rel="alternate"
-				on:click={() => {
-					locale.set('fr');
-				}}
-				hreflang="fr">fr</a
-			>
-			<span>|</span>
-			<a
-				href={enHref}
-				class={`lang-btn ${$locale === 'en' ? 'active' : ''}`}
-				rel="alternate"
-				on:click={() => {
-					locale.set('en');
-				}}
-				hreflang="en">en</a
-			>
+		<div class="full-navigation">
+			<SearchBar />
+			<hr class="navigation-separator" />
+			<NavLinks />
+			<hr class="navigation-separator" />
+			<div class={`locale-container ${$showPresentation ? 'white' : ''}`}>
+				<a
+					class={`lang-btn ${$locale === 'fr' ? 'active' : ''}`}
+					href={frHref}
+					rel="alternate"
+					on:click={() => {
+						locale.set('fr');
+					}}
+					hreflang="fr">fr</a
+				>
+				<span>|</span>
+				<a
+					href={enHref}
+					class={`lang-btn ${$locale === 'en' ? 'active' : ''}`}
+					rel="alternate"
+					on:click={() => {
+						locale.set('en');
+					}}
+					hreflang="en">en</a
+				>
+			</div>
 		</div>
 	</nav>
 {:else}
@@ -254,12 +259,32 @@
 		position: relative;
 	}
 
+	.full-navigation {
+		grid-column: 3/-1;
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		justify-content: flex-end;
+		/* padding: 0 4%; */
+	}
+
+	.navigation-separator {
+		--radius: 5px;
+		--h-margin: 1.6rem;
+		margin: 0 var(--h-margin) 0 var(--h-margin);
+		display: flex;
+		background-color: #303030;
+		width: var(--radius);
+		height: var(--radius);
+		border-radius: 100px;
+	}
+
 	.locale-container {
 		display: flex;
-		align-items: end;
+		/* align-items: end; */
 		gap: 1rem;
-		grid-column: 8/9;
-		padding-bottom: var(--nav-links-padding-bottom);
+		/* grid-column: 8/9; */
+		/* padding-bottom: var(--nav-links-padding-bottom); */
 	}
 
 	.locale-container > *:first-child {

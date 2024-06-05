@@ -62,14 +62,13 @@
 
 <style>
 	.nav-links {
-		grid-column: 3/6;
 		display: flex;
 		flex-wrap: wrap;
 		max-width: 100%;
-		gap: 1.5rem;
+		gap: 1.1rem;
 		row-gap: 1rem;
 
-		padding-bottom: var(--nav-links-padding-bottom);
+		/* padding-bottom: var(--nav-links-padding-bottom); */
 	}
 
 	.nav-link {
@@ -106,7 +105,7 @@
 			display: grid;
 			grid-template-columns: repeat(2, 1fr);
 			gap: 0.5rem;
-			margin-left: 4rem;
+			/* margin-left: 4rem; */
 		}
 	}
 </style>

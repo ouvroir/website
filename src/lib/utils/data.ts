@@ -5,6 +5,7 @@ import markdownitfm from 'markdown-it-front-matter';
 import frontmatter from 'front-matter';
 import ilcomment from 'markdown-it-inline-comments';
 
+
 import type {
 	Project,
 	Event,
@@ -90,6 +91,7 @@ export function fetchData(
 			const content = readFileSync(file, 'utf-8');
 			const meta = parseFrontMatter(content);
 			const html = cleanHtml(parseMarkdown(content));
+
 			return typeConstructors[type](file, meta, html);
 		})
 		.filter((content) => {
@@ -122,4 +124,8 @@ const cleanHtml = (html: string): string => {
 export function createSlugFromFilename(filename: string) {
 	filename = filename.split('/').at(-1)!;
 	return encodeURIComponent(filename.replace('.md', ''));
+}
+
+export function generateURI({ slug, kind, locale }: { slug: string; kind: string; locale: string }) {
+	return `/${kind}/${slug}`;
 }

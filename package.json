@@ -33,10 +33,13 @@
 	"type": "module",
 	"dependencies": {
 		"@sveltejs/adapter-static": "^3.0.1",
+		"boxicons": "^2.1.4",
 		"flexsearch": "^0.7.43",
 		"front-matter": "^4.0.2",
 		"markdown-it": "^14.1.0",
 		"markdown-it-front-matter": "^0.2.4",
-		"markdown-it-inline-comments": "^1.0.1"
+		"markdown-it-inline-comments": "^1.0.1",
+		"markdown-it-renderer": "^2.4.1",
+		"markdown-it-to-text": "^1.0.0"
 	}
 }

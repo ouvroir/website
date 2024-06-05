@@ -3,12 +3,11 @@
 	import Support from '$components/Support.svelte';
 	import Footer from '$components/Footer.svelte';
 	import LandingPage from '$lib/components/LandingPage.svelte';
+	import SearchModal from '$lib/components/searchModal.svelte';
 	import { page } from '$app/stores';
 	import { t } from '$lib/i18n/i18n';
-	import { showPresentation, screenType, screenWidth } from '$lib/stores.js';
 	import '$lib/styles/reset.css';
 	import '$lib/styles/style.css';
-
 	import {
 		allBlogs,
 		allEvents,
@@ -20,8 +19,14 @@
 		allServices,
 		allSupports,
 		presentation,
-		support
+		searchModalOpen,
+		searchIndex,
+		showPresentation,
+		screenType,
+		screenWidth
 	} from '$lib/stores.js';
+	import { createSearchIndex } from '$lib/utils/search';
+	import { onMount } from 'svelte';
 
 	export let data: null | Record<string, any[]>;
 
@@ -44,7 +49,30 @@
 	}
 
 	$: addGap = $page && $page.route.id === '/[news=news]';
+
+	onMount(() => {
+		console.log('Creating search index');
+		$searchIndex = createSearchIndex([
+			...$allBlogs,
+			...$allEvents,
+			...$meetings,
+			...$allMembers,
+			...$allProjects,
+			...$allAbout,
+			...$allPresentations,
+			...$allSupports,
+			...$allServices
+		]);
+	});
 </script>
+
+<svelte:head>
+	<link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+</svelte:head>
+
+{#if $searchModalOpen}
+	<SearchModal />
+{/if}
 
 {#if $showPresentation && $presentation}
 	<LandingPage />

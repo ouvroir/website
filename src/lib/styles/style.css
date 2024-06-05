@@ -65,9 +65,9 @@ nav,
 
 nav {
     position: sticky;
+    align-items: end;
     top: 0;
     left: 0px;
-    align-items: end;
     background-color: white;
     padding: 0 4%;
     padding-top: 0.3rem;
