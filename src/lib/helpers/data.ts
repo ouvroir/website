@@ -96,8 +96,8 @@ export function fetchData(
 			// Only filters contents that are not drafts
 			// Contents needs to have meta otherwise it will be NOT be filtered out
 			if (!content.meta) return false
-			if (!('draft' in content.meta)) return true
-			return !content.meta.draft;
+			else if (!('draft' in content.meta)) return true
+			else return !content.meta.draft
 		})
 		.sort((a, b) => {
 			if (!('date' in a.meta) || !('date' in b.meta)) return 0;
