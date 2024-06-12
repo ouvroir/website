@@ -23,7 +23,7 @@ const get = (path: string, filters: (fn: string) => boolean = () => true) => {
 		.map((f) => resolve(path, f));
 };
 
-export const setup = {
+export const contents = {
 	projects: get('src/lib/labouvroir/projets'),
 	members: get('src/lib/labouvroir/equipe'),
 	events: get('src/lib/labouvroir/evenements'),
@@ -36,10 +36,10 @@ export const setup = {
 };
 
 export function fetchData(
-	type: keyof typeof setup
+	type: keyof typeof contents
 ): Project[] | Event[] | Meeting[] | Member[] | Blog[] | StaticDocument[] | GenericDocument[] {
 	const typeConstructors: Record<
-		keyof typeof setup,
+		keyof typeof contents,
 		(
 			path: string,
 			meta: any,
@@ -52,7 +52,10 @@ export function fetchData(
 				html
 			}) as Project,
 
-		members: (path, meta, html) => ({ meta: { ...meta, kind: 'member', path }, html }) as Member,
+		members: (path, meta, html) => ({
+			meta: { ...meta, kind: 'member', path, title: `${meta.firstname} ${meta.lastname}` },
+			html
+		}) as Member,
 
 		events: (path, meta, html) =>
 			({
@@ -71,24 +74,21 @@ export function fetchData(
 				meta: { ...meta, kind: 'blog', slug: createSlugFromFilename(path), path },
 				html
 			}) as Blog,
+
 		presentation: (path, meta, html) =>
 			({
 				meta: { ...meta, kind: 'presentation', path },
 				html
 			}) as StaticDocument,
 		support: (path, meta, html) =>
-			({ meta: { ...meta, kind: 'static', path }, html }) as StaticDocument,
+			({ meta: { ...meta, kind: 'support', path }, html }) as StaticDocument,
 		services: (path, meta, html) =>
-			({ meta: { ...meta, kind: 'static', path }, html }) as StaticDocument,
+			({ meta: { ...meta, kind: 'services', path }, html }) as StaticDocument,
 		about: (path, meta, html) =>
-			({ meta: { ...meta, kind: 'static', path }, html }) as StaticDocument
+			({ meta: { ...meta, kind: 'about', path }, html }) as StaticDocument
 	};
 
-	console.warn('about, services and support have kind: static');
-
-	const files = setup[type];
-
-	return files
+	return contents[type]
 		.map(file => {
 			const content = readFileSync(file, 'utf-8');
 			const meta = parseFrontMatter(content);
@@ -126,4 +126,9 @@ const cleanHtml = (html: string): string => {
 export function createSlugFromFilename(filename: string) {
 	filename = filename.split('/').at(-1)!;
 	return encodeURIComponent(filename.replace('.md', ''));
+}
+
+export function createProjectSlug(filename: string) {
+	filename = filename.split('/').at(-1)!.split('-')[0]
+	return encodeURIComponent(filename);
 }

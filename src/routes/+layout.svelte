@@ -46,21 +46,21 @@
 		get(stores.frSearchIndex).add([
 			...stores.blogs.localize('fr'),
 			...stores.events.localize('fr'),
-			...get(stores.meetings),
 			...stores.members.localize('fr'),
 			...stores.projects.localize('fr'),
 			stores.about.localize('fr'),
-			stores.services.localize('fr')
+			stores.services.localize('fr'),
+			...get(stores.meetings)
 		]);
 		console.log('======== Creating en search index');
 		get(stores.enSearchIndex).add([
 			...stores.blogs.localize('en'),
 			...stores.events.localize('en'),
-			...get(stores.meetings),
 			...stores.members.localize('en'),
 			...stores.projects.localize('en'),
 			stores.about.localize('en'),
-			stores.services.localize('en')
+			stores.services.localize('en'),
+			...get(stores.meetings)
 		]);
 	});
 </script>

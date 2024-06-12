@@ -9,7 +9,7 @@
 
 <li>
 	<a href={`${generateContentURI(slug, kind)}`} class="search-result-li">
-		<h1>{title}</h1>
+		<h1>{@html title}</h1>
 		<p>{@html text}</p>
 	</a>
 </li>

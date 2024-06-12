@@ -131,7 +131,10 @@ const translations: { [locale: string]: { [path: string]: string } } = {
         'search.kind.project': 'Project(s)',
         'search.kind.member': 'Member(s)',
         'search.kind.meeting': 'Meeting notes',
-        'search.kind.static': 'Other document(s)',
+        'search.kind.about': 'Other document(s)',
+        'search.kind.services': 'Other document(s)',
+        'search.kind.support': 'Other document(s)',
+        'search.ui.placeholder': 'Search',
     },
     'fr': {
         // ARIA labels
@@ -266,7 +269,10 @@ const translations: { [locale: string]: { [path: string]: string } } = {
         'search.kind.project': 'Projet(s)',
         'search.kind.member': 'Membre(s)',
         'search.kind.meeting': 'Note(s) de réunion',
-        'search.kind.static': 'Autres document(s)',
+        'search.kind.about': 'Autres document(s)',
+        'search.kind.services': 'Autres document(s)',
+        'search.kind.support': 'Autres document(s)',
+        'search.ui.placeholder': 'Rechercher',
     }
 }
 

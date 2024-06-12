@@ -4,15 +4,29 @@
 	import { onMount } from 'svelte';
 	import { t } from '$lib/i18n/i18n';
 
-	const clickOutside = (e) => {
-		if (e.target.classList.contains('search-modal-bg')) {
+	const clickOutside = (e: MouseEvent) => {
+		e.stopPropagation();
+
+		const target = e.target as HTMLButtonElement;
+		if (!target) console.warn('Modal clickoutside: No target found');
+
+		if (target.classList.contains('search-modal-bg')) {
 			searchModalOpen.set(false);
 		}
-		e.stopPropagation();
 	};
 
+	function handleKeydown(e: KeyboardEvent) {
+		if (e.code === 'Space') {
+			// If the event's target is an input field and the key is the space bar, ignore the event
+			searchInput += ' ';
+			e.preventDefault();
+		}
+		// Otherwise, handle the event as usual
+		// ...
+	}
+
 	let searchInput: string = '';
-	let result = [];
+	let result = {};
 
 	$: result = $searchIndex.search(searchInput);
 
@@ -24,7 +38,7 @@
 </script>
 
 {#if $searchModalOpen}
-	<button class="search-modal-bg" on:click={clickOutside}>
+	<div class="search-modal-bg" on:click={clickOutside} aria-hidden="true">
 		<div class="search-modal-container">
 			<div class="input-container">
 				<label for="search-input"><i class="bx bx-search"></i></label>
@@ -35,11 +49,12 @@
 					placeholder="Search"
 					autocomplete="off"
 					bind:value={searchInput}
+					on:keydown={handleKeydown}
 				/>
 			</div>
 			<section class="result-container">
 				{#each Object.keys(result) as kind}
-					<h2>{$t(`search.kind.${kind}`)}</h2>
+					<h2>{kind}</h2>
 					<ul>
 						{#each result[kind] as r}
 							<li>
@@ -50,7 +65,7 @@
 				{/each}
 			</section>
 		</div>
-	</button>
+	</div>
 {/if}
 
 <style>
@@ -113,11 +128,6 @@
 		gap: 1rem;
 		padding: 1rem 0;
 		text-align: left;
-
-		& h2 {
-			font-size: 1.5rem;
-			font-weight: 600;
-		}
 
 		& > ul {
 			display: flex;
