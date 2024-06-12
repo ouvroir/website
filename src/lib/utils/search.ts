@@ -15,7 +15,7 @@ export class SearchIndex {
         // we're building the site at build time, it's fine
         this.index = new FlexSearch.Index({
             tokenize: 'full',
-            resolution: 1,
+            resolution: 1
         })
     }
 

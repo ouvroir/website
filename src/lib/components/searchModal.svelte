@@ -2,7 +2,6 @@
 	import SearchResultLi from './searchResultLi.svelte';
 	import { searchModalOpen, searchIndex } from '$lib/stores';
 	import { onMount } from 'svelte';
-	import { t } from '$lib/i18n/i18n';
 
 	const clickOutside = (e: MouseEvent) => {
 		e.stopPropagation();
