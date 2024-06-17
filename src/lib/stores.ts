@@ -93,7 +93,7 @@ export const presentation = createDerivedStaticContentStrore(allPresentations);
 
 export const enSearchIndex = writable(new SearchIndex());
 export const frSearchIndex = writable(new SearchIndex());
-export const searchIndex = derived([enSearchIndex, frSearchIndex, locale], ([$enSearchIndex, $frSearchIndex, $locale]) => {
-    return $locale === 'en' ? $enSearchIndex : $frSearchIndex;
+export const searchIndex = derived(locale, ($locale) => {
+    return $locale === 'en' ? get(enSearchIndex) : get(frSearchIndex);
 })
 export const searchModalOpen = writable(false);

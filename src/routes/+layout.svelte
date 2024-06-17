@@ -6,7 +6,7 @@
 	import SearchModal from '$lib/components/searchModal.svelte';
 	import { page } from '$app/stores';
 	import { t } from '$lib/i18n/i18n';
-	import { get } from 'svelte/store';
+	import { get, type Readable } from 'svelte/store';
 	import '$lib/styles/reset.css';
 	import '$lib/styles/style.css';
 	import * as stores from '$lib/stores.js';
@@ -18,6 +18,7 @@
 		presentation
 	} from '$lib/stores.js';
 	import { onMount } from 'svelte';
+	import type { SearchIndex } from '$lib/utils/search';
 
 	export let data: null | Record<string, any[]>;
 
@@ -42,26 +43,23 @@
 	$: addGap = $page && $page.route.id === '/[news=news]';
 
 	onMount(() => {
-		console.log('======== Creating fr search index');
-		get(stores.frSearchIndex).add([
-			...stores.blogs.localize('fr'),
-			...stores.events.localize('fr'),
-			...stores.members.localize('fr'),
-			...stores.projects.localize('fr'),
-			stores.about.localize('fr'),
-			stores.services.localize('fr'),
-			...get(stores.meetings)
-		]);
-		console.log('======== Creating en search index');
-		get(stores.enSearchIndex).add([
-			...stores.blogs.localize('en'),
-			...stores.events.localize('en'),
-			...stores.members.localize('en'),
-			...stores.projects.localize('en'),
-			stores.about.localize('en'),
-			stores.services.localize('en'),
-			...get(stores.meetings)
-		]);
+		console.log(get(stores.meetings));
+
+		['fr', 'en'].forEach((lang) => {
+			const localizedIndexStore: Readable<SearchIndex> = stores[`${lang}SearchIndex`];
+			if (!localizedIndexStore) throw new Error(`No search index found for ${lang}`);
+
+			get(localizedIndexStore).add([
+				...stores.blogs.localize(lang),
+				...stores.events.localize(lang),
+				...stores.members.localize(lang),
+				...stores.projects.localize(lang),
+				stores.about.localize(lang),
+				stores.services.localize(lang),
+				...get(stores.meetings)
+			]);
+		});
+		console.log('======== Done creating search indexes');
 	});
 </script>
 

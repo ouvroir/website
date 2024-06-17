@@ -7,29 +7,36 @@
 	export let text: string;
 </script>
 
-<li>
-	<a href={`${generateContentURI(slug, kind)}`} class="search-result-li">
-		<h1>{@html title}</h1>
-		<p>{@html text}</p>
-	</a>
-</li>
+<a href={`${generateContentURI(slug, kind)}`} class="search-result-li">
+	<h1>{@html title}</h1>
+	<p>{@html text}</p>
+</a>
 
 <style>
 	.search-result-li {
 		display: block;
-		padding: 1rem 2rem;
-		background-color: lightgray;
+		padding: 1rem;
+		padding-left: var(--result-paddingLeft);
+		background-color: none;
 		border-radius: 5px;
+		transition: background-color 0.2s ease-in-out;
+		font-size: var(--fs-result);
+
+		&:hover {
+			background-color: #3037421c;
+		}
 
 		& > h1 {
-			font-size: 0.9rem;
-			font-weight: 600;
-			margin-bottom: 1rem;
+			font-size: 1rem;
+			font-weight: 400;
+			margin-bottom: 0.1rem;
+			line-height: 1.5rem;
 		}
 
 		& > p {
-			font-size: 0.9rem;
+			font-size: var(--fs-result-p);
 			font-weight: 300;
+			line-height: calc(var(--fs-result-p) + 0.5 * var(--fs-result-p));
 		}
 	}
 </style>

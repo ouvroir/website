@@ -2,6 +2,7 @@
 	import SearchResultLi from './searchResultLi.svelte';
 	import { searchModalOpen, searchIndex } from '$lib/stores';
 	import { onMount } from 'svelte';
+	import { locale } from '$lib/i18n/i18n';
 
 	const clickOutside = (e: MouseEvent) => {
 		e.stopPropagation();
@@ -28,11 +29,15 @@
 	let result = {};
 
 	$: result = $searchIndex.search(searchInput);
+	$: console.log($locale);
 
 	onMount(() => {
-		//disable scroll
-		window.addEventListener('scroll', (e) => e.preventDefault(), { passive: false });
-		return () => window.removeEventListener('scroll', (e) => e.preventDefault());
+		// disable scroll
+		document.body.style.overflow = 'hidden';
+		return () => {
+			// enable scroll
+			document.body.style.overflow = 'auto';
+		};
 	});
 </script>
 
@@ -40,7 +45,7 @@
 	<div class="search-modal-bg" on:click={clickOutside} aria-hidden="true">
 		<div class="search-modal-container">
 			<div class="input-container">
-				<label for="search-input"><i class="bx bx-search"></i></label>
+				<label id="search-icon" for="search-input"><i class="bx bx-search"></i></label>
 				<input
 					autofocus="true"
 					type="text"
@@ -68,8 +73,12 @@
 {/if}
 
 <style>
-	:root {
+	:global(:root) {
 		--fs-placeholder: 1.3rem;
+		--fs-result-p: 0.9rem;
+		--inside-margin: 2rem;
+		--input-paddingLeft: 1rem;
+		--result-paddingLeft: calc(var(--inside-margin) + var(--input-paddingLeft));
 	}
 
 	.search-modal-bg {
@@ -92,7 +101,7 @@
 		min-height: 10%;
 		background-color: white;
 		border-radius: 10px;
-		padding: 1rem 1rem;
+		padding: 1.5rem 2rem;
 	}
 
 	.input-container {
@@ -109,10 +118,16 @@
 		font-size: var(--fs-placeholder);
 	}
 
+	#search-icon {
+		width: var(--inside-margin);
+	}
+
 	#search-input {
 		font-size: var(--fs-placeholder);
-		font-weight: 200;
+		font-family: var(--ff-sans);
+		font-weight: 300;
 		padding: 0.5rem;
+		padding-left: 0;
 		border: none;
 	}
 
@@ -120,13 +135,24 @@
 		outline: none;
 	}
 
+	h2 {
+		margin-left: var(--result-paddingLeft);
+		font-size: var(--fs-result-p);
+		font-weight: 600;
+	}
+
+	ul + h2 {
+		margin-top: 2rem;
+	}
+
 	.result-container {
 		min-height: 5rem;
 		display: flex;
 		flex-direction: column;
 		gap: 1rem;
-		padding: 1rem 0;
 		text-align: left;
+		margin-top: 3rem;
+		overflow-y: scroll;
 
 		& > ul {
 			display: flex;

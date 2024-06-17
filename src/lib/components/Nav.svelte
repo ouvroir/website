@@ -55,6 +55,8 @@
 		// reset scroll on page change
 		scrollY = 0;
 
+		console.log(getLangFromParam($page.params));
+
 		locale.set(getLangFromParam($page.params));
 		langRedirectUrl = $page.route.id ? getLangRedirectUrl($page.route.id) : '/';
 		enHref = $locale === 'en' ? $page.url.pathname : langRedirectUrl;

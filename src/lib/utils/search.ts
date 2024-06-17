@@ -14,6 +14,8 @@ export class SearchIndex {
         // but sunce we're not dealing with a lot of data and 
         // we're building the site at build time, it's fine
         this.index = new FlexSearch.Index({
+            charset: 'latin:extra',
+            // preset: 'match',
             tokenize: 'full',
             resolution: 1
         })
@@ -21,13 +23,17 @@ export class SearchIndex {
 
     add(content: any[]) {
         content.forEach((d, i) => {
-
-            if (!d.html || !d.meta) throw new Error(`Missing meta or html for ${JSON.stringify(d)}`)
+            if (!d.html) throw new Error(`Missing html for ${JSON.stringify(d)}`)
+            if (!d.meta) throw new Error(`Missing meta ${JSON.stringify(d)}`)
+            if (!d.meta.title) throw new Error(`Missing meta.title for ${JSON.stringify(d)}`)
 
             const stripped = SearchIndex.stripHtml(d.html)
             if (!stripped) throw new Error(`Empty content for ${d.meta.title}`)
 
             if (i in this.contentMap) throw new Error(`Creating entry with duplicate id`)
+
+            if (d.meta.kind === 'project')
+                console.log(`${d.meta.title}\n${stripped} \n\n`)
 
             this.contentMap[i] = { slug: d.meta.slug, kind: d.meta.kind }
             this.index.add(i, `${d.meta.title} ${stripped}`)
@@ -107,12 +113,14 @@ export class SearchIndex {
         });
 
         const searchResult = content.map(c => {
-            return {
+            const res = {
                 slug: c.meta.slug,
                 kind: c.meta.kind,
                 title: c.meta.title,
                 text: this.getMatches(SearchIndex.stripHtml(c.html), query, 1)
             }
+            if (!res) throw new Error(`Empty search result for ${JSON.stringify(c)}`)
+            return res
         })
 
             .filter(r => r.text.length > 0)
