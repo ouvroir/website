@@ -5,15 +5,15 @@
 	$: label = $t('search.ui.placeholder');
 </script>
 
-<form class="search-bar-container" action="/search">
+<form
+	class="search-bar-container"
+	action="/search"
+	on:mousedown|preventDefault={() => ($searchModalOpen = true)}
+	on:touchend|preventDefault={() => ($searchModalOpen = true)}
+	aria-hidden="true"
+>
 	<i id="search-icon" class="bx bx-search"></i>
-	<input
-		on:mousedown|preventDefault={() => ($searchModalOpen = true)}
-		on:touchend|preventDefault={() => ($searchModalOpen = true)}
-		aria-hidden="true"
-		placeholder={label}
-		aria-label={label}
-	/>
+	<input aria-hidden="true" placeholder={label} aria-label={label} />
 
 	<kbd><i class="bx bx-command"></i>K</kbd>
 </form>
@@ -28,7 +28,7 @@
 		border: solid 1px #303742;
 		display: flex;
 		align-items: center;
-		border-radius: 5px;
+		border-radius: var(--border-radius);
 		cursor: pointer;
 		transition: color 0.2s ease-in-out;
 		transition: background-color 0.2s ease;
@@ -58,7 +58,7 @@
 		color: lightgrey;
 		margin-left: 2.5rem;
 		background-color: #303742;
-		border-radius: 5px;
+		border-radius: var(--border-radius);
 
 		& i {
 			font-size: var(--fs-search);

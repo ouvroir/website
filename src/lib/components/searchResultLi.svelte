@@ -18,11 +18,11 @@
 		padding: 1rem;
 		padding-left: var(--result-paddingLeft);
 		background-color: none;
-		border-radius: 5px;
-		transition: background-color 0.2s ease-in-out;
+		transition: background-color 0.1s ease-in-out;
 		font-size: var(--fs-result);
 
-		&:hover {
+		&:hover,
+		&:focus-visible {
 			background-color: #3037421c;
 		}
 

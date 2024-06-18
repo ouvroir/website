@@ -2,52 +2,82 @@
 	import SearchResultLi from './searchResultLi.svelte';
 	import { searchModalOpen, searchIndex } from '$lib/stores';
 	import { onMount } from 'svelte';
-	import { locale } from '$lib/i18n/i18n';
+	import { focusable_children, trap } from '$lib/utils/actions/focus';
+	import { fade } from 'svelte/transition';
+	import { writable } from 'svelte/store';
 
-	const clickOutside = (e: MouseEvent) => {
+	const closeModal = (e: MouseEvent) => {
 		e.stopPropagation();
 
 		const target = e.target as HTMLButtonElement;
+
 		if (!target) console.warn('Modal clickoutside: No target found');
 
-		if (target.classList.contains('search-modal-bg')) {
+		if (
+			target.classList.contains('search-modal-bg') ||
+			target.classList.contains('btn-close') ||
+			target.parentElement?.classList.contains('btn-close')
+		) {
 			searchModalOpen.set(false);
 		}
 	};
 
-	function handleKeydown(e: KeyboardEvent) {
+	const handleKeydown = (e: KeyboardEvent) => {
 		if (e.code === 'Space') {
-			// If the event's target is an input field and the key is the space bar, ignore the event
+			// If the event's target is an input field and the key is the
+			// space bar, ignore the event
 			searchInput += ' ';
 			e.preventDefault();
+		} else if (e.code === 'Escape') {
+			searchModalOpen.set(false);
+		} else if (e.code === 'ArrowDown' || e.code === 'ArrowUp') {
+			// handleFocus(e);
+			e.preventDefault();
 		}
-		// Otherwise, handle the event as usual
-		// ...
-	}
+	};
+
+	const handleFocus = (e: KeyboardEvent) => {
+		if (e.code === 'ArrowDown' || e.code === 'ArrowUp') {
+			const group = focusable_children(e.currentTarget as HTMLElement);
+			const selector = 'li, input';
+
+			if (e.key === 'ArrowDown') {
+				group.next(selector);
+			} else {
+				group.prev(selector);
+			}
+		}
+	};
 
 	let searchInput: string = '';
 	let result = {};
-
 	$: result = $searchIndex.search(searchInput);
-	$: console.log($locale);
 
 	onMount(() => {
+		// inputElt.focus();
 		// disable scroll
 		document.body.style.overflow = 'hidden';
+		document.addEventListener('keydown', handleFocus);
 		return () => {
 			// enable scroll
 			document.body.style.overflow = 'auto';
+			document.removeEventListener('keydown', handleFocus);
 		};
 	});
 </script>
 
 {#if $searchModalOpen}
-	<div class="search-modal-bg" on:click={clickOutside} aria-hidden="true">
-		<div class="search-modal-container">
+	<div
+		class="search-modal-bg"
+		on:click={closeModal}
+		aria-hidden="true"
+		in:fade={{ duration: 1000, delay: 1000 }}
+	>
+		<!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
+		<div role="search" class="search-modal-container" on:keydown={handleFocus} use:trap>
 			<div class="input-container">
 				<label id="search-icon" for="search-input"><i class="bx bx-search"></i></label>
 				<input
-					autofocus="true"
 					type="text"
 					id="search-input"
 					placeholder="Search"
@@ -55,6 +85,9 @@
 					bind:value={searchInput}
 					on:keydown={handleKeydown}
 				/>
+				<button class="btn-close" on:click={closeModal}>
+					<i class="bx bx-x"></i>
+				</button>
 			</div>
 			<section class="result-container">
 				{#each Object.keys(result) as kind}
@@ -74,61 +107,81 @@
 
 <style>
 	:global(:root) {
-		--fs-placeholder: 1.3rem;
+		--fs-placeholder: 1.2rem;
 		--fs-result-p: 0.9rem;
 		--inside-margin: 2rem;
-		--input-paddingLeft: 1rem;
+		--input-paddingLeft: 1.5rem;
 		--result-paddingLeft: calc(var(--inside-margin) + var(--input-paddingLeft));
 	}
 
 	.search-modal-bg {
-		position: absolute;
+		position: fixed;
 		top: 0;
 		left: 0;
 		width: 100%;
 		height: 100%;
 		background-color: rgba(0, 0, 0, 0.5);
-		z-index: 1000;
+		z-index: 10;
 		display: flex;
 		justify-content: center;
-		align-items: center;
+		padding-top: 10%;
+		/* align-items: center; */
 	}
 
 	.search-modal-container {
 		max-height: 90%;
-		overflow-y: scroll;
-		width: 50%;
+		width: 40%;
 		min-height: 10%;
 		background-color: white;
-		border-radius: 10px;
-		padding: 1.5rem 2rem;
+		border-radius: var(--border-radius);
+		padding-bottom: 1.5rem;
+		filter: drop-shadow(2px 4px 16px #0003);
+		overflow: hidden;
 	}
 
 	.input-container {
 		display: flex;
 		align-items: center;
-		padding: 0 1rem;
-		border-radius: 5px;
-		border: solid 1px #303742;
+		height: 3.5rem;
+		padding: 0 var(--input-paddingLeft);
 		font-size: var(--fs-placeholder);
+		background-color: var(--clr-green-ouvroir);
+		border-top-left-radius: var(--border-radius);
+		border-top-right-radius: var(--border-radius);
+		border: solid 1px #303742;
 	}
 
-	.input-container i {
-		height: 100%;
+	label i {
+		width: var(--inside-margin);
 		font-size: var(--fs-placeholder);
+		color: white;
+	}
+
+	.btn-close {
+		all: unset;
+		cursor: pointer;
+
+		& > i {
+			color: white;
+			width: var(--inside-margin);
+		}
 	}
 
 	#search-icon {
 		width: var(--inside-margin);
+		align-self: center;
 	}
 
 	#search-input {
+		background-color: var(--clr-green-ouvroir);
+		color: white;
 		font-size: var(--fs-placeholder);
 		font-family: var(--ff-sans);
-		font-weight: 300;
+		font-weight: 500;
 		padding: 0.5rem;
 		padding-left: 0;
 		border: none;
+		width: 100%;
 	}
 
 	#search-input:focus {
@@ -136,28 +189,25 @@
 	}
 
 	h2 {
+		margin-top: 2rem;
 		margin-left: var(--result-paddingLeft);
 		font-size: var(--fs-result-p);
 		font-weight: 600;
 	}
 
-	ul + h2 {
-		margin-top: 2rem;
-	}
-
 	.result-container {
 		min-height: 5rem;
 		display: flex;
+		height: 100%;
 		flex-direction: column;
 		gap: 1rem;
 		text-align: left;
-		margin-top: 3rem;
 		overflow-y: scroll;
 
 		& > ul {
 			display: flex;
 			flex-direction: column;
-			gap: 1rem;
+			gap: 0.5rem;
 		}
 
 		& li {

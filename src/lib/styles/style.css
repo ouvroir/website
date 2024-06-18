@@ -27,11 +27,14 @@
 
     --clr-accent: orangered;
     --clr-accent-light: rgba(211, 211, 211, 0.2);
+    --clr-green-ouvroir: #292E38;
 
     --nav-links-padding-bottom: .6rem;
 
     --bg-clr-presentation: #303742;
     --presentation-stroke: solid 0.4rem rgba(245, 245, 245, 0.631);
+
+    --border-radius: 5px;
 }
 
 

@@ -42,7 +42,16 @@
 
 	$: addGap = $page && $page.route.id === '/[news=news]';
 
+	const handleKeyDown = (e: KeyboardEvent) => {
+		if (e.key === 'k' && (e.metaKey || e.ctrlKey)) {
+			e.preventDefault();
+			searchModalOpen.set(!get(searchModalOpen));
+		}
+	};
+
 	onMount(() => {
+		document.body.addEventListener('keydown', handleKeyDown);
+
 		console.log(get(stores.meetings));
 
 		['fr', 'en'].forEach((lang) => {
@@ -60,6 +69,10 @@
 			]);
 		});
 		console.log('======== Done creating search indexes');
+
+		return () => {
+			document.body.removeEventListener('keydown', handleKeyDown);
+		};
 	});
 </script>
 
