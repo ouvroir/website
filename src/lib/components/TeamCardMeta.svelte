@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/stores';
+	import { base } from '$app/paths';
 
 	export let meta;
 	let pageMode: boolean;
@@ -20,9 +21,9 @@
 		{#if meta.permalink && pageMode}
 			<div class="meta">
 				<span>permalink</span>
-				{#if meta.permalink}
-					<a rel="external" href={`${meta.permalink}`}>{meta.permalink}</a>
-				{/if}
+				<a rel="external" href={`https://ouvroir.umontreal.ca${$page.url.pathname}`}
+					>https://ouvroir.umontreal.ca{$page.url.pathname}</a
+				>
 			</div>
 		{/if}
 		{#if meta.projects && meta.projects.length > 0}
