@@ -78,7 +78,7 @@
 
 	.nav-link {
 		text-transform: capitalize;
-		font-size: 1rem;
+		font-size: 0.95rem;
 	}
 
 	.nl-white {

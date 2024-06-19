@@ -7,7 +7,7 @@
 		? null
 		: setTimeout(() => {
 				visible = true;
-		  }, 500);
+			}, 500);
 </script>
 
 <a href={`${$t('route.home')}`} class={`${$showPresentation ? 'hidden' : ''}`}>
@@ -37,7 +37,6 @@
 	svg {
 		width: 13rem;
 		position: relative;
-		top: 0.4rem;
 	}
 	.hidden {
 		visibility: hidden;

@@ -68,13 +68,10 @@ nav,
 
 nav {
     position: sticky;
-    align-items: end;
     top: 0;
     left: 0px;
     background-color: white;
-    padding: 0 4%;
-    padding-top: 0.3rem;
-    padding-bottom: 1.2rem;
+    padding: 0.3rem 4%;
     max-height: 10vh;
     z-index: 3;
     transition: transform 0.3s ease;

@@ -31,12 +31,14 @@
 			font-weight: 400;
 			margin-bottom: 0.1rem;
 			line-height: 1.5rem;
+			padding-right: 2rem;
 		}
 
 		& > p {
 			font-size: var(--fs-result-p);
 			font-weight: 300;
 			line-height: calc(var(--fs-result-p) + 0.5 * var(--fs-result-p));
+			padding-right: 3rem;
 		}
 	}
 </style>

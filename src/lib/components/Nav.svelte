@@ -7,6 +7,7 @@
 	import { onMount } from 'svelte';
 	import Ouvroir from './Ouvroir.svelte';
 	import NavLinks from './NavLinks.svelte';
+	import { searchModalOpen } from '$lib/stores';
 
 	let scrollY: number = 0;
 	let prevScrollY: number = 0;
@@ -145,12 +146,18 @@
 		</div>
 	</nav>
 {:else}
-	<header class="nav-header">
+	<nav class="nav-header">
 		<h1 class="small-logo">Ouvroir</h1>
+		<button
+			class={`search-btn ${$showNavMenu ? 'menu-btn-active' : ''}`}
+			on:click={() => searchModalOpen.set(true)}
+		>
+			<i class="bx bx-search"></i>
+		</button>
 		<button class={`menu-btn ${$showNavMenu ? 'menu-btn-active' : ''}`} on:click={toggleNavMenu}
 			>Menu</button
 		>
-	</header>
+	</nav>
 	{#if $showNavMenu}
 		<div in:slide={{ axis: 'x' }} out:slide={{ axis: 'x', delay: 200 }} class="nav-menu-container">
 			<div class="nav-menu">
@@ -185,18 +192,17 @@
 <style>
 	.nav-header {
 		display: flex;
-		align-items: baseline;
+		align-items: center;
 		padding: 2rem 4%;
-		background-color: #303742;
+		gap: 1rem;
+		background-color: var(--clr-green-ouvroir);
 		color: white;
 	}
 	.menu-btn {
 		all: unset;
 		position: relative;
-		grid-column: 8/9;
 		width: fit-content;
 		font-weight: 600;
-		margin-left: auto;
 		cursor: pointer;
 		transition: color ease-in-out 0.2s;
 	}
@@ -208,6 +214,15 @@
 		left: 0;
 		border-bottom: solid 0.1rem var(--clr-accent);
 	}
+	.search-btn {
+		all: unset;
+		margin-left: auto;
+		position: relative;
+		width: fit-content;
+		font-weight: 600;
+		cursor: pointer;
+	}
+
 	.nav-menu-container {
 		position: fixed;
 		top: 0;
@@ -257,7 +272,7 @@
 		font-weight: 700;
 	}
 	.lang-btn {
-		font-size: 1.1rem;
+		font-size: 0.95rem;
 		position: relative;
 	}
 

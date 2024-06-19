@@ -4,7 +4,7 @@
 	import { onMount } from 'svelte';
 	import { focusable_children, trap } from '$lib/utils/actions/focus';
 	import { fade } from 'svelte/transition';
-	import { writable } from 'svelte/store';
+	import { t } from '$lib/i18n/i18n';
 
 	const closeModal = (e: MouseEvent) => {
 		e.stopPropagation();
@@ -53,8 +53,10 @@
 	let result = {};
 	$: result = $searchIndex.search(searchInput);
 
+	let modalWidth: number;
+	$: if (modalWidth) console.log(modalWidth);
+
 	onMount(() => {
-		// inputElt.focus();
 		// disable scroll
 		document.body.style.overflow = 'hidden';
 		document.addEventListener('keydown', handleFocus);
@@ -74,13 +76,20 @@
 		in:fade={{ duration: 1000, delay: 1000 }}
 	>
 		<!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
-		<div role="search" class="search-modal-container" on:keydown={handleFocus} use:trap>
+		<div
+			class="search-modal-container"
+			role="search"
+			bind:clientWidth={modalWidth}
+			on:keydown={handleFocus}
+			use:trap
+		>
 			<div class="input-container">
 				<label id="search-icon" for="search-input"><i class="bx bx-search"></i></label>
 				<input
+					autofocus
 					type="text"
 					id="search-input"
-					placeholder="Search"
+					placeholder={$t('search.ui.placeholder')}
 					autocomplete="off"
 					bind:value={searchInput}
 					on:keydown={handleKeydown}
@@ -112,6 +121,8 @@
 		--inside-margin: 2rem;
 		--input-paddingLeft: 1.5rem;
 		--result-paddingLeft: calc(var(--inside-margin) + var(--input-paddingLeft));
+		--result-marginTop: 2rem;
+		--modal-min-width: 10rem;
 	}
 
 	.search-modal-bg {
@@ -125,18 +136,33 @@
 		display: flex;
 		justify-content: center;
 		padding-top: 10%;
-		/* align-items: center; */
 	}
 
 	.search-modal-container {
-		max-height: 90%;
 		width: 40%;
+		max-width: 40rem;
+		min-width: 30rem;
 		min-height: 10%;
+		max-height: 90%;
 		background-color: white;
 		border-radius: var(--border-radius);
 		padding-bottom: 1.5rem;
 		filter: drop-shadow(2px 4px 16px #0003);
 		overflow: hidden;
+	}
+
+	@media (max-width: 600px) {
+		.search-modal-bg {
+			padding-top: 0;
+		}
+		.search-modal-container {
+			width: 100%;
+			height: 100%;
+			min-height: none;
+			max-height: none;
+			min-width: none;
+			max-width: none;
+		}
 	}
 
 	.input-container {
@@ -189,7 +215,7 @@
 	}
 
 	h2 {
-		margin-top: 2rem;
+		margin-top: var(--result-marginTop);
 		margin-left: var(--result-paddingLeft);
 		font-size: var(--fs-result-p);
 		font-weight: 600;
@@ -203,6 +229,7 @@
 		gap: 1rem;
 		text-align: left;
 		overflow-y: scroll;
+		padding-bottom: var(--result-marginTop);
 
 		& > ul {
 			display: flex;

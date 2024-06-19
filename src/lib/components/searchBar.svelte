@@ -24,7 +24,7 @@
 	}
 
 	.search-bar-container {
-		padding: 0.4rem 0.6rem;
+		padding: 0.3rem 0.6rem;
 		border: solid 1px #303742;
 		display: flex;
 		align-items: center;
@@ -51,7 +51,7 @@
 	}
 
 	kbd {
-		font-size: var(--fs-search);
+		font-size: 0.8rem;
 		display: flex;
 		align-items: center;
 		padding: 0.3rem 0.5rem;
