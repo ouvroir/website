@@ -6,7 +6,7 @@
 	import { derived, writable } from 'svelte/store';
 	import { building } from '$app/environment';
 	import { meetings, events, blogs, showPresentation } from '$lib/stores';
-	import { sortContentByDate, getTagsfromContent, contentHasTags } from '$lib/helpers/helpers';
+	import { sortContentByDate, getTagsfromContent, contentHasTags } from '$lib/utils/helpers';
 
 	if (!events || !blogs || !meetings) throw new Error('No data found');
 

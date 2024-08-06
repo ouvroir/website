@@ -3,48 +3,83 @@
 	import Support from '$components/Support.svelte';
 	import Footer from '$components/Footer.svelte';
 	import LandingPage from '$lib/components/LandingPage.svelte';
+	import SearchModal from '$lib/components/searchModal.svelte';
 	import { page } from '$app/stores';
 	import { t } from '$lib/i18n/i18n';
-	import { showPresentation, screenType, screenWidth } from '$lib/stores.js';
+	import { get, type Readable } from 'svelte/store';
 	import '$lib/styles/reset.css';
 	import '$lib/styles/style.css';
-
+	import * as stores from '$lib/stores.js';
 	import {
-		allBlogs,
-		allEvents,
-		allMembers,
-		meetings,
-		allProjects,
-		allAbout,
-		allPresentations,
-		allServices,
-		allSupports,
-		presentation,
-		support
+		searchModalOpen,
+		screenType,
+		showPresentation,
+		screenWidth,
+		presentation
 	} from '$lib/stores.js';
+	import { onMount } from 'svelte';
+	import type { SearchIndex } from '$lib/utils/search';
 
 	export let data: null | Record<string, any[]>;
 
 	if (data) {
-		$allBlogs = data.allBlogs;
-		$allEvents = data.allEvents;
-		$meetings = data.meetings;
-		$allMembers = data.allMembers;
-		$allProjects = data.allProjects;
-		$allAbout = data.allAbouts;
-		$allPresentations = data.allPresentations;
-		$allSupports = data.allSupports;
-		$allServices = data.allServices;
+		stores.allBlogs.set(data.allBlogs);
+		stores.allEvents.set(data.allEvents);
+		stores.meetings.set(data.meetings);
+		stores.allMembers.set(data.allMembers);
+		stores.allProjects.set(data.allProjects);
+		stores.allAbout.set(data.allAbouts);
+		stores.allPresentations.set(data.allPresentations);
+		stores.allSupports.set(data.allSupports);
+		stores.allServices.set(data.allServices);
 	}
 
 	let offsetHeight: number;
 
 	if ($page.route.id && !$page.route.id.includes('home')) {
-		showPresentation.set(false);
+		stores.showPresentation.set(false);
 	}
 
 	$: addGap = $page && $page.route.id === '/[news=news]';
+
+	const handleKeyDown = (e: KeyboardEvent) => {
+		if (e.key === 'k' && (e.metaKey || e.ctrlKey)) {
+			e.preventDefault();
+			searchModalOpen.set(!get(searchModalOpen));
+		}
+	};
+
+	onMount(() => {
+		document.body.addEventListener('keydown', handleKeyDown);
+
+		['fr', 'en'].forEach((lang) => {
+			const localizedIndexStore: Readable<SearchIndex> = stores[`${lang}SearchIndex`];
+			if (!localizedIndexStore) throw new Error(`No search index found for ${lang}`);
+
+			get(localizedIndexStore).add([
+				...stores.blogs.localize(lang),
+				...stores.events.localize(lang),
+				...stores.members.localize(lang),
+				...stores.projects.localize(lang),
+				stores.about.localize(lang),
+				stores.services.localize(lang),
+				...get(stores.meetings)
+			]);
+		});
+
+		return () => {
+			document.body.removeEventListener('keydown', handleKeyDown);
+		};
+	});
 </script>
+
+<svelte:head>
+	<link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+</svelte:head>
+
+{#if $searchModalOpen}
+	<SearchModal />
+{/if}
 
 {#if $showPresentation && $presentation}
 	<LandingPage />

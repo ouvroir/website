@@ -1,4 +1,4 @@
-import { derived, writable } from 'svelte/store';
+import { derived, writable, get } from 'svelte/store';
 import translations from './translations';
 import type { Project, Member, Event, OuvroirData } from '$lib/types';
 
@@ -87,3 +87,18 @@ export const dateToLocalizedString = derived(locale, ($locale) => (dateString: s
 		timeZone: 'UTC'
 	});
 });
+
+export const generateContentURI = (slug: string, kind: string) => {
+	const kindRouteMap: Record<string, string> = {
+		blog: 'route.news.blog',
+		event: 'route.news.event',
+		meeting: 'route.news.meeting',
+		member: 'route.about.member',
+		project: 'route.projects',
+		about: 'route.about',
+		presentation: 'presentations',
+		services: 'route.services'
+	}
+
+	return `${get(t)(kindRouteMap[kind])}/${slug}`
+}

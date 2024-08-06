@@ -2,10 +2,12 @@
 	import { page } from '$app/stores';
 	import { t, rt, locale, getLangFromParam } from '$i18n/i18n';
 	import { showPresentation, screenType, showNavMenu } from '$lib/stores';
+	import SearchBar from './searchBar.svelte';
 	import { slide } from 'svelte/transition';
 	import { onMount } from 'svelte';
 	import Ouvroir from './Ouvroir.svelte';
 	import NavLinks from './NavLinks.svelte';
+	import { searchModalOpen } from '$lib/stores';
 
 	let scrollY: number = 0;
 	let prevScrollY: number = 0;
@@ -53,6 +55,8 @@
 	page.subscribe(() => {
 		// reset scroll on page change
 		scrollY = 0;
+
+		console.log(getLangFromParam($page.params));
 
 		locale.set(getLangFromParam($page.params));
 		langRedirectUrl = $page.route.id ? getLangRedirectUrl($page.route.id) : '/';
@@ -113,37 +117,47 @@
 		class={`main ${$showPresentation ? 'bottom-nav' : ''}`}
 	>
 		<Ouvroir />
-		<NavLinks />
-
-		<div class={`locale-container ${$showPresentation ? 'white' : ''}`}>
-			<a
-				class={`lang-btn ${$locale === 'fr' ? 'active' : ''}`}
-				href={frHref}
-				rel="alternate"
-				on:click={() => {
-					locale.set('fr');
-				}}
-				hreflang="fr">fr</a
-			>
-			<span>|</span>
-			<a
-				href={enHref}
-				class={`lang-btn ${$locale === 'en' ? 'active' : ''}`}
-				rel="alternate"
-				on:click={() => {
-					locale.set('en');
-				}}
-				hreflang="en">en</a
-			>
+		<div class="full-navigation">
+			<SearchBar />
+			<hr class="navigation-separator" />
+			<NavLinks />
+			<hr class="navigation-separator" />
+			<div class={`locale-container ${$showPresentation ? 'white' : ''}`}>
+				<a
+					class={`lang-btn ${$locale === 'fr' ? 'active' : ''}`}
+					href={frHref}
+					rel="alternate"
+					on:click={() => {
+						locale.set('fr');
+					}}
+					hreflang="fr">fr</a
+				>
+				<span>|</span>
+				<a
+					href={enHref}
+					class={`lang-btn ${$locale === 'en' ? 'active' : ''}`}
+					rel="alternate"
+					on:click={() => {
+						locale.set('en');
+					}}
+					hreflang="en">en</a
+				>
+			</div>
 		</div>
 	</nav>
 {:else}
-	<header class="nav-header">
+	<nav class="nav-header">
 		<h1 class="small-logo">Ouvroir</h1>
+		<button
+			class={`search-btn ${$showNavMenu ? 'menu-btn-active' : ''}`}
+			on:click={() => searchModalOpen.set(true)}
+		>
+			<i class="bx bx-search"></i>
+		</button>
 		<button class={`menu-btn ${$showNavMenu ? 'menu-btn-active' : ''}`} on:click={toggleNavMenu}
 			>Menu</button
 		>
-	</header>
+	</nav>
 	{#if $showNavMenu}
 		<div in:slide={{ axis: 'x' }} out:slide={{ axis: 'x', delay: 200 }} class="nav-menu-container">
 			<div class="nav-menu">
@@ -178,18 +192,17 @@
 <style>
 	.nav-header {
 		display: flex;
-		align-items: baseline;
+		align-items: center;
 		padding: 2rem 4%;
-		background-color: #303742;
+		gap: 1rem;
+		background-color: var(--clr-green-ouvroir);
 		color: white;
 	}
 	.menu-btn {
 		all: unset;
 		position: relative;
-		grid-column: 8/9;
 		width: fit-content;
 		font-weight: 600;
-		margin-left: auto;
 		cursor: pointer;
 		transition: color ease-in-out 0.2s;
 	}
@@ -201,6 +214,15 @@
 		left: 0;
 		border-bottom: solid 0.1rem var(--clr-accent);
 	}
+	.search-btn {
+		all: unset;
+		margin-left: auto;
+		position: relative;
+		width: fit-content;
+		font-weight: 600;
+		cursor: pointer;
+	}
+
 	.nav-menu-container {
 		position: fixed;
 		top: 0;
@@ -250,16 +272,37 @@
 		font-weight: 700;
 	}
 	.lang-btn {
-		font-size: 1.1rem;
+		font-size: 0.95rem;
 		position: relative;
+	}
+
+	.full-navigation {
+		grid-column: 3/-1;
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		justify-content: flex-end;
+		/* padding: 0 4%; */
+	}
+
+	.navigation-separator {
+		--radius: 3px;
+		--h-margin: 1.6rem;
+		margin: 0 var(--h-margin) 0 var(--h-margin);
+		display: flex;
+		background-color: #303030;
+		width: var(--radius);
+		height: var(--radius);
+		border-radius: 100px;
+		border-width: 0;
 	}
 
 	.locale-container {
 		display: flex;
-		align-items: end;
+		/* align-items: end; */
 		gap: 1rem;
-		grid-column: 8/9;
-		padding-bottom: var(--nav-links-padding-bottom);
+		/* grid-column: 8/9; */
+		/* padding-bottom: var(--nav-links-padding-bottom); */
 	}
 
 	.locale-container > *:first-child {

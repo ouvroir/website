@@ -92,6 +92,7 @@ type StaticDocumentMeta = {
 type GenericDocumentMeta = {
 	kind: string;
 	path: string;
+	slug: string;
 };
 
 export type Project = { meta: ProjectMeta; html: string };

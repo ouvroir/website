@@ -125,6 +125,17 @@ const translations: { [locale: string]: { [path: string]: string } } = {
         'card.meeting': 'Meeting notes',
         'card.project': 'Project',
         'card.speaker': 'speaker·s',
+
+        'search.kind.blog': 'Blog post(s)',
+        'search.kind.event': 'Event(s)',
+        'search.kind.project': 'Project(s)',
+        'search.kind.member': 'Member(s)',
+        'search.kind.meeting': 'Meeting notes',
+        'search.kind.about': 'Other document(s)',
+        'search.kind.services': 'Other document(s)',
+        'search.kind.support': 'Other document(s)',
+        'search.ui.placeholder': 'Search for a document',
+        'search.ui.placeholder.short': 'Search',
     },
     'fr': {
         // ARIA labels
@@ -252,6 +263,18 @@ const translations: { [locale: string]: { [path: string]: string } } = {
         'card.meeting': 'Compte-rendu',
         'card.project': 'Projet',
         'card.speaker': 'conférencier·ère·s',
+
+        // Search
+        'search.kind.blog': 'Billet(s) de blog',
+        'search.kind.event': 'Événement(s)',
+        'search.kind.project': 'Projet(s)',
+        'search.kind.member': 'Membre(s)',
+        'search.kind.meeting': 'Note(s) de réunion',
+        'search.kind.about': 'Autres document(s)',
+        'search.kind.services': 'Autres document(s)',
+        'search.kind.support': 'Autres document(s)',
+        'search.ui.placeholder': 'Rechercher un document',
+        'search.ui.placeholder.short': 'Rechercher',
     }
 }
 
