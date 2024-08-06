@@ -38,20 +38,27 @@
 
 	const handleFocus = (e: KeyboardEvent) => {
 		if (e.code === 'ArrowDown' || e.code === 'ArrowUp') {
-			const group = focusable_children(e.currentTarget as HTMLElement);
 			const selector = 'li, input';
 
 			if (e.key === 'ArrowDown') {
-				group.next(selector);
+				focusable.next(selector);
 			} else {
-				group.prev(selector);
+				focusable.prev(selector);
 			}
 		}
 	};
 
-	let searchInput: string = '';
-	let result = {};
-	$: result = $searchIndex.search(searchInput);
+	let searchInput: string = '',
+		result = {},
+		modal: HTMLDivElement,
+		focusable;
+
+	$: {
+		result = $searchIndex.search(searchInput);
+		if (modal) focusable = focusable_children(modal);
+	}
+
+	$: console.log('reactive active', document.activeElement);
 
 	let modalWidth: number;
 	$: if (modalWidth) console.log(modalWidth);
@@ -59,17 +66,16 @@
 	onMount(() => {
 		// disable scroll
 		document.body.style.overflow = 'hidden';
-		document.addEventListener('keydown', handleFocus);
 		return () => {
 			// enable scroll
 			document.body.style.overflow = 'auto';
-			document.removeEventListener('keydown', handleFocus);
 		};
 	});
 </script>
 
 {#if $searchModalOpen}
 	<div
+		bind:this={modal}
 		class="search-modal-bg"
 		on:click={closeModal}
 		aria-hidden="true"

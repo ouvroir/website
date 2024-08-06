@@ -83,10 +83,16 @@ nav {
     top: 90vh;
     background-color: var(--bg-clr-presentation);
     transition: none;
+
+    & .navigation-separator {
+        background-color: rgba(248, 248, 248, 0.914) !important;
+    }
 }
 
 .bottom-nav>* {
     color: white;
+
+
 }
 
 .nav-shadow {

@@ -32,9 +32,6 @@ export class SearchIndex {
 
             if (i in this.contentMap) throw new Error(`Creating entry with duplicate id`)
 
-            if (d.meta.kind === 'project')
-                console.log(`${d.meta.title}\n${stripped} \n\n`)
-
             this.contentMap[i] = { slug: d.meta.slug, kind: d.meta.kind }
             this.index.add(i, `${d.meta.title} ${stripped}`)
         })

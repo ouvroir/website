@@ -286,7 +286,7 @@
 	}
 
 	.navigation-separator {
-		--radius: 5px;
+		--radius: 3px;
 		--h-margin: 1.6rem;
 		margin: 0 var(--h-margin) 0 var(--h-margin);
 		display: flex;
@@ -294,6 +294,7 @@
 		width: var(--radius);
 		height: var(--radius);
 		border-radius: 100px;
+		border-width: 0;
 	}
 
 	.locale-container {

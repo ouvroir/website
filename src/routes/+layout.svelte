@@ -52,8 +52,6 @@
 	onMount(() => {
 		document.body.addEventListener('keydown', handleKeyDown);
 
-		console.log(get(stores.meetings));
-
 		['fr', 'en'].forEach((lang) => {
 			const localizedIndexStore: Readable<SearchIndex> = stores[`${lang}SearchIndex`];
 			if (!localizedIndexStore) throw new Error(`No search index found for ${lang}`);
@@ -68,7 +66,6 @@
 				...get(stores.meetings)
 			]);
 		});
-		console.log('======== Done creating search indexes');
 
 		return () => {
 			document.body.removeEventListener('keydown', handleKeyDown);

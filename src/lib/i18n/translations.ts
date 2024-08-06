@@ -135,6 +135,7 @@ const translations: { [locale: string]: { [path: string]: string } } = {
         'search.kind.services': 'Other document(s)',
         'search.kind.support': 'Other document(s)',
         'search.ui.placeholder': 'Search for a document',
+        'search.ui.placeholder.short': 'Search',
     },
     'fr': {
         // ARIA labels
@@ -273,6 +274,7 @@ const translations: { [locale: string]: { [path: string]: string } } = {
         'search.kind.services': 'Autres document(s)',
         'search.kind.support': 'Autres document(s)',
         'search.ui.placeholder': 'Rechercher un document',
+        'search.ui.placeholder.short': 'Rechercher',
     }
 }
 
