@@ -5,13 +5,6 @@
 
 	const maxDescriptionLen = 150;
 
-	// If title is too long, decrease font size
-	const smallerTitle = () => {
-		if (post.meta.kind === 'meeting') return '';
-		if (post.meta.title.length > 50) return 'smaller-title';
-		else return '';
-	};
-
 	$: kind = post.meta.kind as 'blog' | 'event' | 'meeting';
 	// $: post.meta.slug ? null : encodeURIComponent
 </script>
@@ -22,7 +15,7 @@
 		class={`post-card`}
 	>
 		<span class="document-tag">{$t(`card.${post.meta.kind}`)}</span>
-		<h1 class={`${smallerTitle()}`}>
+		<h1>
 			{#if kind === 'meeting'}
 				{$dateToLocalizedString(post.meta.date)}
 			{:else}
@@ -141,7 +134,8 @@
 	}
 
 	h1 {
-		font-size: 2rem;
+		font-size: 1.6rem;
+		line-height: 1.8rem;
 		text-decoration: underline;
 		text-decoration-thickness: 0.25rem;
 		text-decoration-color: transparent;
