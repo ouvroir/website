@@ -18,7 +18,9 @@ jobs:
         run: git init # Optional if repository initialization is needed
 
       - name: Update Supbmodule reference
-        run: git submodule update --remote
+        run: |
+          git submodule update --remote |
+          git submodule update --recursive --remote
 
       - name: Checkout
         uses: actions/checkout@v3
