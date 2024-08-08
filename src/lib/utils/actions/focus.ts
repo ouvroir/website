@@ -8,10 +8,10 @@ export function focusable_children(node: HTMLElement) {
 			'input, li, [tabindex]:not([tabindex="-1"])'
 		)
 	) as HTMLElement[];
-	console.log(nodes)
+	// console.log(nodes)
 
 	const index = nodes.indexOf(document.activeElement);
-	console.log('active', document.activeElement)
+	// console.log('active', document.activeElement)
 
 
 	const update = (d) => {
@@ -29,7 +29,7 @@ export function focusable_children(node: HTMLElement) {
 			for (let i = 0; i < reordered.length; i += 1) {
 				if (!selector || reordered[i].matches(selector)) {
 					reordered[i].focus();
-					console.log(reordered[i])
+					// console.log(reordered[i])
 					return;
 				}
 			}

@@ -58,10 +58,10 @@
 		if (modal) focusable = focusable_children(modal);
 	}
 
-	$: console.log('reactive active', document.activeElement);
+	// $: console.log('reactive active', document.activeElement);
 
 	let modalWidth: number;
-	$: if (modalWidth) console.log(modalWidth);
+	// $: if (modalWidth) console.log(modalWidth);
 
 	onMount(() => {
 		// disable scroll
