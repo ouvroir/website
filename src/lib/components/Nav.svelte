@@ -24,7 +24,7 @@
 
 			if ($page.url.pathname.includes('-fr') || $page.url.pathname.includes('-en')) {
 				const lang = $page.url.pathname.includes('-fr') ? 'en' : 'fr';
-				const slug = $page.params.slug.replace($locale, lang);
+				const slug = $page.params.slug.replace(`-${$locale}`, `-${lang}`);
 				// console.log('computed route', `${$rt(`route.${name}`)}/${slug}`);
 				return `${$rt(`route.${name}`)}/${slug}`;
 			} else {
@@ -55,8 +55,6 @@
 	page.subscribe(() => {
 		// reset scroll on page change
 		scrollY = 0;
-
-		console.log(getLangFromParam($page.params));
 
 		locale.set(getLangFromParam($page.params));
 		langRedirectUrl = $page.route.id ? getLangRedirectUrl($page.route.id) : '/';

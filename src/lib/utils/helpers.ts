@@ -21,6 +21,6 @@ export function contentHasTags<T extends Blog | Member | Meeting | Project | Eve
     if (tags.length === 0) return true;
     if (!('tags' in content.meta)) return false;
 
-    console.log(content.meta.tags.some((t) => tags.includes(t)), tags, content.meta.tags)
+    // console.log(content.meta.tags.some((t) => tags.includes(t)), tags, content.meta.tags)
     return content.meta.tags.some((t) => tags.includes(t));
 }
