@@ -16,17 +16,14 @@
 		else return null;
 	}
 
-	$: content = get(
+	const content = get(
 		contentFromType($page.params.newsType) as Readable<Blog[] | Event[] | Meeting[]>
 	);
-	$: post = content.find((p) => p.meta.slug === $page.params.slug);
+
+	const post = content.find((p) => p.meta.slug === $page.params.slug);
 
 	const smallScreen = $screenType === 'mobile' || $screenType === 'tablet-vertical';
 </script>
-
-{#if post && post.meta.kind === 'blog' && !smallScreen}
-	<Tree />
-{/if}
 
 {#if post && post.meta.kind === 'blog'}
 	<aside class="aside-blog">
@@ -37,6 +34,12 @@
 			</div>
 			<p class="project-description">{post.meta.description}</p>
 		</div>
+
+		{#if !smallScreen}
+			<div class="news-tree-container">
+				<Tree />
+			</div>
+		{/if}
 	</aside>
 {/if}
 
@@ -102,13 +105,13 @@
 		grid-row: 1;
 		font-size: 2.5rem;
 		padding-bottom: 4rem;
+		line-height: 3rem;
 	}
 
 	.aside-blog {
-		grid-row: 2;
+		grid-row: 2/6;
 		grid-column: 1/3;
 		max-width: 90%;
-		margin-bottom: 3rem;
 	}
 
 	.aside-event {
@@ -174,6 +177,14 @@
 		/* max-height: fit-content; */
 		grid-row: 2;
 		font-size: 0.9rem;
+	}
+
+	.news-tree-container {
+		position: sticky;
+		margin-top: 2rem;
+		height: fit-content;
+		top: 6rem;
+		content: '';
 	}
 
 	/** Mobile */

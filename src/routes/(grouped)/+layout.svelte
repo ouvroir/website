@@ -10,7 +10,9 @@
 </script>
 
 {#if !smallScreen}
-	<Tree />
+	<div class="about-tree-container">
+		<Tree />
+	</div>
 {/if}
 
 <section class="info-page">
@@ -69,6 +71,12 @@
 		grid-column: 1/-1;
 		height: 2rem;
 		margin-bottom: 2rem;
+	}
+
+	.about-tree-container {
+		position: sticky;
+		grid-column: 1/3;
+		grid-row: 2;
 	}
 
 	/** Small screens */

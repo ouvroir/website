@@ -78,6 +78,10 @@ nav {
     grid-auto-flow: dense !important;
 }
 
+strong {
+    font-weight: 500;
+}
+
 .bottom-nav {
     position: absolute;
     top: 90vh;
@@ -215,7 +219,7 @@ a {
     font-size: var(--fs-400);
     font-weight: 500;
     color: var(--clr-magenta);
-    margin-top: 3.5rem;
+    /* margin-top: 3.5rem; */
 }
 
 .text-body>h3 {
