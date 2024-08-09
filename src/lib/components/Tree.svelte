@@ -2,6 +2,9 @@
 	import { page } from '$app/stores';
 	import { onMount } from 'svelte';
 
+	let empty = false;
+	let treeUL: HTMLUListElement;
+
 	const scrollToTarget = (event: MouseEvent) => {
 		event.preventDefault();
 		const targetId = (event.target as HTMLElement).getAttribute('href')!;
@@ -78,19 +81,18 @@
 			const targetDoc = document.querySelector('.text-body') as HTMLElement;
 			if (!targetDoc) return;
 			generateTOC(targetDoc);
+
+			Array.from(treeUL.querySelectorAll('li')).length === 0 ? (empty = true) : (empty = false);
 		});
 	});
 </script>
 
-<div id="tree-container">
-	<ul id="tree"></ul>
+<div id="tree-container" class={`${empty ? 'hide' : ''}`}>
+	<ul bind:this={treeUL} id="tree"></ul>
 </div>
 
 <style>
 	#tree-container {
-		position: sticky;
-		grid-column: 1/3;
-		grid-row: 2;
 		height: fit-content;
 		top: 10rem;
 		bottom: 10rem;
@@ -98,6 +100,7 @@
 	}
 
 	#tree {
+		position: static;
 		width: 90%;
 		display: flex;
 		flex-direction: column;
@@ -110,5 +113,9 @@
 		list-style: none;
 		font-size: 0.9rem;
 		font-weight: 400;
+	}
+
+	.hide {
+		visibility: hidden;
 	}
 </style>
