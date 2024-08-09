@@ -1,5 +1,9 @@
 #!/bin/bash
 
+rm -rf src/lib/labouvroir
+git submodule update --init --recursive --remote
+
+
 # Copy profile images
 source_directory="./src/lib/labouvroir/equipe/profile-img"
 target_directory="./static/team"
