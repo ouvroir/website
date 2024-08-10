@@ -1,4 +1,4 @@
-import type { Blog, Event, Meeting, Member, Project } from "$lib/types";
+import type { Blog, Event, Meeting, Member, Project, Resource } from "$lib/types";
 
 export function sortContentByDate(a: Blog | Event | Meeting, b: Blog | Event | Meeting) {
     const aDate = new Date(a.meta.kind === 'event' ? a.meta.dateStart : a.meta.date);
@@ -6,7 +6,7 @@ export function sortContentByDate(a: Blog | Event | Meeting, b: Blog | Event | M
     return bDate.getTime() - aDate.getTime();
 }
 
-export function getTagsfromContent<T extends Blog | Member | Meeting | Project | Event>(content: T[]) {
+export function getTagsfromContent<T extends Blog | Member | Meeting | Project | Resource | Event>(content: T[]) {
     return Array.from(
         content.reduce((acc, p) => {
             if (p.meta.tags) {
@@ -17,7 +17,7 @@ export function getTagsfromContent<T extends Blog | Member | Meeting | Project |
     ) as string[]
 }
 
-export function contentHasTags<T extends Blog | Member | Meeting | Project | Event>(content: T, tags: string[]) {
+export function contentHasTags<T extends Blog | Member | Meeting | Project | Resource | Event>(content: T, tags: string[]) {
     if (tags.length === 0) return true;
     if (!('tags' in content.meta)) return false;
 

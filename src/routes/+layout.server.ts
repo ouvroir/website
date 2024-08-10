@@ -5,7 +5,7 @@ import { building } from '$app/environment';
 import { fetchData } from '$lib/utils/data';
 import { locale } from '$i18n/i18n';
 import { contentLoaded } from '$lib/stores.js';
-import type { Blog, Member, Project, Event, Meeting, StaticDocument } from '$lib/types.js';
+import type { Blog, Member, Project, Resource, Event, Meeting, StaticDocument } from '$lib/types.js';
 
 export const prerender = true;
 
@@ -21,6 +21,7 @@ export const load = async (event) => {
 
     if (!get(contentLoaded)) {
         const allProjects = fetchData('projects') as Project[];
+        const allResources = fetchData('resources') as Project[];
         const allMembers = fetchData('members') as Member[];
         const allEvents = fetchData('events') as Event[];
         const allBlogs = fetchData('blog') as Blog[];
@@ -29,12 +30,15 @@ export const load = async (event) => {
         const allAbouts = fetchData('about') as StaticDocument[];
         const allPresentations = fetchData('presentation') as StaticDocument[];
         const allSupports = fetchData('support') as StaticDocument[];
+
+        console.log(allResources.map(r => r.meta.title));
         return {
             allBlogs,
             allEvents,
             meetings,
             allMembers,
             allProjects,
+            allResources,
             allServices,
             allAbouts,
             allPresentations,

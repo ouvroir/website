@@ -81,6 +81,21 @@ type BlogMeta = {
 	kind: 'blog';
 };
 
+type ResourceMeta = {
+	title: string;
+	description: string;
+	author: string;
+	dateCreated: string;
+	lastUpdated: string;
+	contributors: string[];
+	draft: boolean;
+	slug: string;
+	lang: 'en' | 'fr';
+	tags: string[];
+	path: string;
+	kind: 'resource';
+};
+
 type StaticDocumentMeta = {
 	title: string;
 	draft: boolean;
@@ -100,6 +115,7 @@ export type Event = { meta: EventMeta; html: string };
 export type Member = { meta: MemberMeta; html: string };
 export type Meeting = { meta: MeetingMeta; html: string };
 export type Blog = { meta: BlogMeta; html: string };
+export type Resource = { meta: ResourceMeta; html: string };
 export type GenericDocument = { meta: GenericDocumentMeta; html: string };
 export type StaticDocument = { meta: StaticDocumentMeta; html: string };
 
@@ -109,5 +125,6 @@ export type OuvroirData =
 	| Member
 	| Meeting
 	| Blog
+	| Resource
 	| StaticDocument
 	| GenericDocument;

@@ -17,9 +17,9 @@ const translations: { [locale: string]: { [path: string]: string } } = {
         'head.home': 'Ouvroir',
         'head.news': 'News',
         'head.projects': 'Projects',
+        'head.resources': 'Resources',
         'head.services': 'Our services',
         'head.about': 'About Ouvroir',
-
 
         // Header
         'header.subtitle': 'a <span class="clr:red">digital</span> art history and museology lab.',
@@ -29,6 +29,7 @@ const translations: { [locale: string]: { [path: string]: string } } = {
         'nav.home': 'Home',
         'nav.news': 'News',
         'nav.projects': 'Projects',
+        'nav.resources': 'Resources',
         'nav.services': 'Services',
         'nav.about': 'About',
 
@@ -41,6 +42,7 @@ const translations: { [locale: string]: { [path: string]: string } } = {
         'route.news.blog': `${base}/news/blog`,
         'route.news.meeting': `${base}/news/meeting`,
         'route.projects': `${base}/projects`,
+        'route.resources': `${base}/resources`,
         'route.services': `${base}/our-services`,
         'route.about': `${base}/about`,
         'route.about.presentation': `${base}/about`,
@@ -112,6 +114,9 @@ const translations: { [locale: string]: { [path: string]: string } } = {
         'news.type.event': 'event',
         'news.type.meeting': 'meeting',
 
+        // Resources
+
+
         // Events
         'events.title': "Our events",
 
@@ -125,6 +130,7 @@ const translations: { [locale: string]: { [path: string]: string } } = {
         'card.meeting': 'Meeting notes',
         'card.project': 'Project',
         'card.speaker': 'speaker·s',
+        'card.resource': 'Resource',
 
         'search.kind.blog': 'Blog post(s)',
         'search.kind.event': 'Event(s)',
@@ -157,6 +163,7 @@ const translations: { [locale: string]: { [path: string]: string } } = {
         'head.home': 'Ouvroir',
         'head.news': 'Actualités',
         'head.projects': 'Projets',
+        'head.resources': 'Ressources',
         'head.services': 'Nos services',
         'head.about': 'À propos',
 
@@ -168,6 +175,7 @@ const translations: { [locale: string]: { [path: string]: string } } = {
         'nav.home': 'Accueil',
         'nav.news': 'Actualités',
         'nav.projects': 'Projets',
+        'nav.resources': 'Ressources',
         'nav.services': 'Services',
         'nav.about': 'À propos',
         'nav.locale.label': 'Langue',
@@ -179,6 +187,7 @@ const translations: { [locale: string]: { [path: string]: string } } = {
         'route.news.blog': `${base}/actualites/blog`,
         'route.news.meeting': `${base}/actualites/reunion`,
         'route.projects': `${base}/projets`,
+        'route.resources': `${base}/ressources`,
         'route.services': `${base}/nos-services`,
         'route.about': `${base}/a-propos`,
         'route.about.presentation': `${base}/a-propos`,
@@ -263,6 +272,8 @@ const translations: { [locale: string]: { [path: string]: string } } = {
         'card.meeting': 'Compte-rendu',
         'card.project': 'Projet',
         'card.speaker': 'conférencier·ère·s',
+        'card.resource': 'Ressource',
+
 
         // Search
         'search.kind.blog': 'Billet(s) de blog',
