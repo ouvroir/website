@@ -8,38 +8,27 @@
 	import Carousel from '$lib/components/Carousel.svelte';
 	import HomeListItem from '$lib/components/HomeListItem.svelte';
 	import { events, blogs, projects, resources } from '$lib/stores';
+	import type { Blog, Event, Resource } from '$lib/types';
 
 	if (!events || !blogs || !projects) throw new Error('No data found');
 
+	const getDateFromContent = (content: Blog | Event | Resource): Date => {
+		switch (content.meta.kind) {
+			case 'event':
+				return new Date(content.meta.dateStart);
+			case 'blog':
+				return new Date(content.meta.date);
+			case 'resource':
+				return new Date(content.meta.dateCreated);
+			default:
+				return new Date();
+		}
+	};
+
 	$: news = [...$events, ...$blogs, ...$resources]
 		.sort((a, b) => {
-			let aDate: Date, bDate: Date;
-			switch (a.meta.kind) {
-				case 'event':
-					aDate = new Date(a.meta.dateStart);
-					break;
-				case 'blog':
-					aDate = new Date(a.meta.date);
-					break;
-				case 'resource':
-					aDate = new Date(a.meta.dateCreated);
-					break;
-				default:
-					aDate = new Date();
-			}
-			switch (b.meta.kind) {
-				case 'event':
-					bDate = new Date(b.meta.dateStart);
-					break;
-				case 'blog':
-					bDate = new Date(b.meta.date);
-					break;
-				case 'resource':
-					bDate = new Date(b.meta.dateCreated);
-					break;
-				default:
-					bDate = new Date();
-			}
+			const aDate = getDateFromContent(a),
+				bDate = getDateFromContent(b);
 			return bDate.getTime() - aDate.getTime();
 		})
 		.slice(0, 6);
