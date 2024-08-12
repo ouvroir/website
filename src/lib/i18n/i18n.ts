@@ -95,6 +95,7 @@ export const generateContentURI = (slug: string, kind: string) => {
 		meeting: 'route.news.meeting',
 		member: 'route.about.member',
 		project: 'route.projects',
+		resource: 'route.resources',
 		about: 'route.about',
 		presentation: 'presentations',
 		services: 'route.services'

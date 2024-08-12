@@ -78,7 +78,6 @@
 		bind:this={modal}
 		class="search-modal-bg"
 		on:click={closeModal}
-		aria-hidden="true"
 		in:fade={{ duration: 1000, delay: 1000 }}
 	>
 		<!-- svelte-ignore a11y-no-noninteractive-element-interactions -->

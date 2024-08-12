@@ -10,15 +10,9 @@
 	action="/search"
 	on:mousedown|preventDefault={() => ($searchModalOpen = true)}
 	on:touchend|preventDefault={() => ($searchModalOpen = true)}
-	aria-hidden="true"
 >
 	<i id="search-icon" class="bx bx-search"></i>
-	<input
-		class={showPresentation ? 'contrast' : ''}
-		aria-hidden="true"
-		{placeholder}
-		aria-label={placeholder}
-	/>
+	<input class={showPresentation ? 'contrast' : ''} {placeholder} aria-label={placeholder} />
 
 	<kbd><i class="bx bx-command"></i>K</kbd>
 </form>
