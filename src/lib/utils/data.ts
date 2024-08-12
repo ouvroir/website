@@ -12,6 +12,7 @@ import type {
 	Meeting,
 	Member,
 	Blog,
+	Resource,
 	StaticDocument,
 	GenericDocument
 } from '$lib/types';
@@ -19,8 +20,8 @@ import type {
 const get = (path: string, filters: (fn: string) => boolean = () => true) => {
 	return readdirSync(resolve(path))
 		.filter(filters)
-		.filter((f) => f.endsWith('.md') && !f.includes('template'))
-		.map((f) => resolve(path, f));
+		.filter((f: string) => f.endsWith('.md') && !f.includes('template'))
+		.map((f: string) => resolve(path, f));
 };
 
 export const contents = {
@@ -29,6 +30,7 @@ export const contents = {
 	events: get('src/lib/labouvroir/evenements'),
 	meetings: get('src/lib/labouvroir/cr'),
 	blog: get('src/lib/labouvroir/blog'),
+	resources: get('src/lib/labouvroir/ressources'),
 	presentation: get('src/lib/labouvroir/lab', (fn) => fn.includes('presentation-short')),
 	about: get('src/lib/labouvroir', (fn) => fn.includes('about')),
 	support: get('src/lib/labouvroir/lab', (fn) => fn.includes('financement')),
@@ -37,7 +39,7 @@ export const contents = {
 
 export function fetchData(
 	type: keyof typeof contents
-): Project[] | Event[] | Meeting[] | Member[] | Blog[] | StaticDocument[] | GenericDocument[] {
+): Project[] | Event[] | Meeting[] | Member[] | Blog[] | Resource[] | StaticDocument[] | GenericDocument[] {
 	const typeConstructors: Record<
 		keyof typeof contents,
 		(
@@ -74,7 +76,10 @@ export function fetchData(
 				meta: { ...meta, kind: 'blog', slug: createSlugFromFilename(path), path },
 				html
 			}) as Blog,
-
+		resources: (path, meta, html) => ({
+			meta: { ...meta, kind: 'resource', slug: createSlugFromFilename(path), path },
+			html
+		}) as Resource,
 		presentation: (path, meta, html) =>
 			({
 				meta: { ...meta, kind: 'presentation', path },

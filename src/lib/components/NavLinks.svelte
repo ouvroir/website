@@ -48,6 +48,12 @@
 	</li>
 	<li>
 		<a
+			class={`nav-link ${active === 'resources' ? 'active' : ''} ${clrWhite}`}
+			href={`${$t('route.resources')}`}>{$t('nav.resources')}</a
+		>
+	</li>
+	<li>
+		<a
 			class={`nav-link ${active === 'services' ? 'active' : ''} ${clrWhite}`}
 			href={`${$t('route.services')}`}>{$t('nav.services')}</a
 		>

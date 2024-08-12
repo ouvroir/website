@@ -17,10 +17,9 @@ jobs:
       - name: Initialize Git
         run: git init # Optional if repository initialization is needed
 
-      - name: Update Supbmodule reference
+      - name: Update Supbmodule reference and copy assets in static folder
         run: |
-          git submodule update --remote |
-          git submodule update --recursive --remote
+          ./update_submodules.sh
 
       - name: Checkout
         uses: actions/checkout@v3
@@ -35,10 +34,6 @@ jobs:
 
       - name: Install dependencies
         run: npm ci
-
-      - name: Put assets in static folder
-        run: |
-          ./copyAssets.sh
 
       - name: build
         env:

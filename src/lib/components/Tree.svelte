@@ -82,7 +82,8 @@
 			if (!targetDoc) return;
 			generateTOC(targetDoc);
 
-			Array.from(treeUL.querySelectorAll('li')).length === 0 ? (empty = true) : (empty = false);
+			if (treeUL)
+				Array.from(treeUL.querySelectorAll('li')).length === 0 ? (empty = true) : (empty = false);
 		});
 	});
 </script>

@@ -7,17 +7,31 @@
 	import Calendar from '$lib/components/logos/Calendar.svelte';
 	import Carousel from '$lib/components/Carousel.svelte';
 	import HomeListItem from '$lib/components/HomeListItem.svelte';
-	import { events, blogs, projects } from '$lib/stores';
+	import { events, blogs, projects, resources } from '$lib/stores';
+	import type { Blog, Event, Resource } from '$lib/types';
 
-	if(!events || !blogs || !projects ) throw new Error('No data found');
+	if (!events || !blogs || !projects) throw new Error('No data found');
 
-	$: news = [...$events, ...$blogs]
+	const getDateFromContent = (content: Blog | Event | Resource): Date => {
+		switch (content.meta.kind) {
+			case 'event':
+				return new Date(content.meta.dateStart);
+			case 'blog':
+				return new Date(content.meta.date);
+			case 'resource':
+				return new Date(content.meta.dateCreated);
+			default:
+				return new Date();
+		}
+	};
+
+	$: news = [...$events, ...$blogs, ...$resources]
 		.sort((a, b) => {
-			const aDate = new Date(a.meta.kind === 'event' ? a.meta.dateStart : a.meta.date);
-			const bDate = new Date(b.meta.kind === 'event' ? b.meta.dateStart : b.meta.date);
+			const aDate = getDateFromContent(a),
+				bDate = getDateFromContent(b);
 			return bDate.getTime() - aDate.getTime();
 		})
-		.slice(0, 4);
+		.slice(0, 6);
 	$: smallScreen = $screenType === 'mobile' || $screenType === 'tablet-vertical';
 </script>
 
@@ -54,7 +68,20 @@
 					</span>
 					<h1 slot="title" class="card-item-title">{e.meta.title}</h1>
 					<p slot="date" class="card-item-date">
-						{$dateToLocalizedString(e.meta.dateStart)}
+						{$dateToLocalizedString(e.meta.date)}
+					</p>
+					<p slot="description" class="card-item-description">
+						{e.meta.description}
+					</p>
+				</HomeListItem>
+			{:else if e.meta.kind === 'resource'}
+				<HomeListItem href={`${$t('route.resources')}/${e.meta.slug}`}>
+					<span class="document-tag" slot="document-tag">
+						{$t(`card.${e.meta.kind}`)}
+					</span>
+					<h1 slot="title" class="card-item-title">{e.meta.title}</h1>
+					<p slot="date" class="card-item-date">
+						{$dateToLocalizedString(e.meta.dateCreated)}
 					</p>
 					<p slot="description" class="card-item-description">
 						{e.meta.description}

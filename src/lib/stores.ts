@@ -1,6 +1,6 @@
 import { writable, derived, get } from "svelte/store";
 import type { Writable, Readable } from "svelte/store";
-import type { Blog, Event, Meeting, Member, Project, StaticDocument } from "./types";
+import type { Blog, Event, Meeting, Member, Project, Resource, StaticDocument } from "./types";
 import { locale } from '$i18n/i18n'
 import FlexSearch from "flexsearch";
 import { SearchIndex } from "./utils/search";
@@ -67,6 +67,9 @@ function createDerivedStaticContentStrore<T>(contentStore: Writable<T[]>) {
 
 export const allProjects = writable([] as Project[]);
 export const projects = createDerivedContentStrore(allProjects);
+
+export const allResources = writable([] as Resource[]);
+export const resources = createDerivedContentStrore(allResources);
 
 export const allBlogs = writable([] as Blog[]);
 export const blogs = createDerivedContentStrore(allBlogs);

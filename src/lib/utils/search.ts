@@ -87,6 +87,7 @@ export class SearchIndex {
             'event': stores.events,
             'meeting': stores.meetings,
             'blog': stores.blogs,
+            'resource': stores.resources,
             'presentation': stores.presentation,
             'support': stores.support,
             'services': stores.services,

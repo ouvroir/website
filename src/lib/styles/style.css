@@ -11,6 +11,7 @@
     --ff-logo: 'Open Sans', sans-serif;
 
 
+    --fs-200: 1rem;
     --fs-300: 1.2rem;
     --fs-400: 1.7rem;
     --fs-title: 3rem;
@@ -198,6 +199,13 @@ a {
     font-family: var(--ff-sans);
 }
 
+.text-body h1 {
+    font-size: var(--fs-title);
+    font-weight: 500;
+    margin-top: 3rem;
+    margin-bottom: 1.5rem;
+}
+
 .text-body>p,
 .text-body>h2,
 .text-body>h3,
@@ -220,6 +228,7 @@ a {
     font-weight: 500;
     color: var(--clr-magenta);
     /* margin-top: 3.5rem; */
+    margin-bottom: 1.4rem;
 }
 
 .text-body>h3 {
@@ -227,8 +236,9 @@ a {
     font-weight: 500;
 }
 
-.text-body>h2 {
-    margin-bottom: 1.4rem;
+.text-body>h4 {
+    font-size: var(--fs-200);
+    font-weight: 500;
 }
 
 .text-body>*+ul,
@@ -266,6 +276,21 @@ a {
     background-color: var(--clr-accent-light);
 }
 
+.text-body>blockquote>ul, .text-body>ul {
+    list-style: inside;
+
+    &>li {
+        list-style: none;
+        flex-direction: row;
+        margin-left: 1.5rem;
+    }
+
+    &>li {
+        margin-top: 1.5rem;
+    }
+}
+
+
 .text-body a {
     color: var(--clr-accent);
 }
@@ -284,9 +309,9 @@ a {
     margin-left: 1.2rem;
 }
 
-.toc-h2 {
-    /* font-size: 1rem; */
-}
+/* .toc-h2 {
+    /* font-size: 1rem; 
+} */
 
 .toc-h2:not(:first-child) {
     margin-top: 0.8rem;

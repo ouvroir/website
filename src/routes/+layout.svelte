@@ -28,6 +28,7 @@
 		stores.meetings.set(data.meetings);
 		stores.allMembers.set(data.allMembers);
 		stores.allProjects.set(data.allProjects);
+		stores.allResources.set(data.allResources);
 		stores.allAbout.set(data.allAbouts);
 		stores.allPresentations.set(data.allPresentations);
 		stores.allSupports.set(data.allSupports);
@@ -61,6 +62,7 @@
 				...stores.events.localize(lang),
 				...stores.members.localize(lang),
 				...stores.projects.localize(lang),
+				...stores.resources.localize(lang),
 				stores.about.localize(lang),
 				stores.services.localize(lang),
 				...get(stores.meetings)
