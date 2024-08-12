@@ -114,11 +114,14 @@ const translations: { [locale: string]: { [path: string]: string } } = {
         'news.type.event': 'event',
         'news.type.meeting': 'meeting',
 
-        // Resources
-
-
         // Events
         'events.title': "Our events",
+
+        // Resources
+        'resources.dateCreated': 'resource created on',
+        'resources.dateUpdated': 'last updated on',
+        'resources.contributors': 'contributors to this resource:',
+
 
         // Error
         'error.title': "Oups! The page your asking for cannot be find.",
@@ -261,6 +264,12 @@ const translations: { [locale: string]: { [path: string]: string } } = {
 
         // Events
         'events.title': "Nos évenements",
+
+        // Resources
+        'resources.dateCreated': 'ressource créée le',
+        'resources.dateUpdated': 'dernière mise à jour le',
+        'resources.contributors': 'contributeur·rice·s de la ressource :',
+
 
         // Error
         'error.title': "Oups! La page demandée n’a pas pu être retrouvée.",

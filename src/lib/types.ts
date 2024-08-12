@@ -86,7 +86,7 @@ type ResourceMeta = {
 	description: string;
 	author: string;
 	dateCreated: string;
-	lastUpdated: string;
+	dateUpdated: string;
 	contributors: string[];
 	draft: boolean;
 	slug: string;

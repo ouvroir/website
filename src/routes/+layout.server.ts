@@ -31,7 +31,6 @@ export const load = async (event) => {
         const allPresentations = fetchData('presentation') as StaticDocument[];
         const allSupports = fetchData('support') as StaticDocument[];
 
-        console.log(allResources.map(r => r.meta.title));
         return {
             allBlogs,
             allEvents,

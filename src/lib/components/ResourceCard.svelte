@@ -13,17 +13,13 @@
 	<a href={`${$t('route.resources')}/${resource.meta.slug}`} class={`resource-card`}>
 		<span class="document-tag">{$t(`card.${resource.meta.kind}`)}</span>
 		<h1>
-			{#if kind === 'meeting'}
-				{$dateToLocalizedString(resource.meta.date)}
-			{:else}
-				{resource.meta.title}
-			{/if}
+			{resource.meta.title}
 		</h1>
 		<div class="resource-card-main">
 			{#if kind === 'blog'}
 				<div>
 					<span class="author">{resource.meta.author}</span> |
-					<span>{$dateToLocalizedString(resource.meta.date)}</span>
+					<span>{$dateToLocalizedString(resource.meta.dateCreated)}</span>
 				</div>
 			{:else if kind === 'event'}
 				<div>

@@ -13,7 +13,9 @@
 	const disabledNewsTypes = writable([] as string[]);
 	const tags = writable(getTagsfromContent($resources));
 
-	const posts = $resources.sort((a, b) => sortContentByDate(a, b));
+	$: posts = $resources
+		.sort((a, b) => sortContentByDate(a, b))
+		.filter((r) => contentHasTags(r, $selectedTags));
 
 	const selectableTags = writable(getTagsfromContent($resources));
 
@@ -32,7 +34,7 @@
 		(t) => posts && posts.filter((p) => p.meta.kind === t).length === 0
 	);
 
-	$selectedDocTypes = $selectedDocTypes.filter((t) => !$disabledNewsTypes.includes(t));
+	$selectedDocTypes = [];
 
 	onMount(() => {
 		if (window.location.hash) {
@@ -74,6 +76,7 @@
 		grid-auto-flow: dense;
 		gap: 3rem;
 		flex-wrap: wrap;
+		margin-top: 4rem;
 	}
 
 	/** All touch screens */
