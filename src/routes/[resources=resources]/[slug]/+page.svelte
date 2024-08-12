@@ -1,52 +1,50 @@
 <script lang="ts">
 	import { t, dateToLocalizedString } from '$lib/i18n/i18n.js';
 	import Tree from '$lib/components/Tree.svelte';
-
 	import { page } from '$app/stores';
-	import { resources, screenType } from '$lib/stores';
+	import { resources } from '$lib/stores';
 
-	const content = $resources;
-	const post = content.find((p) => p.meta.slug === $page.params.slug)!;
-
-	const smallScreen = $screenType === 'mobile' || $screenType === 'tablet-vertical';
+	const post = $resources.find((p) => p.meta.slug === $page.params.slug)!;
 </script>
 
-<aside class="aside-blog">
-	<p class="project-description">{post.meta.description}</p>
-	<div>
-		<div class="meta">
-			<span class="attr">{$t('resources.dateCreated')}</span>
-			<p>{$dateToLocalizedString(post.meta.dateCreated)}</p>
+{#if post}
+	<aside class="aside-blog">
+		<p class="project-description">{post.meta.description}</p>
+		<div>
+			<div class="meta">
+				<span class="attr">{$t('resources.dateCreated')}</span>
+				<p>{$dateToLocalizedString(post.meta.dateCreated)}</p>
+			</div>
+			<div class="meta">
+				<span class="attr">{$t('resources.dateUpdated')}</span>
+				<p>{$dateToLocalizedString(post.meta.dateUpdated)}</p>
+			</div>
+			<div class="meta">
+				<span class="attr">{$t('resources.contributors')}</span>
+				<ul>
+					{#each post.meta.contributors as c}
+						<li>{c}</li>
+					{/each}
+				</ul>
+			</div>
 		</div>
-		<div class="meta">
-			<span class="attr">{$t('resources.dateUpdated')}</span>
-			<p>{$dateToLocalizedString(post.meta.dateUpdated)}</p>
-		</div>
-		<div class="meta">
-			<span class="attr">{$t('resources.contributors')}</span>
-			<ul>
-				{#each post.meta.contributors as c}
-					<li>{c}</li>
-				{/each}
-			</ul>
-		</div>
-	</div>
 
-	<div class="tree-container">
-		<Tree />
-	</div>
-</aside>
+		<div class="tree-container">
+			<Tree />
+		</div>
+	</aside>
 
-<article>
-	<header>
-		<h1>
-			{post.meta.title}
-		</h1>
-	</header>
-	<div class="text-body">
-		{@html post.html}
-	</div>
-</article>
+	<article>
+		<header>
+			<h1>
+				{post.meta.title}
+			</h1>
+		</header>
+		<div class="text-body">
+			{@html post.html}
+		</div>
+	</article>
+{/if}
 
 <style>
 	article,
