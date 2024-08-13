@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import { t, rt, locale, getLangFromParam } from '$i18n/i18n';
-	import { showPresentation, screenType, showNavMenu } from '$lib/stores';
+	import { showHero, screenType, showNavMenu } from '$lib/stores';
 	import SearchBar from './searchBar.svelte';
 	import { slide } from 'svelte/transition';
 	import { onMount } from 'svelte';
@@ -66,10 +66,14 @@
 		const nav = document.querySelector('nav.main');
 		const top = nav?.getBoundingClientRect().top ?? 500;
 
-		if ($showPresentation) {
-			if (top <= 0) {
-				nav?.classList.remove('bottom-nav');
-				$showPresentation = false;
+		console.log('top:', top);
+		console.log('scrollY:', scrollY);
+
+		if ($page.route.id?.includes('home')) {
+			if (scrollY >= 500) {
+				nav?.classList.remove('hero-nav');
+			} else {
+				nav?.classList.add('hero-nav');
 			}
 		} else {
 			// if scrolling down
@@ -110,17 +114,14 @@
 <svelte:window on:scroll={handleScroll} bind:scrollY />
 
 {#if !smallScreen}
-	<nav
-		aria-labelledby={`${$t('aria.nav.label')}`}
-		class={`main ${$showPresentation ? 'bottom-nav' : ''}`}
-	>
+	<nav aria-labelledby={`${$t('aria.nav.label')}`} class={`main ${$showHero ? 'hero-nav' : ''}`}>
 		<Ouvroir />
 		<div class="full-navigation">
 			<SearchBar />
 			<hr class="navigation-separator" />
 			<NavLinks />
 			<hr class="navigation-separator" />
-			<div class={`locale-container ${$showPresentation ? 'white' : ''}`}>
+			<div class={`locale-container ${$showHero ? 'white' : ''}`}>
 				<a
 					class={`lang-btn ${$locale === 'fr' ? 'active' : ''}`}
 					href={frHref}
@@ -193,8 +194,6 @@
 		align-items: center;
 		padding: 2rem 4%;
 		gap: 1rem;
-		background-color: var(--clr-green-ouvroir);
-		color: white;
 	}
 	.menu-btn {
 		all: unset;
@@ -204,14 +203,14 @@
 		cursor: pointer;
 		transition: color ease-in-out 0.2s;
 	}
-	.menu-btn-active::after {
+	/* .menu-btn-active::after {
 		position: absolute;
 		content: '';
 		width: 100%;
 		top: 1.3rem;
 		left: 0;
-		border-bottom: solid 0.1rem var(--clr-accent);
-	}
+		border-bottom: solid 0.1rem var(--clr-a);
+	} */
 	.search-btn {
 		all: unset;
 		margin-left: auto;
@@ -227,7 +226,6 @@
 		left: 0;
 		width: 50vw;
 		height: 100vh;
-		background-color: #303030;
 		z-index: 10;
 		padding: 2rem 4% 2rem 0;
 	}
@@ -249,7 +247,6 @@
 		width: 4rem;
 	}
 	.menu-logo-text {
-		color: white;
 		font-family: var(--ff-logo);
 		width: 100%;
 	}
@@ -275,12 +272,11 @@
 	}
 
 	.full-navigation {
-		grid-column: 3/-1;
 		display: flex;
 		flex-direction: row;
 		align-items: center;
 		justify-content: flex-end;
-		/* padding: 0 4%; */
+		margin-left: auto;
 	}
 
 	.navigation-separator {
@@ -288,7 +284,6 @@
 		--h-margin: 1.6rem;
 		margin: 0 var(--h-margin) 0 var(--h-margin);
 		display: flex;
-		background-color: #303030;
 		width: var(--radius);
 		height: var(--radius);
 		border-radius: 100px;
@@ -297,27 +292,24 @@
 
 	.locale-container {
 		display: flex;
-		/* align-items: end; */
 		gap: 1rem;
-		/* grid-column: 8/9; */
-		/* padding-bottom: var(--nav-links-padding-bottom); */
-	}
 
-	.locale-container > *:first-child {
-		margin-left: auto;
-	}
+		& a {
+			text-decoration: none;
+		}
 
-	.white > * {
-		color: white;
+		& > *:first-child {
+			margin-left: auto;
+		}
 	}
 
 	.invisible {
 		visibility: hidden;
 	}
 
-	.add-bg * {
+	/* .add-bg * {
 		color: white;
-	}
+	} */
 
 	.hide-nav {
 		transform: translateY(-100%);
@@ -329,8 +321,9 @@
 	/** Small screens */
 	@media screen and (max-width: 820px) {
 		nav {
+			grid-column: full;
 			position: static;
-			background-color: #303742;
+			background-color: var(--clr-a);
 			padding-bottom: 0;
 			padding: 2rem 4%;
 			height: max-content;

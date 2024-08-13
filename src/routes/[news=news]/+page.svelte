@@ -5,7 +5,7 @@
 	import { onMount, setContext } from 'svelte';
 	import { derived, writable } from 'svelte/store';
 	import { building } from '$app/environment';
-	import { meetings, events, blogs, showPresentation } from '$lib/stores';
+	import { meetings, events, blogs } from '$lib/stores';
 	import { sortContentByDate, getTagsfromContent, contentHasTags } from '$lib/utils/helpers';
 
 	if (!events || !blogs || !meetings) throw new Error('No data found');
@@ -36,8 +36,6 @@
 		tags,
 		selectableTags
 	});
-
-	showPresentation.set(false);
 
 	// If there are no posts of a certain type, disable it
 	$: $disabledNewsTypes = ['event', 'blog', 'meeting'].filter(

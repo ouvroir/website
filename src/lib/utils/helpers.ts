@@ -24,3 +24,16 @@ export function contentHasTags<T extends Blog | Member | Meeting | Project | Res
     // console.log(content.meta.tags.some((t) => tags.includes(t)), tags, content.meta.tags)
     return content.meta.tags.some((t) => tags.includes(t));
 }
+
+export function getDateFromContent(content: Blog | Event | Resource): Date {
+    switch (content.meta.kind) {
+        case 'event':
+            return new Date(content.meta.dateStart);
+        case 'blog':
+            return new Date(content.meta.date);
+        case 'resource':
+            return new Date(content.meta.dateCreated);
+        default:
+            return new Date();
+    }
+};

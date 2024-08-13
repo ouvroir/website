@@ -5,7 +5,7 @@ import { locale } from '$i18n/i18n'
 import FlexSearch from "flexsearch";
 import { SearchIndex } from "./utils/search";
 
-export const showPresentation = writable(true);
+export const showHero = writable(true);
 
 export const stickyActivated = writable(false);
 

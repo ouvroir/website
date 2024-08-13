@@ -2,7 +2,7 @@
 	import Nav from '$components/Nav.svelte';
 	import Support from '$components/Support.svelte';
 	import Footer from '$components/Footer.svelte';
-	import LandingPage from '$lib/components/LandingPage.svelte';
+	import HomeHero from '$lib/components/HomeHero.svelte';
 	import SearchModal from '$lib/components/searchModal.svelte';
 	import { page } from '$app/stores';
 	import { t } from '$lib/i18n/i18n';
@@ -10,13 +10,7 @@
 	import '$lib/styles/reset.css';
 	import '$lib/styles/style.css';
 	import * as stores from '$lib/stores.js';
-	import {
-		searchModalOpen,
-		screenType,
-		showPresentation,
-		screenWidth,
-		presentation
-	} from '$lib/stores.js';
+	import { searchModalOpen, screenType, showHero, screenWidth, presentation } from '$lib/stores.js';
 	import { onMount } from 'svelte';
 	import type { SearchIndex } from '$lib/utils/search';
 
@@ -37,8 +31,10 @@
 
 	let offsetHeight: number;
 
-	if ($page.route.id && !$page.route.id.includes('home')) {
-		stores.showPresentation.set(false);
+	if ($page.route.id && ($page.route.id.includes('home') || $page.route.id.includes('news'))) {
+		stores.showHero.set(true);
+	} else {
+		stores.showHero.set(false);
 	}
 
 	$: addGap = $page && $page.route.id === '/[news=news]';
@@ -83,27 +79,25 @@
 	<SearchModal />
 {/if}
 
-{#if $showPresentation && $presentation}
-	<LandingPage />
-{/if}
-
-<Nav />
-
-<main class={`${addGap ? 'addGap' : ''}`} bind:offsetHeight bind:clientWidth={$screenWidth}>
+<main class={`content ${addGap ? 'addGap' : ''}`} bind:offsetHeight bind:clientWidth={$screenWidth}>
+	{#if $showHero}
+		<HomeHero />
+	{/if}
+	<Nav />
 	<slot />
 </main>
 
-{#if offsetHeight > 800}
+<!-- {#if offsetHeight > 800}
 	<div class="btt-container">
 		<a class="btt-btn" href={$page.url.pathname}>{$t('ui.btt')}</a>
 	</div>
-{/if}
+{/if} -->
 
-<Support />
+<!-- <Support /> -->
 
-{#if $screenType === 'desktop' || $screenType === 'tablet-horizontal'}
+<!-- {#if $screenType === 'desktop' || $screenType === 'tablet-horizontal'}
 	<Footer />
-{/if}
+{/if} -->
 
 <style>
 	.btt-container {

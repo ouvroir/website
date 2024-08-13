@@ -3,11 +3,9 @@
 	import FilterPanel from '$lib/components/FilterPanel.svelte';
 	import { t } from '$i18n/i18n';
 	import { writable } from 'svelte/store';
-	import { projects, showPresentation } from '$lib/stores';
+	import { projects } from '$lib/stores';
 	import { getTagsfromContent, contentHasTags } from '$lib/utils/helpers';
 	import { setContext } from 'svelte';
-
-	showPresentation.set(false);
 
 	const selectedTags = writable([] as string[]);
 	const tags = writable(getTagsfromContent($projects) as string[]);

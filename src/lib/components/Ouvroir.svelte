@@ -1,16 +1,16 @@
 <script lang="ts">
 	import { t } from '$lib/i18n/i18n';
-	import { showPresentation } from '$lib/stores';
+	import { showHero } from '$lib/stores';
 
 	let visible = false;
-	$: $showPresentation
+	$: $showHero
 		? null
 		: setTimeout(() => {
 				visible = true;
 			}, 500);
 </script>
 
-<a href={`${$t('route.home')}`} class={`${$showPresentation ? 'hidden' : ''}`}>
+<a href={`${$t('route.home')}`} class={`${$showHero ? 'hidden' : ''}`}>
 	<svg viewBox="0 0 2166 604" fill="none" xmlns="http://www.w3.org/2000/svg">
 		<rect width="2166" height="604" />
 		<path

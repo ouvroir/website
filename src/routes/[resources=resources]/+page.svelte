@@ -5,7 +5,7 @@
 	import { onMount, setContext } from 'svelte';
 	import { derived, writable } from 'svelte/store';
 	import { building } from '$app/environment';
-	import { resources, showPresentation } from '$lib/stores';
+	import { resources } from '$lib/stores';
 	import { sortContentByDate, getTagsfromContent, contentHasTags } from '$lib/utils/helpers';
 
 	const selectedTags = writable([] as string[]);
@@ -26,8 +26,6 @@
 		tags,
 		selectableTags
 	});
-
-	showPresentation.set(false);
 
 	// If there are no posts of a certain type, disable it
 	$: $disabledNewsTypes = ['event', 'blog', 'meeting'].filter(
