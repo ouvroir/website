@@ -6,6 +6,7 @@ import FlexSearch from "flexsearch";
 import { SearchIndex } from "./utils/search";
 
 export const showHero = writable(true);
+export const showNavLogo = writable(false);
 
 export const stickyActivated = writable(false);
 

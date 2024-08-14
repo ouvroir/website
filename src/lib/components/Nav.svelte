@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import { t, rt, locale, getLangFromParam } from '$i18n/i18n';
-	import { showHero, screenType, showNavMenu } from '$lib/stores';
+	import { showHero, screenType, showNavMenu, showNavLogo } from '$lib/stores';
 	import SearchBar from './searchBar.svelte';
 	import { slide } from 'svelte/transition';
 	import { onMount } from 'svelte';
@@ -66,25 +66,47 @@
 		const nav = document.querySelector('nav.main');
 		const top = nav?.getBoundingClientRect().top ?? 500;
 
-		console.log('top:', top);
-		console.log('scrollY:', scrollY);
+		if (nav) {
+			if ($page.route.id?.includes('home')) {
+				if (scrollY >= 200) {
+					if (nav.classList.contains('hero-nav')) {
+						nav.classList.remove('hero-nav');
 
-		if ($page.route.id?.includes('home')) {
-			if (scrollY >= 500) {
-				nav?.classList.remove('hero-nav');
-			} else {
-				nav?.classList.add('hero-nav');
+						// Give time for nav to transition, then add sticky class
+						setTimeout(() => {
+							nav.classList.add('sticky');
+						}, 550);
+					}
+				} else {
+					nav.classList.add('hero-nav');
+					nav.classList.remove('sticky');
+					showNavLogo.set(false);
+				}
 			}
-		} else {
-			// if scrolling down
-			if (prevScrollY - scrollY < 0 && scrollY > 30) {
-				nav?.classList.add('hide-nav');
-			} else {
-				nav?.classList.remove('hide-nav');
+
+			if (top === 0) {
+				nav.classList.add('nav-shadow');
+				showNavLogo.set(true);
+				if (prevScrollY - scrollY < 0 && !nav.classList.contains('hero-nav')) {
+					nav.classList.add('hide-nav');
+				} else {
+					nav.classList.remove('hide-nav');
+				}
+			} else if (top > 0) nav.classList.remove('nav-shadow');
+			else {
+				if (prevScrollY - scrollY < 0 && !nav.classList.contains('hero-nav')) {
+					nav.classList.add('hide-nav');
+				} else {
+					nav.classList.remove('hide-nav');
+				}
 			}
+
+			// if (!nav.classList.contains('hero-nav') && scrollY > 150) {
+			// 	// if scrolling down
+
 			prevScrollY = scrollY;
-			if (scrollY <= 40) nav?.classList.remove('nav-shadow');
-			else if (scrollY > 40) nav?.classList.add('nav-shadow');
+
+			// }
 		}
 	};
 
@@ -203,14 +225,6 @@
 		cursor: pointer;
 		transition: color ease-in-out 0.2s;
 	}
-	/* .menu-btn-active::after {
-		position: absolute;
-		content: '';
-		width: 100%;
-		top: 1.3rem;
-		left: 0;
-		border-bottom: solid 0.1rem var(--clr-a);
-	} */
 	.search-btn {
 		all: unset;
 		margin-left: auto;
@@ -219,7 +233,6 @@
 		font-weight: 600;
 		cursor: pointer;
 	}
-
 	.nav-menu-container {
 		position: fixed;
 		top: 0;

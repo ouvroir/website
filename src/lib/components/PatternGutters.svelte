@@ -1,25 +1,25 @@
-<script>
+<script lang="ts">
 	export let className = '';
 	export let contrast = false;
+	export let direction: 'left' | 'right' = 'left';
+
+	const direcClass = direction === 'left' ? 'left-gutter' : 'right-gutter';
 </script>
 
-<div class={`pattern-container ${className}`}>
+<div class={`pattern-container ${className} ${direcClass}`}>
 	<div class={`pattern ${contrast ? 'contrast' : ''}`}></div>
-	<div class="gradient-overlay"></div>
+	<!-- <div class="gradient-overlay"></div> -->
 </div>
 
 <style>
 	.pattern-container {
-		position: relative;
+		position: absolute;
 		top: 0;
 		left: 0;
 		width: 100%;
 		height: 100%;
-		overflow: hidden;
-
-		border-bottom-left-radius: 30px;
-		/* border-top-left-radius: 30px; */
 	}
+
 	.pattern {
 		width: 100%;
 		height: 100%;
@@ -35,6 +35,8 @@
 			var(--g1),
 			var(--g1) calc(var(--s) / 2) var(--s) var(--c2);
 		background-size: var(--s) calc(2 * var(--s));
+
+		border-radius: var(--pattern-bradius);
 	}
 	.gradient-overlay {
 		position: absolute;

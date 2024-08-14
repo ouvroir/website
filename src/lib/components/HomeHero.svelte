@@ -17,8 +17,8 @@
 		<div class="title-container">
 			<div class="logo-ouvroir"></div>
 			<div>
-				<h1>Laboratoire Ouvroir</h1>
-				<h2 class="subtitle">d’histoire de l’art et de muséologie numériques</h2>
+				<h1>Ouvroir</h1>
+				<h2 class="subtitle">d’histoire de l’art <br /> et de muséologie numériques</h2>
 			</div>
 		</div>
 		<article bind:this={presentationElt} class="presentation" out:fade={{ duration: 500 }}>
@@ -50,6 +50,7 @@
 
 	.presentation-wrapper {
 		--radius: 40px;
+
 		position: relative;
 		grid-column: full;
 		display: grid;
@@ -61,13 +62,14 @@
 		border-bottom-left-radius: var(--radius);
 		border-top-right-radius: var(--radius);
 		min-height: 100vh;
+		margin-bottom: var(--hero-margin-bottom);
 
-		box-shadow: 20px 10px 1rem rgba(0, 0, 0, 0.2);
+		box-shadow: 2px 2px 2rem var(--clr-b);
 	}
 
 	.presentation {
 		grid-column: content;
-		width: 70ch;
+		width: 80ch;
 		& > p {
 			font-size: 1.2rem;
 			font-weight: 400;
@@ -85,16 +87,20 @@
 	}
 
 	.title-container h1 {
-		font-size: 4rem;
-		font-weight: 800;
-		margin-bottom: 1rem;
+		font-family: var(--ff-logo) !important;
+		letter-spacing: 0.4rem;
+		font-size: 6rem;
+		font-weight: 700;
+		margin-bottom: 0.6rem;
 	}
 
 	.subtitle {
-		font-size: 2rem;
-		font-weight: 300;
+		width: 50ch;
+		font-size: 3rem;
 		font-weight: 200;
+		font-weight: 300;
 		margin-bottom: 3rem;
+		line-height: 4rem;
 	}
 
 	.logos {
