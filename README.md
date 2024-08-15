@@ -5,9 +5,7 @@
 ```bash
 git clone https://github.com/ouvroir/website.git && cd website/
 
-git git submodule update --init --recursive
-
-./copyAssets.sh
+./update_submodules.sh
 
 npm install
 npm run dev
@@ -16,7 +14,7 @@ npm run dev
 ## Build & preview
 
 ```bash
-./copyAssets.sh
+./update_submodules.sh
 
 npm run build
 npm run preview
