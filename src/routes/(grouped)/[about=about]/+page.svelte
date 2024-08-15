@@ -1,14 +1,16 @@
 <script lang="ts">
 	import { t } from '$i18n/i18n';
 	import { aboutPageTitle } from '$lib/stores.js';
-	import {TeamCard} from '$lib/components;
+	import { TeamCard } from '$lib/components';
 	import { members, about } from '$lib/stores.js';
 
-	if(!$members || !$about) throw new Error('No data found');
+	if (!$members || !$about) throw new Error('No data found');
 
 	$: dir = $members.filter((d) => d.meta.status === 'dir_sc');
 	$: membs = $members.filter((d) => d.meta.status === 'member');
-	$: coord = $members.filter((d) => d.meta.status === 'coord').sort((a, b) => a.meta.order! - b.meta.order!)
+	$: coord = $members
+		.filter((d) => d.meta.status === 'coord')
+		.sort((a, b) => a.meta.order! - b.meta.order!);
 
 	$: $aboutPageTitle = $about.meta.title;
 </script>

@@ -3,12 +3,13 @@ import type { Writable, Readable } from "svelte/store";
 import type { Blog, Event, Meeting, Member, Project, Resource, StaticDocument } from "./types";
 import { locale } from '$i18n/i18n'
 import FlexSearch from "flexsearch";
+import { page } from "$app/stores";
 import { SearchIndex } from "./utils/search";
 
-export const showHero = writable(true);
-export const showNavLogo = writable(false);
+export const showHero = derived(page, ($page) => $page.route.id?.includes('home'))
+export const showNavLogo = writable(true);
 
-export const stickyActivated = writable(false);
+export const stickyActivated = writable(true);
 
 export const memberExpaned = writable('');
 

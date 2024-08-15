@@ -21,17 +21,17 @@ const config = {
 			$lib: 'src/lib/*',
 			$i18n: 'src/lib/i18n/*',
 			$components: 'src/lib/components'
-		}
+		},
 	},
 	extensions: ['.svelte', '.md'],
 
-	vitePlugin: {
-		inspector: {
-			toggleKeyCombo: 'meta-shift',
-      		showToggleButton: 'always',
-      		toggleButtonPos: 'bottom-right'
-		}
-	},
+	// vitePlugin: {
+	// 	inspector: {
+	// 		toggleKeyCombo: 'meta-shift',
+    //   		showToggleButton: 'always',
+    //   		toggleButtonPos: 'bottom-right'
+	// 	}
+	// },
 
 	// Consult https://kit.svelte.dev/docs/integrations#preprocessors
 	// for more information about preprocessors

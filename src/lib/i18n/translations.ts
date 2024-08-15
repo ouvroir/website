@@ -98,6 +98,7 @@ const translations: { [locale: string]: { [path: string]: string } } = {
         // Projects 
         'projects.cieco.title': 'CIÉCO deliverables',
         'projects.rd.title': 'Research and development',
+        'projects.infos.description': 'description',
         'projects.infos.started': 'started',
         'projects.infos.status': 'status',
         'projects.infos.status.ongoing': 'ongoing',
@@ -247,6 +248,7 @@ const translations: { [locale: string]: { [path: string]: string } } = {
         // Projects 
         'projects.cieco.title': 'Livrables CIÉCO',
         'projects.rd.title': 'Recherches et développements',
+        'projects.infos.description': 'description',
         'projects.infos.started': 'début',
         'projects.infos.status': 'statut',
         'projects.infos.status.ongoing': 'en cours',

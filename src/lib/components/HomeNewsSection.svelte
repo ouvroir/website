@@ -3,7 +3,7 @@
 	import { events, blogs, projects, resources } from '$lib/stores';
 	import type { Blog, Event, Resource } from '$lib/types';
 	import { getDateFromContent } from '$lib/utils/helpers';
-	import { HomeNewsItem } from '$lib/components';
+	import { HomeNewsCard } from '$lib/components';
 	import Pattern from './Patterns.svelte';
 	import PatternGutters from './PatternGutters.svelte';
 
@@ -21,7 +21,7 @@
 <section class="news-section-wrapper">
 	<ul class="news-container">
 		{#each news as content}
-			<HomeNewsItem {content} />
+			<HomeNewsCard {content} />
 		{/each}
 	</ul>
 	<div class="section-title">

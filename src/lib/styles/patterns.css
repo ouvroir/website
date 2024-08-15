@@ -1,0 +1,54 @@
+.pattern-1 {
+	--_g: var(--c1) 0% 5%, var(--c2) 6% 15%, var(--c1) 16% 25%, var(--c2) 26% 35%, var(--c1) 36% 45%,
+		var(--c2) 46% 55%, var(--c1) 56% 65%, var(--c2) 66% 75%, var(--c1) 76% 85%, var(--c2) 86% 95%,
+		#0000 96%;
+	background:
+		radial-gradient(50% 50% at 100% 0, var(--_g)),
+		radial-gradient(50% 50% at 0 100%, var(--_g)),
+		radial-gradient(50% 50%, var(--_g)),
+		radial-gradient(50% 50%, var(--_g)) calc(var(--s) / 2) calc(var(--s) / 2) var(--c1);
+	background-size: var(--s) var(--s);
+}
+
+.pattern-2 {
+	--g1: conic-gradient(from -45deg at 60%, #0000 75%, var(--c1) 0);
+	--g2: conic-gradient(from -45deg at 30%, #0000 75%, var(--c2) 0);
+	background:
+		var(--g2) calc(var(--s) / 8) 0,
+		var(--g2) calc(5 * var(--s) / 8) var(--s),
+		var(--g1),
+		var(--g1) calc(var(--s) / 2) var(--s) var(--c2);
+	background-size: var(--s) calc(2 * var(--s));
+}
+
+.pattern-3 {
+	background: linear-gradient(-26.56deg, var(--c1) 33%, var(--c2) 33.3% 66.6%, var(--c1) 67%) 0 /
+		var(--s) var(--s);
+}
+
+/* HELPERS */
+
+.patterns-contrast-1 {
+	--c1: var(--clr-a);
+	--c2: var(--clr-b);
+}
+.patterns-contrast-2 {
+	--c1: var(--clr-b);
+	--c2: var(--clr-a);
+}
+
+.patterns-size-xs {
+	--s: 7px;
+}
+.patterns-size-s {
+	--s: 20px;
+}
+.patterns-size-m {
+	--s: 40px;
+}
+.patterns-size-l {
+	--s: 100px;
+}
+.patterns-size-xl {
+	--s: 200px;
+}

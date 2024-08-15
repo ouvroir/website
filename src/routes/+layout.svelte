@@ -5,6 +5,7 @@
 	import { get, type Readable } from 'svelte/store';
 	import '$lib/styles/reset.css';
 	import '$lib/styles/style.css';
+	import '$lib/styles/patterns.css';
 	import * as stores from '$lib/stores.js';
 	import { searchModalOpen, screenType, showHero, screenWidth, presentation } from '$lib/stores.js';
 	import { onMount } from 'svelte';
@@ -26,12 +27,6 @@
 	}
 
 	let offsetHeight: number;
-
-	if ($page.route.id && $page.route.id.includes('home')) {
-		stores.showHero.set(true);
-	} else {
-		stores.showHero.set(false);
-	}
 
 	$: addGap = $page && $page.route.id === '/[news=news]';
 

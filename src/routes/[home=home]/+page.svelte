@@ -2,20 +2,19 @@
 	import { t, dateToLocalizedString } from '$i18n/i18n';
 	import { fade } from 'svelte/transition';
 	import { screenType } from '$lib/stores';
-	import { Vr, Venn, Calendar, HomeListItem, HomeNewsSection } from '$lib/components';
+	import {
+		Vr,
+		Venn,
+		Calendar,
+		HomeNewsSection,
+		HomeCarousel,
+		HomeProjectsSection
+	} from '$lib/components';
 	import { events, blogs, projects, resources } from '$lib/stores';
 	import { getDateFromContent } from '$lib/utils/helpers';
-	import type { Blog, Event, Resource } from '$lib/types';
 
 	if (!events || !blogs || !projects) throw new Error('No data found');
 
-	$: news = [...$events, ...$blogs, ...$resources]
-		.sort((a, b) => {
-			const aDate = getDateFromContent(a),
-				bDate = getDateFromContent(b);
-			return bDate.getTime() - aDate.getTime();
-		})
-		.slice(0, 6);
 	$: smallScreen = $screenType === 'mobile' || $screenType === 'tablet-vertical';
 </script>
 
@@ -24,6 +23,10 @@
 </svelte:head>
 
 <HomeNewsSection />
+
+<HomeCarousel />
+
+<HomeProjectsSection />
 
 <!-- <section class="section-wrapper" in:fade={{ delay: 500, duration: 1000 }}>
 	<header class="section-header">

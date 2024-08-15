@@ -26,10 +26,12 @@
 <style>
 	a {
 		grid-column: span 2;
+		display: flex;
+		flex-direction: row;
+		align-items: center;
 	}
 	svg {
-		padding-top: 0.5rem;
-		width: 13rem;
+		width: 12.5rem;
 		position: relative;
 	}
 	.hidden {

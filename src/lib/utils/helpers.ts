@@ -37,3 +37,25 @@ export function getDateFromContent(content: Blog | Event | Resource): Date {
             return new Date();
     }
 };
+
+export function getFirstParagraph(html: string) {
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(html, 'text/html');
+
+    console.log(doc.querySelector('p'));
+    return doc.querySelector('p');
+}
+
+export function getH1fromHTML(html: string): { heading: string; doc: string } | null {
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(html, 'text/html');
+    const heading = doc.querySelector('h1');
+    let res
+    if (heading) {
+        heading.remove();
+        res = { heading: heading.innerHTML, doc: doc.body.innerHTML };
+    } else {
+        res = { heading: 'undefined', doc: 'undefined' };
+    }
+    return res
+}

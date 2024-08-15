@@ -2,42 +2,44 @@
 	import { base } from '$app/paths';
 	import { dev } from '$app/environment';
 	import { page } from '$app/stores';
-	import { t } from '$lib/i18n/i18n.js';
+	import { dateToLocalizedString, t } from '$lib/i18n/i18n.js';
 	import { projects } from '$lib/stores';
+	import { getH1fromHTML } from '$lib/utils/helpers';
+	import { browser } from '$app/environment';
+	import { getRandomPattern } from '$lib/utils/random';
 
 	const devImgPath = '../src/lib/labouvroir/projets/images/';
 	const prodImgPath = `${base}/images/projets/`;
 
-	$: project = $projects.find((p) => p.meta.slug === $page.params.slug)!;
+	const project = $projects.find((p) => p.meta.slug === $page.params.slug)!;
 </script>
 
 <svelte:head>
 	<title>{project.meta.title}</title>
 </svelte:head>
 
-<article>
-	<header>
-		<h1>{project.meta.title}</h1>
-
-		<div class="meta">
+{#if browser}
+	<article>
+		<header class={`${getRandomPattern()} patterns-contrast-1 patterns-size-s`}>
+			<div class="title-container">
+				<h1>{@html getH1fromHTML(project.html).heading}</h1>
+			</div>
+		</header>
+		<section class="meta">
 			<ul class="tags">
 				{#each project.meta.tags as t}
 					<li>{t}</li>
 				{/each}
 			</ul>
-			{#if project.meta.pageImage}
-				<img
-					src={`${dev ? devImgPath : prodImgPath}${project.meta.pageImage}`}
-					alt={`${$t('project.img.alt')} ${project.meta.title}`}
-				/>
-			{:else}
-				<div class="empty-img"></div>
-			{/if}
-			<p class="project-description">{project.meta?.description}</p>
+
 			<div class="infos">
 				<div class="info">
+					<span>{$t('projects.infos.description')}</span>
+					<p>{project.meta?.description}</p>
+				</div>
+				<div class="info">
 					<span>{$t('projects.infos.started')}</span>
-					<p>{project.meta?.since}</p>
+					<p>{$dateToLocalizedString(project.meta?.since)}</p>
 				</div>
 				<div class="info">
 					<span>{$t('projects.infos.status')}</span>
@@ -56,24 +58,53 @@
 					</ul>
 				</div>
 			</div>
-		</div>
-	</header>
-	<div class="text-body">
-		{@html project.html}
-	</div>
-</article>
+		</section>
+		<section class="text-body">
+			{@html getH1fromHTML(project.html).doc}
+		</section>
+	</article>
+{/if}
 
 <style>
-	article,
-	header {
-		display: contents;
+	article {
+		margin-top: 5rem;
+		grid-column: full;
+		display: grid;
+		grid-template-columns: subgrid;
 	}
-	h1 {
-		grid-column: 1/-1;
-		font-size: var(--fs-title);
-		margin-bottom: 3rem;
-		max-inline-size: 25ch;
-		line-height: 3.3rem;
+	header {
+		grid-column: content-start / full-end;
+		display: grid;
+		grid-template-columns: subgrid;
+		height: 9rem;
+		width: 100%;
+		align-items: center;
+		margin-bottom: 4rem;
+
+		border-top-left-radius: 25px;
+
+		box-shadow: 2px 2px 1rem -3px var(--clr-b);
+
+		& .title-container {
+			grid-column: content-start / full;
+			height: 100%;
+			width: 100%;
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+		}
+
+		& h1 {
+			height: fit-content;
+			color: var(--clr-b);
+			grid-column: content;
+			font-size: var(--fs-700);
+			line-height: 3.3rem;
+			font-weight: 700;
+			background-color: var(--clr-a);
+			margin-left: 2rem;
+			padding: 0.5rem 1.5rem;
+		}
 	}
 
 	img {
@@ -87,23 +118,18 @@
 		}
 	}
 
-	div.empty-img {
-		height: 15rem;
-		background-color: var(--clr-accent-light);
+	.meta {
+		grid-column: feature-start / content-start;
+		max-width: 90%;
+		color: var(--clr-b);
 	}
 
-	.meta {
-		grid-column: span 4;
-		max-width: 90%;
+	.meta .project-description {
+		line-height: 1.5rem;
 	}
 
 	.meta > * + * {
-		margin-top: 1.3rem;
-	}
-
-	.text-body {
-		grid-column: 5/-1;
-		padding-right: 1rem;
+		margin-top: 1.5rem;
 	}
 
 	.team-members {
@@ -118,16 +144,15 @@
 
 	.infos {
 		display: flex;
-		flex-direction: row;
-		gap: 2rem;
+		flex-direction: column;
+		gap: 3rem;
 		flex-wrap: wrap;
 		row-gap: 1rem;
 	}
 	span {
 		display: block;
-		font-family: var(--ff-mono);
-		color: red;
-		font-weight: 300;
+		color: var(--clr-b);
+		font-weight: 200;
 		margin-bottom: 0.6rem;
 		font-size: 0.9rem;
 	}
