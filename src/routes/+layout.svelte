@@ -31,7 +31,7 @@
 
 	let offsetHeight: number;
 
-	if ($page.route.id && ($page.route.id.includes('home') || $page.route.id.includes('news'))) {
+	if ($page.route.id && $page.route.id.includes('home')) {
 		stores.showHero.set(true);
 	} else {
 		stores.showHero.set(false);

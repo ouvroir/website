@@ -1,131 +1,87 @@
 <script lang="ts">
 	import { fade } from 'svelte/transition';
-	import CiecoWhite from './logos/CiecoWhite.svelte';
-	import OuvroirPres from './logos/OuvroirPres.svelte';
 	import Patterns from './Patterns.svelte';
-	import Udem from './logos/Udem.svelte';
-	import CrihnLogo from './logos/CrihnLogo.svelte';
 	import { presentation } from '$lib/stores';
 
-	let presentationElt: HTMLElement;
 	if (!$presentation) throw new Error('No presentation data found');
 </script>
 
-<section class="presentation-wrapper fill-vh" id="presentation">
+<section class="hero-container" id="presentation">
 	<Patterns className="left-feature" />
-	<div class="presentation">
-		<div class="title-container">
-			<div class="logo-ouvroir"></div>
+	<div class="hero">
+		<div class="hero-header">
 			<div>
-				<h1>Ouvroir</h1>
+				<h1 class="title">Ouvroir</h1>
 				<h2 class="subtitle">d’histoire de l’art <br /> et de muséologie numériques</h2>
 			</div>
 		</div>
-		<article bind:this={presentationElt} class="presentation" out:fade={{ duration: 500 }}>
+		<article class="hero-content" out:fade={{ duration: 500 }}>
 			{@html $presentation.html}
 		</article>
-		<!-- <div class="logos">
-			<div class="cieco">
-				<CiecoWhite />
-			</div>
-			<div class="crihn">
-				<CrihnLogo color="white" />
-			</div>
-			<Udem width="17rem" fontColor="white" />
-		</div> -->
 	</div>
 </section>
 
 <style>
-	.logo-ouvroir {
-		all: unset;
-		display: block;
-		position: relative;
-		/* left: 2rem; */
-		top: 1rem;
-		width: 8rem;
-	}
-
-	/** Presentation */
-
-	.presentation-wrapper {
+	.hero-container {
 		--radius: 40px;
 
+		min-height: 100vh;
 		position: relative;
 		grid-column: full;
-		display: grid;
 		align-items: center;
+		display: grid;
 		grid-template-columns: subgrid;
-		background-color: var(--clr-b);
 		color: var(--clr-a);
+		background-color: var(--clr-b);
 		/* border-radius: 30px; */
 		border-bottom-left-radius: var(--radius);
 		border-top-right-radius: var(--radius);
-		min-height: 100vh;
 		margin-bottom: var(--hero-margin-bottom);
 
 		box-shadow: 2px 2px 2rem var(--clr-b);
 	}
 
-	.presentation {
-		grid-column: content;
+	.hero {
+		grid-column: content-start / full-end;
+		/* padding-bottom: 2rem; */
+	}
+
+	.hero-header {
+		font-family: var(--ff-logo) !important;
+		& h1 {
+			letter-spacing: 0.4rem;
+			font-size: 6rem;
+			font-weight: 700;
+			margin-bottom: 0.2rem;
+		}
+
+		& .subtitle {
+			font-size: 3rem;
+			font-weight: 300;
+			margin-bottom: 1.5rem;
+			line-height: 3.5rem;
+			margin-left: 0.5rem;
+		}
+	}
+	.hero-content {
 		width: 80ch;
+		margin-left: 0.5rem;
+		/* padding-bottom: 2rem; */
+
 		& > p {
 			font-size: 1.2rem;
 			font-weight: 400;
 			line-height: 1.8rem;
 		}
 
+		& > p + p {
+			margin-top: 1rem;
+		}
+
 		& a {
 			color: var(--clr-a);
-			text-decoration: underline 0.15rem var(--clr-a);
+			text-decoration: underline 0.2rem var(--clr-a);
 		}
-	}
-
-	article {
-		width: 140ch;
-	}
-
-	.title-container h1 {
-		font-family: var(--ff-logo) !important;
-		letter-spacing: 0.4rem;
-		font-size: 6rem;
-		font-weight: 700;
-		margin-bottom: 0.6rem;
-	}
-
-	.subtitle {
-		width: 50ch;
-		font-size: 3rem;
-		font-weight: 200;
-		font-weight: 300;
-		margin-bottom: 3rem;
-		line-height: 4rem;
-	}
-
-	.logos {
-		grid-column: 4/-1;
-		display: flex;
-		flex-direction: row;
-		align-items: center;
-		gap: 3rem;
-		/* max-width: 5rem; */
-		padding-top: 3rem;
-	}
-
-	.cieco {
-		position: static;
-		width: 8rem;
-		top: 35%;
-		right: 14%;
-		fill: white !important;
-	}
-	.crihn {
-		position: static;
-		width: 12rem;
-		top: 35%;
-		right: 14%;
-		fill: white !important;
 	}
 
 	@media screen and (max-width: 1100px) {
@@ -138,14 +94,7 @@
 			margin-bottom: 0;
 		}
 
-		.cieco {
-			position: static;
-			float: left;
-			margin-top: 2rem;
-			margin-right: 2rem;
-			width: 10rem;
-		}
-		.title-container {
+		.hero-header {
 			margin-bottom: 3rem;
 			grid-column: 2/8;
 		}
@@ -162,7 +111,7 @@
 	}
 
 	@media screen and (max-width: 480px) {
-		.title-container {
+		.hero-header {
 			flex-direction: column;
 		}
 		.subtitle {

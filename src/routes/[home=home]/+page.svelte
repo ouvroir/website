@@ -30,10 +30,10 @@
 
 <HomeNewsSection />
 
-<section class="section-wrapper" in:fade={{ delay: 500, duration: 1000 }}>
+<!-- <section class="section-wrapper" in:fade={{ delay: 500, duration: 1000 }}>
 	<header class="section-header">
 		<h1 class="section-title">{$t('home.projects.title')}</h1>
-		<!-- <div class="header-separator" /> -->
+		<!-- <div class="header-separator" />
 		<a href={$t('route.projects')}>{$t('home.projects.all')}</a>
 	</header>
 
@@ -52,7 +52,7 @@
 			</HomeListItem>
 		{/each}
 	</ul>
-</section>
+</section> -->
 
 <!-- <div class="separator" /> -->
 

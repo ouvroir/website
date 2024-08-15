@@ -28,8 +28,8 @@
 
     --clr-b: color(display-p3 0.99115 0.43742 0.38873);
     --clr-a: black;
-    --clr-b: #d105ea;
-    --clr-a: #bcfe94;
+    /* --clr-b: #d105ea;
+    --clr-a: #bcfe94; */
     /* --clr-a: hsl(307.47 98.381% 13.743%);
     --clr-b: hsl(89.3 9.2694% 83.002%); */
 
@@ -59,12 +59,7 @@ strong {
 
 html,
 body {
-    /* overflow-x: hidden; */
     min-height: 100%;
-    min-width: 100%;
-    width: 100%;
-    /* overflow: hidden; */
-    font-family: var(--ff-sans);
     background-color: var(--clr-a);
 }
 
@@ -84,6 +79,8 @@ body {
       var(--popout) [popout-end]
       var(--feature) [feature-end]
       var(--full) [full-end];
+
+    font-family: var(--ff-sans);
 }
 
 main {
@@ -131,6 +128,10 @@ nav {
             background-color: var(--cb);
         }
 
+        & input::placeholder {
+            color: var(--cb);
+        }
+
         & #search-icon {
             color: var(--cb);
         }
@@ -142,7 +143,7 @@ nav {
     --cb: var(--clr-b);
 
     position: relative;
-    top: calc(var(--nav-height) * -1 - var(--hero-margin-bottom) - 1vh);
+    top: calc(var(--nav-height) * -1 - var(--hero-margin-bottom) - 2vh);
     background-color: transparent;
     transition: all 0.5s ease-in-out, background-color 0ms;
 }
