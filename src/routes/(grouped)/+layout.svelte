@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import { screenType, aboutPageTitle } from '$lib/stores.js';
-	import Tree from '$lib/components/Tree.svelte';
+	import { Tree } from '$lib/components';
 
 	$: smallScreen = $screenType === 'mobile' || $screenType === 'tablet-vertical';
 	// $: section = $page.route.id?.match(/\/\[(\w+)=\1\]/)?.[1];

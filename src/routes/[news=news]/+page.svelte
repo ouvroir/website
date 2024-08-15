@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { t } from '$lib/i18n/i18n';
-	import FilterPanel from '$lib/components/FilterPanel.svelte';
-	import NewsCard from '$lib/components/NewsCard.svelte';
+	import { FilterPanel, NewsCard } from '$lib/components';
 	import { onMount, setContext } from 'svelte';
 	import { derived, writable } from 'svelte/store';
 	import { building } from '$app/environment';

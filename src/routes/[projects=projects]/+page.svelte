@@ -1,9 +1,8 @@
 <script lang="ts">
-	import ProjectLItem from '$lib/components/ProjectLItem.svelte';
-	import FilterPanel from '$lib/components/FilterPanel.svelte';
 	import { t } from '$i18n/i18n';
 	import { writable } from 'svelte/store';
 	import { projects } from '$lib/stores';
+	import { ProjectLItem, FilterPanel } from '$lib/components';
 	import { getTagsfromContent, contentHasTags } from '$lib/utils/helpers';
 	import { setContext } from 'svelte';
 

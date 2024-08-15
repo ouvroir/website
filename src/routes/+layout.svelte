@@ -1,9 +1,5 @@
 <script lang="ts">
-	import Nav from '$components/Nav.svelte';
-	import Support from '$components/Support.svelte';
-	import Footer from '$components/Footer.svelte';
-	import HomeHero from '$lib/components/HomeHero.svelte';
-	import SearchModal from '$lib/components/searchModal.svelte';
+	import { Nav, HomeHero, SearchModal, Footer, Support } from '$lib/components';
 	import { page } from '$app/stores';
 	import { t } from '$lib/i18n/i18n';
 	import { get, type Readable } from 'svelte/store';

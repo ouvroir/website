@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { t } from '$i18n/i18n';
 	import { aboutPageTitle } from '$lib/stores.js';
-	import TeamCard from '$lib/components/TeamCard.svelte';
+	import {TeamCard} from '$lib/components;
 	import { members, about } from '$lib/stores.js';
 
 	if(!$members || !$about) throw new Error('No data found');

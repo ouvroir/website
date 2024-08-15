@@ -3,7 +3,7 @@
 	import { events, blogs, projects, resources } from '$lib/stores';
 	import type { Blog, Event, Resource } from '$lib/types';
 	import { getDateFromContent } from '$lib/utils/helpers';
-	import HomeNewsItem from '$lib/components/HomeNewsItem.svelte';
+	import { HomeNewsItem } from '$lib/components';
 	import Pattern from './Patterns.svelte';
 	import PatternGutters from './PatternGutters.svelte';
 

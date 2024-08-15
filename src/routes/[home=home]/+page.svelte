@@ -2,12 +2,7 @@
 	import { t, dateToLocalizedString } from '$i18n/i18n';
 	import { fade } from 'svelte/transition';
 	import { screenType } from '$lib/stores';
-	import Vr from '$lib/components/logos/Vr.svelte';
-	import Venn from '$lib/components/logos/Venn.svelte';
-	import Calendar from '$lib/components/logos/Calendar.svelte';
-	import Carousel from '$lib/components/Carousel.svelte';
-	import HomeListItem from '$lib/components/HomeListItem.svelte';
-	import HomeNewsSection from '$lib/components/HomeNewsSection.svelte';
+	import { Vr, Venn, Calendar, HomeListItem, HomeNewsSection } from '$lib/components';
 	import { events, blogs, projects, resources } from '$lib/stores';
 	import { getDateFromContent } from '$lib/utils/helpers';
 	import type { Blog, Event, Resource } from '$lib/types';

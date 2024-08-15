@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { t, dateToLocalizedString, locale } from '$lib/i18n/i18n.js';
-	import Tree from '$lib/components/Tree.svelte';
+	import { Tree } from '$lib/components';
 	import type { Readable } from 'svelte/motion';
 	import { page } from '$app/stores';
 	import { get } from 'svelte/store';
