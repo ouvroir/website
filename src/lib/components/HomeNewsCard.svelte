@@ -73,7 +73,7 @@
 	}
 
 	h1 {
-		font-size: 1.7rem;
+		font-size: var(--fs-400);
 		line-height: 2rem;
 		font-weight: 300;
 
@@ -99,7 +99,7 @@
 	}
 
 	.description {
-		font-size: 1rem;
+		font-size: var(--fs-200);
 		font-weight: 400;
 		line-height: 1.5rem;
 	}
