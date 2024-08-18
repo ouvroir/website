@@ -5,6 +5,8 @@
 ```bash
 git clone https://github.com/ouvroir/website.git && cd website/
 
+git git submodule update --init --recursive
+
 ./update_submodules.sh
 
 npm install
