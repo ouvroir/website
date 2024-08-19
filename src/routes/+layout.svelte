@@ -54,6 +54,13 @@
 				stores.services.localize(lang),
 				...get(stores.meetings)
 			]);
+
+			get(stores.members).forEach((m) => {
+				get(stores.membersHash).push({
+					username: m.meta.username,
+					name: `${m.meta.firstname} ${m.meta.lastname}`
+				});
+			});
 		});
 
 		return () => {

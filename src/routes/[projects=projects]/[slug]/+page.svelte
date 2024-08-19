@@ -1,12 +1,14 @@
 <script lang="ts">
 	import { base } from '$app/paths';
-	import { dev } from '$app/environment';
 	import { page } from '$app/stores';
-	import { dateToLocalizedString, t } from '$lib/i18n/i18n.js';
-	import { projects } from '$lib/stores';
+	import { dateToLocalizedString, t } from '$i18n/i18n';
+	import { projects, membersHash } from '$lib/stores';
 	import { getH1fromHTML } from '$lib/utils/helpers';
 	import { browser } from '$app/environment';
 	import { getRandomPattern } from '$lib/utils/random';
+	import { MemberLink } from '$components';
+
+	console.log($membersHash);
 
 	const devImgPath = '../src/lib/labouvroir/projets/images/';
 	const prodImgPath = `${base}/images/projets/`;
@@ -26,16 +28,18 @@
 			</div>
 		</header>
 		<section class="meta">
-			<ul class="tags">
-				{#each project.meta.tags as t}
-					<li>{t}</li>
-				{/each}
-			</ul>
-
 			<div class="infos">
 				<div class="info">
 					<span>{$t('projects.infos.description')}</span>
 					<p>{project.meta?.description}</p>
+				</div>
+				<div class="info">
+					<span>{$t('projects.infos.team')}</span>
+					<ul class="team-members">
+						{#each project.meta.team as t}
+							<MemberLink username={t} />
+						{/each}
+					</ul>
 				</div>
 				<div class="info">
 					<span>{$t('projects.infos.started')}</span>
@@ -50,9 +54,9 @@
 					<p>{project.meta?.lead}</p>
 				</div>
 				<div class="info">
-					<span>{$t('projects.infos.team')}</span>
-					<ul class="team-members">
-						{#each project.meta.team as t}
+					<span>tags</span>
+					<ul class="tags">
+						{#each project.meta.tags as t}
 							<li>{t}</li>
 						{/each}
 					</ul>
@@ -73,10 +77,10 @@
 		grid-template-columns: subgrid;
 	}
 	header {
-		grid-column: content-start / full-end;
+		grid-column: popout-start / full-end;
 		display: grid;
 		grid-template-columns: subgrid;
-		height: 9rem;
+		height: 13rem;
 		width: 100%;
 		align-items: center;
 		margin-bottom: 4rem;
@@ -102,7 +106,6 @@
 			line-height: 3.3rem;
 			font-weight: 700;
 			background-color: var(--clr-a);
-			margin-left: 2rem;
 			padding: 0.5rem 1.5rem;
 		}
 	}

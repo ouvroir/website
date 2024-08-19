@@ -102,3 +102,5 @@ export const searchIndex = derived(locale, ($locale) => {
     return $locale === 'en' ? get(enSearchIndex) : get(frSearchIndex);
 })
 export const searchModalOpen = writable(false);
+
+export const membersHash = writable([]) as Writable<{ username: string, name: string }[]>

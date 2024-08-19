@@ -96,7 +96,7 @@ nav {
 
 	position: relative;
 	height: var(--nav-height);
-	top: 0rem;
+	top: 0;
 	content: '';
 	grid-column: full;
 	display: grid;
@@ -262,7 +262,7 @@ nav {
 	display: flex;
 	gap: 1rem;
 	margin-top: 0.9rem;
-	font-weight: 700;
+	font-weight: 400;
 }
 
 .text-body {

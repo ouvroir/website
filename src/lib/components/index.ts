@@ -12,6 +12,7 @@ export { default as Ouvroir } from "./Ouvroir.svelte";
 export { default as PatternGutters } from "./PatternGutters.svelte";
 export { default as Patterns } from "./Patterns.svelte";
 export { default as ProjectLItem } from "./ProjectLItem.svelte";
+export { default as MemberLink } from './MemberLink.svelte';
 export { default as ResourceCard } from "./ResourceCard.svelte";
 export { default as SearchBar } from "./searchBar.svelte";
 export { default as SearchModal } from "./searchModal.svelte";

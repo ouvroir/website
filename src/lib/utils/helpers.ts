@@ -1,4 +1,7 @@
+import { get } from "svelte/store";
 import type { Blog, Event, Meeting, Member, Project, Resource } from "$lib/types";
+import { membersHash } from '$lib/stores'
+
 
 export function sortContentByDate(a: Blog | Event | Meeting, b: Blog | Event | Meeting) {
     const aDate = new Date(a.meta.kind === 'event' ? a.meta.dateStart : a.meta.date);
@@ -58,4 +61,17 @@ export function getH1fromHTML(html: string): { heading: string; doc: string } | 
         res = { heading: 'undefined', doc: 'undefined' };
     }
     return res
+}
+
+/**
+ * Finds a member from $memberHash
+ */
+export function findMember(username: string): string {
+    const m = get(membersHash).find(m => m.username === username)
+
+    if (!m) {
+        console.warn('[helpers.findMember] No member founds.')
+        return username
+    }
+    return m.name
 }
