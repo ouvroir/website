@@ -110,29 +110,10 @@
 		}
 	}
 
-	img {
-		/* max-height: 18rem; */
-		filter: grayscale();
-		max-width: 100%;
-		transition: filter 0.3s ease-in-out;
-
-		&:hover {
-			filter: none;
-		}
-	}
-
 	.meta {
 		grid-column: feature-start / content-start;
 		max-width: 90%;
 		color: var(--clr-b);
-	}
-
-	.meta .project-description {
-		line-height: 1.5rem;
-	}
-
-	.meta > * + * {
-		margin-top: 1.5rem;
 	}
 
 	.team-members {

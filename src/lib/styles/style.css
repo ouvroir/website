@@ -266,12 +266,14 @@ nav {
 }
 
 .text-body {
-	grid-column: content / popout-end;
+	grid-column: content-start / popout-end;
 	color: var(--clr-b);
+	display: grid;
 }
 
 .text-body > * {
 	font-family: var(--ff-sans);
+	grid-column: content / popout-end;
 }
 
 .text-body h1 {
@@ -381,6 +383,33 @@ nav {
 
 .text-body a:hover {
 	text-decoration: underline 0.05rem var(--clr-accent);
+}
+
+.text-body figure {
+	margin: 1.5rem 0;
+	& img {
+		max-width: 100%;
+		border-radius: var(--border-radius);
+		box-shadow: 5px 5px 1rem var(--clr-b);
+		margin: 1rem 0;
+	}
+
+	&:has(img.popout) {
+		grid-column: popout;
+	}
+	&:has(img.feature) {
+		grid-column: feature;
+	}
+	&:has(img.full-width) {
+		grid-column: full;
+	}
+
+	& figcaption {
+		text-align: center;
+		font-size: var(--fs-200);
+		font-weight: 200;
+		margin-top: 0.7rem;
+	}
 }
 
 .toc-link {

@@ -4,6 +4,10 @@ import markdownit from 'markdown-it';
 import markdownitfm from 'markdown-it-front-matter';
 import frontmatter from 'front-matter';
 import ilcomment from 'markdown-it-inline-comments';
+import { attrs } from "@mdit/plugin-attrs";
+import { figure } from "@mdit/plugin-figure";
+
+
 
 
 import type {
@@ -119,7 +123,11 @@ const parseFrontMatter = (content: string) => {
 };
 
 const parseMarkdown = (content: string) => {
-	const md = markdownit().use(markdownitfm, (fm) => null).use(ilcomment);
+	const md = markdownit()
+		.use(markdownitfm, (fm) => null)
+		.use(ilcomment)
+		.use(figure)
+		.use(attrs);
 	return md.render(content);
 };
 
