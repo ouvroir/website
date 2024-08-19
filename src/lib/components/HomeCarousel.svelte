@@ -25,7 +25,7 @@
 
 <style>
 	:root {
-		--carousel-height: 120vh;
+		--carousel-height: 100vh;
 		--carousel-cb: var(--clr-b);
 		--carousel-ca: var(--clr-a);
 	}
