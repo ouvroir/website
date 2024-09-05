@@ -41,6 +41,21 @@ export function getDateFromContent(content: Blog | Event | Resource): Date {
     }
 };
 
+export function extractContentFromHTML(html: string, pattern: string) {
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(html, 'text/html');
+    const extracted = doc.querySelector(pattern);
+
+    let res
+    if (extracted) {
+        extracted.remove();
+        res = { extracted: extracted.innerHTML, doc: doc.body.innerHTML };
+    } else {
+        res = { extracted: 'undefined', doc: 'undefined' };
+    }
+    return res
+}
+
 export function getFirstParagraph(html: string) {
     const parser = new DOMParser();
     const doc = parser.parseFromString(html, 'text/html');

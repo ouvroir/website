@@ -30,12 +30,12 @@
 	--lh-ratio: 1.5;
 	--lh-ratio-s: 1.3;
 
-	--clr-a: color(display-p3 0.99115 0.43742 0.38873);
-	--clr-b: black;
+	/* --clr-a: color(display-p3 0.99115 0.43742 0.38873);
+	--clr-b: black; */
 	/* --clr-b: #d105ea;
 	--clr-a: #bcfe94; */
-	/* --clr-b: hsl(307.47 98.381% 13.743%);
-	--clr-a: hsl(89.3 9.2694% 83.002%); */
+	--clr-a: hsl(307.47 98.381% 13.743%);
+	--clr-b: hsl(89.3 9.2694% 83.002%);
 
 	/* --clr-a-op: hsl(307.47 98.381% 90.743%);
     --clr-b-op: hsl(94, 15%, 91%); */

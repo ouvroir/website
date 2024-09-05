@@ -94,8 +94,7 @@
 		display: contents;
 	}
 	.text-body {
-		grid-column: 3/7;
-		grid-row: 2/5;
+		grid-column: content;
 		font-size: 1.1rem;
 		/* padding-right: 1rem; */
 	}

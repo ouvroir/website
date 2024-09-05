@@ -3,7 +3,7 @@
 	import { page } from '$app/stores';
 	import { dateToLocalizedString, t } from '$i18n/i18n';
 	import { projects, membersHash } from '$lib/stores';
-	import { getH1fromHTML } from '$lib/utils/helpers';
+	import { getH1fromHTML, extractContentFromHTML } from '$lib/utils/helpers';
 	import { browser } from '$app/environment';
 	import { getRandomPattern } from '$lib/utils/random';
 	import { MemberLink } from '$components';
@@ -24,8 +24,9 @@
 	<article>
 		<header class={`${getRandomPattern()} patterns-contrast-1 patterns-size-s`}>
 			<div class="title-container">
-				<h1>{@html getH1fromHTML(project.html).heading}</h1>
+				<h1>{@html extractContentFromHTML(project.html, 'h1').extracted}</h1>
 			</div>
+			<p class="frist-paragraph">{@html extractContentFromHTML(project.html, 'p').extracted}</p>
 		</header>
 		<section class="meta">
 			<div class="infos">
@@ -71,23 +72,22 @@
 
 <style>
 	article {
-		margin-top: 5rem;
 		grid-column: full;
 		display: grid;
 		grid-template-columns: subgrid;
 	}
 	header {
-		grid-column: popout-start / full-end;
+		--margin-btm: 4rem;
+		grid-column: full;
 		display: grid;
 		grid-template-columns: subgrid;
-		height: 13rem;
-		width: 100%;
 		align-items: center;
-		margin-bottom: 4rem;
+		margin-bottom: var(--margin-btm);
+		padding: var(--margin-btm) 0;
 
-		border-top-left-radius: 25px;
-
-		box-shadow: 2px 2px 1rem -3px var(--clr-b);
+		/* border-bottom-left-radius: var(--border-radius);
+		border-bottom-right-radius: var(--border-radius);
+		box-shadow: 2px 2px 1rem -3px var(--clr-b); */
 
 		& .title-container {
 			grid-column: content-start / full;
@@ -99,14 +99,29 @@
 		}
 
 		& h1 {
-			height: fit-content;
 			color: var(--clr-b);
 			grid-column: content;
 			font-size: var(--fs-700);
 			line-height: 3.3rem;
 			font-weight: 700;
-			background-color: var(--clr-a);
-			padding: 0.5rem 1.5rem;
+		}
+
+		& .frist-paragraph {
+			margin-top: 1rem;
+			font-weight: 500;
+			font-size: var(--fs-300);
+			line-height: var(--body-line-height);
+		}
+
+		& h1,
+		& .frist-paragraph {
+			--padding-v: 1rem;
+			grid-column: content-start / popout-end;
+			background-color: var(--ca);
+			position: relative;
+			left: calc(var(--padding-v) * -1);
+			padding: 0.7rem var(--padding-v);
+			color: var(--cb);
 		}
 	}
 
@@ -131,12 +146,13 @@
 		flex-direction: column;
 		gap: 3rem;
 		flex-wrap: wrap;
-		row-gap: 1rem;
+		row-gap: 2rem;
 	}
 	span {
 		display: block;
 		color: var(--clr-b);
-		font-weight: 200;
+		font-weight: 700;
+		text-transform: uppercase;
 		margin-bottom: 0.6rem;
 		font-size: 0.9rem;
 	}
