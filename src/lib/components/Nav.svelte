@@ -9,6 +9,8 @@
 	import NavLinks from './NavLinks.svelte';
 	import { searchModalOpen } from '$lib/stores';
 
+	export let contrast = false;
+
 	let scrollY: number = 0;
 	let prevScrollY: number = 0;
 
@@ -136,7 +138,10 @@
 <svelte:window on:scroll={handleScroll} bind:scrollY />
 
 {#if !smallScreen}
-	<nav aria-labelledby={`${$t('aria.nav.label')}`} class={`main ${$showHero ? 'hero-nav' : ''}`}>
+	<nav
+		aria-labelledby={`${$t('aria.nav.label')}`}
+		class={`main ${$showHero ? 'hero-nav' : ''} ${contrast ? 'nav-contrast' : ''}`}
+	>
 		<Ouvroir />
 		<div class="full-navigation">
 			<SearchBar />

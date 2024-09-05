@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { t } from '$lib/i18n/i18n';
-	import { FilterPanel, NewsCard } from '$lib/components';
+	import { FilterPanel, NewsCard, GenericCard } from '$lib/components';
 	import { onMount, setContext } from 'svelte';
 	import { derived, writable } from 'svelte/store';
 	import { building } from '$app/environment';
@@ -64,8 +64,11 @@
 </div>
 {#if posts}
 	<ul class="container">
-		{#each posts as post}
-			<NewsCard {post} />
+		{#each posts as content, i}
+			<GenericCard {content} />
+			{#if i !== posts.length - 1}
+				<hr />
+			{/if}
 		{/each}
 		<!-- {#if $selectedDocTypes.includes('meeting')}
 			{#each $meetings as m}
@@ -76,18 +79,26 @@
 {/if}
 
 <style>
+	hr {
+		border: none; /* Remove default border */
+		border-top: 0.5rem solid var(--cb);
+		margin: 2rem 0;
+	}
 	.tags-container {
 		grid-column: span 2;
 	}
 
 	.container {
-		/* margin-top: 1rem; */
-		grid-column: 2/-2;
-		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(15rem, 18rem));
-		grid-auto-flow: dense;
-		gap: 3rem;
-		flex-wrap: wrap;
+		grid-column: feature;
+		columns: 3 25rem;
+		column-gap: 2rem;
+		column-fill: balance;
+		/* column-rule: 0.5rem black solid; */
+		margin-top: 1rem;
+
+		& > li + li {
+			margin-top: 1.5rem;
+		}
 	}
 
 	/** All touch screens */
@@ -100,18 +111,14 @@
 	/** Tablet horizontal */
 	@media screen and (min-width: 821px) and (max-width: 1024px) {
 		.container {
-			grid-column: 1/-1;
-			grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
-
-			/* column-gap: 0; */
+			grid-column: full;
 		}
 	}
 
 	/** Mobile and Tablet vertical */
 	@media screen and (max-width: 820px) {
 		.container {
-			grid-column: 1/-1;
-			grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+			grid-column: full;
 		}
 	}
 </style>

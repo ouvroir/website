@@ -72,15 +72,15 @@
 	<div class="filter-container">
 		<div class="filter-display">
 			<button class="select-btn" id="select-btn" on:click={filterOnClick}>
-				<span>FILTERS</span>
-				<img src={`${base}/logos/circle-plus-solid.svg`} alt="" />
+				FILTERS
+				<i class="bx bx-plus-circle"></i>
 			</button>
 			<ul class="selected-filters">
 				{#each $selectedDocTypes as s}
 					<li class="display-li tag-doc" id={s}>
 						<button on:click={documentOnClick} id={s}>
 							<p>{$t(`card.${s}`)}</p>
-							<img src={`${base}/logos/xmark.svg`} alt="" />
+							<i class="bx bx-x"></i>
 						</button>
 					</li>
 				{/each}
@@ -91,7 +91,7 @@
 					<li class="display-li tag" id={s}>
 						<button on:click={tagOnClick} id={s}>
 							<p>{s}</p>
-							<img src={`${base}/logos/xmark.svg`} alt="" />
+							<i class="bx bx-x"></i>
 						</button>
 					</li>
 				{/each}
@@ -154,19 +154,11 @@
 </section>
 
 <style>
-	h1 {
-		font-weight: 600;
-		margin-bottom: 1rem;
-		border-bottom: solid 0.1rem var(--clr-accent);
-		width: max-content;
-	}
-
 	.filter-panel {
-		grid-column: 2/-2;
-		padding-bottom: var(--filter-margin);
+		grid-column: popout;
+		/* grid-column: feature; */
 		/* border-top: solid 0.5px black; */
-		border-bottom: solid 0.5px rgba(0, 0, 0, 0.254);
-		margin-top: 0.5rem;
+		margin: 5rem 0;
 	}
 
 	.filter-container {
@@ -187,11 +179,11 @@
 		flex-direction: row;
 		align-items: center;
 		padding: 0.6rem 0;
+		font-size: var(--fs-300);
+		font-weight: 700;
 	}
 
-	.select-btn > img {
-		width: 0.8rem;
-		height: 0.8rem;
+	.select-btn > i {
 		margin-left: 0.5rem;
 	}
 	.select-btn:hover {
@@ -224,16 +216,23 @@
 		flex-wrap: wrap;
 		width: max-content;
 		gap: 2rem;
-		background-color: rgb(254, 254, 254);
+		background-color: var(--cb);
+		color: var(--ca);
 		padding: 1.5rem;
-		border: 1px solid #ddd;
+		border-radius: var(--border-radius);
 		box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
 		z-index: 2;
 	}
 
 	.dropdown > * + * {
-		border-left: solid 1px #ddd;
+		/* border-left: solid 1px #ddd; */
 		padding-left: 2rem;
+	}
+
+	.filter-section h1 {
+		font-size: var(--fs-300);
+		font-weight: 600;
+		margin-bottom: 1rem;
 	}
 
 	.dropdown-list {
@@ -246,7 +245,6 @@
 	.dropdown-li {
 		/* text-transform: uppercase; */
 		/* border: solid 0.25rem black; */
-		/* border-color: black; */
 		padding: 0.3rem 1rem 0.3rem 0;
 		width: max-content;
 		/* background-color: rgba(211, 211, 211, 0.3); */
@@ -259,7 +257,6 @@
 		cursor: pointer;
 		border-color: var(--clr-accent);
 		background-color: var(--clr-accent);
-		color: white;
 	}
 
 	.selected-filters {
@@ -272,11 +269,13 @@
 	.display-li {
 		all: unset;
 		height: fit-content;
-		background-color: rgba(137, 43, 226, 0.115);
-		padding: 0.4rem 0.6rem;
+		background-color: var(--clr-b);
+		color: var(--clr-a);
+		padding: 0.6rem 0.8rem;
 		font-size: 0.9rem;
-		font-weight: 300;
+		font-weight: 500;
 		cursor: pointer;
+		border-radius: var(--border-radius);
 	}
 
 	.display-li > button {
@@ -291,13 +290,25 @@
 	}
 
 	.tag {
-		background-color: rgba(211, 211, 211, 0.3);
+		background-color: var(--ca);
+		color: var(--cb);
+		border: solid 0.1rem var(--cb);
 	}
 
 	.separator {
-		border-left: solid 0.1rem rgba(41, 41, 41, 0.2);
+		border-left: solid 0.2rem var(--cb);
 		margin-left: 0.3rem;
 		margin-right: 0.3rem;
+	}
+
+	input {
+		width: 1rem;
+		height: 1rem;
+		background-color: var(--ca); /* Background color for the checkbox */
+		cursor: pointer;
+	}
+	input[type='checkbox']:checked {
+		background-color: var(--cb);
 	}
 
 	input,
@@ -312,13 +323,6 @@
 
 	p {
 		min-width: fit-content;
-	}
-
-	img {
-		width: 0.6rem;
-		height: min-content;
-		display: block;
-		box-sizing: content-box;
 	}
 
 	/** All touch screens */

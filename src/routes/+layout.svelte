@@ -30,6 +30,8 @@
 
 	$: addGap = $page && $page.route.id === '/[news=news]';
 
+	$: isHome = $page && $page.route.id === '/[home=home]';
+
 	const handleKeyDown = (e: KeyboardEvent) => {
 		if (e.key === 'k' && (e.metaKey || e.ctrlKey)) {
 			e.preventDefault();
@@ -77,11 +79,15 @@
 	<SearchModal />
 {/if}
 
-<main class={`content ${addGap ? 'addGap' : ''}`} bind:offsetHeight bind:clientWidth={$screenWidth}>
+<main
+	class={`content ${addGap ? 'addGap' : ''} ${isHome ? 'main-bg-a' : 'main-bg-a'}`}
+	bind:offsetHeight
+	bind:clientWidth={$screenWidth}
+>
 	{#if $showHero}
 		<HomeHero />
 	{/if}
-	<Nav />
+	<Nav contrast={!isHome} />
 	<slot />
 </main>
 
@@ -98,6 +104,12 @@
 {/if} -->
 
 <style>
+	.main-bg-a {
+		background-color: var(--clr-a);
+	}
+	.main-bg-b {
+		background-color: var(--clr-b);
+	}
 	.btt-container {
 		width: 100%;
 		display: flex;

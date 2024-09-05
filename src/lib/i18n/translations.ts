@@ -135,6 +135,10 @@ const translations: { [locale: string]: { [path: string]: string } } = {
         'card.project': 'Project',
         'card.speaker': 'speaker·s',
         'card.resource': 'Resource',
+        'card.publishedOn': 'Published on',
+        'card.updatedOn': 'Updated on',
+        'card.by': 'by',
+        'card.happeningOn': 'Happening on the',
 
         'search.kind.blog': 'Blog post(s)',
         'search.kind.event': 'Event(s)',
@@ -285,6 +289,10 @@ const translations: { [locale: string]: { [path: string]: string } } = {
         'card.project': 'Projet',
         'card.speaker': 'conférencier·ère·s',
         'card.resource': 'Ressource',
+        'card.publishedOn': 'Publié le',
+        'card.updatedOn': 'Mis à jour le',
+        'card.by': 'par',
+        'card.happeningOn': 'À venir, le',
 
 
         // Search
