@@ -8,8 +8,6 @@
 	import { getRandomPattern } from '$lib/utils/random';
 	import { MemberLink } from '$components';
 
-	console.log($membersHash);
-
 	const devImgPath = '../src/lib/labouvroir/projets/images/';
 	const prodImgPath = `${base}/images/projets/`;
 
@@ -22,7 +20,7 @@
 
 {#if browser}
 	<article>
-		<header class={`${getRandomPattern()} patterns-contrast-1 patterns-size-s`}>
+		<header>
 			<div class="title-container">
 				<h1>{@html extractContentFromHTML(project.html, 'h1').extracted}</h1>
 			</div>
@@ -68,9 +66,20 @@
 			{@html getH1fromHTML(project.html).doc}
 		</section>
 	</article>
+	<div class={`content-hero ${getRandomPattern()} patterns-contrast-1 patterns-size-s`}></div>
 {/if}
 
 <style>
+	.content-hero {
+		position: absolute;
+		grid-column: full;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 66vh;
+		z-index: 0;
+	}
+
 	article {
 		grid-column: full;
 		display: grid;
@@ -84,6 +93,7 @@
 		align-items: center;
 		margin-bottom: var(--margin-btm);
 		padding: var(--margin-btm) 0;
+		z-index: 2;
 
 		/* border-bottom-left-radius: var(--border-radius);
 		border-bottom-right-radius: var(--border-radius);
