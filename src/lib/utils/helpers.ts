@@ -41,19 +41,24 @@ export function getDateFromContent(content: Blog | Event | Resource): Date {
     }
 };
 
-export function extractContentFromHTML(html: string, pattern: string) {
+export function extractContentFromHTML(html: string, pattern: string[]) {
     const parser = new DOMParser();
-    const doc = parser.parseFromString(html, 'text/html');
-    const extracted = doc.querySelector(pattern);
 
-    let res
-    if (extracted) {
-        extracted.remove();
-        res = { extracted: extracted.innerHTML, doc: doc.body.innerHTML };
-    } else {
-        res = { extracted: 'undefined', doc: 'undefined' };
+    let doc = parser.parseFromString(html, 'text/html');
+    let extracts: string[] = []
+
+    if (Array.isArray(pattern)) {
+        pattern.forEach(p => {
+            const extracted = doc.querySelector(p);
+            if (extracted) {
+                extracted.remove();
+                extracts.push(extracted.innerHTML);
+            }
+        })
     }
-    return res
+
+    return { extracts, doc: doc.body.innerHTML };
+
 }
 
 export function getFirstParagraph(html: string) {
@@ -64,7 +69,7 @@ export function getFirstParagraph(html: string) {
     return doc.querySelector('p');
 }
 
-export function getH1fromHTML(html: string): { heading: string; doc: string } | null {
+export function getH1fromHTML(html: string): { heading: string; doc: string } {
     const parser = new DOMParser();
     const doc = parser.parseFromString(html, 'text/html');
     const heading = doc.querySelector('h1');

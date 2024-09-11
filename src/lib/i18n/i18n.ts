@@ -14,7 +14,10 @@ export function translate(locale: string, key: string, vars: { [key: string]: st
 
 	// Grab the translation from the translations object
 	let text = translations[locale][key];
-	if (!text) throw new Error(`[error i18n] No translation found for ${locale}.${key}`);
+	if (!text) {
+		console.warn(`[error i18n] No translation found for ${locale}.${key}`)
+		return key.split('.').pop();
+	}
 
 	// Replace variables in the translation string
 	Object.keys(vars).map((k) => {

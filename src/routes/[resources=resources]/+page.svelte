@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { t } from '$lib/i18n/i18n';
-	import { FilterPanel, ResourceCard } from '$lib/components';
+	import { FilterPanel, GenericCard } from '$lib/components';
 	import { onMount, setContext } from 'svelte';
 	import { derived, writable } from 'svelte/store';
 	import { building } from '$app/environment';
@@ -54,8 +54,8 @@
 </div>
 {#if posts}
 	<ul class="container">
-		{#each posts as post}
-			<ResourceCard resource={post} />
+		{#each posts as content}
+			<GenericCard {content} />
 		{/each}
 	</ul>
 {/if}

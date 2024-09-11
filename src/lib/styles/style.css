@@ -10,6 +10,7 @@
 	--ff-accent: var(--ff-mono);
 	--ff-logo: 'Open Sans', sans-serif;
 
+	--fs-100: 0.833rem;
 	--fs-200: 1rem;
 	--fs-300: 1.2rem;
 	--fs-400: 1.728rem;
@@ -30,12 +31,12 @@
 	--lh-ratio: 1.5;
 	--lh-ratio-s: 1.3;
 
-	/* --clr-a: color(display-p3 0.99115 0.43742 0.38873);
-	--clr-b: black; */
+	--clr-a: color(display-p3 0.99115 0.43742 0.38873);
+	--clr-b: black;
 	/* --clr-b: #d105ea;
 	--clr-a: #bcfe94; */
-	--clr-a: hsl(307.47 98.381% 13.743%);
-	--clr-b: hsl(89.3 9.2694% 83.002%);
+	/* --clr-a: hsl(307.47 98.381% 13.743%);
+	--clr-b: hsl(89.3 9.2694% 83.002%); */
 
 	/* --clr-a-op: hsl(307.47 98.381% 90.743%);
     --clr-b-op: hsl(94, 15%, 91%); */
@@ -51,6 +52,8 @@
 
 * {
 	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
 	inline-size: auto;
 	overflow-wrap: break-word;
 }
@@ -160,7 +163,7 @@ nav {
 	--ca: var(--clr-a);
 	--cb: var(--clr-b);
 
-	background-color: hsl(from var(--cb) h s l / 0%);
+	background-color: hsl(from var(--cb) h s l / 100%);
 	z-index: 2;
 }
 
@@ -190,10 +193,40 @@ nav {
 /* HOME NEWS LIST */
 .document-kind {
 	display: block;
+	width: fit-content;
 	font-size: var(--fs-200);
 	font-weight: 500;
 	text-transform: uppercase;
 	margin-bottom: 0.5rem;
+	border: solid 1px var(--clr-b);
+	border-radius: var(--border-radius);
+	padding: 0.35rem 0.5rem;
+}
+
+.document-tag {
+	/* background-color: rgba(137, 43, 226, 0.115); */
+	padding: 0.2rem 0rem;
+	font-weight: 600;
+	font-size: 0.8rem;
+	width: max-content;
+	color: rgba(137, 43, 226, 0.6);
+	/* color: var(--clr-accent); */
+	color: rgba(0, 0, 0, 0.4);
+	position: relative;
+	top: 0.6rem;
+}
+
+.column-layout {
+	grid-column: feature;
+	columns: 3 25rem;
+	column-gap: 2rem;
+	column-fill: balance;
+	/* column-rule: 0.5rem black solid; */
+	margin-top: 1rem;
+
+	& > li + li:has:not(h2) {
+		margin-top: 1.5rem;
+	}
 }
 
 /* .nav-shadow {
@@ -265,11 +298,12 @@ nav {
 	top: -15%;
 }
 
-.tags {
+.card-tags {
 	display: flex;
-	gap: 1rem;
-	margin-top: 0.9rem;
+	gap: 0.7rem;
+	margin-top: 0.3rem;
 	font-weight: 400;
+	flex-wrap: wrap;
 }
 
 .text-body {
@@ -304,10 +338,6 @@ nav {
 .text-body > p {
 	font-size: var(--fs-300);
 	font-weight: 300;
-}
-
-.text-body > p:first-child {
-	font-weight: 500;
 }
 
 .text-body > * + h2,
@@ -519,20 +549,6 @@ footer,
 	width: max-content;
 	text-align: right;
 	position: relative;
-}
-
-.document-tag {
-	/* background-color: rgba(137, 43, 226, 0.115); */
-	padding: 0.2rem 0rem;
-	font-weight: 600;
-	font-size: 0.8rem;
-	width: max-content;
-	color: rgba(137, 43, 226, 0.6);
-	/* color: var(--clr-accent); */
-	color: rgba(0, 0, 0, 0.4);
-	position: relative;
-	top: 0.6rem;
-	text-transform: uppercase;
 }
 
 /** ABOUT TEAM */

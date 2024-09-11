@@ -133,7 +133,8 @@ const translations: { [locale: string]: { [path: string]: string } } = {
         'card.event': 'Event',
         'card.meeting': 'Meeting notes',
         'card.project': 'Project',
-        'card.speaker': 'speaker·s',
+        'card.speaker': 'speaker·s and contributor·s',
+        'card.topic': 'Topics',
         'card.resource': 'Resource',
         'card.publishedOn': 'Published on',
         'card.updatedOn': 'Updated on',
@@ -251,7 +252,7 @@ const translations: { [locale: string]: { [path: string]: string } } = {
 
         // Projects 
         'projects.cieco.title': 'Livrables CIÉCO',
-        'projects.rd.title': 'Recherches et développements',
+        'projects.rd.title': 'Recherches',
         'projects.infos.description': 'description',
         'projects.infos.started': 'début',
         'projects.infos.status': 'statut',
@@ -287,7 +288,8 @@ const translations: { [locale: string]: { [path: string]: string } } = {
         'card.event': 'Événement',
         'card.meeting': 'Compte-rendu',
         'card.project': 'Projet',
-        'card.speaker': 'conférencier·ère·s',
+        'card.speaker': 'Contributeur·rice·s',
+        'card.topic': 'Sujets',
         'card.resource': 'Ressource',
         'card.publishedOn': 'Publié le',
         'card.updatedOn': 'Mis à jour le',

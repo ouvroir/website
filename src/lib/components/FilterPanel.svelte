@@ -4,6 +4,7 @@
 	import { page } from '$app/stores';
 	import { base } from '$app/paths';
 	import { t } from '$lib/i18n/i18n';
+	import { Tag } from '$components';
 
 	const { selectedDocTypes, tags, selectedTags, selectableTags } = getContext('types') as Record<
 		string,
@@ -78,10 +79,7 @@
 			<ul class="selected-filters">
 				{#each $selectedDocTypes as s}
 					<li class="display-li tag-doc" id={s}>
-						<button on:click={documentOnClick} id={s}>
-							<p>{$t(`card.${s}`)}</p>
-							<i class="bx bx-x"></i>
-						</button>
+						<Tag tag={s} closeIcon={true} onClick={documentOnClick} contrast="b" />
 					</li>
 				{/each}
 				{#if $selectedDocTypes.length > 0 && $selectedTags.length > 0}
@@ -89,10 +87,7 @@
 				{/if}
 				{#each $selectedTags as s}
 					<li class="display-li tag" id={s}>
-						<button on:click={tagOnClick} id={s}>
-							<p>{s}</p>
-							<i class="bx bx-x"></i>
-						</button>
+						<Tag tag={s} closeIcon={true} onClick={tagOnClick} i18n={false} />
 					</li>
 				{/each}
 			</ul>
@@ -181,6 +176,7 @@
 		padding: 0.6rem 0;
 		font-size: var(--fs-300);
 		font-weight: 700;
+		color: var(--clr-b);
 	}
 
 	.select-btn > i {
@@ -264,35 +260,6 @@
 		flex-direction: row;
 		flex-wrap: wrap;
 		gap: 0.5rem;
-	}
-
-	.display-li {
-		all: unset;
-		height: fit-content;
-		background-color: var(--clr-b);
-		color: var(--clr-a);
-		padding: 0.6rem 0.8rem;
-		font-size: 0.9rem;
-		font-weight: 500;
-		cursor: pointer;
-		border-radius: var(--border-radius);
-	}
-
-	.display-li > button {
-		all: unset;
-		max-height: 1.5rem;
-		position: static;
-		display: flex;
-		height: min-content;
-		flex-direction: row;
-		align-items: center;
-		gap: 0.7rem;
-	}
-
-	.tag {
-		background-color: var(--ca);
-		color: var(--cb);
-		border: solid 0.1rem var(--cb);
 	}
 
 	.separator {

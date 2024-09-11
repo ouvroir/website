@@ -63,12 +63,12 @@
 	<ul />
 </div>
 {#if posts}
-	<ul class="container">
+	<ul class="column-layout">
 		{#each posts as content, i}
 			<GenericCard {content} />
-			{#if i !== posts.length - 1}
+			<!-- {#if i !== posts.length - 1}
 				<hr />
-			{/if}
+			{/if} -->
 		{/each}
 		<!-- {#if $selectedDocTypes.includes('meeting')}
 			{#each $meetings as m}
@@ -86,19 +86,6 @@
 	}
 	.tags-container {
 		grid-column: span 2;
-	}
-
-	.container {
-		grid-column: feature;
-		columns: 3 25rem;
-		column-gap: 2rem;
-		column-fill: balance;
-		/* column-rule: 0.5rem black solid; */
-		margin-top: 1rem;
-
-		& > li + li {
-			margin-top: 1.5rem;
-		}
 	}
 
 	/** All touch screens */

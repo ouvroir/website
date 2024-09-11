@@ -7,11 +7,21 @@
 	import { browser } from '$app/environment';
 	import { getRandomPattern } from '$lib/utils/random';
 	import { MemberLink } from '$components';
+	import { onMount } from 'svelte';
 
 	const devImgPath = '../src/lib/labouvroir/projets/images/';
 	const prodImgPath = `${base}/images/projets/`;
 
 	const project = $projects.find((p) => p.meta.slug === $page.params.slug)!;
+
+	let extracts, doc, h1, p;
+	onMount(() => {
+		const data = extractContentFromHTML(project.html, ['h1', 'p']);
+		extracts = data.extracts;
+		doc = data.doc;
+		h1 = extracts[0];
+		p = extracts[1];
+	});
 </script>
 
 <svelte:head>
@@ -22,9 +32,9 @@
 	<article>
 		<header>
 			<div class="title-container">
-				<h1>{@html extractContentFromHTML(project.html, 'h1').extracted}</h1>
+				<h1>{@html h1}</h1>
 			</div>
-			<p class="frist-paragraph">{@html extractContentFromHTML(project.html, 'p').extracted}</p>
+			<p class="frist-paragraph">{@html p}</p>
 		</header>
 		<section class="meta">
 			<div class="infos">
@@ -63,7 +73,7 @@
 			</div>
 		</section>
 		<section class="text-body">
-			{@html getH1fromHTML(project.html).doc}
+			{@html doc}
 		</section>
 	</article>
 	<div class={`content-hero ${getRandomPattern()} patterns-contrast-1 patterns-size-s`}></div>
@@ -86,12 +96,13 @@
 		grid-template-columns: subgrid;
 	}
 	header {
-		--margin-btm: 4rem;
-		grid-column: full;
-		display: grid;
-		grid-template-columns: subgrid;
-		align-items: center;
+		--margin-btm: 2rem;
+		grid-column: content-start / popout-end;
+		display: flex;
+		flex-direction: column;
+		gap: 2rem;
 		margin-bottom: var(--margin-btm);
+		margin-top: 4rem;
 		padding: var(--margin-btm) 0;
 		z-index: 2;
 
@@ -99,21 +110,17 @@
 		border-bottom-right-radius: var(--border-radius);
 		box-shadow: 2px 2px 1rem -3px var(--clr-b); */
 
-		& .title-container {
-			grid-column: content-start / full;
-			height: 100%;
-			width: 100%;
-			display: flex;
-			flex-direction: row;
-			align-items: center;
+		& h1,
+		& .frist-paragraph {
+			border: solid 0.5rem var(--cb);
 		}
 
 		& h1 {
 			color: var(--clr-b);
-			grid-column: content;
 			font-size: var(--fs-700);
-			line-height: 3.3rem;
+			line-height: 3.5rem;
 			font-weight: 700;
+			text-wrap: balance;
 		}
 
 		& .frist-paragraph {
@@ -126,7 +133,6 @@
 		& h1,
 		& .frist-paragraph {
 			--padding-v: 1rem;
-			grid-column: content-start / popout-end;
 			background-color: var(--ca);
 			position: relative;
 			left: calc(var(--padding-v) * -1);
@@ -157,6 +163,21 @@
 		gap: 3rem;
 		flex-wrap: wrap;
 		row-gap: 2rem;
+	}
+
+	.info {
+		max-width: 90%;
+
+		& p {
+			line-height: 1.5rem;
+		}
+
+		& ul {
+			display: flex;
+			flex-direction: column;
+			flex-wrap: wrap;
+			gap: 0.5rem;
+		}
 	}
 	span {
 		display: block;
