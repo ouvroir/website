@@ -7,32 +7,16 @@
 	// $: section = $page.route.id?.match(/\/\[(\w+)=\1\]/)?.[1];
 </script>
 
-{#if !smallScreen}
-	<div class="about-tree-container">
-		<Tree />
-	</div>
-{/if}
-
 <section class="info-page">
-	<header class="info-page-header">
+	<header>
 		<h1>{$aboutPageTitle}</h1>
 	</header>
-	<!-- {#if smallScreen}
-		<select class="dropdown-nav" aria-label="secondary-nav" id="">
-			{#each navLinks as l}
-				<option on:click={() => goto($t(`route.${section}.${l}`))}>
-					{#if l !== 'support'}
-						<a
-							href={$t(`route.${section}.${l}`)}
-							class={`${$page.url.pathname === $t(`route.${section}.${l}`) ? 'active' : ''}`}
-						>
-							{$t(`${section}.${l}`)}
-						</a>
-					{/if}
-				</option>
-			{/each}
-		</select>
-	{/if} -->
+
+	{#if !smallScreen}
+		<div class="about-tree-container">
+			<Tree />
+		</div>
+	{/if}
 
 	<div id="article-container" class="article-content">
 		<slot />
@@ -43,23 +27,26 @@
 
 <style>
 	.info-page {
-		display: contents;
+		grid-column: full;
+		display: grid;
+		grid-template-columns: subgrid;
+		margin-top: 3rem;
 	}
 
-	.info-page-header {
-		grid-column: 3/7;
-		grid-row: 1;
+	header {
+		grid-column: content-start / popout-end;
 	}
 
 	.article-content {
-		grid-column: 3/7;
-		grid-row: 2;
+		grid-column: content-start / popout-end;
 		font-size: 1.1rem;
 	}
 
-	.info-page-header > h1 {
-		font-size: 2.5rem;
+	h1 {
+		font-size: var(--fs-700);
 		padding-bottom: var(--padding-title);
+		color: var(--clr-b);
+		font-weight: 700;
 	}
 
 	.bigger {

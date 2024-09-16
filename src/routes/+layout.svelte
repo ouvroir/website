@@ -99,9 +99,9 @@
 
 <!-- <Support /> -->
 
-<!-- {#if $screenType === 'desktop' || $screenType === 'tablet-horizontal'}
+{#if $screenType === 'desktop' || $screenType === 'tablet-horizontal'}
 	<Footer />
-{/if} -->
+{/if}
 
 <style>
 	.main-bg-a {

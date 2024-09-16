@@ -31,10 +31,10 @@
 	--lh-ratio: 1.5;
 	--lh-ratio-s: 1.3;
 
-	--clr-a: color(display-p3 0.99115 0.43742 0.38873);
-	--clr-b: black;
-	/* --clr-b: #d105ea;
-	--clr-a: #bcfe94; */
+	/* --clr-a: color(display-p3 0.99115 0.43742 0.38873);
+	--clr-b: black; */
+	--clr-b: #d105ea;
+	--clr-a: #bcfe94;
 	/* --clr-a: hsl(307.47 98.381% 13.743%);
 	--clr-b: hsl(89.3 9.2694% 83.002%); */
 
@@ -66,12 +66,13 @@ html,
 body {
 	min-height: 100%;
 	background-color: var(--clr-a);
+	font-family: var(--ff-sans);
 }
 
 .content {
 	--gap: clamp(1rem, 6vw, 3rem);
 	--full: minmax(var(--gap), 1fr);
-	--content: min(50ch, 100% - var(--gap) * 2);
+	--content: min(62ch, 100% - var(--gap) * 2);
 	--popout: minmax(0, 10rem);
 	--feature: minmax(0, 30rem);
 
@@ -84,8 +85,13 @@ body {
 		var(--popout) [popout-end]
 		var(--feature) [feature-end]
 		var(--full) [full-end];
+}
 
-	font-family: var(--ff-sans);
+a {
+	text-decoration: underline;
+	text-underline-offset: 0.25rem;
+	text-decoration-skip: ink;
+	color: var(--clr-a);
 }
 
 main {
@@ -309,7 +315,7 @@ nav {
 .text-body {
 	grid-column: content-start / popout-end;
 	color: var(--clr-b);
-	display: grid;
+	/* display: grid; */
 }
 
 .text-body > * {
@@ -376,42 +382,29 @@ nav {
 	margin-top: 0.8rem;
 }
 
-.text-body > ul,
-.text-body > ol {
-	list-style: inside;
-	padding-left: 1.5rem;
+.text-body ul,
+.text-body ol {
+	list-style: circle !important;
+	font-weight: 300;
+	font-size: var(--fs-300);
+	padding-left: 4rem;
 }
 
-.text-body > ul > *,
-.text-body > ol > * {
+.text-body ul > *,
+.text-body ol > * {
 	line-height: var(--body-line-height);
 }
 
-.text-body > ul > * + *,
-.text-body > ol > * + * {
-	margin-top: 0.2rem;
+.text-body ul > * + *,
+.text-body ol > * + * {
+	margin-top: 0.5rem;
 }
 
 .text-body > blockquote {
 	margin-bottom: 1.5rem;
 	padding: 1.5rem 1rem;
 	/* font-style: italic; */
-	background-color: var(--clr-accent-light);
-}
-
-.text-body > blockquote > ul,
-.text-body > ul {
-	list-style: inside;
-
-	& > li {
-		list-style: none;
-		flex-direction: row;
-		margin-left: 1.5rem;
-	}
-
-	& > li {
-		margin-top: 1.5rem;
-	}
+	border-left: var(--clr-b);
 }
 
 .text-body a {
@@ -488,7 +481,6 @@ nav {
 	margin-top: 1rem;
 }
 
-footer,
 .support {
 	/* margin-top: 3rem; */
 	background-color: var(--clr-accent-light);

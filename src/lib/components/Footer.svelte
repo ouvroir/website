@@ -6,7 +6,7 @@
 </script>
 
 <footer>
-	<div class="banner-content">
+	<div class="footer-content">
 		<section id="contact">
 			<h1>Nous trouver</h1>
 			<div class="adress">
@@ -16,7 +16,9 @@
 			</div>
 			<h2>Nous contacter</h2>
 			<a href="mailto:ouvroir@umontreal.ca">ouvroir@umontreal.ca</a>
+		</section>
 
+		<section id="follow">
 			<h1>Suivez-nous</h1>
 			<ul class="logos">
 				<li>
@@ -71,7 +73,8 @@
 			<p>
 				L’Ouvroir d’histoire de l’art et de muséologie numérique de l’Université de Montréal, est un
 				laboratoire de recherche destiné à soutenir le travail conduit dans le cadre du Partenariat
-				« <em>Des nouveaux usages des collections dans les musées d’art</em> »
+				« <em>Des nouveaux usages des collections dans les musées d’art</em>
+				»
 				<a rel="external" target="_blank" href="https://cieco.umontreal.ca/">CIÉCO</a> dirigé par Johanne
 				Lamoureux.
 			</p>
@@ -82,19 +85,19 @@
 				>
 				» <a rel="external" target="_blank" href="https://www.crihn.org/">CRIHN</a>
 			</p>
-			<div class="support-logos-container">
-				<a
-					id="cieco-logo-container"
-					href="https://cieco.umontreal.ca/"
-					rel="external"
-					target="_blank"
-				>
-					<CiecoLogo />
-				</a>
-				<a id="logo-crihn-container" href="https://www.crihn.org/" rel="external" target="_blank">
-					<CrihnLogo />
-				</a>
-			</div>
+			<!-- <div class="support-logos-container">
+			<a
+				id="cieco-logo-container"
+				href="https://cieco.umontreal.ca/"
+				rel="external"
+				target="_blank"
+			>
+				<CiecoLogo />
+			</a>
+			<a id="logo-crihn-container" href="https://www.crihn.org/" rel="external" target="_blank">
+				<CrihnLogo />
+			</a>
+		</div> -->
 		</section>
 		<!-- <section id="credits">
 			<p>Ouvroir. An inclusive and open-source space | 2023</p>
@@ -103,63 +106,66 @@
 </footer>
 
 <style>
+	footer {
+		grid-column: full;
+		background-color: var(--clr-b);
+		display: grid;
+		grid-template-columns: subgrid;
+		padding: 3rem 0;
+	}
+
+	.footer-content {
+		grid-column: feature;
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		gap: 1.5rem;
+	}
+
+	section {
+		color: var(--clr-a);
+		/* max-width: 100%; */
+		min-width: 20rem;
+		max-width: 35rem;
+	}
+
+	section h1 {
+		width: max-content;
+		font-size: var(--fs-600);
+		margin-bottom: 1.2rem;
+		font-weight: 700;
+		color: var(--clr-b);
+		background-color: var(--clr-a);
+		padding: 0.5rem 0.6rem;
+	}
+
+	section h2 {
+		font-weight: 600;
+		margin-top: 1.5rem;
+		margin-bottom: 0.5rem;
+	}
+
+	section p {
+		font-size: var(--fs-300);
+		font-weight: 200;
+		line-height: var(--body-line-height);
+	}
+
+	#about {
+		flex-grow: 2;
+	}
 	#crinh {
 		border-left: none !important;
 		padding-left: 0 !important;
 		margin-top: 1.5rem;
 	}
-	section {
-		grid-column: 1/6;
-	}
 
-	section > p {
-		line-height: 1.5rem;
-	}
-
-	#contact > * + h1 {
-		margin-top: 3rem;
-	}
-
-	#about {
-		margin-left: 2rem;
-		grid-column: 7/-1;
-		/* font-weight: 500; */
-	}
-
-	#about > p {
-		padding-left: 0.7rem;
-		border-left: solid 0.3rem var(--clr-accent);
-		width: 80%;
-		line-height: 1.5rem;
-	}
 	h1 > a > img:hover {
 		cursor: pointer;
 	}
 
 	em {
 		font-weight: 500;
-	}
-
-	section > h1 {
-		font-size: 2rem;
-		margin-bottom: 1.2rem;
-		font-weight: bold;
-	}
-
-	section > h2 {
-		font-weight: 600;
-		margin-top: 1.5rem;
-		margin-bottom: 0.5rem;
-	}
-
-	.adress > p {
-		margin: 0;
-		line-height: 1.5rem;
-	}
-	a {
-		margin-top: 1rem;
-		text-decoration: underline 0.1rem var(--clr-accent);
-		cursor: pointer;
 	}
 
 	.logos {
@@ -182,7 +188,12 @@
 	}
 
 	input {
+		all: unset;
 		width: 90%;
+		background-color: var(--clr-a);
+		border-radius: var(--border-radius);
+		color: var(--clr-b);
+		padding: 0 1rem;
 	}
 
 	.input {
