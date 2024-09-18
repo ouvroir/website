@@ -454,6 +454,11 @@ nav {
 	margin-top: 3rem;
 	border-bottom: solid 0.5px var(--clr-b);
 }
+
+.text-body section:last-child {
+	border-bottom: none;
+}
+
 .text-body .section-header {
 	all: unset;
 	width: 100%;
@@ -476,13 +481,11 @@ nav {
 }
 
 .text-body .section-content {
-	transition: all 0.3s ease-in;
-	padding-bottom: 1.5rem;
+	transition: all 0.3s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 .closed {
 	max-height: 0;
 	overflow: hidden;
-	/* display: none; */
 	color: transparent;
 	transition: none !important;
 }
@@ -490,6 +493,7 @@ nav {
 .opened {
 	max-height: fit-content;
 	color: var(--clr-b);
+	padding-bottom: 3rem;
 }
 
 .toc-link {

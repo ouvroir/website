@@ -6,6 +6,16 @@
 	$: smallScreen = $screenType === 'mobile' || $screenType === 'tablet-vertical';
 	// $: section = $page.route.id?.match(/\/\[(\w+)=\1\]/)?.[1];
 
+	function scrollToElementWithOffset(element: HTMLElement, offset: number) {
+		const elementPosition = element.getBoundingClientRect().top + window.scrollY;
+		const offsetPosition = elementPosition + offset;
+
+		window.scrollTo({
+			top: offsetPosition,
+			behavior: 'smooth'
+		});
+	}
+
 	function wrapContentBetweenH2s(node: HTMLDivElement) {
 		const h2Elements = node.querySelectorAll('h2');
 		const article = node.querySelector('article');
@@ -31,9 +41,21 @@
 				div.classList.toggle('closed');
 				div.classList.toggle('opened');
 
+				document.querySelectorAll('.section-content').forEach((section) => {
+					if (section !== div) {
+						section.classList.remove('opened');
+						section.classList.add('closed');
+					}
+				});
+
 				btnIcon.classList.toggle('bx-plus');
 				btnIcon.classList.toggle('bx-minus');
+
+				if (div.classList.contains('opened')) {
+					scrollToElementWithOffset(section, -48);
+				}
 			});
+
 			headerBtn.appendChild(h2);
 			headerBtn.appendChild(btnIcon);
 

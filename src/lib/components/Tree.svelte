@@ -7,11 +7,32 @@
 
 	const scrollToTarget = (event: MouseEvent) => {
 		event.preventDefault();
+
 		const targetId = (event.target as HTMLElement).getAttribute('href')!;
 		const targetElement = document.querySelector(targetId)!;
-		const offset = 150;
+		const offset = 140;
 		const top = targetElement.getBoundingClientRect().top + window.scrollY - offset;
+
 		window.scrollTo({ top, behavior: 'smooth' });
+
+		const element = document.querySelector(`article ${targetId}`)?.parentNode as HTMLElement;
+		const sectionContent =
+			element.tagName === 'BUTTON'
+				? (element.nextElementSibling as HTMLElement)
+				: (element as HTMLElement);
+
+		if (sectionContent.classList.contains('closed')) {
+			sectionContent.classList.remove('closed');
+			sectionContent.classList.add('opened');
+		}
+
+		const sections = document.querySelectorAll('.section-content');
+		sections.forEach((section) => {
+			if (section !== sectionContent) {
+				section.classList.remove('opened');
+				section.classList.add('closed');
+			}
+		});
 	};
 
 	const toggleActive = (event: MouseEvent) => {
@@ -67,7 +88,7 @@
 				});
 			},
 			{
-				rootMargin: '25% 0% -75% 0%',
+				rootMargin: '0% 0% -80% 0%',
 				threshold: 0
 			}
 		);
