@@ -23,68 +23,75 @@
 			<ul class="logos">
 				<li>
 					<a href="https://github.com/ouvroir" rel="external" target="_blank"
-						><img class="bigger" src={`${base}/logos/brands/github.svg`} alt="Logo github" /></a
+						><img src={`${base}/logos/brands/github.svg`} alt="Logo github" />
+						Github</a
 					>
 				</li>
 				<li>
 					<a href="https://twitter.com/labouvroir" rel="external" target="_blank"
-						><img class="bigger" src={`${base}/logos/brands/twitter.svg`} alt="Logo Twitter" /></a
+						><img src={`${base}/logos/brands/twitter.svg`} alt="Logo Twitter" />Twitter</a
 					>
 				</li>
 				<li>
 					<a href="https://hypothes.is/groups/pM5dq7b4/ouvroir" rel="external" target="_blank"
-						><img src={`${base}/logos/brands/hypothesis.svg`} alt="Logo Hypothesis" /></a
+						><img src={`${base}/logos/brands/hypothesis.svg`} alt="Logo Hypothesis" />Hypothesis</a
 					>
 				</li>
 				<li>
 					<a
 						href="https://matrix.to/#/!AaxspHhzNUgFJpDKTr:matrix.org?via=matrix.org"
 						rel="external"
-						target="_blank"><img src={`${base}/logos/brands/element.svg`} alt="Logo Element" /></a
+						target="_blank"
+						><img src={`${base}/logos/brands/element.svg`} alt="Logo Element" />Element</a
 					>
 				</li>
 				<li>
 					<a href="https://mobilizon.fr/@ouvroir_lab" rel="external" target="_blank"
-						><img src={`${base}/logos/brands/mobilizon.svg`} alt="Logo Mobilizon" /></a
+						><img src={`${base}/logos/brands/mobilizon.svg`} alt="Logo Mobilizon" />Mobilizon</a
 					>
 				</li>
 				<li>
 					<a href="https://www.zotero.org/groups/2480242/ouvroir" rel="external" target="_blank"
-						><img id="zotero" src={`${base}/logos/brands/zotero.svg`} alt="Logo github" /></a
+						><img src={`${base}/logos/brands/zotero.svg`} alt="Logo Zotero" />Zotero</a
 					>
 				</li>
 			</ul>
-			<form action="">
-				<label for="newsletter">S’abonner à l’infolettre :</label>
-				<div class="input">
-					<input type="email" id="newsletter" />
-					<button type="submit"><img src={`${base}/logos/paper-plane.svg`} alt="" /></button>
-				</div>
-			</form>
 		</section>
 
 		<section id="about">
-			<h1>
-				À propos <a href={`${$t('route.about')}`}
-					><img src={`${base}/logos/link-solid.svg`} alt="link logo" /></a
-				>
-			</h1>
+			<h1>À propos du laboratoire</h1>
 
-			<p>
-				L’Ouvroir d’histoire de l’art et de muséologie numérique de l’Université de Montréal, est un
-				laboratoire de recherche destiné à soutenir le travail conduit dans le cadre du Partenariat
-				« <em>Des nouveaux usages des collections dans les musées d’art</em>
-				»
-				<a rel="external" target="_blank" href="https://cieco.umontreal.ca/">CIÉCO</a> dirigé par Johanne
-				Lamoureux.
-			</p>
+			<div>
+				<object
+					data={`${base}/logos/support-new/cieco.svg`}
+					aria-label="Logo Cieco"
+					type="image/svg+xml"
+				></object>
+				<p>
+					L’Ouvroir d’histoire de l’art et de muséologie numérique de l’Université de Montréal, est
+					un laboratoire de recherche destiné à soutenir le travail conduit dans le cadre du
+					Partenariat «
+					<em>Des nouveaux usages des collections dans les musées d’art</em>
+					»
+					<a rel="external" target="_blank" href="https://cieco.umontreal.ca/">CIÉCO</a> dirigé par Johanne
+					Lamoureux.
+				</p>
+			</div>
 
-			<p id="crinh">
-				L’Ouvroir est membre du « <em
-					>Centre de recherche interuniversitaire sur les humanités numériques</em
-				>
-				» <a rel="external" target="_blank" href="https://www.crihn.org/">CRIHN</a>
-			</p>
+			<div>
+				<object
+					data={`${base}/logos/support-new/crihn.svg`}
+					aria-label="Logo CRIHN"
+					type="image/svg+xml"
+				></object>
+				<p id="crinh">
+					L’Ouvroir est membre du « <em
+						>Centre de recherche interuniversitaire sur les humanités numériques</em
+					>
+					» <a rel="external" target="_blank" href="https://www.crihn.org/">CRIHN</a>.
+				</p>
+			</div>
+
 			<!-- <div class="support-logos-container">
 			<a
 				id="cieco-logo-container"
@@ -106,37 +113,50 @@
 </footer>
 
 <style>
+	:global(footer) {
+		--title-left-padding: 0.6rem;
+	}
 	footer {
 		grid-column: full;
 		background-color: var(--clr-b);
 		display: grid;
 		grid-template-columns: subgrid;
-		padding: 3rem 0;
+		padding: 5rem var(--gap);
+
+		& a {
+			color: var(--clr-a);
+			font-weight: 200;
+			text-decoration-thickness: 1px;
+		}
 	}
 
 	.footer-content {
-		grid-column: feature;
 		display: flex;
 		flex-direction: row;
 		flex-wrap: wrap;
-		gap: 1.5rem;
+		gap: 3rem;
+		justify-content: space-between;
 	}
 
 	section {
 		color: var(--clr-a);
 		/* max-width: 100%; */
-		min-width: 20rem;
-		max-width: 35rem;
+		/* min-width: 20rem; */
+		max-width: 40rem;
+
+		& > *:not(h1) {
+			padding-left: var(--title-left-padding);
+		}
 	}
 
 	section h1 {
 		width: max-content;
-		font-size: var(--fs-600);
-		margin-bottom: 1.2rem;
+		font-size: var(--fs-500);
+		margin-bottom: 1.8rem;
 		font-weight: 700;
 		color: var(--clr-b);
 		background-color: var(--clr-a);
-		padding: 0.5rem 0.6rem;
+		padding: 0.7rem var(--title-left-padding);
 	}
 
 	section h2 {
@@ -146,18 +166,34 @@
 	}
 
 	section p {
-		font-size: var(--fs-300);
+		font-size: var(--fs-200);
 		font-weight: 200;
-		line-height: var(--body-line-height);
+		line-height: 1.7rem;
+
+		& object {
+			width: 7rem;
+			position: inline;
+		}
 	}
 
 	#about {
 		flex-grow: 2;
+
+		& div + div {
+			margin-top: 1.5rem;
+		}
 	}
-	#crinh {
-		border-left: none !important;
-		padding-left: 0 !important;
-		margin-top: 1.5rem;
+
+	#about div {
+		display: flex;
+		flex-direction: row;
+		gap: 1rem;
+		align-items: start;
+
+		& object {
+			width: 7rem;
+			position: inline;
+		}
 	}
 
 	h1 > a > img:hover {
@@ -165,78 +201,28 @@
 	}
 
 	em {
-		font-weight: 500;
+		font-weight: 400;
 	}
 
 	.logos {
 		display: flex;
-		flex-direction: row;
+		flex-direction: column;
 		flex-wrap: wrap;
 		column-gap: 1.5rem;
-		row-gap: 0.5rem;
+		gap: 1rem;
 		padding-top: 0.3rem;
 		margin-bottom: 1.5rem;
 		width: 90%;
+
+		& li a {
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+			gap: 1rem;
+		}
 	}
 
 	img {
 		width: 1.5rem;
-	}
-
-	.bigger {
-		width: 2rem;
-	}
-
-	input {
-		all: unset;
-		width: 90%;
-		background-color: var(--clr-a);
-		border-radius: var(--border-radius);
-		color: var(--clr-b);
-		padding: 0 1rem;
-	}
-
-	.input {
-		display: flex;
-		flex-direction: row;
-		gap: 1rem;
-		margin-top: 0.5rem;
-	}
-
-	button {
-		border: none;
-		background-color: transparent;
-		cursor: pointer;
-	}
-	button > img:hover {
-		fill: var(--clr-accent);
-		color: var(--clr-accent);
-	}
-
-	#zotero {
-		padding-top: 0.05rem;
-		width: 5rem;
-	}
-
-	.support-logos-container {
-		display: flex;
-		height: 7rem;
-		flex-direction: row;
-		flex-wrap: wrap;
-		/* column-gap: 25%; */
-		margin-top: 2rem;
-		margin-left: 1rem;
-	}
-
-	#logo-crihn-container {
-		width: max-content;
-	}
-	#logo-crihn-container {
-		width: fit-content;
-		margin-right: 70%;
-		margin-left: auto;
-	}
-
-	@media screen and (max-width: 820px) {
 	}
 </style>

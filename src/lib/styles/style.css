@@ -48,6 +48,12 @@
 	--pattern-bradius: 30px;
 
 	--hero-margin-bottom: 6vh;
+
+	--gap: clamp(1rem, 6vw, 3rem);
+	--full: minmax(var(--gap), 1fr);
+	--content: min(62ch, 100% - var(--gap) * 2);
+	--popout: minmax(0, 10rem);
+	--feature: minmax(0, 30rem);
 }
 
 * {
@@ -70,12 +76,6 @@ body {
 }
 
 .content {
-	--gap: clamp(1rem, 6vw, 3rem);
-	--full: minmax(var(--gap), 1fr);
-	--content: min(62ch, 100% - var(--gap) * 2);
-	--popout: minmax(0, 10rem);
-	--feature: minmax(0, 30rem);
-
 	display: grid;
 	grid-template-columns:
 		[full-start] var(--full)
@@ -92,6 +92,10 @@ a {
 	text-underline-offset: 0.25rem;
 	text-decoration-skip: ink;
 	/* color: var(--clr-a); */
+
+	&:hover {
+		text-decoration: none;
+	}
 }
 
 main {
