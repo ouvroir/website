@@ -91,7 +91,7 @@ a {
 	text-decoration: underline;
 	text-underline-offset: 0.25rem;
 	text-decoration-skip: ink;
-	color: var(--clr-a);
+	/* color: var(--clr-a); */
 }
 
 main {
@@ -115,6 +115,8 @@ nav {
 	/* fyi background-color is set in .sticky helper 
     for transition needs */
 	/* border-radius: var(--border-radius); */
+	border-bottom-left-radius: var(--border-radius);
+	border-bottom-right-radius: var(--border-radius);
 
 	& > .full-navigation {
 		grid-column: popout-start / feature-end;
@@ -171,6 +173,12 @@ nav {
 
 	background-color: hsl(from var(--cb) h s l / 100%);
 	z-index: 2;
+}
+
+.page-nav {
+	position: relative;
+	width: 100%;
+	z-index: 4;
 }
 
 .sticky {

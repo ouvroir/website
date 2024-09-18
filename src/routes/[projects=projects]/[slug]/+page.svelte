@@ -14,7 +14,7 @@
 
 	const project = $projects.find((p) => p.meta.slug === $page.params.slug)!;
 
-	let extracts, doc, h1, p;
+	let extracts: string[], doc: string, h1: string, p: string;
 	onMount(() => {
 		const data = extractContentFromHTML(project.html, ['h1', 'p']);
 		extracts = data.extracts;
@@ -30,7 +30,7 @@
 
 {#if browser}
 	<article>
-		<header>
+		<header class={`${getRandomPattern()} patterns-contrast-1 patterns-size-s`}>
 			<div class="title-container">
 				<h1>{@html h1}</h1>
 			</div>
@@ -41,6 +41,37 @@
 				<div class="info">
 					<span>{$t('projects.infos.description')}</span>
 					<p>{project.meta?.description}</p>
+				</div>
+
+				<div class="info" id="links">
+					<span>{$t('projects.infos.otherLinks')}</span>
+					{#if project.meta.projectLink}
+						<p>
+							<i class="bx bx-link"></i>
+							<a rel="external" href={project.meta.projectLink}>{$t('projects.infos.page')}</a>
+						</p>
+					{/if}
+					{#if project.meta.github}
+						<p>
+							<i class="bx bxl-github"></i>
+							<a rel="external" href={project.meta.github}>{$t('projects.infos.github')}</a>
+						</p>
+					{/if}
+					{#if project.meta.otherLinks.length > 0}
+						<div>
+							<p id="ext-ressources">
+								<i class="bx bx-link-external"></i>
+								Autres ressources externes
+							</p>
+							<ul>
+								{#each project.meta.otherLinks as l}
+									<li>
+										<a rel="external" href={l}>{l}</a>
+									</li>
+								{/each}
+							</ul>
+						</div>
+					{/if}
 				</div>
 				<div class="info">
 					<span>{$t('projects.infos.team')}</span>
@@ -80,30 +111,21 @@
 {/if}
 
 <style>
-	.content-hero {
-		position: absolute;
-		grid-column: full;
-		top: 0;
-		left: 0;
-		width: 100%;
-		height: 66vh;
-		z-index: 0;
-	}
-
 	article {
 		grid-column: full;
 		display: grid;
 		grid-template-columns: subgrid;
 	}
 	header {
-		--margin-btm: 2rem;
-		grid-column: popout;
+		--margin-btm: 3rem;
+		grid-column: full;
 		display: grid;
 		grid-template-columns: subgrid;
 		/* gap: 2rem; */
 		margin-bottom: var(--margin-btm);
-		margin-top: 4rem;
+		margin-top: calc(var(--nav-height) * -1);
 		padding: var(--margin-btm) 0;
+		padding-top: calc(var(--nav-height) + 6rem);
 		z-index: 2;
 
 		/* border-bottom-left-radius: var(--border-radius);
@@ -111,7 +133,7 @@
 		box-shadow: 2px 2px 1rem -3px var(--clr-b); */
 
 		& .title-container {
-			grid-column: 1/-1;
+			grid-column: 3/-3;
 		}
 
 		& h1,
@@ -153,12 +175,6 @@
 		color: var(--clr-b);
 	}
 
-	.team-members {
-		display: flex;
-		flex-direction: column;
-		gap: 0.5rem;
-	}
-
 	.tags {
 		margin: 0;
 	}
@@ -174,7 +190,7 @@
 	.info {
 		max-width: 90%;
 
-		& p {
+		& * {
 			line-height: 1.5rem;
 		}
 
@@ -182,11 +198,31 @@
 			display: flex;
 			flex-direction: column;
 			flex-wrap: wrap;
-			gap: 0.5rem;
+			gap: 0.2rem;
 		}
 
 		& span {
 			letter-spacing: 0.05rem;
+		}
+	}
+
+	#links {
+		& * + * {
+			margin-top: 0.3rem;
+		}
+		& a {
+			font-weight: 400 !important;
+			color: var(--clr-b);
+		}
+		& span {
+			font-weight: 700;
+		}
+		& li {
+			font-size: var(--fs-100);
+			padding-left: 1.5rem;
+			& a {
+				text-wrap: balance;
+			}
 		}
 	}
 	span {
@@ -194,7 +230,7 @@
 		color: var(--clr-b);
 		font-weight: 700;
 		text-transform: uppercase;
-		margin-bottom: 0.6rem;
+		/* margin-bottom: 0.6rem; */
 		font-size: 0.9rem;
 	}
 

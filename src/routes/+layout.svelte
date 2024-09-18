@@ -87,7 +87,7 @@
 	{#if $showHero}
 		<HomeHero />
 	{/if}
-	<Nav contrast={!isHome} />
+	<Nav {isHome} />
 	<slot />
 </main>
 

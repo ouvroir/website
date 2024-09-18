@@ -9,7 +9,9 @@
 	import NavLinks from './NavLinks.svelte';
 	import { searchModalOpen } from '$lib/stores';
 
-	export let contrast = false;
+	export let isHome = true;
+
+	const contrast: boolean = !isHome;
 
 	let scrollY: number = 0;
 	let prevScrollY: number = 0;
@@ -65,7 +67,7 @@
 	});
 
 	const handleScroll = (e: Event) => {
-		const nav = document.querySelector('nav.main');
+		const nav = document.querySelector('nav');
 		const top = nav?.getBoundingClientRect().top ?? 500;
 
 		if (nav) {
@@ -140,7 +142,7 @@
 {#if !smallScreen}
 	<nav
 		aria-labelledby={`${$t('aria.nav.label')}`}
-		class={`main ${$showHero ? 'hero-nav' : ''} ${contrast ? 'nav-contrast' : ''}`}
+		class={`${$showHero ? 'hero-nav' : ''} ${contrast ? 'nav-contrast' : ''} ${isHome ? 'home-nav' : 'page-nav'}`}
 	>
 		<Ouvroir />
 		<div class="full-navigation">
