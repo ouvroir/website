@@ -88,32 +88,26 @@
 	});
 </script>
 
-<div id="tree-container" class={`${empty ? 'hide' : ''}`}>
+<nav id="tree-container" class={`${empty ? 'hide' : ''}`}>
 	<ul bind:this={treeUL} id="tree"></ul>
-</div>
+</nav>
 
 <style>
 	#tree-container {
 		height: fit-content;
-		top: 10rem;
-		bottom: 10rem;
-		z-index: 0;
 	}
 
 	#tree {
-		position: static;
-		width: 90%;
 		display: flex;
 		flex-direction: column;
 		gap: 1rem;
 		align-items: start;
 		min-height: 10rem;
-		padding: 1rem 1rem;
-		color: rgba(0, 0, 0, 0.584);
-		background-color: var(--clr-accent-light);
 		list-style: none;
-		font-size: 0.9rem;
-		font-weight: 400;
+	}
+
+	.toc-h2 {
+		font-size: var(--fs-200);
 	}
 
 	.hide {

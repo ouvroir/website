@@ -8,8 +8,6 @@ import { attrs } from "@mdit/plugin-attrs";
 import { figure } from "@mdit/plugin-figure";
 
 
-
-
 import type {
 	Project,
 	Event,

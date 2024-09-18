@@ -5,6 +5,44 @@
 
 	$: smallScreen = $screenType === 'mobile' || $screenType === 'tablet-vertical';
 	// $: section = $page.route.id?.match(/\/\[(\w+)=\1\]/)?.[1];
+
+	function wrapContentBetweenH2s(node: HTMLDivElement) {
+		const h2Elements = node.querySelectorAll('h2');
+		const article = node.querySelector('article');
+
+		h2Elements.forEach((h2, index) => {
+			const nextH2 = h2Elements[index + 1];
+			const div = document.createElement('div');
+			const section = document.createElement('section');
+			div.classList.add('section-content', 'closed');
+
+			let sibling = h2.nextElementSibling;
+			while (sibling && sibling !== nextH2) {
+				const nextSibling = sibling.nextElementSibling;
+				div.appendChild(sibling);
+				sibling = nextSibling;
+			}
+
+			const headerBtn = document.createElement('button');
+			const btnIcon = document.createElement('i');
+			headerBtn.classList.add('section-header');
+			btnIcon.classList.add('bx', 'bx-plus');
+			headerBtn.addEventListener('click', () => {
+				div.classList.toggle('closed');
+				div.classList.toggle('opened');
+
+				btnIcon.classList.toggle('bx-plus');
+				btnIcon.classList.toggle('bx-minus');
+			});
+			headerBtn.appendChild(h2);
+			headerBtn.appendChild(btnIcon);
+
+			section.appendChild(headerBtn);
+			section.appendChild(div);
+
+			article.insertBefore(section, nextH2);
+		});
+	}
 </script>
 
 <section class="info-page">
@@ -18,7 +56,7 @@
 		</div>
 	{/if}
 
-	<div id="article-container" class="article-content">
+	<div id="article-container" class="article-content" use:wrapContentBetweenH2s>
 		<slot />
 	</div>
 </section>
@@ -60,8 +98,10 @@
 
 	.about-tree-container {
 		position: sticky;
-		grid-column: 1/3;
+		grid-column: feature-start / content-start;
 		grid-row: 2;
+		top: 4rem;
+		height: fit-content;
 	}
 
 	/** Small screens */
