@@ -64,8 +64,6 @@ export function extractContentFromHTML(html: string, pattern: string[]) {
 export function getFirstParagraph(html: string) {
     const parser = new DOMParser();
     const doc = parser.parseFromString(html, 'text/html');
-
-    console.log(doc.querySelector('p'));
     return doc.querySelector('p');
 }
 
