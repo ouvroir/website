@@ -148,7 +148,7 @@
 
 	h3 {
 		font-weight: 600;
-		margin-top: 0.5rem;
+		margin-top: 0.7rem;
 	}
 
 	.description {
