@@ -10,6 +10,7 @@
 	import { searchModalOpen, screenType, showHero, screenWidth, presentation } from '$lib/stores.js';
 	import { onMount } from 'svelte';
 	import type { SearchIndex } from '$lib/utils/search';
+	import randomA11yCombo from 'random-a11y-combo';
 
 	export let data: null | Record<string, any[]>;
 
@@ -40,6 +41,10 @@
 	};
 
 	onMount(() => {
+		const combo = randomA11yCombo();
+		document.documentElement.style.setProperty('--clr-a', combo[0]);
+		document.documentElement.style.setProperty('--clr-b', combo[1]);
+
 		document.body.addEventListener('keydown', handleKeyDown);
 
 		['fr', 'en'].forEach((lang) => {

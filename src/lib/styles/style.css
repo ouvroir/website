@@ -32,8 +32,8 @@
 	--lh-ratio: 1.5;
 	--lh-ratio-s: 1.3;
 
-	--clr-b: color(display-p3 0.99115 0.43742 0.38873);
-	--clr-a: black;
+	/* --clr-b: color(display-p3 0.99115 0.43742 0.38873);
+	--clr-a: black; */
 	/* --clr-b: #d105ea;
 	--clr-a: #bcfe94; */
 	/* --clr-a: hsl(307.47 98.381% 13.743%);

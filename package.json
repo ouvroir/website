@@ -43,6 +43,7 @@
 		"markdown-it-front-matter": "^0.2.4",
 		"markdown-it-inline-comments": "^1.0.1",
 		"markdown-it-renderer": "^2.4.1",
-		"markdown-it-to-text": "^1.0.0"
+		"markdown-it-to-text": "^1.0.0",
+		"random-a11y-combo": "^1.0.0"
 	}
 }
