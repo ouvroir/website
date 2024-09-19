@@ -52,8 +52,6 @@
 	const onHover = (e: MouseEvent) => {
 		e.type === 'mouseover' ? (hover = true) : (hover = false);
 	};
-
-	$: console.log(hover);
 </script>
 
 <!-- svelte-ignore a11y-mouse-events-have-key-events -->
@@ -107,18 +105,15 @@
 		/* margin-bottom: 2rem; */
 		transition: all 0.1s ease-in;
 
-		& a > * {
+		& a > *,
+		& h2,
+		& h3 {
 			color: var(--clr-b);
 			transition: color 0.1s ease-in;
 		}
 
 		& a > * + * {
 			margin-top: 0.7rem;
-		}
-
-		& h3 {
-			font-weight: 600;
-			margin-top: 0.5rem;
 		}
 
 		& + .card-generic {
@@ -149,6 +144,11 @@
 		font-weight: 700;
 		line-height: calc(var(--fs) * var(--lh-ratio-s));
 		margin-bottom: 1rem;
+	}
+
+	h3 {
+		font-weight: 600;
+		margin-top: 0.5rem;
 	}
 
 	.description {

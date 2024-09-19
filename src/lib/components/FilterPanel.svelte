@@ -153,7 +153,7 @@
 		grid-column: popout;
 		/* grid-column: feature; */
 		/* border-top: solid 0.5px black; */
-		margin: 5rem 0;
+		margin: var(--content-top-padding) 0;
 	}
 
 	.filter-container {

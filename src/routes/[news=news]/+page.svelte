@@ -6,42 +6,7 @@
 	import { building } from '$app/environment';
 	import { meetings, events, blogs } from '$lib/stores';
 	import { sortContentByDate, getTagsfromContent, contentHasTags } from '$lib/utils/helpers';
-
-	if (!events || !blogs || !meetings) throw new Error('No data found');
-
-	const selectedTags = writable([] as string[]);
-	const selectedDocTypes = writable(building ? ['event', 'blog', 'meeting'] : ['event', 'blog']);
-	const disabledNewsTypes = writable([] as string[]);
-	const tags = derived([blogs, events, meetings], ([$blogs, $events, $meetings]) =>
-		getTagsfromContent([...$events, ...$blogs, ...$meetings])
-	);
-
-	$: posts = [...$events, ...$blogs, ...$meetings]
-		.filter((d) => $selectedDocTypes.includes(d.meta.kind) && contentHasTags(d, $selectedTags))
-		.sort((a, b) => sortContentByDate(a, b));
-
-	const selectableTags = derived(
-		[events, blogs, meetings, selectedDocTypes],
-		([$events, $blogs, $meetings, $selectedDocTypes]) =>
-			getTagsfromContent(
-				[...$events, ...$blogs, ...$meetings].filter((d) => $selectedDocTypes.includes(d.meta.kind))
-			)
-	);
-
-	setContext('types', {
-		selectedDocTypes,
-		disabledNewsTypes,
-		selectedTags,
-		tags,
-		selectableTags
-	});
-
-	// If there are no posts of a certain type, disable it
-	$: $disabledNewsTypes = ['event', 'blog', 'meeting'].filter(
-		(t) => posts && posts.filter((p) => p.meta.kind === t).length === 0
-	);
-
-	$selectedDocTypes = $selectedDocTypes.filter((t) => !$disabledNewsTypes.includes(t));
+	import ContentList from '$lib/components/ContentList.svelte';
 
 	onMount(() => {
 		if (window.location.hash) {
@@ -57,26 +22,7 @@
 	<title>{$t('head.news')}</title>
 </svelte:head>
 
-<FilterPanel />
-
-<div class="tags-container">
-	<ul />
-</div>
-{#if posts}
-	<ul class="column-layout">
-		{#each posts as content, i}
-			<GenericCard {content} />
-			<!-- {#if i !== posts.length - 1}
-				<hr />
-			{/if} -->
-		{/each}
-		<!-- {#if $selectedDocTypes.includes('meeting')}
-			{#each $meetings as m}
-				<NewsCard post={m} />
-			{/each}
-		{/if} -->
-	</ul>
-{/if}
+<ContentList />
 
 <style>
 	hr {

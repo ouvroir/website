@@ -90,7 +90,7 @@
 		grid-column: full;
 		display: grid;
 		grid-template-columns: subgrid;
-		margin-top: 3rem;
+		margin: var(--content-top-padding) 0;
 	}
 
 	header {

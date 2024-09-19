@@ -1,64 +1,13 @@
 <script lang="ts">
 	import { t } from '$lib/i18n/i18n';
-	import { FilterPanel, GenericCard } from '$lib/components';
-	import { onMount, setContext } from 'svelte';
-	import { derived, writable } from 'svelte/store';
-	import { building } from '$app/environment';
-	import { resources } from '$lib/stores';
-	import { sortContentByDate, getTagsfromContent, contentHasTags } from '$lib/utils/helpers';
-
-	const selectedTags = writable([] as string[]);
-	const selectedDocTypes = writable(building ? ['event', 'blog', 'meeting'] : ['event', 'blog']);
-	const disabledNewsTypes = writable([] as string[]);
-	const tags = writable(getTagsfromContent($resources));
-
-	$: posts = $resources
-		.sort((a, b) => sortContentByDate(a, b))
-		.filter((r) => contentHasTags(r, $selectedTags));
-
-	const selectableTags = writable(getTagsfromContent($resources));
-
-	setContext('types', {
-		selectedDocTypes,
-		disabledNewsTypes,
-		selectedTags,
-		tags,
-		selectableTags
-	});
-
-	// If there are no posts of a certain type, disable it
-	$: $disabledNewsTypes = ['event', 'blog', 'meeting'].filter(
-		(t) => posts && posts.filter((p) => p.meta.kind === t).length === 0
-	);
-
-	$selectedDocTypes = [];
-
-	onMount(() => {
-		if (window.location.hash) {
-			const el = document.getElementById(window.location.hash.slice(1));
-			if (el) {
-				el.scrollIntoView();
-			}
-		}
-	});
+	import { ContentList } from '$lib/components';
 </script>
 
 <svelte:head>
 	<title>{$t('head.resources')}</title>
 </svelte:head>
 
-<FilterPanel />
-
-<div class="tags-container">
-	<ul />
-</div>
-{#if posts}
-	<ul class="container">
-		{#each posts as content}
-			<GenericCard {content} />
-		{/each}
-	</ul>
-{/if}
+<ContentList />
 
 <style>
 	.tags-container {

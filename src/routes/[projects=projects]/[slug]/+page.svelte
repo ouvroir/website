@@ -30,7 +30,8 @@
 
 {#if browser}
 	<article>
-		<header class={`${getRandomPattern()} patterns-contrast-1 patterns-size-s`}>
+		<header>
+			<div class={`header-ptrn ${getRandomPattern()} patterns-contrast-1 patterns-size-s`}></div>
 			<div class="title-container">
 				<h1>{@html h1}</h1>
 			</div>
@@ -117,7 +118,7 @@
 		grid-template-columns: subgrid;
 	}
 	header {
-		--margin-btm: 3rem;
+		--margin-btm: 2rem;
 		grid-column: full;
 		display: grid;
 		grid-template-columns: subgrid;
@@ -125,7 +126,7 @@
 		margin-bottom: var(--margin-btm);
 		margin-top: calc(var(--nav-height) * -1);
 		padding: var(--margin-btm) 0;
-		padding-top: calc(var(--nav-height) + 6rem);
+		padding-top: calc(var(--nav-height) + var(--content-top-padding));
 		z-index: 2;
 
 		/* border-bottom-left-radius: var(--border-radius);
@@ -166,6 +167,17 @@
 			left: calc(var(--padding-v) * -1);
 			padding: 0.7rem var(--padding-v);
 			color: var(--cb);
+		}
+
+		& .header-ptrn {
+			grid-column: full;
+			grid-row: 1;
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 35%;
+			z-index: -1;
 		}
 	}
 

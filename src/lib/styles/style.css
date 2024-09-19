@@ -23,6 +23,7 @@
 	--fw-tags: 300;
 
 	--padding-title: 3rem;
+	--content-top-padding: 6rem;
 
 	--filter-margin: 3rem;
 
@@ -232,19 +233,6 @@ nav {
 	color: rgba(0, 0, 0, 0.4);
 	position: relative;
 	top: 0.6rem;
-}
-
-.column-layout {
-	grid-column: feature;
-	columns: 3 25rem;
-	column-gap: 2rem;
-	column-fill: balance;
-	/* column-rule: 0.5rem black solid; */
-	margin-top: 1rem;
-
-	& > li + li:has:not(h2) {
-		margin-top: 1.5rem;
-	}
 }
 
 /* .nav-shadow {
