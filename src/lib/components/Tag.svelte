@@ -6,10 +6,13 @@
 	export let closeIcon: boolean = false;
 	export let size: 's' | 'm' | 'l' = 'm';
 	export let i18n: boolean = true;
+	export let alt: boolean = false;
 	export let onClick: (e: MouseEvent) => void = () => {};
+
+	$: alternative = alt ? `${contrast}-alt` : '';
 </script>
 
-<button class={`tag ${contrast} ${size}`} on:click={onClick} id={tag}>
+<button class={`tag ${contrast} ${alternative} ${size}`} on:click={onClick} id={tag}>
 	<p>
 		{#if i18n}
 			{$t(`card.${tag}`)}
@@ -26,6 +29,7 @@
 	.tag {
 		--ca: var(--clr-a);
 		--cb: var(--clr-b);
+		--border-width: 2px;
 
 		all: unset;
 		display: flex;
@@ -40,7 +44,6 @@
 		cursor: pointer;
 		border-radius: var(--border-radius);
 		border-style: solid;
-		border-width: 2px;
 	}
 
 	p {
@@ -53,10 +56,17 @@
 		border-color: var(--cb);
 		color: var(--cb);
 	}
+	.a-alt {
+		border-color: var(--ca);
+	}
+
 	.b {
 		background-color: var(--cb);
-		border-color: var(--cbt);
+		border-color: var(--cb);
 		color: var(--ca);
+	}
+	.b-alt {
+		border-color: var(--ca);
 	}
 
 	/* Tag sizes */
@@ -66,7 +76,7 @@
 	}
 
 	.m {
-		padding: 0.6rem 0.8rem;
+		padding: calc(0.6rem - var(--border-width)) calc(0.8rem - var(--border-width));
 		font-size: var(--fs-200);
 	}
 </style>

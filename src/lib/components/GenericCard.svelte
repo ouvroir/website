@@ -47,11 +47,23 @@
 		authors = content.meta.author;
 	}
 	authors = authors ? authors : 'Ouvroir';
+
+	$: hover = false;
+	const onHover = (e: MouseEvent) => {
+		e.type === 'mouseover' ? (hover = true) : (hover = false);
+	};
+
+	$: console.log(hover);
 </script>
 
-<li class={`card-generic ${contrast ? 'contrast' : ''}`}>
+<!-- svelte-ignore a11y-mouse-events-have-key-events -->
+<li
+	class={`card-generic ${contrast ? 'contrast' : ''}`}
+	on:mouseover={onHover}
+	on:mouseleave={onHover}
+>
 	{#if !hideType}
-		<Tag tag={content.meta.kind} contrast="b" size="s" />
+		<Tag tag={content.meta.kind} contrast="b" bind:alt={hover} size="s" />
 	{/if}
 	<a href={`/projets/${content.meta.slug}`}>
 		<h2>{content.meta.title}</h2>
@@ -77,7 +89,7 @@
 		<ul class="card-tags">
 			{#each tags as tag}
 				<li>
-					<Tag {tag} contrast="a" size="s" />
+					<Tag {tag} bind:alt={hover} contrast="a" size="s" />
 				</li>
 			{/each}
 		</ul>
@@ -108,15 +120,22 @@
 			font-weight: 600;
 			margin-top: 0.5rem;
 		}
+
+		& + .card-generic {
+			margin-top: 2rem;
+		}
 	}
 
 	.card-generic:hover {
 		/* box-shadow: 2px 2px 1.5rem var(--clr-b); */
 		background-color: var(--clr-b);
+	}
 
-		& *:not(.tag) {
-			color: var(--clr-a);
-		}
+	.card-generic:hover *:not(.tag) {
+		color: var(--clr-a);
+	}
+	.card-generic:hover *:not(.tag) {
+		color: var(--clr-a);
 	}
 
 	a {
