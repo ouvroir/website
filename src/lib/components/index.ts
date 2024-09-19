@@ -25,3 +25,4 @@ export { default as Vr } from './logos/Vr.svelte';
 export { default as Calendar } from './logos/Calendar.svelte';
 export { default as Venn } from './logos/Venn.svelte';
 export { default as Tag } from './Tag.svelte';
+export { default as ContentList } from './ContentList.svelte';
