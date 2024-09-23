@@ -3,6 +3,7 @@
 	import { t } from '$i18n/i18n';
 	import CrihnLogo from './logos/CrihnLogo.svelte';
 	import CiecoLogo from './logos/CiecoLogo.svelte';
+	import { Github, Twitter, Hypothesis, Matrix, Zotero } from '$components';
 </script>
 
 <footer>
@@ -22,37 +23,41 @@
 			<h1>Suivez-nous</h1>
 			<ul class="logos">
 				<li>
-					<a href="https://github.com/ouvroir" rel="external" target="_blank"
-						><img src={`${base}/logos/brands/github.svg`} alt="Logo github" />
+					<a href="https://github.com/ouvroir" rel="external" target="_blank">
+						<Github />
 						Github</a
 					>
 				</li>
 				<li>
-					<a href="https://twitter.com/labouvroir" rel="external" target="_blank"
-						><img src={`${base}/logos/brands/twitter.svg`} alt="Logo Twitter" />Twitter</a
+					<a href="https://twitter.com/labouvroir" rel="external" target="_blank">
+						<Twitter />
+						Twitter</a
 					>
 				</li>
 				<li>
-					<a href="https://hypothes.is/groups/pM5dq7b4/ouvroir" rel="external" target="_blank"
-						><img src={`${base}/logos/brands/hypothesis.svg`} alt="Logo Hypothesis" />Hypothesis</a
+					<a href="https://hypothes.is/groups/pM5dq7b4/ouvroir" rel="external" target="_blank">
+						<Hypothesis />
+						Hypothesis</a
 					>
 				</li>
 				<li>
 					<a
 						href="https://matrix.to/#/!AaxspHhzNUgFJpDKTr:matrix.org?via=matrix.org"
 						rel="external"
-						target="_blank"
-						><img src={`${base}/logos/brands/element.svg`} alt="Logo Element" />Element</a
+						target="_blank"><Matrix />Matrix</a
 					>
 				</li>
-				<li>
+				<!-- <li>
 					<a href="https://mobilizon.fr/@ouvroir_lab" rel="external" target="_blank"
-						><img src={`${base}/logos/brands/mobilizon.svg`} alt="Logo Mobilizon" />Mobilizon</a
+						>
+					<object type="image/svg+xùm" data={`${base}/logos/brands/mobilizon.svg`} title="Logo Mobilizon">Logo Mobilizon</object>
+					Mobilizon</a
 					>
-				</li>
+				</li> -->
 				<li>
-					<a href="https://www.zotero.org/groups/2480242/ouvroir" rel="external" target="_blank"
-						><img src={`${base}/logos/brands/zotero.svg`} alt="Logo Zotero" />Zotero</a
+					<a href="https://www.zotero.org/groups/2480242/ouvroir" rel="external" target="_blank">
+						<Zotero />
+						Zotero</a
 					>
 				</li>
 			</ul>
@@ -66,6 +71,7 @@
 					data={`${base}/logos/support-new/cieco.svg`}
 					aria-label="Logo Cieco"
 					type="image/svg+xml"
+					class="footer-logo"
 				></object>
 				<p>
 					L’Ouvroir d’histoire de l’art et de muséologie numérique de l’Université de Montréal, est
@@ -83,6 +89,7 @@
 					data={`${base}/logos/support-new/crihn.svg`}
 					aria-label="Logo CRIHN"
 					type="image/svg+xml"
+					class="footer-logo"
 				></object>
 				<p id="crinh">
 					L’Ouvroir est membre du « <em
@@ -125,9 +132,14 @@
 
 		& a {
 			color: var(--clr-a);
-			font-weight: 200;
+			font-weight: 400;
+			font-size: var(--fs-300);
 			text-decoration-thickness: 1px;
 		}
+	}
+
+	.footer-logo {
+		width: var(--fs-400);
 	}
 
 	.footer-content {
@@ -166,8 +178,8 @@
 	}
 
 	section p {
-		font-size: var(--fs-200);
-		font-weight: 200;
+		font-size: var(--fs-300);
+		font-weight: 400;
 		line-height: 1.7rem;
 
 		& object {

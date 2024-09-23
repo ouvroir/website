@@ -26,3 +26,8 @@ export { default as Calendar } from './logos/Calendar.svelte';
 export { default as Venn } from './logos/Venn.svelte';
 export { default as Tag } from './Tag.svelte';
 export { default as ContentList } from './ContentList.svelte';
+export { default as Github } from './logos/Github.svelte';
+export { default as Twitter } from './logos/Twitter.svelte';
+export { default as Hypothesis } from './logos/Hypothesis.svelte';
+export { default as Matrix } from './logos/Matrix.svelte';
+export { default as Zotero } from './logos/Zotero.svelte';

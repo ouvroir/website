@@ -99,6 +99,11 @@ a {
 	}
 }
 
+footer svg {
+	fill: var(--clr-a);
+	max-width: var(--fs-400);
+}
+
 main {
 	background-color: var(--clr-a);
 	margin-bottom: 3rem;

@@ -11,13 +11,7 @@
         clip-path: url(#clippath);
       }
 
-      .cls-3 {
-        fill: black;
-      }
-
-      .cls-5 {
-        fill: black;
-      }
+      
 
       .cls-4 {
         clip-path: url(#clippath-1);

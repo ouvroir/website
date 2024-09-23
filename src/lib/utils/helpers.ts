@@ -93,3 +93,54 @@ export function findMember(username: string): string {
     }
     return m.name
 }
+
+
+export function wrapContentBetweenH2s(node: HTMLElement) {
+    const h2Elements = node.querySelectorAll('h2');
+    const article = node;
+
+    h2Elements.forEach((h2, index) => {
+        const nextH2 = h2Elements[index + 1];
+        const div = document.createElement('div');
+        const section = document.createElement('section');
+        div.classList.add('section-content', 'closed');
+
+        let sibling = h2.nextElementSibling;
+        while (sibling && sibling !== nextH2) {
+            const nextSibling = sibling.nextElementSibling;
+            div.appendChild(sibling);
+            sibling = nextSibling;
+        }
+
+        const headerBtn = document.createElement('button');
+        const btnIcon = document.createElement('i');
+        headerBtn.classList.add('section-header');
+        btnIcon.classList.add('bx', 'bx-plus');
+        headerBtn.addEventListener('click', () => {
+            div.classList.toggle('closed');
+            div.classList.toggle('opened');
+
+            document.querySelectorAll('.section-content').forEach((section) => {
+                if (section !== div) {
+                    section.classList.remove('opened');
+                    section.classList.add('closed');
+                }
+            });
+
+            btnIcon.classList.toggle('bx-plus');
+            btnIcon.classList.toggle('bx-minus');
+
+            if (div.classList.contains('opened')) {
+                scrollToElementWithOffset(section, -48);
+            }
+        });
+
+        headerBtn.appendChild(h2);
+        headerBtn.appendChild(btnIcon);
+
+        section.appendChild(headerBtn);
+        section.appendChild(div);
+
+        article.insertBefore(section, nextH2);
+    });
+}
