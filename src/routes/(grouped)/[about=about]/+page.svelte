@@ -3,6 +3,7 @@
 	import { aboutPageTitle } from '$lib/stores.js';
 	import { TeamCard } from '$lib/components';
 	import { members, about } from '$lib/stores.js';
+	import { wrapContentBetweenH2s } from '$lib/utils/helpers';
 
 	if (!$members || !$about) throw new Error('No data found');
 
@@ -20,7 +21,7 @@
 </svelte:head>
 
 {#if $about.html}
-	<article class="text-body">
+	<article class="text-body" use:wrapContentBetweenH2s>
 		{@html $about.html}
 		{#if $members}
 			<h2 id="about-team-title">{$t('about.team')}</h2>
