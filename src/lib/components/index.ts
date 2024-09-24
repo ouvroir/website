@@ -6,6 +6,7 @@ export { default as GenericCard } from "./GenericCard.svelte";
 export { default as HomeNewsSection } from "./HomeNewsSection.svelte";
 export { default as HomeCarousel } from "./HomeCarousel.svelte";
 export { default as HomeProjectsSection } from "./HomeProjectsSection.svelte";
+export { default as HomeServicesSection } from "./HomeServicesSection.svelte";
 export { default as Nav } from "./Nav.svelte";
 export { default as NavLinks } from "./NavLinks.svelte";
 export { default as Ouvroir } from "./Ouvroir.svelte";

@@ -36,7 +36,7 @@
 		background-color: var(--clr-b);
 	}
 
-	section::after {
+	/* section::after {
 		--s: 100%;
 		content: '';
 		position: absolute;
@@ -62,7 +62,7 @@
 		transform-origin: 90rem 6rem;
 		box-shadow: 0px 20px 20px var(--clr-b);
 		pointer-events: none;
-	}
+	} */
 
 	header {
 		grid-column: feature;
