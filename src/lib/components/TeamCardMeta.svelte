@@ -50,31 +50,29 @@
 {/if}
 
 <style>
-	a {
-		color: black;
-	}
 	.meta-list {
-		flex-grow: 1;
+		list-style: none;
+		margin: 0;
+		padding: 0;
 		margin-top: 1.5rem;
 	}
 	.meta-list > * + * {
-		margin-top: 0.7rem;
+		margin-top: 0.5rem;
 	}
 
 	.meta {
 		display: flex;
 		flex-direction: row;
-		font-size: 0.9rem;
+		font-size: var(--fs-300);
 		align-items: baseline;
 		gap: 1rem;
 		filter: opacity(0.8);
 	}
 	.meta > span {
 		display: block;
-		font-family: var(--ff-mono);
-		color: var(--clr-accent);
-		font-weight: 300;
-		font-size: 0.85rem;
+		font-weight: 600;
+		text-transform: uppercase;
+		font-size: var(--fs-200);
 	}
 
 	.meta > ul {
@@ -82,10 +80,15 @@
 		flex-direction: row;
 		flex-wrap: wrap;
 		gap: 0.6rem;
+		margin: 0;
+		padding: 0;
 	}
 
 	.meta > ul > li {
 		width: fit-content;
+		max-height: fit-content;
+		list-style: none;
+		margin-top: 0;
 	}
 
 	.meta > ul > li:not(:last-child)::after {

@@ -69,6 +69,20 @@
 		display: contents;
 	}
 
+	.team {
+		list-style: none;
+		margin-left: 0;
+		padding-left: 0;
+		display: flex;
+		flex-direction: column;
+		gap: 1.5rem;
+
+		& > li {
+			display: inline-block;
+			/* margin-right: 1rem; */
+		}
+	}
+
 	ul a {
 		all: unset;
 		cursor: pointer;
