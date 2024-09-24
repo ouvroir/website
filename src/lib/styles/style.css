@@ -57,6 +57,11 @@
 	--feature: minmax(0, 30rem);
 }
 
+::selection {
+	color: var(--clr-a); /* Text color */
+	background: var(--clr-b); /* Background color */
+}
+
 * {
 	box-sizing: border-box;
 	-moz-box-sizing: border-box;
