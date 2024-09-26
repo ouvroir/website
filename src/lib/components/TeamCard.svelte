@@ -14,48 +14,27 @@
 </script>
 
 {#if data}
-	{#if pageMode}
-		<article class="team-card team-card-page">
-			<div class="header-page-mode">
-				{#if data.meta.img}
-					<div class="img-container">
-						<img src={`${base}/team/${data.meta.img}`} alt="" />
-					</div>
-				{:else}
-					<div class="img-container">
-						<div class="empty-img" />
-					</div>
-				{/if}
-				<div class="header-page-mode-text">
-					<h2>{$t(`about.team.${data.meta.status}`)}</h2>
-					<p class="short-description">{data.meta.description}</p>
-				</div>
+	<article class={`team-card ${pageMode ? 'team-card-page' : ''}`}>
+		{#if data.meta.img}
+			<div class="img-container">
+				<img src={`${base}/team/${data.meta.img}`} alt="" />
 			</div>
+		{:else}
+			<div class="img-container">
+				<div class="empty-img" />
+			</div>
+		{/if}
+		<div class={`header-text`}>
+			<h1>
+				{data.meta.firstname}
+				{data.meta.lastname}
+			</h1>
+			<!-- <span class="role">{$t(`about.team.${data.meta.status}`)}</span> -->
+
+			<p class="short-description">{data.meta.description}</p>
 			<TeamCardMeta meta={data.meta} />
-		</article>
-	{:else}
-		<article class="team-card">
-			{#if data.meta.img}
-				<div class="img-container">
-					<img src={`${base}/team/${data.meta.img}`} alt="" />
-				</div>
-			{:else}
-				<div class="img-container">
-					<div class="empty-img" />
-				</div>
-			{/if}
-			<div class={`header-text `}>
-				{#if !pageMode}
-					<h1>
-						{data.meta.firstname}
-						{data.meta.lastname}
-					</h1>
-				{/if}
-				<p class="short-description">{data.meta.description}</p>
-				<TeamCardMeta meta={data.meta} />
-			</div>
-		</article>
-	{/if}
+		</div>
+	</article>
 {/if}
 
 <style>
@@ -66,47 +45,26 @@
 		column-gap: 1rem;
 		row-gap: 1.5rem;
 
-		/* border: solid 5px var(--clr-b); */
+		/* border-bottom: solid 5px var(--clr-b); */
 		border-radius: var(--border-radius);
 		padding: 1.5rem 2rem 1.5rem 1rem;
-		transition: all 0.3s ease-in;
+		transition: all 0.1s ease-in;
 	}
 
 	.team-card:hover {
+		background-color: var(--clr-b);
+		color: var(--clr-a);
+	}
+
+	.team-card-page.team-card {
+		margin-top: 4rem;
 		color: var(--clr-a);
 		background-color: var(--clr-b);
-	}
+		padding: 2.5rem 1.5rem;
 
-	.team-card-page {
-		display: block;
-	}
-
-	.team-card:hover h1::after {
-		position: absolute;
-		content: '';
-		top: 1.8rem;
-		left: 0;
-		width: 100%;
-		height: 0.2rem;
-	}
-
-	.header-page-mode {
-		/* max-height: 15rem; */
-		display: flex;
-		flex-direction: row;
-		column-gap: 1.5rem;
-		margin-bottom: 1.5rem;
-		padding-bottom: 1.5rem;
-		border-bottom: solid 2px var(--clr-accent-light);
-	}
-	.header-page-mode-text {
-		padding-top: 0.5rem;
-	}
-
-	.header-page-mode h2 {
-		font-size: 1.2rem;
-		margin-bottom: 1rem;
-		color: var(--clr-accent);
+		& a {
+			color: var(--clr-a) !important;
+		}
 	}
 
 	.header-text h1 {
@@ -116,11 +74,13 @@
 		width: fit-content;
 		cursor: pointer;
 		margin-top: 0;
+		margin-bottom: 0;
 	}
+	/* .header-text span {
+		font-size: var(--fs-300);
+		font-weight: 300;
+	} */
 
-	.img-container {
-		/* height: fit-content; */
-	}
 	.img-container > img,
 	.empty-img {
 		width: 13rem;
@@ -145,6 +105,8 @@
 	.short-description {
 		font-size: var(--fs-300);
 		font-weight: 400;
+		line-height: 1.7rem !important;
+		margin-top: 0.5rem;
 	}
 
 	@media screen and (min-width: 821px) and (max-width: 1024px) {

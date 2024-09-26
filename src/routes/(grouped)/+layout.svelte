@@ -5,16 +5,6 @@
 
 	$: smallScreen = $screenType === 'mobile' || $screenType === 'tablet-vertical';
 	// $: section = $page.route.id?.match(/\/\[(\w+)=\1\]/)?.[1];
-
-	function scrollToElementWithOffset(element: HTMLElement, offset: number) {
-		const elementPosition = element.getBoundingClientRect().top + window.scrollY;
-		const offsetPosition = elementPosition + offset;
-
-		window.scrollTo({
-			top: offsetPosition,
-			behavior: 'smooth'
-		});
-	}
 </script>
 
 <section class="info-page">

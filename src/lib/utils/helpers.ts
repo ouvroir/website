@@ -144,3 +144,8 @@ export function wrapContentBetweenH2s(node: HTMLElement) {
         article.insertBefore(section, nextH2);
     });
 }
+
+export function generateSlug(str: string | undefined): string {
+    if (!str) return ''
+    return str.replace(/\s+/g, '-').toLowerCase();
+}

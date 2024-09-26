@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/stores';
-	import { base } from '$app/paths';
+	import { t } from '$i18n/i18n';
 
 	export let meta;
 	let pageMode: boolean;
@@ -31,7 +31,7 @@
 				<span>projets</span>
 				<ul>
 					{#each meta.projects as p}
-						<li>{p}</li>
+						<li><a href={`${$t('route.projects')}/${p}`}>{p}</a></li>
 					{/each}
 				</ul>
 			</div>
@@ -41,7 +41,9 @@
 				<span>tags</span>
 				<ul>
 					{#each meta.tags as tag}
-						<li>{tag}</li>
+						<li>
+							<a href={`${$t('route.project')}/${tag}`}>{tag}</a>
+						</li>
 					{/each}
 				</ul>
 			</div>
@@ -57,7 +59,7 @@
 		margin-top: 1.5rem;
 	}
 	.meta-list > * + * {
-		margin-top: 0.5rem;
+		margin-top: 1rem;
 	}
 
 	.meta {
@@ -79,7 +81,7 @@
 		display: flex;
 		flex-direction: row;
 		flex-wrap: wrap;
-		gap: 0.6rem;
+		column-gap: 0.6rem;
 		margin: 0;
 		padding: 0;
 	}

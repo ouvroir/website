@@ -3,7 +3,7 @@
 	import { aboutPageTitle } from '$lib/stores.js';
 	import { TeamCard } from '$lib/components';
 	import { members, about } from '$lib/stores.js';
-	import { wrapContentBetweenH2s } from '$lib/utils/helpers';
+	import { wrapContentBetweenH2s, generateSlug } from '$lib/utils/helpers';
 
 	if (!$members || !$about) throw new Error('No data found');
 
@@ -25,38 +25,37 @@
 		{@html $about.html}
 		{#if $members}
 			<h2 id="about-team-title">{$t('about.team')}</h2>
-			<div class="team-section">
-				<h3>{$t('about.team.dir_sc')}</h3>
-				<ul class="team">
-					{#each dir as m}
-						<li>
-							<a href={`${$t('route.about.member')}/${m.meta.slug}`}>
-								<TeamCard bind:data={m} />
-							</a>
-						</li>
-					{/each}
-				</ul>
-				<h3>{$t('about.team.coord')}</h3>
-				<ul class="team">
-					{#each coord as m}
-						<li>
-							<a href={`${$t('route.about.member')}/${m.meta.slug}`}>
-								<TeamCard bind:data={m} />
-							</a>
-						</li>
-					{/each}
-				</ul>
-				<h3>{$t('about.team.members')}</h3>
-				<ul class="team">
-					{#each membs as m}
-						<li>
-							<a href={`${$t('route.about.member')}/${m.meta.slug}`}>
-								<TeamCard bind:data={m} />
-							</a>
-						</li>
-					{/each}
-				</ul>
-			</div>
+
+			<h3 id={generateSlug($t('about.team.dir_sc'))}>{$t('about.team.dir_sc')}</h3>
+			<ul class="team">
+				{#each dir as m}
+					<li>
+						<a href={`${$t('route.about.member')}/${m.meta.slug}`}>
+							<TeamCard bind:data={m} />
+						</a>
+					</li>
+				{/each}
+			</ul>
+			<h3 id={generateSlug($t('about.team.coord'))}>{$t('about.team.coord')}</h3>
+			<ul class="team">
+				{#each coord as m}
+					<li>
+						<a href={`${$t('route.about.member')}/${m.meta.slug}`}>
+							<TeamCard bind:data={m} />
+						</a>
+					</li>
+				{/each}
+			</ul>
+			<h3 id={generateSlug($t('about.team.members'))}>{$t('about.team.members')}</h3>
+			<ul class="team">
+				{#each membs as m}
+					<li>
+						<a href={`${$t('route.about.member')}/${m.meta.slug}`}>
+							<TeamCard bind:data={m} />
+						</a>
+					</li>
+				{/each}
+			</ul>
 		{/if}
 	</article>
 {/if}
@@ -64,9 +63,6 @@
 <style>
 	#about-team-title {
 		margin-bottom: 2.5rem;
-	}
-	.team-section {
-		display: contents;
 	}
 
 	.team {
@@ -89,10 +85,6 @@
 	}
 
 	h3 {
-		color: var(--clr-accent);
-		font-size: 1rem;
-		text-transform: uppercase;
-		font-weight: 300;
 		margin: 4rem 0 2rem 0;
 	}
 
