@@ -2,6 +2,8 @@
 	import type { Blog, Event, Resource, Project, Meeting } from '$lib/types';
 	import { dateToLocalizedString, t } from '$i18n/i18n';
 	import { Tag } from '$components';
+	import { page } from '$app/stores';
+	import { routeId } from '$lib/stores';
 
 	export let content: Blog | Event | Resource | Project;
 	export let contrast = false;
@@ -52,6 +54,21 @@
 	const onHover = (e: MouseEvent) => {
 		e.type === 'mouseover' ? (hover = true) : (hover = false);
 	};
+
+	let href = '';
+	switch ($routeId) {
+		case 'projects':
+			href = `${$t('route.projects')}/${content.meta.slug}`;
+			break;
+		case 'news':
+			href = `${$t('route.news')}/${$t(`news.type.${content.meta.kind}`)}/${content.meta.slug}`;
+			break;
+		case 'resources':
+			href = `${$t('route.resources')}/${content.meta.slug}`;
+			break;
+		default:
+			href = `${$t('route.news')}/${$t(`news.type.${content.meta.kind}`)}/${content.meta.slug}`;
+	}
 </script>
 
 <!-- svelte-ignore a11y-mouse-events-have-key-events -->
@@ -63,7 +80,7 @@
 	{#if !hideType}
 		<Tag tag={content.meta.kind} contrast="b" bind:alt={hover} size="s" />
 	{/if}
-	<a href={`/projets/${content.meta.slug}`}>
+	<a {href}>
 		<h2>{content.meta.title}</h2>
 
 		<div class="meta">
