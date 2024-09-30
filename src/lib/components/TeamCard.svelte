@@ -1,8 +1,7 @@
 <script lang="ts">
 	import type { Member } from '$lib/types';
+	import { TeamCardMeta } from '$components';
 	import { base } from '$app/paths';
-	import { t } from '$lib/i18n/i18n';
-	import TeamCardMeta from './TeamCardMeta.svelte';
 	import { page } from '$app/stores';
 
 	export let data: Member;

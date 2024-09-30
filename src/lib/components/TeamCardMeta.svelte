@@ -1,6 +1,8 @@
 <script lang="ts">
+	import { Tag } from '$components';
 	import { page } from '$app/stores';
 	import { t } from '$i18n/i18n';
+	import { goto } from '$app/navigation';
 
 	export let meta;
 	let pageMode: boolean;
@@ -39,10 +41,10 @@
 		{#if meta.tags && meta.tags.length > 0 && pageMode}
 			<div class="meta">
 				<span>tags</span>
-				<ul>
+				<ul id="tags">
 					{#each meta.tags as tag}
 						<li>
-							<a href={`${$t('route.project')}/${tag}`}>{tag}</a>
+							<Tag {tag} onClick={() => goto(`${$t('route.projects')}/#${tag}`)} />
 						</li>
 					{/each}
 				</ul>
@@ -95,5 +97,13 @@
 
 	.meta > ul > li:not(:last-child)::after {
 		content: ', ';
+	}
+
+	#tags {
+		margin-top: 1.5rem;
+	}
+
+	#tags > li::after {
+		content: none;
 	}
 </style>

@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { goto } from '$app/navigation';
 	import { t } from '$i18n/i18n';
 
 	export let tag: string;

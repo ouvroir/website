@@ -2,14 +2,13 @@
 	import type { Blog, Event, Resource, Project, Meeting } from '$lib/types';
 	import { dateToLocalizedString, t } from '$i18n/i18n';
 	import { Tag } from '$components';
-	import { page } from '$app/stores';
 	import { routeId } from '$lib/stores';
 
-	export let content: Blog | Event | Resource | Project;
+	export let content: Blog | Event | Resource | Project | Meeting;
 	export let contrast = false;
 	export let hideType = false;
 
-	let date: string, dateLabel: string;
+	let date: string, dateLabel: string | undefined;
 	let tags: string[];
 
 	switch (content.meta.kind) {

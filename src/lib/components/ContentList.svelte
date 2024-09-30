@@ -4,7 +4,7 @@
 	import { setContext } from 'svelte';
 	import { writable } from 'svelte/store';
 	import { building } from '$app/environment';
-	import { resources, projects, meetings, events, blogs } from '$lib/stores';
+	import { routeId, resources, projects, meetings, events, blogs } from '$lib/stores';
 	import { sortContentByDate, getTagsfromContent, contentHasTags } from '$lib/utils/helpers';
 	import type { Project, Blog, Event, Resource, Meeting } from '$lib/types';
 	import { page } from '$app/stores';
@@ -14,37 +14,51 @@
 	const selectedTags = writable([] as string[]);
 	const selectedDocTypes = writable(building ? ['event', 'blog', 'meeting'] : ['event', 'blog']);
 	const disabledNewsTypes = writable([] as string[]);
-	const tags = writable(getTagsfromContent($resources));
+	const tags = writable([] as string[]);
 
 	let filtered: Array<ContentType>, otherContent: Array<Project>;
 
-	let pageName: 'project' | 'resource' | 'news';
-	switch ($page.route.id) {
-		case '/[projects=projects]':
-			pageName = 'project';
-			filtered = $projects
-				.filter((d) => d.meta.cieco)
-				.filter((d) => contentHasTags(d, $selectedTags)) as Project[];
-			otherContent = $projects
-				.filter((d) => !d.meta.cieco)
-				.filter((d) => contentHasTags(d, $selectedTags)) as Project[];
-			$selectedDocTypes = ['project'];
-			break;
-		case '/[resources=resources]':
-			pageName = 'resource';
-			filtered = $resources.filter((d) => contentHasTags(d, $selectedTags)) as Resource[];
-			$selectedDocTypes = ['resource'];
-			break;
-		case '/[news=news]':
-			pageName = 'news';
-			filtered = [...$events, ...$blogs, ...$meetings]
-				.filter((d) => $selectedDocTypes.includes(d.meta.kind) && contentHasTags(d, $selectedTags))
-				.sort((a, b) => sortContentByDate(a, b));
-			$selectedDocTypes = ['event', 'blog'];
-			break;
-		default:
-			throw new Error('Unknown page');
-	}
+	selectedTags.subscribe((tags) => {
+		switch ($routeId) {
+			case 'projects':
+				filtered = $projects
+					.filter((d) => d.meta.cieco)
+					.filter((d) => contentHasTags(d, $selectedTags)) as Project[];
+				otherContent = $projects
+					.filter((d) => !d.meta.cieco)
+					.filter((d) => contentHasTags(d, $selectedTags)) as Project[];
+				$selectedDocTypes = ['project'];
+				$tags = getTagsfromContent($projects);
+				break;
+			case 'resources':
+				filtered = $resources.filter((d) => contentHasTags(d, $selectedTags)) as Resource[];
+				$selectedDocTypes = ['resource'];
+				$tags = getTagsfromContent($resources);
+				break;
+			case 'news':
+				filtered = [...$events, ...$blogs, ...$meetings]
+					.filter(
+						(d) => $selectedDocTypes.includes(d.meta.kind) && contentHasTags(d, $selectedTags)
+					)
+					.sort((a, b) => sortContentByDate(a, b));
+				$selectedDocTypes = ['event', 'blog'];
+				$tags = getTagsfromContent([...$events, ...$blogs, ...$meetings]);
+			default:
+				throw new Error('Unknown page');
+		}
+	});
+
+	$: console.log('selected', $selectedTags);
+
+	page.subscribe((page) => {
+		const hash = decodeURI(page.url.hash).slice(1);
+		console.log('hash', hash);
+		console.log('hash included', $tags.includes(hash));
+		console.log($tags);
+		if (hash && $tags.includes(hash)) {
+			selectedTags.set([hash]);
+		}
+	});
 
 	setContext('types', {
 		selectedDocTypes,
@@ -62,7 +76,7 @@
 </div>
 
 <ul class="column-layout">
-	{#if pageName === 'project'}
+	{#if $routeId === 'projects'}
 		{#if filtered.length > 0}
 			<li>
 				<h2 id="#cieco-title">{$t('projects.cieco.title')}</h2>
@@ -81,7 +95,7 @@
 		{/if}
 	{:else}
 		{#each filtered as content, i}
-			<GenericCard {content} hideType={pageName === 'resource'} />
+			<GenericCard {content} hideType={$routeId === 'resources'} />
 		{/each}
 	{/if}
 </ul>
