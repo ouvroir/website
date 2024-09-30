@@ -13,31 +13,47 @@
 </a>
 
 <style>
+	a {
+		text-decoration: none;
+		color: var(--clr-a);
+	}
 	.search-result-li {
 		display: block;
+		width: 90%;
+		margin: auto;
 		padding: 1rem;
 		padding-left: var(--result-paddingLeft);
 		background-color: none;
+		border-radius: var(--border-radius);
 		transition: background-color 0.1s ease-in-out;
-		font-size: var(--fs-result);
+		font-size: var(--fs-300);
+
+		& mark {
+			background-color: var(--clr-a);
+			color: var(--clr-b);
+		}
 
 		&:hover,
 		&:focus-visible {
-			background-color: #3037421c;
+			background-color: var(--clr-a);
+			color: var(--clr-b);
+
+			& mark {
+				background-color: var(--clr-b);
+				color: var(--clr-a);
+			}
 		}
 
 		& > h1 {
-			font-size: 1rem;
-			font-weight: 400;
-			margin-bottom: 0.1rem;
+			font-weight: 500;
+			margin-bottom: 0.5rem;
 			line-height: 1.5rem;
 			padding-right: 2rem;
 		}
 
 		& > p {
-			font-size: var(--fs-result-p);
 			font-weight: 300;
-			line-height: calc(var(--fs-result-p) + 0.5 * var(--fs-result-p));
+			line-height: calc(var(--fs-300) + 0.5 * var(--fs-300));
 			padding-right: 3rem;
 		}
 	}
