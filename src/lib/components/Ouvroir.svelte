@@ -29,6 +29,7 @@
 		display: flex;
 		flex-direction: row;
 		align-items: center;
+		width: max-content;
 	}
 	svg {
 		width: 12.5rem;
