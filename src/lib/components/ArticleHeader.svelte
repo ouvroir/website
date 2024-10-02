@@ -20,9 +20,9 @@
 
 {#if browser}
 	<header>
-		{#if addPattern}
+		<!-- {#if addPattern}
 			<div class={`header-ptrn ${getRandomPattern()} patterns-contrast-1 patterns-size-s`}></div>
-		{/if}
+		{/if} -->
 		<div class="title-container">
 			<h1>{@html h1}</h1>
 		</div>
@@ -50,7 +50,7 @@
 		box-shadow: 2px 2px 1rem -3px var(--clr-b); */
 
 		& .title-container {
-			grid-column: 3/-3;
+			grid-column: content-start / popout-end;
 		}
 
 		& h1,
@@ -64,7 +64,6 @@
 			line-height: 3.5rem;
 			font-weight: 700;
 			text-wrap: balance;
-			width: 80%;
 		}
 
 		& .frist-paragraph {
@@ -79,21 +78,20 @@
 		& .frist-paragraph {
 			--padding-v: 1rem;
 			background-color: var(--ca);
-			position: relative;
 			left: calc(var(--padding-v) * -1);
 			padding: 0.7rem var(--padding-v);
 			color: var(--cb);
 		}
 
-		& .header-ptrn {
+		/* & .header-ptrn {
 			grid-column: full;
 			grid-row: 1;
-			position: absolute;
+			position: relative;
 			top: 0;
 			left: 0;
 			width: 100%;
 			height: 35%;
 			z-index: -1;
-		}
+		} */
 	}
 </style>
