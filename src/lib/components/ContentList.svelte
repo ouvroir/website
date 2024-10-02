@@ -18,6 +18,7 @@
 
 	let filtered: Array<ContentType>, otherContent: Array<Project>;
 
+	console.log($routeId);
 	selectedTags.subscribe((tags) => {
 		switch ($routeId) {
 			case 'projects':
@@ -43,6 +44,7 @@
 					.sort((a, b) => sortContentByDate(a, b));
 				$selectedDocTypes = ['event', 'blog'];
 				$tags = getTagsfromContent([...$events, ...$blogs, ...$meetings]);
+				break;
 			default:
 				throw new Error('Unknown page');
 		}
