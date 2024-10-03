@@ -139,9 +139,6 @@ nav {
 
 	& > #nav-logo {
 		grid-column: feature-start / popout-start;
-		& * {
-			fill: var(--ca);
-		}
 	}
 
 	& a,
@@ -167,6 +164,24 @@ nav {
 		& #search-icon {
 			color: var(--cb);
 		}
+	}
+}
+#nav-logo {
+	&.show-a *,
+	&.show-b * {
+		transition: fill 0.2s ease-in;
+	}
+	&.show-b * {
+		fill: var(--clr-a);
+	}
+	&.show-a * {
+		transition-delay: 0.6s;
+		fill: var(--clr-b);
+	}
+	&.hidden * {
+		color: transparent;
+		fill: transparent;
+		transition: fill 0.2s ease-in;
 	}
 }
 

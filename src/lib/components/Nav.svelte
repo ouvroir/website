@@ -11,7 +11,7 @@
 
 	export let isHome = true;
 
-	const contrast: boolean = !isHome;
+	const routeId = $page.route.id?.match(/\s*(\w+)/)![0];
 
 	let scrollY: number = 0;
 	let prevScrollY: number = 0;
@@ -66,12 +66,21 @@
 		frHref = $locale === 'fr' ? $page.url.pathname : langRedirectUrl;
 	});
 
-	const handleScroll = (e: Event) => {
-		const nav = document.querySelector('nav');
+	let nav: HTMLElement | null;
+	let logo: HTMLElement | null;
+
+	// Handle all the rest
+	const handleScroll = () => {
 		const top = nav?.getBoundingClientRect().top ?? 500;
 
-		if (nav) {
-			if ($page.route.id?.includes('home')) {
+		console.log(logo);
+
+		// console.log('scrollY', scrollY);
+		// console.log('prevScrollY', prevScrollY);
+		// console.log('top', top, '\n');
+
+		if (nav && logo) {
+			if (routeId === 'home') {
 				if (scrollY >= 200) {
 					if (nav.classList.contains('hero-nav')) {
 						nav.classList.remove('hero-nav');
@@ -84,33 +93,43 @@
 				} else {
 					nav.classList.add('hero-nav');
 					nav.classList.remove('sticky');
-					showNavLogo.set(false);
 				}
-			}
 
-			if (top === 0) {
+				if (nav.classList.contains('hero-nav')) {
+					logo?.classList.remove('show-a');
+					logo?.classList.remove('show-b');
+					logo?.classList.add('hidden');
+				} else {
+					logo?.classList.remove('hidden');
+					logo?.classList.add('show-a');
+				}
+
+				if (top === 0) {
+					nav.classList.add('nav-shadow');
+					// showNavLogo.set(true);
+					if (prevScrollY - scrollY < 0 && !nav.classList.contains('hero-nav')) {
+						nav.classList.add('hide-nav');
+					} else {
+						nav.classList.remove('hide-nav');
+					}
+				} else if (top > 0) nav.classList.remove('nav-shadow');
+				else {
+					if (prevScrollY - scrollY < 0 && !nav.classList.contains('hero-nav')) {
+						nav.classList.add('hide-nav');
+					} else {
+						nav.classList.remove('hide-nav');
+					}
+				}
+			} else {
+				logo.classList.remove('hidden');
+				logo.classList.add('show-b');
+
+				// nav.classList.remove('sticky');
+				nav.classList.remove('hero-nav');
 				nav.classList.add('nav-shadow');
-				showNavLogo.set(true);
-				if (prevScrollY - scrollY < 0 && !nav.classList.contains('hero-nav')) {
-					nav.classList.add('hide-nav');
-				} else {
-					nav.classList.remove('hide-nav');
-				}
-			} else if (top > 0) nav.classList.remove('nav-shadow');
-			else {
-				if (prevScrollY - scrollY < 0 && !nav.classList.contains('hero-nav')) {
-					nav.classList.add('hide-nav');
-				} else {
-					nav.classList.remove('hide-nav');
-				}
 			}
-
-			// if (!nav.classList.contains('hero-nav') && scrollY > 150) {
-			// 	// if scrolling down
 
 			prevScrollY = scrollY;
-
-			// }
 		}
 	};
 
@@ -129,6 +148,12 @@
 
 	$: smallScreen = $screenType === 'mobile' || $screenType === 'tablet-vertical';
 	onMount(() => {
+		nav = document.querySelector('nav');
+		logo = document.querySelector('#nav-logo');
+
+		nav?.classList.add('hero-nav');
+		logo?.classList.add('hidden');
+
 		document.addEventListener('click', handleClickOutside);
 		return () => {
 			// Cleanup the event listener when the component is unmounted
@@ -142,7 +167,7 @@
 {#if !smallScreen}
 	<nav
 		aria-labelledby={`${$t('aria.nav.label')}`}
-		class={`${$showHero ? 'hero-nav' : ''} ${contrast ? 'nav-contrast' : ''} ${isHome ? 'home-nav' : 'page-nav'}`}
+		class={`${$showHero ? 'hero-nav' : ''} ${!isHome ? 'nav-contrast' : ''} ${isHome ? 'home-nav' : 'page-nav'}`}
 	>
 		<Ouvroir />
 		<div class="full-navigation">

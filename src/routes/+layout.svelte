@@ -92,7 +92,7 @@
 	{#if $showHero}
 		<HomeHero />
 	{/if}
-	<Nav {isHome} />
+	<Nav bind:isHome />
 	<slot />
 </main>
 

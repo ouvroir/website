@@ -9,12 +9,12 @@
 <section class="hero-container" id="presentation">
 	<Patterns className="left-feature" />
 	<div class="hero">
-		<div class="hero-header">
+		<header class="hero-header">
 			<div>
 				<h1 class="title">Ouvroir</h1>
 				<h2 class="subtitle">d’histoire de l’art <br /> et de muséologie numériques</h2>
 			</div>
-		</div>
+		</header>
 		<article class="hero-content" out:fade={{ duration: 500 }}>
 			{@html $presentation.html}
 		</article>
@@ -39,6 +39,7 @@
 		margin-bottom: var(--hero-margin-bottom);
 
 		box-shadow: 2px 2px 2rem var(--clr-b);
+		z-index: 5;
 	}
 
 	.hero {
