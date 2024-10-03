@@ -4,7 +4,7 @@
 	import { setContext } from 'svelte';
 	import { writable } from 'svelte/store';
 	import { building } from '$app/environment';
-	import { routeId, resources, projects, meetings, events, blogs } from '$lib/stores';
+	import { resources, projects, meetings, events, blogs } from '$lib/stores';
 	import { sortContentByDate, getTagsfromContent, contentHasTags } from '$lib/utils/helpers';
 	import type { Project, Blog, Event, Resource, Meeting } from '$lib/types';
 	import { page } from '$app/stores';
@@ -18,9 +18,9 @@
 
 	let filtered: Array<ContentType>, otherContent: Array<Project>;
 
-	console.log($routeId);
+	const routeId = $page.route.id?.match(/\s*(\w+)/)![0];
 	selectedTags.subscribe((tags) => {
-		switch ($routeId) {
+		switch (routeId) {
 			case 'projects':
 				filtered = $projects
 					.filter((d) => d.meta.cieco)
@@ -78,7 +78,7 @@
 </div>
 
 <ul class="column-layout">
-	{#if $routeId === 'projects'}
+	{#if routeId === 'projects'}
 		{#if filtered.length > 0}
 			<li>
 				<h2 id="#cieco-title">{$t('projects.cieco.title')}</h2>
@@ -97,7 +97,7 @@
 		{/if}
 	{:else}
 		{#each filtered as content, i}
-			<GenericCard {content} hideType={$routeId === 'resources'} />
+			<GenericCard {content} hideType={routeId === 'resources'} />
 		{/each}
 	{/if}
 </ul>

@@ -2,12 +2,9 @@ import { writable, derived, get } from "svelte/store";
 import type { Writable, Readable } from "svelte/store";
 import type { Blog, Event, Meeting, Member, Project, Resource, StaticDocument } from "./types";
 import { locale } from '$i18n/i18n'
-import FlexSearch from "flexsearch";
 import { page } from "$app/stores";
 import { SearchIndex } from "./utils/search";
 
-export const routeId = derived(page, ($page) => $page.route.id?.match(/\s*(\w+)/)![0]);
-export const routeIdI18n = derived(page, ($page) => $page.url.pathname.match(/\s*(\w+)/)![0]);
 
 export const showHero = derived(page, ($page) => $page.route.id?.includes('home'))
 export const showNavLogo = writable(true);

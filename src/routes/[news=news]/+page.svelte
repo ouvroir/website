@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { t } from '$lib/i18n/i18n';
 	import { onMount } from 'svelte';
-	import ContentList from '$lib/components/ContentList.svelte';
+	import { ContentList } from '$components';
 
 	onMount(() => {
 		if (window.location.hash) {
@@ -20,15 +20,6 @@
 <ContentList />
 
 <style>
-	hr {
-		border: none; /* Remove default border */
-		border-top: 0.5rem solid var(--cb);
-		margin: 2rem 0;
-	}
-	.tags-container {
-		grid-column: span 2;
-	}
-
 	/** All touch screens */
 	@media screen and (max-width: 1024px) {
 		.container {

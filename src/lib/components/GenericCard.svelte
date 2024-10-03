@@ -2,11 +2,13 @@
 	import type { Blog, Event, Resource, Project, Meeting } from '$lib/types';
 	import { dateToLocalizedString, t } from '$i18n/i18n';
 	import { Tag } from '$components';
-	import { routeId } from '$lib/stores';
+	import { page } from '$app/stores';
 
 	export let content: Blog | Event | Resource | Project | Meeting;
 	export let contrast = false;
 	export let hideType = false;
+
+	const routeId = $page.route.id?.match(/\s*(\w+)/)![0];
 
 	let date: string, dateLabel: string | undefined;
 	let tags: string[];
@@ -55,7 +57,7 @@
 	};
 
 	let href = '';
-	switch ($routeId) {
+	switch (routeId) {
 		case 'projects':
 			href = `${$t('route.projects')}/${content.meta.slug}`;
 			break;
