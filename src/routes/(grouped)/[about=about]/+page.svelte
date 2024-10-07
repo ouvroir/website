@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { t } from '$i18n/i18n';
 	import { aboutPageTitle } from '$lib/stores.js';
-	import { TeamCard } from '$lib/components';
+	import { TeamCard, Support } from '$lib/components';
 	import { members, about } from '$lib/stores.js';
 	import { wrapContentBetweenH2s, generateSlug } from '$lib/utils/helpers';
 

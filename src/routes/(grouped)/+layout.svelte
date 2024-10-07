@@ -1,10 +1,10 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import { screenType, aboutPageTitle } from '$lib/stores.js';
-	import { Tree } from '$lib/components';
+	import { Tree, Support } from '$lib/components';
 
 	$: smallScreen = $screenType === 'mobile' || $screenType === 'tablet-vertical';
-	// $: section = $page.route.id?.match(/\/\[(\w+)=\1\]/)?.[1];
+	$: section = $page.route.id?.match(/\/\[(\w+)=\1\]/)?.[1];
 </script>
 
 <section class="info-page">
@@ -23,7 +23,9 @@
 	</div>
 </section>
 
-<div class="grid-empty-row" />
+{#if section === 'about'}
+	<Support />
+{/if}
 
 <style>
 	.info-page {
