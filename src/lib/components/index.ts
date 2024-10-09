@@ -40,3 +40,5 @@ export { default as Zotero } from './logos/Zotero.svelte';
 export { default as Quebec } from './logos/Quebec.svelte';
 export { default as Udem } from './logos/Udem.svelte';
 export { default as CFI } from './logos/CFI.svelte';
+export { default as Cieco } from './logos/Cieco.svelte';
+export { default as Crihn } from './logos/Crihn.svelte';

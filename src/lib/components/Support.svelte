@@ -3,38 +3,64 @@
 	import { localize } from '$lib/i18n/i18n';
 	import { page } from '$app/stores';
 	import { support } from '$lib/stores';
-	import { Quebec, Udem, CFI } from '$components';
+	import { Quebec, Udem, CFI, Cieco, Crihn } from '$components';
 
 	console.log('support', $support);
+
+	const onEnter = (e: MouseEvent) => {
+		const target = e.target as HTMLElement;
+		const p = target.querySelector('p');
+		if (p) p.classList.toggle('hide');
+	};
+
+	const onLeave = (e: MouseEvent) => {
+		const target = e.target as HTMLElement;
+		const p = target.querySelector('p');
+		if (p) p.classList.toggle('hide');
+	};
 </script>
 
 {#if $support}
 	<section>
 		<h2>{@html $support.html}</h2>
 		<ul class="finance-logos">
-			<li>
-				<a href="https://www.umontreal.ca/" rel="external" target="_blank">
+			<li on:mouseenter={onEnter} on:mouseleave={onLeave}>
+				<div class="card-container">
 					<Udem />
-				</a>
-				<p>
+				</div>
+				<p class="hide">
 					Du septembre 2022 au août 2027, le projet est financé par le programme de subventions de
 					partenariat du CRSH.
 				</p>
 			</li>
-			<li>
-				<a href="https://www.innovation.ca/" rel="external" target="_blank">
+			<li on:mouseenter={onEnter} on:mouseleave={onLeave}>
+				<div class="card-container">
 					<CFI />
-				</a>
-				<p>Du septembre 2022 au août 2027</p>
+				</div>
+				<p class="hide">Du septembre 2022 au août 2027</p>
 			</li>
-			<li>
-				<a
-					href="https://www.economie.gouv.qc.ca/bibliotheques/programmes/aide-financiere/programme-de-soutien-aux-organismes-de-recherche-et-dinnovation-pso/cofinancement-du-gouvernement-du-quebec-aux-programmes-de-la-fondation-canadienne-pour-linnovation-fci/fonds-dinnovation/"
-					rel="external"
-					target="_blank"
-				>
+			<li on:mouseenter={onEnter} on:mouseleave={onLeave}>
+				<div class="card-container">
 					<Quebec />
-				</a>
+				</div>
+			</li>
+		</ul>
+		<h2>L'ouvroir fait aussi plein de trucs</h2>
+		<ul class="finance-logos">
+			<li on:mouseenter={onEnter} on:mouseleave={onLeave}>
+				<div class="card-container">
+					<Udem />
+				</div>
+				<p class="hide">
+					Du septembre 2022 au août 2027, le projet est financé par le programme de subventions de
+					partenariat du CRSH.
+				</p>
+			</li>
+			<li on:mouseenter={onEnter} on:mouseleave={onLeave}>
+				<div class="card-container">
+					<CFI />
+				</div>
+				<p class="hide">Du septembre 2022 au août 2027</p>
 			</li>
 		</ul>
 	</section>
@@ -63,35 +89,59 @@
 	}
 
 	li {
-		width: 25rem;
-		height: 100%;
+		--width: 25rem;
+		--padding: 1rem;
+		position: relative;
+		width: var(--width);
+		max-width: var(--width);
+		height: 15rem;
 		box-shadow: 0.5px 0.5px 0.5rem var(--clr-b);
-		padding: 1rem;
 		border-radius: var(--border-radius);
-		display: flex;
-		flex-direction: column;
 		background-color: var(--clr-b);
 		flex-grow: 1;
 
 		& svg {
 			margin-bottom: 2rem;
+			margin: auto;
+		}
+
+		& .card-container {
+			width: 100%;
+			height: 100%;
+			padding: var(--padding);
+			display: flex;
+			/* flex-direction: column; */
 		}
 
 		& p {
-			color: var(--clr-a);
-			font-weight: 200;
-			font-size: var(--fs-300);
-			line-height: 1.5rem;
-			margin-top: auto;
-			height: max-content;
+			position: absolute;
+			top: 0;
+			left: 0;
 			display: block;
+			width: 100%;
+			min-height: 100%;
+			height: max-content;
+			padding: calc(var(--padding) + 1rem);
+			border-radius: var(--border-radius);
+			color: var(--clr-b);
+			font-weight: 400;
+			font-size: var(--fs-200);
+			line-height: 1.5rem;
+			background-color: var(--clr-a);
+			z-index: 5;
+			transition: all 0.5s;
+		}
+
+		& p.hide {
+			color: transparent;
+			background-color: transparent;
 		}
 	}
 
 	h2 {
 		margin: 0;
 		grid-column: feature;
-		font-size: var(--fs-700);
+		font-size: var(--fs-600);
 		font-weight: 700;
 		display: flex;
 		flex-direction: row;
@@ -101,10 +151,11 @@
 		color: var(--clr-b);
 
 		& p {
-			width: 36ch;
+			width: 40ch;
 			margin: auto;
 			height: max-content;
-			line-height: 4rem;
+			line-height: 3.2rem;
+			text-align: center;
 			& a {
 				color: var(--clr-b);
 			}

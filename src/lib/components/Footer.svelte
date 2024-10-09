@@ -1,8 +1,7 @@
 <script lang="ts">
 	import { base } from '$app/paths';
 	import { t } from '$i18n/i18n';
-	import CrihnLogo from './logos/CrihnLogo.svelte';
-	import CiecoLogo from './logos/CiecoLogo.svelte';
+	import { Cieco, Crihn } from '$components';
 	import { Github, Twitter, Hypothesis, Matrix, Zotero } from '$components';
 </script>
 
@@ -67,12 +66,6 @@
 			<h1>À propos du laboratoire</h1>
 
 			<div>
-				<object
-					data={`${base}/logos/support-new/cieco.svg`}
-					aria-label="Logo Cieco"
-					type="image/svg+xml"
-					class="footer-logo"
-				></object>
 				<p>
 					L’Ouvroir d’histoire de l’art et de muséologie numérique de l’Université de Montréal, est
 					un laboratoire de recherche destiné à soutenir le travail conduit dans le cadre du
@@ -85,12 +78,6 @@
 			</div>
 
 			<div>
-				<object
-					data={`${base}/logos/support-new/crihn.svg`}
-					aria-label="Logo CRIHN"
-					type="image/svg+xml"
-					class="footer-logo"
-				></object>
 				<p id="crinh">
 					L’Ouvroir est membre du « <em
 						>Centre de recherche interuniversitaire sur les humanités numériques</em
@@ -98,24 +85,7 @@
 					» <a rel="external" target="_blank" href="https://www.crihn.org/">CRIHN</a>.
 				</p>
 			</div>
-
-			<!-- <div class="support-logos-container">
-			<a
-				id="cieco-logo-container"
-				href="https://cieco.umontreal.ca/"
-				rel="external"
-				target="_blank"
-			>
-				<CiecoLogo />
-			</a>
-			<a id="logo-crihn-container" href="https://www.crihn.org/" rel="external" target="_blank">
-				<CrihnLogo />
-			</a>
-		</div> -->
 		</section>
-		<!-- <section id="credits">
-			<p>Ouvroir. An inclusive and open-source space | 2023</p>
-		</section> -->
 	</div>
 </footer>
 
