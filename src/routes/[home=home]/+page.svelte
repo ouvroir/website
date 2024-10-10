@@ -4,7 +4,8 @@
 		HomeNewsSection,
 		HomeCarousel,
 		HomeProjectsSection,
-		HomeServicesSection
+		HomeServicesSection,
+		Support
 	} from '$lib/components';
 </script>
 
@@ -19,3 +20,5 @@
 <HomeProjectsSection />
 
 <HomeServicesSection />
+
+<Support />
