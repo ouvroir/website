@@ -98,7 +98,9 @@
 			{#if Array.isArray(content.meta.participants)}
 				<ul class="participants-ul">
 					{#each content.meta.participants as p, i}
-						<li class="participant">{p}{i === content.meta.participants.length - 1 ? '' : ', '}</li>
+						<li class="participant">
+							{p}{i === content.meta.participants.length - 1 ? '' : ', '}
+						</li>
 					{/each}
 				</ul>
 			{:else}
@@ -133,20 +135,21 @@
 
 <style>
 	.infos {
-		container: baside / inline-size;
+		container: aside / inline-size;
 		margin-top: 0.5rem;
 		grid-column: feature-start / content-start;
-		max-width: 90%;
 		color: var(--clr-b);
 		display: flex;
 		flex-direction: column;
 		gap: 3rem;
 		flex-wrap: wrap;
 		row-gap: 2rem;
+		width: 80%;
 	}
 
 	.info {
-		max-width: 90%;
+		width: fit-content;
+		break-inside: avoid;
 
 		& * {
 			line-height: 1.5rem;
@@ -168,6 +171,11 @@
 			font-weight: 600;
 			font-size: var(--fs-300);
 			line-height: 1.8rem;
+		}
+
+		& a {
+			color: var(--clr-b);
+			font-weight: 700;
 		}
 	}
 
@@ -199,5 +207,20 @@
 		font-size: 0.9rem;
 	}
 
-	@media;
+	@media screen and (max-width: 68rem) {
+		.infos {
+			grid-column: popout;
+			display: block;
+			columns: 3 10rem;
+			margin-top: 0;
+			margin-bottom: 2rem;
+			width: 100%;
+			align-items: baseline;
+			justify-content: baseline;
+		}
+
+		.info {
+			margin-bottom: 1.5rem;
+		}
+	}
 </style>

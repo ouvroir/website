@@ -703,3 +703,23 @@ img.outgoing-left {
 
 /** Mobile */
 /* @media screen and (max-width: 480px)  {}  */
+
+@media screen and (max-width: 68rem) {
+	.text-body {
+		grid-column: popout;
+		width: 100%;
+
+		& ul {
+			padding-left: 1rem;
+		}
+	}
+
+	header.header-content {
+		padding-top: 6rem;
+		margin-bottom: 0;
+
+		& h1 {
+			padding-left: 0;
+		}
+	}
+}
