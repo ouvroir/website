@@ -8,8 +8,10 @@
 </script>
 
 <section class="info-page">
-	<header>
-		<h1>{$aboutPageTitle}</h1>
+	<header class="header-content">
+		<div class="title-container">
+			<h1>{$aboutPageTitle}</h1>
+		</div>
 	</header>
 
 	{#if !smallScreen}
@@ -32,23 +34,16 @@
 		grid-column: full;
 		display: grid;
 		grid-template-columns: subgrid;
-		margin: var(--content-top-padding) 0;
+		margin-bottom: var(--content-bottom-padding);
 	}
 
 	header {
-		grid-column: content-start / popout-end;
+		grid-column: full;
 	}
 
 	.article-content {
 		grid-column: content-start / popout-end;
 		font-size: 1.1rem;
-	}
-
-	h1 {
-		font-size: var(--fs-700);
-		padding-bottom: var(--padding-title);
-		color: var(--clr-b);
-		font-weight: 700;
 	}
 
 	.about-tree-container {

@@ -19,79 +19,15 @@
 </script>
 
 {#if browser}
-	<header>
+	<header class="header-content">
 		<!-- {#if addPattern}
 			<div class={`header-ptrn ${getRandomPattern()} patterns-contrast-1 patterns-size-s`}></div>
 		{/if} -->
 		<div class="title-container">
 			<h1>{@html h1}</h1>
 		</div>
-		{#if content.meta.kind !== 'meeting'}
+		<!-- {#if content.meta.kind !== 'meeting'}
 			<p class="frist-paragraph">{@html p}</p>
-		{/if}
+		{/if} -->
 	</header>
 {/if}
-
-<style>
-	header {
-		--margin-btm: 2rem;
-		grid-column: full;
-		display: grid;
-		grid-template-columns: subgrid;
-		/* gap: 2rem; */
-		margin-bottom: var(--margin-btm);
-		margin-top: calc(var(--nav-height) * -1);
-		padding: var(--margin-btm) 0;
-		padding-top: calc(var(--nav-height) + var(--content-top-padding));
-		z-index: 2;
-
-		/* border-bottom-left-radius: var(--border-radius);
-		border-bottom-right-radius: var(--border-radius);
-		box-shadow: 2px 2px 1rem -3px var(--clr-b); */
-
-		& .title-container {
-			grid-column: content-start / popout-end;
-		}
-
-		& h1,
-		& .frist-paragraph {
-			border: solid 0.5rem var(--cb);
-		}
-
-		& h1 {
-			color: var(--clr-b);
-			font-size: var(--fs-700);
-			line-height: 3.5rem;
-			font-weight: 700;
-			text-wrap: balance;
-		}
-
-		& .frist-paragraph {
-			margin-top: 1rem;
-			font-weight: 500;
-			font-size: var(--fs-300);
-			line-height: var(--body-line-height);
-			grid-column: content-start / popout-end;
-		}
-
-		& h1,
-		& .frist-paragraph {
-			--padding-v: 1rem;
-			background-color: var(--ca);
-			left: calc(var(--padding-v) * -1);
-			padding: 0.7rem var(--padding-v);
-			color: var(--cb);
-		}
-
-		/* & .header-ptrn {
-			grid-column: full;
-			grid-row: 1;
-			position: relative;
-			top: 0;
-			left: 0;
-			width: 100%;
-			height: 35%;
-			z-index: -1;
-		} */
-	}
-</style>

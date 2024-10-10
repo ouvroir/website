@@ -133,6 +133,7 @@
 
 <style>
 	.infos {
+		margin-top: 0.5rem;
 		grid-column: feature-start / content-start;
 		max-width: 90%;
 		color: var(--clr-b);
@@ -159,6 +160,13 @@
 
 		& span {
 			letter-spacing: 0.05rem;
+		}
+
+		& .date,
+		& .time-place {
+			font-weight: 600;
+			font-size: var(--fs-300);
+			line-height: 1.8rem;
 		}
 	}
 

@@ -23,7 +23,8 @@
 	--fw-tags: 300;
 
 	--padding-title: 3rem;
-	--content-top-padding: 6rem;
+	--content-top-padding: 4rem;
+	--content-bottom-padding: 7rem;
 
 	--filter-margin: 3rem;
 
@@ -260,17 +261,36 @@ nav {
 	top: 0.6rem;
 }
 
-/* .nav-shadow {
-    box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.1);
-} */
+header.header-content {
+	--margin-btm: 2.5rem;
+	grid-column: full;
+	display: grid;
+	grid-template-columns: subgrid;
+	/* gap: 2rem; */
+	margin-bottom: var(--margin-btm);
+	margin-top: calc(var(--nav-height) * -1);
+	padding: var(--margin-btm) 0;
+	padding-top: calc(var(--nav-height) + var(--content-top-padding));
+	z-index: 2;
 
-/* .addGap {
-    gap: 2rem;
-    display: grid;
-    grid-auto-flow: dense;
-    flex-direction: row;
-    flex-wrap: wrap;
-} */
+	& .title-container {
+		grid-column: popout-start / popout-end;
+	}
+
+	& h1 {
+		--padding-v: 1rem;
+		background-color: var(--ca);
+		left: calc(var(--padding-v) * -1);
+		padding: 2rem;
+		color: var(--cb);
+		border-bottom: solid 0.5rem var(--cb);
+		color: var(--clr-b);
+		font-size: var(--fs-700);
+		line-height: 3.5rem;
+		font-weight: 700;
+		text-wrap: balance;
+	}
+}
 
 .active::after {
 	content: '';
