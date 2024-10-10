@@ -50,13 +50,8 @@
 		}
 	});
 
-	$: console.log('selected', $selectedTags);
-
 	page.subscribe((page) => {
 		const hash = decodeURI(page.url.hash).slice(1);
-		console.log('hash', hash);
-		console.log('hash included', $tags.includes(hash));
-		console.log($tags);
 		if (hash && $tags.includes(hash)) {
 			selectedTags.set([hash]);
 		}

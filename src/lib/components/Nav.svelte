@@ -73,12 +73,6 @@
 	const handleScroll = () => {
 		const top = nav?.getBoundingClientRect().top ?? 500;
 
-		console.log(logo);
-
-		// console.log('scrollY', scrollY);
-		// console.log('prevScrollY', prevScrollY);
-		// console.log('top', top, '\n');
-
 		if (nav && logo) {
 			if (routeId === 'home') {
 				if (scrollY >= 200) {
