@@ -1,7 +1,4 @@
 <script lang="ts">
-	import { base } from '$app/paths';
-	import { localize } from '$lib/i18n/i18n';
-	import { page } from '$app/stores';
 	import { support } from '$lib/stores';
 	import { Quebec, Udem, CFI, Cieco, Crihn } from '$components';
 
@@ -45,22 +42,29 @@
 				</div>
 			</li>
 		</ul>
-		<h2>L'ouvroir fait aussi plein de trucs</h2>
-		<ul class="finance-logos">
+		<h2>
+			<p>L'ouvroir fait aussi plein de trucs</p>
+		</h2>
+		<ul class="partenaires-logos">
 			<li on:mouseenter={onEnter} on:mouseleave={onLeave}>
 				<div class="card-container">
-					<Udem />
+					<Cieco zoom={0.8} />
 				</div>
 				<p class="hide">
-					Du septembre 2022 au août 2027, le projet est financé par le programme de subventions de
-					partenariat du CRSH.
+					L’Ouvroir d’histoire de l’art et de muséologie numérique de l’Université de Montréal, est
+					un laboratoire de recherche destiné à soutenir le travail conduit dans le cadre du
+					Partenariat « Des nouveaux usages des collections dans les musées d’art » CIÉCO dirigé par
+					Johanne Lamoureux.
 				</p>
 			</li>
 			<li on:mouseenter={onEnter} on:mouseleave={onLeave}>
 				<div class="card-container">
-					<CFI />
+					<Crihn zoom={1.5} />
 				</div>
-				<p class="hide">Du septembre 2022 au août 2027</p>
+				<p class="hide">
+					L’Ouvroir est membre du « Centre de recherche interuniversitaire sur les humanités
+					numériques » CRIHN.
+				</p>
 			</li>
 		</ul>
 	</section>
@@ -75,9 +79,11 @@
 		box-shadow: 0 -10px 1.5rem -10px var(--clr-b);
 		display: grid;
 		grid-template-columns: subgrid;
+		padding-bottom: 3rem;
 	}
 
-	.finance-logos {
+	.finance-logos,
+	.partenaires-logos {
 		grid-column: feature;
 		display: flex;
 		flex-direction: row;
@@ -88,13 +94,27 @@
 		margin-top: 3rem;
 	}
 
+	.finance-logos {
+		& li {
+			--width: 25rem;
+			--padding: 1rem;
+			width: var(--width);
+			max-width: var(--width);
+		}
+	}
+	.partenaires-logos {
+		& li {
+			--width: 15rem;
+			--padding: 1rem;
+			width: var(--width);
+			padding: 2rem 0;
+		}
+	}
+
 	li {
-		--width: 25rem;
-		--padding: 1rem;
 		position: relative;
-		width: var(--width);
-		max-width: var(--width);
-		height: 15rem;
+		height: 20rem;
+		min-width: 15rem;
 		box-shadow: 0.5px 0.5px 0.5rem var(--clr-b);
 		border-radius: var(--border-radius);
 		background-color: var(--clr-b);
@@ -129,7 +149,7 @@
 			line-height: 1.5rem;
 			background-color: var(--clr-a);
 			z-index: 5;
-			transition: all 0.5s;
+			transition: all 0.3s;
 		}
 
 		& p.hide {

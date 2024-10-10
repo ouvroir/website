@@ -149,3 +149,7 @@ export function generateSlug(str: string | undefined): string {
     if (!str) return ''
     return str.replace(/\s+/g, '-').toLowerCase();
 }
+
+export function generateViewBox(width: number, height: number, zoom: number = 1) {
+    return `${(width - width / zoom) / 2} ${(height - height / zoom) / 2} ${width / zoom} ${height / zoom}`
+}

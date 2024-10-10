@@ -1,31 +1,19 @@
+<script lang="ts">
+	import { generateViewBox } from '$lib/utils/helpers';
+	export let zoom: number = 1;
+	const width = 51.4,
+		height = 36.45;
+
+	$: viewBox = generateViewBox(width, height, zoom);
+</script>
+
 <svg
 	id="Calque_1"
 	data-name="Calque 1"
 	xmlns="http://www.w3.org/2000/svg"
 	xmlns:xlink="http://www.w3.org/1999/xlink"
-	viewBox="0 0 51.4 36.45"
+	{viewBox}
 >
-	<defs>
-		<style>
-			.cls-1 {
-				fill: none;
-			}
-
-			.cls-2 {
-				clip-path: url(#clippath);
-			}
-
-			.cls-4 {
-				clip-path: url(#clippath-1);
-			}
-		</style>
-		<clipPath id="clippath">
-			<rect class="cls-1" width="51.18" height="36.45" />
-		</clipPath>
-		<clipPath id="clippath-1">
-			<rect class="cls-1" x=".23" width="51.18" height="36.45" />
-		</clipPath>
-	</defs>
 	<g class="cls-2">
 		<path
 			class="cls-3"
@@ -53,3 +41,14 @@
 		/>
 	</g>
 </svg>
+
+<style>
+	svg {
+		max-height: 100%;
+	}
+
+	svg,
+	svg * {
+		fill: var(--clr-a);
+	}
+</style>
