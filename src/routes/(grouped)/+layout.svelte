@@ -30,6 +30,9 @@
 {/if}
 
 <style>
+	aside {
+		container: aside / inline-size;
+	}
 	.info-page {
 		grid-column: full;
 		display: grid;
@@ -52,5 +55,11 @@
 		grid-row: 2;
 		top: 4rem;
 		height: fit-content;
+	}
+
+	@container aside (min-width: 10rem) {
+		* {
+			color: blue;
+		}
 	}
 </style>

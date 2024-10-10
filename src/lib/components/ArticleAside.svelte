@@ -133,6 +133,7 @@
 
 <style>
 	.infos {
+		container: baside / inline-size;
 		margin-top: 0.5rem;
 		grid-column: feature-start / content-start;
 		max-width: 90%;
@@ -197,4 +198,6 @@
 		/* margin-bottom: 0.6rem; */
 		font-size: 0.9rem;
 	}
+
+	@media;
 </style>
