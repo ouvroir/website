@@ -83,8 +83,8 @@
 			{/each}
 		{/if}
 		{#if otherContent.length > 0}
-			<li>
-				<h2 id="title-rd">{$t('projects.rd.title')}</h2>
+			<li id="title-rd">
+				<h2>{$t('projects.rd.title')}</h2>
 			</li>
 			{#each otherContent as content}
 				<GenericCard {content} hideType />
@@ -100,9 +100,9 @@
 <style>
 	.column-layout {
 		grid-column: feature;
-		columns: 3 25rem;
+		columns: 25rem;
 		column-gap: 2rem;
-		column-fill: balance;
+		/* column-fill: balance; */
 		/* column-rule: 0.5rem black solid; */
 		margin-bottom: var(--content-top-padding);
 
@@ -126,5 +126,14 @@
 
 	#title-rd {
 		break-before: column;
+		-webkit-column-break-before: column;
+	}
+
+	@media screen and (max-width: 58rem) {
+		#title-rd {
+			/* -webkit-break-before: column; */
+			break-before: auto;
+			-webkit-column-break-before: auto;
+		}
 	}
 </style>
