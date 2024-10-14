@@ -6,14 +6,14 @@
 
 	const onEnter = (e: MouseEvent) => {
 		const target = e.target as HTMLElement;
-		const p = target.querySelector('p');
-		if (p) p.classList.toggle('hide');
+		const a = target.querySelector('a');
+		if (a) a.classList.toggle('hide');
 	};
 
 	const onLeave = (e: MouseEvent) => {
 		const target = e.target as HTMLElement;
-		const p = target.querySelector('p');
-		if (p) p.classList.toggle('hide');
+		const a = target.querySelector('a');
+		if (a) a.classList.toggle('hide');
 	};
 </script>
 
@@ -25,16 +25,20 @@
 				<div class="card-container">
 					<Udem />
 				</div>
-				<p class="hide">
-					Du septembre 2022 au août 2027, le projet est financé par le programme de subventions de
-					partenariat du CRSH.
-				</p>
+				<a rel="external" href="https://www.umontreal.ca" class="hide">
+					<p>
+						Du septembre 2022 au août 2027, le projet est financé par le programme de subventions de
+						partenariat du CRSH.
+					</p>
+				</a>
 			</li>
 			<li on:mouseenter={onEnter} on:mouseleave={onLeave}>
 				<div class="card-container">
 					<CFI />
 				</div>
-				<p class="hide">Du septembre 2022 au août 2027</p>
+				<a rel="external" href="https://www.innovation.ca/" class="hide">
+					<p>Du septembre 2022 au août 2027</p>
+				</a>
 			</li>
 			<li on:mouseenter={onEnter} on:mouseleave={onLeave}>
 				<div class="card-container">
@@ -43,28 +47,32 @@
 			</li>
 		</ul>
 		<h2>
-			<p>L'ouvroir fait aussi plein de trucs</p>
+			<p>Les partenaires de l’Ouvroir</p>
 		</h2>
 		<ul class="partenaires-logos">
 			<li on:mouseenter={onEnter} on:mouseleave={onLeave}>
 				<div class="card-container">
 					<Cieco zoom={0.8} />
 				</div>
-				<p class="hide">
-					L’Ouvroir d’histoire de l’art et de muséologie numérique de l’Université de Montréal, est
-					un laboratoire de recherche destiné à soutenir le travail conduit dans le cadre du
-					Partenariat « Des nouveaux usages des collections dans les musées d’art » CIÉCO dirigé par
-					Johanne Lamoureux.
-				</p>
+				<a rel="external" href="https://cieco.co/" class="hide">
+					<p>
+						L’Ouvroir d’histoire de l’art et de muséologie numérique de l’Université de Montréal,
+						est un laboratoire de recherche destiné à soutenir le travail conduit dans le cadre du
+						Partenariat « Des nouveaux usages des collections dans les musées d’art » CIÉCO dirigé
+						par Johanne Lamoureux.
+					</p>
+				</a>
 			</li>
 			<li on:mouseenter={onEnter} on:mouseleave={onLeave}>
 				<div class="card-container">
 					<Crihn zoom={1.5} />
 				</div>
-				<p class="hide">
-					L’Ouvroir est membre du « Centre de recherche interuniversitaire sur les humanités
-					numériques » CRIHN.
-				</p>
+				<a rel="external" href="https://www.crihn.org/" class="hide">
+					<p>
+						L’Ouvroir est membre du « Centre de recherche interuniversitaire sur les humanités
+						numériques » CRIHN.
+					</p>
+				</a>
 			</li>
 		</ul>
 	</section>
@@ -79,7 +87,7 @@
 		box-shadow: 0 -10px 1.5rem -10px var(--clr-b);
 		display: grid;
 		grid-template-columns: subgrid;
-		padding-bottom: 3rem;
+		padding: 4rem 0 7rem 0;
 	}
 
 	.finance-logos,
@@ -104,7 +112,7 @@
 	}
 	.partenaires-logos {
 		& li {
-			--width: 15rem;
+			--width: 20rem;
 			--padding: 1rem;
 			width: var(--width);
 			padding: 2rem 0;
@@ -133,7 +141,7 @@
 			/* flex-direction: column; */
 		}
 
-		& p {
+		& a {
 			position: absolute;
 			top: 0;
 			left: 0;
@@ -144,15 +152,17 @@
 			padding: calc(var(--padding) + 1rem);
 			border-radius: var(--border-radius);
 			color: var(--clr-b);
-			font-weight: 400;
+			font-weight: 500;
 			font-size: var(--fs-200);
 			line-height: 1.5rem;
-			background-color: var(--clr-a);
+			text-decoration: none;
+			color: var(--clr-b);
+			background-color: rgb(from var(--clr-a) r g b / 0.9);
 			z-index: 5;
 			transition: all 0.3s;
 		}
 
-		& p.hide {
+		& a.hide {
 			color: transparent;
 			background-color: transparent;
 		}
@@ -167,7 +177,7 @@
 		flex-direction: row;
 		padding: 3rem 2rem;
 		height: max-content;
-		margin-top: 3rem;
+		margin-top: 4rem;
 		color: var(--clr-b);
 
 		& p {
