@@ -90,6 +90,9 @@
 			</p>
 		</div>
 		<div class="info">
+			<a class="register" href={content.meta.link}>{$t('news.register')}</a>
+		</div>
+		<div class="info">
 			<span class="label">{$t('news.summary')}</span>
 			<p class="description">{content.meta.description}</p>
 		</div>
@@ -106,9 +109,6 @@
 			{:else}
 				<p class="participant">{content.meta.participants.join(',')}</p>
 			{/if}
-		</div>
-		<div class="info">
-			<a class="register" href={content.meta.link}>{$t('news.register')}</a>
 		</div>
 	{:else if content.meta.kind === 'resource'}
 		<p class="project-description">{content.meta.description}</p>
