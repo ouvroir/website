@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { resources } from '$lib/stores';
-	import { ArticleBody, ArticleHeader, ArticleAside } from '$lib/components';
+	import { ArticleContainer, ArticleBody, ArticleHeader, ArticleAside } from '$lib/components';
 	import { browser } from '$app/environment';
 	import { page } from '$app/stores';
 
@@ -8,9 +8,9 @@
 </script>
 
 {#if browser}
-	<article>
+	<ArticleContainer>
 		<ArticleHeader {content} />
 		<ArticleAside {content} />
 		<ArticleBody {content} />
-	</article>
+	</ArticleContainer>
 {/if}
