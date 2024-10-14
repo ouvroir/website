@@ -13,7 +13,7 @@
 
 	<ul class="services-list">
 		<li class="services-li">
-			<i class="bx bxs-camera-movie"></i>
+			<i class="bx bxs-camera"></i>
 
 			<h2>{$t('home.services.equipement.title')}</h2>
 			<p>
@@ -42,7 +42,7 @@
 
 <style>
 	i {
-		font-size: 10rem;
+		font-size: 8rem;
 		color: var(--clr-b);
 		margin: auto;
 	}
@@ -53,7 +53,7 @@
 		color: var(--clr-b);
 		align-items: center;
 		justify-content: center;
-		padding: 5rem 0;
+		padding: 7rem 0;
 	}
 
 	h1 {
@@ -92,6 +92,7 @@
 		columns: 3 25rem;
 		/* width: fit-content; */
 		/* margin: 0 auto; */
+		margin-bottom: 2rem;
 
 		& > li {
 			max-width: 25rem;
