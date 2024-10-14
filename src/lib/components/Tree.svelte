@@ -33,6 +33,17 @@
 				section.classList.add('closed');
 			}
 		});
+
+		console.log('sectionContent', sectionContent);
+		if (sectionContent.classList.contains('opened')) {
+			const icon =
+				targetElement.parentElement.querySelector('i') ??
+				targetElement.parentElement.parentElement.querySelector('i');
+			if (icon) {
+				icon.classList.toggle('bx-plus');
+				icon.classList.toggle('bx-minus');
+			}
+		}
 	};
 
 	const toggleActive = (event: MouseEvent) => {
