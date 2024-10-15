@@ -3,8 +3,6 @@
 	import { Quebec, Udem, CFI, Cieco, Crihn } from '$components';
 	import { onMount } from 'svelte';
 
-	console.log('support', $support);
-
 	const onEnter = (e: MouseEvent) => {
 		const target = e.target as HTMLElement;
 		const a = target.querySelector('a');

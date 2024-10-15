@@ -15,9 +15,9 @@ export const load = async (event) => {
         else throw redirect(301, `${base}/home`);
     }
 
-    // if (building) {
-    //     console.log('[layout.build] fetching', event.url.pathname);
-    // }
+    if (building) {
+        console.log('[layout.build] fetching', event.url.pathname);
+    }
 
     if (!get(contentLoaded)) {
         const allProjects = fetchData('projects') as Project[];
