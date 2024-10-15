@@ -44,7 +44,7 @@
     --clr-b-op: hsl(94, 15%, 91%); */
 
 	--nav-links-padding-bottom: 0.6rem;
-	--nav-height: 9vh;
+	--nav-height: min(5rem, 9vh);
 
 	--border-radius: 9px;
 	--pattern-bradius: 30px;
@@ -55,7 +55,7 @@
 	--full: minmax(var(--gap), 1fr);
 	--content: min(62ch, 100% - var(--gap) * 2);
 	--popout: minmax(0, 10rem);
-	--feature: minmax(0, 30rem);
+	--feature: minmax(0, 15rem);
 }
 
 ::selection {
@@ -113,6 +113,13 @@ footer svg {
 main {
 	background-color: var(--clr-a);
 	margin-bottom: 3rem;
+}
+
+main,
+footer,
+nav {
+	margin: auto;
+	/* max-width: 150ch; */
 }
 
 nav {
@@ -519,6 +526,11 @@ header.header-content {
 .text-body .section-content {
 	transition: all 0.3s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
+
+em {
+	font-weight: 400;
+}
+
 .closed {
 	max-height: 0;
 	overflow: hidden;
