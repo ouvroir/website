@@ -19,15 +19,16 @@
 </script>
 
 <section class="news-section-wrapper">
-	<ul class="news-container">
+	<ul class="section-content">
+		<div class="section-title">
+			<h1>{$t('home.news.latest')}</h1>
+			<PatternGutters contrast={true} />
+		</div>
+
 		{#each news as content}
 			<NewsCard {content} />
 		{/each}
 	</ul>
-	<div class="section-title">
-		<h1>{$t('home.news.latest')}</h1>
-		<PatternGutters contrast={true} />
-	</div>
 </section>
 
 <style>
@@ -37,39 +38,46 @@
 		display: grid;
 		grid-template-columns: subgrid;
 	}
+
 	ul {
-		max-width: 70%;
-		grid-column: feature-start / content-end;
-		display: flex;
-		flex-direction: column;
-		gap: 3rem;
+		grid-column: feature;
+		columns: 2 25rem;
+		column-gap: 3rem;
+		column-fill: balance;
+
+		& li {
+			min-width: 25rem;
+			margin-bottom: 2rem;
+			break-inside: avoid;
+		}
 	}
 	h1 {
-		top: 4rem;
-		left: -6rem;
+		top: 3rem;
+		left: 2rem;
 		width: fit-content;
-		height: fit-content;
+		height: max-content;
 		position: relative;
 		padding: 1rem 1.2rem;
 		font-size: 2.5rem;
 		font-weight: 700;
-		margin-bottom: 2rem;
+		margin-bottom: 5rem;
 		z-index: 2;
 		background-color: var(--clr-a);
 		color: var(--clr-b);
-		border-radius: var(--border-radius);
+		/* border-radius: var(--border-radius); */
 	}
 
 	.section-title {
+		/* display: block; */
 		position: sticky;
-		top: 8rem;
-		left: 0;
+
 		/* right: 8rem; */
-		grid-column: content-end / full-end;
+		/* grid-column: content-end / full-end; */
 		display: flex;
-		max-height: 70vh;
-		gap: 1rem;
-		/* overflow: hidden; */
+		max-height: max-content;
+		/* gap: 1rem; */
 		border-radius: var(--border-radius);
+		margin-bottom: 3rem;
+		max-width: 100%;
 	}
 </style>

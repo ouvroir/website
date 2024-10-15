@@ -71,6 +71,7 @@
 		box-shadow: 10px 10px 3rem hsl(94, 15%, 25%);
 		color: var(--ca);
 		background-color: var(--cb);
+		break-inside: avoid;
 	}
 
 	header {
