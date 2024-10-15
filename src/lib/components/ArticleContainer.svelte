@@ -7,6 +7,7 @@
 		grid-column: full;
 		display: grid;
 		grid-template-columns: subgrid;
+		padding-bottom: var(--content-bottom-padding);
 	}
 
 	/** Small screens */
