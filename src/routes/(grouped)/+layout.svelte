@@ -48,9 +48,10 @@
 
 	.about-tree-container {
 		position: sticky;
+		position: -webkit-sticky;
 		grid-column: feature-start / content-start;
 		grid-row: 2;
 		top: 4rem;
-		height: fit-content;
+		height: 100%;
 	}
 </style>

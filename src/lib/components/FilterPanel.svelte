@@ -295,14 +295,7 @@
 	/** All touch screens */
 	@media screen and (max-width: 1024px) {
 		.filter-panel {
-			grid-column: 1/-1;
-		}
-	}
-
-	/** Tablet horizontal */
-	@media screen and (min-width: 821px) and (max-width: 1024px) {
-		.filter-panel {
-			grid-column: 1/-1;
+			grid-column: popout;
 		}
 	}
 
