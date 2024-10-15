@@ -6,7 +6,9 @@ type ProjectMeta = {
 	title: string;
 	description: string;
 	tags: string[];
-	link: string;
+	github: string
+	projectLink: string;
+	otherLinks: string[];
 	lead: string;
 	team: string[];
 	since: string;

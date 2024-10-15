@@ -1,6 +1,8 @@
 <script lang="ts">
+	import { Tag } from '$components';
 	import { page } from '$app/stores';
-	import { base } from '$app/paths';
+	import { t } from '$i18n/i18n';
+	import { goto } from '$app/navigation';
 
 	export let meta;
 	let pageMode: boolean;
@@ -31,7 +33,7 @@
 				<span>projets</span>
 				<ul>
 					{#each meta.projects as p}
-						<li>{p}</li>
+						<li><a href={`${$t('route.projects')}/${p}`}>{p}</a></li>
 					{/each}
 				</ul>
 			</div>
@@ -39,9 +41,11 @@
 		{#if meta.tags && meta.tags.length > 0 && pageMode}
 			<div class="meta">
 				<span>tags</span>
-				<ul>
+				<ul id="tags">
 					{#each meta.tags as tag}
-						<li>{tag}</li>
+						<li>
+							<Tag {tag} onClick={() => goto(`${$t('route.projects')}/#${tag}`)} />
+						</li>
 					{/each}
 				</ul>
 			</div>
@@ -50,45 +54,56 @@
 {/if}
 
 <style>
-	a {
-		color: black;
-	}
 	.meta-list {
-		flex-grow: 1;
+		list-style: none;
+		margin: 0;
+		padding: 0;
 		margin-top: 1.5rem;
 	}
 	.meta-list > * + * {
-		margin-top: 0.7rem;
+		margin-top: 1rem;
 	}
 
 	.meta {
 		display: flex;
 		flex-direction: row;
-		font-size: 0.9rem;
+		font-size: var(--fs-300);
 		align-items: baseline;
 		gap: 1rem;
 		filter: opacity(0.8);
 	}
 	.meta > span {
 		display: block;
-		font-family: var(--ff-mono);
-		color: var(--clr-accent);
-		font-weight: 300;
-		font-size: 0.85rem;
+		font-weight: 600;
+		text-transform: uppercase;
+		font-size: var(--fs-200);
 	}
 
 	.meta > ul {
 		display: flex;
 		flex-direction: row;
 		flex-wrap: wrap;
-		gap: 0.6rem;
+		column-gap: 0.6rem;
+		margin: 0;
+		padding: 0;
 	}
 
 	.meta > ul > li {
 		width: fit-content;
+		max-height: fit-content;
+		list-style: none;
+		margin-top: 0;
 	}
 
 	.meta > ul > li:not(:last-child)::after {
 		content: ', ';
+	}
+
+	#tags {
+		margin-top: 1.5rem;
+	}
+
+	#tags > li::after {
+		content: none;
 	}
 </style>

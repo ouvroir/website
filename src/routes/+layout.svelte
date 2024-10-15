@@ -1,24 +1,16 @@
 <script lang="ts">
-	import Nav from '$components/Nav.svelte';
-	import Support from '$components/Support.svelte';
-	import Footer from '$components/Footer.svelte';
-	import LandingPage from '$lib/components/LandingPage.svelte';
-	import SearchModal from '$lib/components/searchModal.svelte';
+	import { Nav, HomeHero, SearchModal, Footer, Support } from '$lib/components';
 	import { page } from '$app/stores';
 	import { t } from '$lib/i18n/i18n';
 	import { get, type Readable } from 'svelte/store';
 	import '$lib/styles/reset.css';
 	import '$lib/styles/style.css';
+	import '$lib/styles/patterns.css';
 	import * as stores from '$lib/stores.js';
-	import {
-		searchModalOpen,
-		screenType,
-		showPresentation,
-		screenWidth,
-		presentation
-	} from '$lib/stores.js';
+	import { searchModalOpen, screenType, showHero, screenWidth, presentation } from '$lib/stores.js';
 	import { onMount } from 'svelte';
 	import type { SearchIndex } from '$lib/utils/search';
+	import randomA11yCombo from 'random-a11y-combo';
 
 	export let data: null | Record<string, any[]>;
 
@@ -37,11 +29,9 @@
 
 	let offsetHeight: number;
 
-	if ($page.route.id && !$page.route.id.includes('home')) {
-		stores.showPresentation.set(false);
-	}
-
 	$: addGap = $page && $page.route.id === '/[news=news]';
+
+	$: isHome = $page && $page.route.id === '/[home=home]';
 
 	const handleKeyDown = (e: KeyboardEvent) => {
 		if (e.key === 'k' && (e.metaKey || e.ctrlKey)) {
@@ -51,6 +41,10 @@
 	};
 
 	onMount(() => {
+		const combo = randomA11yCombo();
+		document.documentElement.style.setProperty('--clr-a', combo[0]);
+		document.documentElement.style.setProperty('--clr-b', combo[1]);
+
 		document.body.addEventListener('keydown', handleKeyDown);
 
 		['fr', 'en'].forEach((lang) => {
@@ -67,6 +61,13 @@
 				stores.services.localize(lang),
 				...get(stores.meetings)
 			]);
+
+			get(stores.members).forEach((m) => {
+				get(stores.membersHash).push({
+					username: m.meta.username,
+					name: `${m.meta.firstname} ${m.meta.lastname}`
+				});
+			});
 		});
 
 		return () => {
@@ -77,35 +78,47 @@
 
 <svelte:head>
 	<link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+	<link
+		rel="stylesheet"
+		href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css"
+	/>
 </svelte:head>
 
 {#if $searchModalOpen}
 	<SearchModal />
 {/if}
 
-{#if $showPresentation && $presentation}
-	<LandingPage />
-{/if}
-
-<Nav />
-
-<main class={`${addGap ? 'addGap' : ''}`} bind:offsetHeight bind:clientWidth={$screenWidth}>
+<main
+	class={`content ${addGap ? 'addGap' : ''} ${isHome ? 'main-bg-a' : 'main-bg-a'}`}
+	bind:offsetHeight
+	bind:clientWidth={$screenWidth}
+>
+	{#if $showHero}
+		<HomeHero />
+	{/if}
+	<Nav bind:isHome />
 	<slot />
 </main>
 
-{#if offsetHeight > 800}
+<!-- {#if offsetHeight > 800}
 	<div class="btt-container">
 		<a class="btt-btn" href={$page.url.pathname}>{$t('ui.btt')}</a>
 	</div>
-{/if}
+{/if} -->
 
-<Support />
+<!-- <Support /> -->
 
 {#if $screenType === 'desktop' || $screenType === 'tablet-horizontal'}
 	<Footer />
 {/if}
 
 <style>
+	.main-bg-a {
+		background-color: var(--clr-a);
+	}
+	.main-bg-b {
+		background-color: var(--clr-b);
+	}
 	.btt-container {
 		width: 100%;
 		display: flex;

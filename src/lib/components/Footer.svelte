@@ -1,231 +1,196 @@
 <script lang="ts">
 	import { base } from '$app/paths';
 	import { t } from '$i18n/i18n';
-	import CrihnLogo from './logos/CrihnLogo.svelte';
-	import CiecoLogo from './logos/CiecoLogo.svelte';
+	import { Cieco, Crihn } from '$components';
+	import { Github, Twitter, Hypothesis, Matrix, Zotero } from '$components';
 </script>
 
-<footer>
-	<div class="banner-content">
+<footer class="content">
+	<div class="footer-content">
 		<section id="contact">
-			<h1>Nous trouver</h1>
+			<h1>{$t('footer.find')}</h1>
 			<div class="adress">
 				<p>Université de Montréal</p>
 				<p>Pavillon Lionel-Groulx, local C-8132</p>
 				<p>3150 rue Jean-Brillant, Montréal H3T 1N8</p>
 			</div>
-			<h2>Nous contacter</h2>
+			<h2>{$t('footer.contact')}</h2>
 			<a href="mailto:ouvroir@umontreal.ca">ouvroir@umontreal.ca</a>
+		</section>
 
-			<h1>Suivez-nous</h1>
+		<section id="follow">
+			<h1>{$t('footer.follow')}</h1>
 			<ul class="logos">
 				<li>
-					<a href="https://github.com/ouvroir" rel="external" target="_blank"
-						><img class="bigger" src={`${base}/logos/brands/github.svg`} alt="Logo github" /></a
+					<i class="bx bxl-github"></i>
+					<a href="https://github.com/ouvroir" rel="external" target="_blank"> Github</a>
+				</li>
+				<li>
+					<i class="bx bxl-twitter"></i>
+					<a href="https://twitter.com/labouvroir" rel="external" target="_blank"> Twitter</a>
+				</li>
+				<li>
+					<i class="ai ai-hypothesis ai-2x"></i>
+					<a href="https://hypothes.is/groups/pM5dq7b4/ouvroir" rel="external" target="_blank">
+						Hypothesis</a
 					>
 				</li>
 				<li>
-					<a href="https://twitter.com/labouvroir" rel="external" target="_blank"
-						><img class="bigger" src={`${base}/logos/brands/twitter.svg`} alt="Logo Twitter" /></a
-					>
-				</li>
-				<li>
-					<a href="https://hypothes.is/groups/pM5dq7b4/ouvroir" rel="external" target="_blank"
-						><img src={`${base}/logos/brands/hypothesis.svg`} alt="Logo Hypothesis" /></a
-					>
-				</li>
-				<li>
+					<Matrix />
 					<a
 						href="https://matrix.to/#/!AaxspHhzNUgFJpDKTr:matrix.org?via=matrix.org"
 						rel="external"
-						target="_blank"><img src={`${base}/logos/brands/element.svg`} alt="Logo Element" /></a
+						target="_blank">Matrix</a
 					>
 				</li>
-				<li>
+				<!-- <li>
 					<a href="https://mobilizon.fr/@ouvroir_lab" rel="external" target="_blank"
-						><img src={`${base}/logos/brands/mobilizon.svg`} alt="Logo Mobilizon" /></a
+						>
+					<object type="image/svg+xùm" data={`${base}/logos/brands/mobilizon.svg`} title="Logo Mobilizon">Logo Mobilizon</object>
+					Mobilizon</a
 					>
-				</li>
+				</li> -->
 				<li>
-					<a href="https://www.zotero.org/groups/2480242/ouvroir" rel="external" target="_blank"
-						><img id="zotero" src={`${base}/logos/brands/zotero.svg`} alt="Logo github" /></a
+					<i class="ai ai-zotero ai-2x"></i>
+					<a href="https://www.zotero.org/groups/2480242/ouvroir" rel="external" target="_blank">
+						Zotero</a
 					>
 				</li>
 			</ul>
-			<form action="">
-				<label for="newsletter">S’abonner à l’infolettre :</label>
-				<div class="input">
-					<input type="email" id="newsletter" />
-					<button type="submit"><img src={`${base}/logos/paper-plane.svg`} alt="" /></button>
-				</div>
-			</form>
 		</section>
 
 		<section id="about">
-			<h1>
-				À propos <a href={`${$t('route.about')}`}
-					><img src={`${base}/logos/link-solid.svg`} alt="link logo" /></a
-				>
-			</h1>
+			<h1>{$t('footer.about')}</h1>
 
-			<p>
-				L’Ouvroir d’histoire de l’art et de muséologie numérique de l’Université de Montréal, est un
-				laboratoire de recherche destiné à soutenir le travail conduit dans le cadre du Partenariat
-				« <em>Des nouveaux usages des collections dans les musées d’art</em> »
-				<a rel="external" target="_blank" href="https://cieco.umontreal.ca/">CIÉCO</a> dirigé par Johanne
-				Lamoureux.
-			</p>
+			<div>
+				<p>{@html $t('footer.cieco')}</p>
+			</div>
 
-			<p id="crinh">
-				L’Ouvroir est membre du « <em
-					>Centre de recherche interuniversitaire sur les humanités numériques</em
-				>
-				» <a rel="external" target="_blank" href="https://www.crihn.org/">CRIHN</a>
-			</p>
-			<div class="support-logos-container">
-				<a
-					id="cieco-logo-container"
-					href="https://cieco.umontreal.ca/"
-					rel="external"
-					target="_blank"
-				>
-					<CiecoLogo />
-				</a>
-				<a id="logo-crihn-container" href="https://www.crihn.org/" rel="external" target="_blank">
-					<CrihnLogo />
-				</a>
+			<div>
+				<p id="crinh">{@html $t('footer.crihn')}</p>
 			</div>
 		</section>
-		<!-- <section id="credits">
-			<p>Ouvroir. An inclusive and open-source space | 2023</p>
-		</section> -->
 	</div>
 </footer>
 
 <style>
-	#crinh {
-		border-left: none !important;
-		padding-left: 0 !important;
-		margin-top: 1.5rem;
+	:global(footer) {
+		--title-left-padding: 0.6rem;
 	}
+	footer {
+		background-color: var(--clr-b);
+		padding: var(--content-bottom-padding) 0;
+
+		& a {
+			color: var(--clr-a);
+			font-weight: 400;
+			font-size: var(--fs-300);
+			text-decoration-thickness: 1px;
+		}
+	}
+
+	.footer-content {
+		max-width: 100%;
+		grid-column: feature;
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		gap: 4rem;
+		/* justify-content: space-between; */
+	}
+
 	section {
-		grid-column: 1/6;
+		color: var(--clr-a);
+		/* max-width: 100%; */
+		/* min-width: 20rem; */
+		max-width: 40rem;
+
+		& > *:not(h1) {
+			padding-left: var(--title-left-padding);
+		}
 	}
 
-	section > p {
-		line-height: 1.5rem;
+	section h1 {
+		width: max-content;
+		font-size: var(--fs-500);
+		margin-bottom: 1.8rem;
+		font-weight: 700;
+		color: var(--clr-b);
+		background-color: var(--clr-a);
+		padding: 0.7rem var(--title-left-padding);
 	}
 
-	#contact > * + h1 {
-		margin-top: 3rem;
-	}
-
-	#about {
-		margin-left: 2rem;
-		grid-column: 7/-1;
-		/* font-weight: 500; */
-	}
-
-	#about > p {
-		padding-left: 0.7rem;
-		border-left: solid 0.3rem var(--clr-accent);
-		width: 80%;
-		line-height: 1.5rem;
-	}
-	h1 > a > img:hover {
-		cursor: pointer;
-	}
-
-	em {
-		font-weight: 500;
-	}
-
-	section > h1 {
-		font-size: 2rem;
-		margin-bottom: 1.2rem;
-		font-weight: bold;
-	}
-
-	section > h2 {
+	section h2 {
 		font-weight: 600;
 		margin-top: 1.5rem;
 		margin-bottom: 0.5rem;
 	}
 
-	.adress > p {
-		margin: 0;
-		line-height: 1.5rem;
+	section p {
+		font-size: var(--fs-300);
+		font-weight: 400;
+		line-height: 1.7rem;
+
+		& object {
+			width: 7rem;
+			position: inline;
+		}
 	}
-	a {
-		margin-top: 1rem;
-		text-decoration: underline 0.1rem var(--clr-accent);
-		cursor: pointer;
+
+	#follow {
+		& li {
+			display: flex;
+			flex-direction: row;
+			gap: 2rem;
+			align-items: center;
+		}
+		& i {
+			font-size: 2rem;
+		}
+	}
+	#about {
+		flex-grow: 1;
+		max-width: 60ch;
+
+		& div + div {
+			margin-top: 1.5rem;
+		}
+	}
+
+	#about div {
+		display: flex;
+		flex-direction: row;
+		gap: 1rem;
+		align-items: start;
+
+		& object {
+			width: 7rem;
+			position: inline;
+		}
 	}
 
 	.logos {
 		display: flex;
-		flex-direction: row;
+		flex-direction: column;
 		flex-wrap: wrap;
 		column-gap: 1.5rem;
-		row-gap: 0.5rem;
+		gap: 1rem;
 		padding-top: 0.3rem;
 		margin-bottom: 1.5rem;
 		width: 90%;
-	}
 
-	img {
-		width: 1.5rem;
-	}
+		& li {
+			height: 2rem;
+			display: flex;
+			flex-direction: row;
+			justify-items: center;
+		}
 
-	.bigger {
-		width: 2rem;
-	}
-
-	input {
-		width: 90%;
-	}
-
-	.input {
-		display: flex;
-		flex-direction: row;
-		gap: 1rem;
-		margin-top: 0.5rem;
-	}
-
-	button {
-		border: none;
-		background-color: transparent;
-		cursor: pointer;
-	}
-	button > img:hover {
-		fill: var(--clr-accent);
-		color: var(--clr-accent);
-	}
-
-	#zotero {
-		padding-top: 0.05rem;
-		width: 5rem;
-	}
-
-	.support-logos-container {
-		display: flex;
-		height: 7rem;
-		flex-direction: row;
-		flex-wrap: wrap;
-		/* column-gap: 25%; */
-		margin-top: 2rem;
-		margin-left: 1rem;
-	}
-
-	#logo-crihn-container {
-		width: max-content;
-	}
-	#logo-crihn-container {
-		width: fit-content;
-		margin-right: 70%;
-		margin-left: auto;
-	}
-
-	@media screen and (max-width: 820px) {
+		& li a {
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+			gap: 1rem;
+		}
 	}
 </style>

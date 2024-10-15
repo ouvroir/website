@@ -1,14 +1,17 @@
 <script lang="ts">
 	import { t } from '$i18n/i18n';
 	import { aboutPageTitle } from '$lib/stores.js';
-	import TeamCard from '$lib/components/TeamCard.svelte';
+	import { TeamCard, Support } from '$lib/components';
 	import { members, about } from '$lib/stores.js';
+	import { wrapContentBetweenH2s, generateSlug } from '$lib/utils/helpers';
 
-	if(!$members || !$about) throw new Error('No data found');
+	if (!$members || !$about) throw new Error('No data found');
 
 	$: dir = $members.filter((d) => d.meta.status === 'dir_sc');
 	$: membs = $members.filter((d) => d.meta.status === 'member');
-	$: coord = $members.filter((d) => d.meta.status === 'coord').sort((a, b) => a.meta.order! - b.meta.order!)
+	$: coord = $members
+		.filter((d) => d.meta.status === 'coord')
+		.sort((a, b) => a.meta.order! - b.meta.order!);
 
 	$: $aboutPageTitle = $about.meta.title;
 </script>
@@ -18,42 +21,41 @@
 </svelte:head>
 
 {#if $about.html}
-	<article class="text-body">
+	<article class="text-body" use:wrapContentBetweenH2s>
 		{@html $about.html}
 		{#if $members}
 			<h2 id="about-team-title">{$t('about.team')}</h2>
-			<div class="team-section">
-				<h3>{$t('about.team.dir_sc')}</h3>
-				<ul class="team">
-					{#each dir as m}
-						<li>
-							<a href={`${$t('route.about.member')}/${m.meta.slug}`}>
-								<TeamCard bind:data={m} />
-							</a>
-						</li>
-					{/each}
-				</ul>
-				<h3>{$t('about.team.coord')}</h3>
-				<ul class="team">
-					{#each coord as m}
-						<li>
-							<a href={`${$t('route.about.member')}/${m.meta.slug}`}>
-								<TeamCard bind:data={m} />
-							</a>
-						</li>
-					{/each}
-				</ul>
-				<h3>{$t('about.team.members')}</h3>
-				<ul class="team">
-					{#each membs as m}
-						<li>
-							<a href={`${$t('route.about.member')}/${m.meta.slug}`}>
-								<TeamCard bind:data={m} />
-							</a>
-						</li>
-					{/each}
-				</ul>
-			</div>
+
+			<h3 id={generateSlug($t('about.team.dir_sc'))}>{$t('about.team.dir_sc')}</h3>
+			<ul class="team">
+				{#each dir as m}
+					<li>
+						<a href={`${$t('route.about.member')}/${m.meta.slug}`}>
+							<TeamCard bind:data={m} />
+						</a>
+					</li>
+				{/each}
+			</ul>
+			<h3 id={generateSlug($t('about.team.coord'))}>{$t('about.team.coord')}</h3>
+			<ul class="team">
+				{#each coord as m}
+					<li>
+						<a href={`${$t('route.about.member')}/${m.meta.slug}`}>
+							<TeamCard bind:data={m} />
+						</a>
+					</li>
+				{/each}
+			</ul>
+			<h3 id={generateSlug($t('about.team.members'))}>{$t('about.team.members')}</h3>
+			<ul class="team">
+				{#each membs as m}
+					<li>
+						<a href={`${$t('route.about.member')}/${m.meta.slug}`}>
+							<TeamCard bind:data={m} />
+						</a>
+					</li>
+				{/each}
+			</ul>
 		{/if}
 	</article>
 {/if}
@@ -62,8 +64,19 @@
 	#about-team-title {
 		margin-bottom: 2.5rem;
 	}
-	.team-section {
-		display: contents;
+
+	.team {
+		list-style: none;
+		margin-left: 0;
+		padding-left: 0;
+		display: flex;
+		flex-direction: column;
+		gap: 1.5rem;
+
+		& > li {
+			display: inline-block;
+			/* margin-right: 1rem; */
+		}
 	}
 
 	ul a {
@@ -72,10 +85,6 @@
 	}
 
 	h3 {
-		color: var(--clr-accent);
-		font-size: 1rem;
-		text-transform: uppercase;
-		font-weight: 300;
 		margin: 4rem 0 2rem 0;
 	}
 

@@ -61,7 +61,7 @@ const translations: { [locale: string]: { [path: string]: string } } = {
         'home.projects.highlight': 'Highlighted projects',
         'home.projects.all': 'All projects',
         'home.tag.project': 'Project',
-        'home.services.title': 'In support of the student and faculty communities at the University of Montreal, Ouvroir offers several services',
+        'home.services.title': 'The Ouvroir offers various services in support of research.',
         'home.services.equipement.title': 'Borrowing equipment',
         'home.services.equipement': 'Ouvroir provides state-of-the-art equipment for digitization, audio-visual recording, and collaborative work.',
         'home.services.equipement.cta': 'See available equipment',
@@ -98,6 +98,10 @@ const translations: { [locale: string]: { [path: string]: string } } = {
         // Projects 
         'projects.cieco.title': 'CIÉCO deliverables',
         'projects.rd.title': 'Research and development',
+        'projects.infos.description': 'description',
+        'projects.infos.github': 'See the project on Github',
+        'projects.infos.page': "See the project’s page",
+        'projects.infos.otherLinks': 'External ressources',
         'projects.infos.started': 'started',
         'projects.infos.status': 'status',
         'projects.infos.status.ongoing': 'ongoing',
@@ -132,8 +136,13 @@ const translations: { [locale: string]: { [path: string]: string } } = {
         'card.event': 'Event',
         'card.meeting': 'Meeting notes',
         'card.project': 'Project',
-        'card.speaker': 'speaker·s',
+        'card.speaker': 'speaker·s and contributor·s',
+        'card.topic': 'Topics',
         'card.resource': 'Resource',
+        'card.publishedOn': 'Published on',
+        'card.updatedOn': 'Updated on',
+        'card.by': 'by',
+        'card.happeningOn': 'Happening on the',
 
         'search.kind.blog': 'Blog post(s)',
         'search.kind.event': 'Event(s)',
@@ -146,6 +155,15 @@ const translations: { [locale: string]: { [path: string]: string } } = {
         'search.kind.support': 'Other document(s)',
         'search.ui.placeholder': 'Search for a document',
         'search.ui.placeholder.short': 'Search',
+
+        // Footer
+        'footer.about': 'About Ouvroir',
+        'footer.find': 'Find us',
+        'footer.contact': 'Contact us',
+        'footer.follow': 'Follow us',
+        'footer.cieco': 'The Digital Art History and Museology Workshop of the University of Montreal is a research laboratory designed to support the work conducted within the framework of the Partnership "New Uses of Collections in Art Museums" <a rel="external" target="_blank" href="https://cieco.umontreal.ca/">CIÉCO</a> directed by Johanne Lamoureux.',
+        'footer.crihn': 'L’Ouvroir is a member of the "Interuniversity Research Center on Digital Humanities" <a rel="external" target="_blank" href="https://www.crihn.org/">CRIHN</a>.'
+
     },
     'fr': {
         // ARIA labels
@@ -209,7 +227,7 @@ const translations: { [locale: string]: { [path: string]: string } } = {
         'home.news.all': "Toute l’actualité",
         'home.projects.all': 'Tous les projets',
         'home.tag.project': 'Projet',
-        'home.services.title': 'En soutien aux communautés étudiantes et professorales de l’Université de Montréal, l’Ouvroir offre plusieurs services',
+        'home.services.title': 'L’Ouvroir offre divers services en soutien à la recherche.',
         'home.services.equipement.title': 'Prêt de matériel',
         'home.services.equipement': 'L’ouvroir met à disposition de l’équipement de pointe pour la numérisation, l’enregistrement audio-visuel et le travail collaboratif.',
         'home.services.equipement.cta': 'Voir tout l’équipement disponible',
@@ -246,7 +264,11 @@ const translations: { [locale: string]: { [path: string]: string } } = {
 
         // Projects 
         'projects.cieco.title': 'Livrables CIÉCO',
-        'projects.rd.title': 'Recherches et développements',
+        'projects.rd.title': 'Recherches',
+        'projects.infos.description': 'description',
+        'projects.infos.github': 'Voir la page Github du projet',
+        'projects.infos.page': "Voir la page du projet",
+        'projects.infos.otherLinks': 'Ressources externes',
         'projects.infos.started': 'début',
         'projects.infos.status': 'statut',
         'projects.infos.status.ongoing': 'en cours',
@@ -281,8 +303,13 @@ const translations: { [locale: string]: { [path: string]: string } } = {
         'card.event': 'Événement',
         'card.meeting': 'Compte-rendu',
         'card.project': 'Projet',
-        'card.speaker': 'conférencier·ère·s',
+        'card.speaker': 'Contributeur·rice·s',
+        'card.topic': 'Sujets',
         'card.resource': 'Ressource',
+        'card.publishedOn': 'Publié le',
+        'card.updatedOn': 'Mis à jour le',
+        'card.by': 'par',
+        'card.happeningOn': 'À venir, le',
 
 
         // Search
@@ -297,6 +324,15 @@ const translations: { [locale: string]: { [path: string]: string } } = {
         'search.kind.support': 'Autres document(s)',
         'search.ui.placeholder': 'Rechercher un document',
         'search.ui.placeholder.short': 'Rechercher',
+
+        // Footer
+        'footer.about': 'À propos du laboratoire',
+        'footer.find': 'Nous trouver',
+        'footer.contact': 'Nous contacter',
+        'footer.follow': 'Suivez-nous',
+        'footer.cieco': 'L’Ouvroir d’histoire de l’art et de muséologie numérique de l’Université de Montréal, est un laboratoire de recherche destiné à soutenir le travail conduit dans le cadre du Partenariat « <em>Des nouveaux usages des collections dans les musées d’art</em> » <a rel="external" target="_blank" href="https://cieco.umontreal.ca/">CIÉCO</a> dirigé par Johanne Lamoureux.',
+        'footer.crihn': 'L’Ouvroir est membre du « <em>Centre de recherche interuniversitaire sur les humanités numériques</em> » <a rel="external" target="_blank" href="https://www.crihn.org/">CRIHN</a>.'
+
     }
 }
 

@@ -1,13 +1,17 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import { t, rt, locale, getLangFromParam } from '$i18n/i18n';
-	import { showPresentation, screenType, showNavMenu } from '$lib/stores';
+	import { showHero, screenType, showNavMenu, showNavLogo } from '$lib/stores';
 	import SearchBar from './searchBar.svelte';
 	import { slide } from 'svelte/transition';
 	import { onMount } from 'svelte';
 	import Ouvroir from './Ouvroir.svelte';
 	import NavLinks from './NavLinks.svelte';
 	import { searchModalOpen } from '$lib/stores';
+
+	export let isHome = true;
+
+	const routeId = $page.route.id?.match(/\s*(\w+)/)![0];
 
 	let scrollY: number = 0;
 	let prevScrollY: number = 0;
@@ -62,25 +66,64 @@
 		frHref = $locale === 'fr' ? $page.url.pathname : langRedirectUrl;
 	});
 
-	const handleScroll = (e: Event) => {
-		const nav = document.querySelector('nav.main');
+	let nav: HTMLElement | null;
+	let logo: HTMLElement | null;
+
+	// Handle all the rest
+	const handleScroll = () => {
 		const top = nav?.getBoundingClientRect().top ?? 500;
 
-		if ($showPresentation) {
-			if (top <= 0) {
-				nav?.classList.remove('bottom-nav');
-				$showPresentation = false;
-			}
-		} else {
-			// if scrolling down
-			if (prevScrollY - scrollY < 0 && scrollY > 30) {
-				nav?.classList.add('hide-nav');
+		if (nav && logo) {
+			if (routeId === 'home') {
+				if (scrollY >= 200) {
+					if (nav.classList.contains('hero-nav')) {
+						nav.classList.remove('hero-nav');
+
+						// Give time for nav to transition, then add sticky class
+						setTimeout(() => {
+							nav.classList.add('sticky');
+						}, 550);
+					}
+				} else {
+					nav.classList.add('hero-nav');
+					nav.classList.remove('sticky');
+				}
+
+				if (nav.classList.contains('hero-nav')) {
+					logo?.classList.remove('show-a');
+					logo?.classList.remove('show-b');
+					logo?.classList.add('hidden');
+				} else {
+					logo?.classList.remove('hidden');
+					logo?.classList.add('show-a');
+				}
+
+				if (top === 0) {
+					nav.classList.add('nav-shadow');
+					// showNavLogo.set(true);
+					if (prevScrollY - scrollY < 0 && !nav.classList.contains('hero-nav')) {
+						nav.classList.add('hide-nav');
+					} else {
+						nav.classList.remove('hide-nav');
+					}
+				} else if (top > 0) nav.classList.remove('nav-shadow');
+				else {
+					if (prevScrollY - scrollY < 0 && !nav.classList.contains('hero-nav')) {
+						nav.classList.add('hide-nav');
+					} else {
+						nav.classList.remove('hide-nav');
+					}
+				}
 			} else {
-				nav?.classList.remove('hide-nav');
+				logo.classList.remove('hidden');
+				logo.classList.add('show-b');
+
+				// nav.classList.remove('sticky');
+				nav.classList.remove('hero-nav');
+				nav.classList.add('nav-shadow');
 			}
+
 			prevScrollY = scrollY;
-			if (scrollY <= 40) nav?.classList.remove('nav-shadow');
-			else if (scrollY > 40) nav?.classList.add('nav-shadow');
 		}
 	};
 
@@ -99,6 +142,12 @@
 
 	$: smallScreen = $screenType === 'mobile' || $screenType === 'tablet-vertical';
 	onMount(() => {
+		nav = document.querySelector('nav');
+		logo = document.querySelector('#nav-logo');
+
+		nav?.classList.add('hero-nav');
+		logo?.classList.add('hidden');
+
 		document.addEventListener('click', handleClickOutside);
 		return () => {
 			// Cleanup the event listener when the component is unmounted
@@ -112,7 +161,7 @@
 {#if !smallScreen}
 	<nav
 		aria-labelledby={`${$t('aria.nav.label')}`}
-		class={`main ${$showPresentation ? 'bottom-nav' : ''}`}
+		class={`${$showHero ? 'hero-nav' : ''} ${!isHome ? 'nav-contrast' : ''} ${isHome ? 'home-nav' : 'page-nav'}`}
 	>
 		<Ouvroir />
 		<div class="full-navigation">
@@ -120,7 +169,7 @@
 			<hr class="navigation-separator" />
 			<NavLinks />
 			<hr class="navigation-separator" />
-			<div class={`locale-container ${$showPresentation ? 'white' : ''}`}>
+			<div class={`locale-container ${$showHero ? 'white' : ''}`}>
 				<a
 					class={`lang-btn ${$locale === 'fr' ? 'active' : ''}`}
 					href={frHref}
@@ -193,8 +242,6 @@
 		align-items: center;
 		padding: 2rem 4%;
 		gap: 1rem;
-		background-color: var(--clr-green-ouvroir);
-		color: white;
 	}
 	.menu-btn {
 		all: unset;
@@ -204,14 +251,6 @@
 		cursor: pointer;
 		transition: color ease-in-out 0.2s;
 	}
-	.menu-btn-active::after {
-		position: absolute;
-		content: '';
-		width: 100%;
-		top: 1.3rem;
-		left: 0;
-		border-bottom: solid 0.1rem var(--clr-accent);
-	}
 	.search-btn {
 		all: unset;
 		margin-left: auto;
@@ -220,14 +259,12 @@
 		font-weight: 600;
 		cursor: pointer;
 	}
-
 	.nav-menu-container {
 		position: fixed;
 		top: 0;
 		left: 0;
 		width: 50vw;
 		height: 100vh;
-		background-color: #303030;
 		z-index: 10;
 		padding: 2rem 4% 2rem 0;
 	}
@@ -249,7 +286,6 @@
 		width: 4rem;
 	}
 	.menu-logo-text {
-		color: white;
 		font-family: var(--ff-logo);
 		width: 100%;
 	}
@@ -275,12 +311,11 @@
 	}
 
 	.full-navigation {
-		grid-column: 3/-1;
 		display: flex;
 		flex-direction: row;
 		align-items: center;
 		justify-content: flex-end;
-		/* padding: 0 4%; */
+		margin-left: auto;
 	}
 
 	.navigation-separator {
@@ -288,7 +323,6 @@
 		--h-margin: 1.6rem;
 		margin: 0 var(--h-margin) 0 var(--h-margin);
 		display: flex;
-		background-color: #303030;
 		width: var(--radius);
 		height: var(--radius);
 		border-radius: 100px;
@@ -297,27 +331,24 @@
 
 	.locale-container {
 		display: flex;
-		/* align-items: end; */
 		gap: 1rem;
-		/* grid-column: 8/9; */
-		/* padding-bottom: var(--nav-links-padding-bottom); */
-	}
 
-	.locale-container > *:first-child {
-		margin-left: auto;
-	}
+		& a {
+			text-decoration: none;
+		}
 
-	.white > * {
-		color: white;
+		& > *:first-child {
+			margin-left: auto;
+		}
 	}
 
 	.invisible {
 		visibility: hidden;
 	}
 
-	.add-bg * {
+	/* .add-bg * {
 		color: white;
-	}
+	} */
 
 	.hide-nav {
 		transform: translateY(-100%);
@@ -329,8 +360,9 @@
 	/** Small screens */
 	@media screen and (max-width: 820px) {
 		nav {
+			grid-column: full;
 			position: static;
-			background-color: #303742;
+			background-color: var(--clr-a);
 			padding-bottom: 0;
 			padding: 2rem 4%;
 			height: max-content;

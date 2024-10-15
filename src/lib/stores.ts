@@ -2,12 +2,14 @@ import { writable, derived, get } from "svelte/store";
 import type { Writable, Readable } from "svelte/store";
 import type { Blog, Event, Meeting, Member, Project, Resource, StaticDocument } from "./types";
 import { locale } from '$i18n/i18n'
-import FlexSearch from "flexsearch";
+import { page } from "$app/stores";
 import { SearchIndex } from "./utils/search";
 
-export const showPresentation = writable(true);
 
-export const stickyActivated = writable(false);
+export const showHero = derived(page, ($page) => $page.route.id?.includes('home'))
+export const showNavLogo = writable(true);
+
+export const stickyActivated = writable(true);
 
 export const memberExpaned = writable('');
 
@@ -100,3 +102,5 @@ export const searchIndex = derived(locale, ($locale) => {
     return $locale === 'en' ? get(enSearchIndex) : get(frSearchIndex);
 })
 export const searchModalOpen = writable(false);
+
+export const membersHash = writable([]) as Writable<{ username: string, name: string }[]>

@@ -1,100 +1,57 @@
 <script lang="ts">
 	import { page } from '$app/stores';
-	import { showPresentation, screenType, aboutPageTitle } from '$lib/stores.js';
-	import Tree from '$lib/components/Tree.svelte';
-
-	showPresentation.set(false);
+	import { screenType, aboutPageTitle } from '$lib/stores.js';
+	import { Tree, Support } from '$lib/components';
 
 	$: smallScreen = $screenType === 'mobile' || $screenType === 'tablet-vertical';
-	// $: section = $page.route.id?.match(/\/\[(\w+)=\1\]/)?.[1];
+	$: section = $page.route.id?.match(/\/\[(\w+)=\1\]/)?.[1];
 </script>
 
-{#if !smallScreen}
-	<div class="about-tree-container">
-		<Tree />
-	</div>
-{/if}
-
 <section class="info-page">
-	<header class="info-page-header">
-		<h1>{$aboutPageTitle}</h1>
+	<header class="header-content">
+		<div class="title-container">
+			<h1>{$aboutPageTitle}</h1>
+		</div>
 	</header>
-	<!-- {#if smallScreen}
-		<select class="dropdown-nav" aria-label="secondary-nav" id="">
-			{#each navLinks as l}
-				<option on:click={() => goto($t(`route.${section}.${l}`))}>
-					{#if l !== 'support'}
-						<a
-							href={$t(`route.${section}.${l}`)}
-							class={`${$page.url.pathname === $t(`route.${section}.${l}`) ? 'active' : ''}`}
-						>
-							{$t(`${section}.${l}`)}
-						</a>
-					{/if}
-				</option>
-			{/each}
-		</select>
-	{/if} -->
+
+	{#if !smallScreen}
+		<div class="about-tree-container">
+			<Tree />
+		</div>
+	{/if}
 
 	<div id="article-container" class="article-content">
 		<slot />
 	</div>
 </section>
 
-<div class="grid-empty-row" />
+{#if section === 'about'}
+	<Support />
+{/if}
 
 <style>
 	.info-page {
-		display: contents;
+		grid-column: full;
+		display: grid;
+		grid-template-columns: subgrid;
+		margin-bottom: var(--content-bottom-padding);
 	}
 
-	.info-page-header {
-		grid-column: 3/7;
-		grid-row: 1;
+	header {
+		grid-column: full;
 	}
 
 	.article-content {
-		grid-column: 3/7;
-		grid-row: 2;
+		grid-column: content-start / popout-end;
 		font-size: 1.1rem;
-	}
-
-	.info-page-header > h1 {
-		font-size: 2.5rem;
-		padding-bottom: var(--padding-title);
-	}
-
-	.bigger {
-		grid-column: 3/-2;
-	}
-	.dropdown-nav {
-		grid-column: 1/-1;
-		height: 2rem;
-		margin-bottom: 2rem;
 	}
 
 	.about-tree-container {
 		position: sticky;
-		grid-column: 1/3;
+		position: -webkit-sticky;
+		grid-column: feature-start / content-start;
 		grid-row: 2;
-	}
-
-	/** Small screens */
-	@media screen and (max-width: 820px) {
-		.info-page-header {
-			grid-column: 1/-1 !important;
-		}
-		.info-page-header > h1 {
-			padding-bottom: 2rem;
-		}
-		.article-content {
-			grid-column: 1/-1;
-			grid-row: 3;
-		}
-	}
-	@media screen and (min-width: 481px) and (max-width: 820px) {
-		.dropdown-nav {
-			width: 40%;
-		}
+		top: 4rem;
+		height: 100%;
 	}
 </style>

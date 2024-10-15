@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { t } from '$lib/i18n/i18n';
 	import { page } from '$app/stores';
-	import { screenType, showPresentation, showNavMenu } from '$lib/stores';
+	import { screenType, showNavMenu } from '$lib/stores';
 
 	let active: string;
 
@@ -20,8 +20,6 @@
 	const hideNavMenu = () => {
 		showNavMenu.set(false);
 	};
-
-	$: clrWhite = $showPresentation ? 'nl-white' : '';
 </script>
 
 <ul class="nav-links">
@@ -29,39 +27,35 @@
 		<li>
 			<a
 				on:click={hideNavMenu}
-				class={`nav-link ${active === 'home' ? 'active' : ''} ${clrWhite}`}
+				class={`nav-link ${active === 'home' ? 'active' : ''}`}
 				href={`${$t('route.home')}`}>{$t('nav.home')}</a
 			>
 		</li>
 	{/if}
 	<li>
-		<a
-			class={`nav-link ${active === 'news' ? 'active' : ''} ${clrWhite}`}
-			href={`${$t('route.news')}`}>{$t('nav.news')}</a
+		<a class={`nav-link ${active === 'news' ? 'active' : ''}`} href={`${$t('route.news')}`}
+			>{$t('nav.news')}</a
+		>
+	</li>
+	<li>
+		<a class={`nav-link ${active === 'projects' ? 'active' : ''}`} href={`${$t('route.projects')}`}
+			>{$t('nav.projects')}</a
 		>
 	</li>
 	<li>
 		<a
-			class={`nav-link ${active === 'projects' ? 'active' : ''} ${clrWhite}`}
-			href={`${$t('route.projects')}`}>{$t('nav.projects')}</a
-		>
-	</li>
-	<li>
-		<a
-			class={`nav-link ${active === 'resources' ? 'active' : ''} ${clrWhite}`}
+			class={`nav-link ${active === 'resources' ? 'active' : ''}`}
 			href={`${$t('route.resources')}`}>{$t('nav.resources')}</a
 		>
 	</li>
 	<li>
-		<a
-			class={`nav-link ${active === 'services' ? 'active' : ''} ${clrWhite}`}
-			href={`${$t('route.services')}`}>{$t('nav.services')}</a
+		<a class={`nav-link ${active === 'services' ? 'active' : ''}`} href={`${$t('route.services')}`}
+			>{$t('nav.services')}</a
 		>
 	</li>
 	<li>
-		<a
-			class={`nav-link ${active === 'about' ? 'active' : ''} ${clrWhite}`}
-			href={`${$t('route.about')}`}>{$t('nav.about')}</a
+		<a class={`nav-link ${active === 'about' ? 'active' : ''}`} href={`${$t('route.about')}`}
+			>{$t('nav.about')}</a
 		>
 	</li>
 </ul>
@@ -73,22 +67,14 @@
 		max-width: 100%;
 		gap: 1.1rem;
 		row-gap: 1rem;
-
-		/* padding-bottom: var(--nav-links-padding-bottom); */
 	}
 
 	.nav-link {
 		position: relative;
-		/* width: max-content; */
-	}
-
-	.nav-link {
 		text-transform: capitalize;
 		font-size: 0.95rem;
-	}
-
-	.nl-white {
-		color: white;
+		font-weight: 400;
+		text-decoration: none;
 	}
 
 	/** Small screens */
@@ -99,7 +85,6 @@
 			align-items: end;
 		}
 		.nav-link {
-			color: white;
 			text-align: right;
 			width: max-content;
 		}

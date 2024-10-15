@@ -7,11 +7,43 @@
 
 	const scrollToTarget = (event: MouseEvent) => {
 		event.preventDefault();
+
 		const targetId = (event.target as HTMLElement).getAttribute('href')!;
 		const targetElement = document.querySelector(targetId)!;
-		const offset = 150;
+		const offset = 140;
 		const top = targetElement.getBoundingClientRect().top + window.scrollY - offset;
+
 		window.scrollTo({ top, behavior: 'smooth' });
+
+		const element = document.querySelector(`article ${targetId}`)?.parentNode as HTMLElement;
+		const sectionContent =
+			element.tagName === 'BUTTON'
+				? (element.nextElementSibling as HTMLElement)
+				: (element as HTMLElement);
+
+		if (sectionContent.classList.contains('closed')) {
+			sectionContent.classList.remove('closed');
+			sectionContent.classList.add('opened');
+		}
+
+		const sections = document.querySelectorAll('.section-content');
+		sections.forEach((section) => {
+			if (section !== sectionContent) {
+				section.classList.remove('opened');
+				section.classList.add('closed');
+			}
+		});
+
+		console.log('sectionContent', sectionContent);
+		if (sectionContent.classList.contains('opened')) {
+			const icon =
+				targetElement.parentElement.querySelector('i') ??
+				targetElement.parentElement.parentElement.querySelector('i');
+			if (icon) {
+				icon.classList.toggle('bx-plus');
+				icon.classList.toggle('bx-minus');
+			}
+		}
 	};
 
 	const toggleActive = (event: MouseEvent) => {
@@ -67,7 +99,7 @@
 				});
 			},
 			{
-				rootMargin: '25% 0% -75% 0%',
+				rootMargin: '0% 0% -80% 0%',
 				threshold: 0
 			}
 		);
@@ -88,32 +120,27 @@
 	});
 </script>
 
-<div id="tree-container" class={`${empty ? 'hide' : ''}`}>
+<nav id="tree-container" class={`${empty ? 'hide' : ''}`}>
 	<ul bind:this={treeUL} id="tree"></ul>
-</div>
+</nav>
 
 <style>
 	#tree-container {
 		height: fit-content;
-		top: 10rem;
-		bottom: 10rem;
-		z-index: 0;
 	}
 
 	#tree {
-		position: static;
-		width: 90%;
+		width: 80%;
 		display: flex;
 		flex-direction: column;
 		gap: 1rem;
 		align-items: start;
 		min-height: 10rem;
-		padding: 1rem 1rem;
-		color: rgba(0, 0, 0, 0.584);
-		background-color: var(--clr-accent-light);
 		list-style: none;
-		font-size: 0.9rem;
-		font-weight: 400;
+	}
+
+	.toc-h2 {
+		font-size: var(--fs-200);
 	}
 
 	.hide {
