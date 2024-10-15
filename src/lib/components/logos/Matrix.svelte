@@ -1,4 +1,10 @@
-<svg version="1.1" viewBox="0 0 27.9 32" xmlns="http://www.w3.org/2000/svg">
+<svg
+	version="1.1"
+	width="27.9"
+	height="32"
+	viewBox="0 0 27.9 32"
+	xmlns="http://www.w3.org/2000/svg"
+>
 	<g transform="translate(-.095 .005)">
 		<path d="m27.1 31.2v-30.5h-2.19v-0.732h3.04v32h-3.04v-0.732z" />
 		<path

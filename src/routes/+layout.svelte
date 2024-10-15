@@ -78,6 +78,10 @@
 
 <svelte:head>
 	<link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+	<link
+		rel="stylesheet"
+		href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css"
+	/>
 </svelte:head>
 
 {#if $searchModalOpen}

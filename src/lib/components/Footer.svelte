@@ -5,45 +5,42 @@
 	import { Github, Twitter, Hypothesis, Matrix, Zotero } from '$components';
 </script>
 
-<footer>
+<footer class="content">
 	<div class="footer-content">
 		<section id="contact">
-			<h1>Nous trouver</h1>
+			<h1>{$t('footer.find')}</h1>
 			<div class="adress">
 				<p>Université de Montréal</p>
 				<p>Pavillon Lionel-Groulx, local C-8132</p>
 				<p>3150 rue Jean-Brillant, Montréal H3T 1N8</p>
 			</div>
-			<h2>Nous contacter</h2>
+			<h2>{$t('footer.contact')}</h2>
 			<a href="mailto:ouvroir@umontreal.ca">ouvroir@umontreal.ca</a>
 		</section>
 
 		<section id="follow">
-			<h1>Suivez-nous</h1>
+			<h1>{$t('footer.follow')}</h1>
 			<ul class="logos">
 				<li>
-					<a href="https://github.com/ouvroir" rel="external" target="_blank">
-						<Github />
-						Github</a
-					>
+					<i class="bx bxl-github"></i>
+					<a href="https://github.com/ouvroir" rel="external" target="_blank"> Github</a>
 				</li>
 				<li>
-					<a href="https://twitter.com/labouvroir" rel="external" target="_blank">
-						<Twitter />
-						Twitter</a
-					>
+					<i class="bx bxl-twitter"></i>
+					<a href="https://twitter.com/labouvroir" rel="external" target="_blank"> Twitter</a>
 				</li>
 				<li>
+					<i class="ai ai-hypothesis ai-2x"></i>
 					<a href="https://hypothes.is/groups/pM5dq7b4/ouvroir" rel="external" target="_blank">
-						<Hypothesis />
 						Hypothesis</a
 					>
 				</li>
 				<li>
+					<Matrix />
 					<a
 						href="https://matrix.to/#/!AaxspHhzNUgFJpDKTr:matrix.org?via=matrix.org"
 						rel="external"
-						target="_blank"><Matrix />Matrix</a
+						target="_blank">Matrix</a
 					>
 				</li>
 				<!-- <li>
@@ -54,8 +51,8 @@
 					>
 				</li> -->
 				<li>
+					<i class="ai ai-zotero ai-2x"></i>
 					<a href="https://www.zotero.org/groups/2480242/ouvroir" rel="external" target="_blank">
-						<Zotero />
 						Zotero</a
 					>
 				</li>
@@ -63,27 +60,14 @@
 		</section>
 
 		<section id="about">
-			<h1>À propos du laboratoire</h1>
+			<h1>{$t('footer.about')}</h1>
 
 			<div>
-				<p>
-					L’Ouvroir d’histoire de l’art et de muséologie numérique de l’Université de Montréal, est
-					un laboratoire de recherche destiné à soutenir le travail conduit dans le cadre du
-					Partenariat «
-					<em>Des nouveaux usages des collections dans les musées d’art</em>
-					»
-					<a rel="external" target="_blank" href="https://cieco.umontreal.ca/">CIÉCO</a> dirigé par Johanne
-					Lamoureux.
-				</p>
+				<p>{@html $t('footer.cieco')}</p>
 			</div>
 
 			<div>
-				<p id="crinh">
-					L’Ouvroir est membre du « <em
-						>Centre de recherche interuniversitaire sur les humanités numériques</em
-					>
-					» <a rel="external" target="_blank" href="https://www.crihn.org/">CRIHN</a>.
-				</p>
+				<p id="crinh">{@html $t('footer.crihn')}</p>
 			</div>
 		</section>
 	</div>
@@ -94,11 +78,8 @@
 		--title-left-padding: 0.6rem;
 	}
 	footer {
-		grid-column: full;
 		background-color: var(--clr-b);
-		display: grid;
-		grid-template-columns: subgrid;
-		padding: 5rem var(--gap);
+		padding: var(--content-bottom-padding) 0;
 
 		& a {
 			color: var(--clr-a);
@@ -108,16 +89,14 @@
 		}
 	}
 
-	.footer-logo {
-		width: var(--fs-400);
-	}
-
 	.footer-content {
+		max-width: 100%;
+		grid-column: feature;
 		display: flex;
 		flex-direction: row;
 		flex-wrap: wrap;
-		gap: 3rem;
-		justify-content: space-between;
+		gap: 4rem;
+		/* justify-content: space-between; */
 	}
 
 	section {
@@ -158,8 +137,20 @@
 		}
 	}
 
+	#follow {
+		& li {
+			display: flex;
+			flex-direction: row;
+			gap: 2rem;
+			align-items: center;
+		}
+		& i {
+			font-size: 2rem;
+		}
+	}
 	#about {
-		flex-grow: 2;
+		flex-grow: 1;
+		max-width: 60ch;
 
 		& div + div {
 			margin-top: 1.5rem;
@@ -178,14 +169,6 @@
 		}
 	}
 
-	h1 > a > img:hover {
-		cursor: pointer;
-	}
-
-	em {
-		font-weight: 400;
-	}
-
 	.logos {
 		display: flex;
 		flex-direction: column;
@@ -196,15 +179,18 @@
 		margin-bottom: 1.5rem;
 		width: 90%;
 
+		& li {
+			height: 2rem;
+			display: flex;
+			flex-direction: row;
+			justify-items: center;
+		}
+
 		& li a {
 			display: flex;
 			flex-direction: row;
 			align-items: center;
 			gap: 1rem;
 		}
-	}
-
-	img {
-		width: 1.5rem;
 	}
 </style>

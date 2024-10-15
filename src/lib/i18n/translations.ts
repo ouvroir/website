@@ -155,6 +155,15 @@ const translations: { [locale: string]: { [path: string]: string } } = {
         'search.kind.support': 'Other document(s)',
         'search.ui.placeholder': 'Search for a document',
         'search.ui.placeholder.short': 'Search',
+
+        // Footer
+        'footer.about': 'About Ouvroir',
+        'footer.find': 'Find us',
+        'footer.contact': 'Contact us',
+        'footer.follow': 'Follow us',
+        'footer.cieco': 'The Digital Art History and Museology Workshop of the University of Montreal is a research laboratory designed to support the work conducted within the framework of the Partnership "New Uses of Collections in Art Museums" <a rel="external" target="_blank" href="https://cieco.umontreal.ca/">CIÉCO</a> directed by Johanne Lamoureux.',
+        'footer.crihn': 'L’Ouvroir is a member of the "Interuniversity Research Center on Digital Humanities" <a rel="external" target="_blank" href="https://www.crihn.org/">CRIHN</a>.'
+
     },
     'fr': {
         // ARIA labels
@@ -315,6 +324,15 @@ const translations: { [locale: string]: { [path: string]: string } } = {
         'search.kind.support': 'Autres document(s)',
         'search.ui.placeholder': 'Rechercher un document',
         'search.ui.placeholder.short': 'Rechercher',
+
+        // Footer
+        'footer.about': 'À propos du laboratoire',
+        'footer.find': 'Nous trouver',
+        'footer.contact': 'Nous contacter',
+        'footer.follow': 'Suivez-nous',
+        'footer.cieco': 'L’Ouvroir d’histoire de l’art et de muséologie numérique de l’Université de Montréal, est un laboratoire de recherche destiné à soutenir le travail conduit dans le cadre du Partenariat « <em>Des nouveaux usages des collections dans les musées d’art</em> » <a rel="external" target="_blank" href="https://cieco.umontreal.ca/">CIÉCO</a> dirigé par Johanne Lamoureux.',
+        'footer.crihn': 'L’Ouvroir est membre du « <em>Centre de recherche interuniversitaire sur les humanités numériques</em> » <a rel="external" target="_blank" href="https://www.crihn.org/">CRIHN</a>.'
+
     }
 }
 
