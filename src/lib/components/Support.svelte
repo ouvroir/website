@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { support } from '$lib/stores';
 	import { Quebec, Udem, CFI, Cieco, Crihn } from '$components';
+	import { onMount } from 'svelte';
 
 	console.log('support', $support);
 
@@ -15,6 +16,42 @@
 		const a = target.querySelector('a');
 		if (a) a.classList.toggle('hide');
 	};
+
+	// onMount(() => {
+	// 	const parallaxSection = document.querySelector('#support-section');
+	// 	const finalPosition = parallaxSection.offsetTop;
+	// 	console.log('hello coco', parallaxSection.offsetParent);
+
+	// 	if (!parallaxSection) return;
+
+	// 	// make intersection observer
+	// 	const observer = new IntersectionObserver((entries) => {
+	// 		entries.forEach((entry) => {
+	// 			if (entry.isIntersecting) {
+	// 				console.log('entry', entry);
+	// 			}
+	// 		});
+	// 	}, { threshold: 0.1 });
+
+	// 	observer.observe(parallaxSection);
+
+	// 	const handleScroll = () => {
+	// 		const scrollPosition = window.scrollY / 50;
+	// 		if (scrollPosition < finalPosition) {
+	// 			parallaxSection.style.transform = `translateY(${scrollPosition}px)`;
+	// 		} else {
+	// 			parallaxSection.style.transform = `translateY(${finalPosition}px)`;
+	// 		}
+
+	// 		// console.log('scrollPosition', scrollPosition);
+	// 	};
+
+	// 	window.addEventListener('scroll', handleScroll);
+
+	// 	return () => {
+	// 		window.removeEventListener('scroll', handleScroll);
+	// 	};
+	// });
 </script>
 
 {#if $support}
@@ -80,14 +117,17 @@
 
 <style>
 	section {
+		/* position: relative;
+		top: 15rem; */
 		grid-column: full;
 		/* border-top: solid 1px var(--clr-b); */
 		border-top-left-radius: var(--border-radius);
 		border-top-right-radius: var(--border-radius);
-		box-shadow: 0 -10px 1.5rem -10px var(--clr-b);
+		box-shadow: -20px 5px 5rem -10px var(--clr-b);
 		display: grid;
 		grid-template-columns: subgrid;
 		padding: 4rem 0 7rem 0;
+		transition: transform 0.1s ease-out;
 	}
 
 	.finance-logos,
