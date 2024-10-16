@@ -2,9 +2,11 @@
 	import type { Blog, Event, Resource } from '$lib/types';
 	import { dateToLocalizedString, t } from '$lib/i18n/i18n';
 
-	export let href = '';
 	export let content: Blog | Event | Resource;
 	export let contrast = false;
+	console.log('content', content.meta);
+
+	const href = `${$t('route.news')}/${$t(`news.type.${content.meta.kind}`)}/${content.meta.slug}`;
 
 	let date: string, dateLabel: string;
 
