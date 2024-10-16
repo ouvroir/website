@@ -34,7 +34,6 @@
 			}
 		});
 
-		console.log('sectionContent', sectionContent);
 		if (sectionContent.classList.contains('opened')) {
 			const icon =
 				targetElement.parentElement.querySelector('i') ??

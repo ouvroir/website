@@ -8,13 +8,41 @@
 	import Ouvroir from './Ouvroir.svelte';
 	import NavLinks from './NavLinks.svelte';
 	import { searchModalOpen } from '$lib/stores';
+	import { derived } from 'svelte/store';
 
 	export let isHome = true;
 
-	const routeId = $page.route.id?.match(/\s*(\w+)/)![0];
+	let nav: HTMLElement | null;
+	let logo: HTMLElement | null;
 
 	let scrollY: number = 0;
 	let prevScrollY: number = 0;
+
+	let langRedirectUrl: string = '/';
+	let enHref = $locale === 'en' ? $page.url.pathname : langRedirectUrl;
+	let frHref = $locale === 'fr' ? $page.url.pathname : langRedirectUrl;
+
+	const routeId = derived(page, ($page) => $page.route.id?.match(/\s*(\w+)/)![0]);
+	routeId.subscribe((routeId) => {
+		// Init nav and logo
+		if (nav && logo) {
+			if (routeId === 'home') {
+				nav.classList.remove('nav-shadow');
+				nav.classList.remove('sticky');
+				logo?.classList.add('hidden');
+			} else {
+				logo.classList.remove('hidden');
+				logo.classList.remove('show-a');
+				nav.classList.remove('hero-nav');
+				nav.classList.remove('hide-nav');
+				nav.classList.remove('sticky');
+
+				nav.classList.add('nav-shadow');
+				nav.classList.add('page-nav');
+				logo.classList.add('show-b');
+			}
+		}
+	});
 
 	/**
 	 * TODO: should make sure that slug is translated
@@ -52,10 +80,6 @@
 		return url;
 	};
 
-	let langRedirectUrl: string = '/';
-	let enHref = $locale === 'en' ? $page.url.pathname : langRedirectUrl;
-	let frHref = $locale === 'fr' ? $page.url.pathname : langRedirectUrl;
-
 	page.subscribe(() => {
 		// reset scroll on page change
 		scrollY = 0;
@@ -66,15 +90,18 @@
 		frHref = $locale === 'fr' ? $page.url.pathname : langRedirectUrl;
 	});
 
-	let nav: HTMLElement | null;
-	let logo: HTMLElement | null;
-
 	// Handle all the rest
 	const handleScroll = () => {
 		const top = nav?.getBoundingClientRect().top ?? 500;
 
 		if (nav && logo) {
-			if (routeId === 'home') {
+			// console.log('scrollY', scrollY);
+			// console.log('top', top);
+			if ($routeId === 'home') {
+				nav.classList.remove('nav-shadow');
+				nav.classList.remove('sticky');
+				logo?.classList.add('hidden');
+
 				if (scrollY >= 200) {
 					if (nav.classList.contains('hero-nav')) {
 						nav.classList.remove('hero-nav');
@@ -116,11 +143,29 @@
 				}
 			} else {
 				logo.classList.remove('hidden');
+				nav.classList.remove('hero-nav');
+				nav.classList.remove('hide-nav');
+				logo.classList.remove('show-a');
+
+				nav.classList.add('nav-shadow');
+				nav.classList.add('page-nav');
+				// nav.classList.add('sticky');
 				logo.classList.add('show-b');
 
-				// nav.classList.remove('sticky');
-				nav.classList.remove('hero-nav');
-				nav.classList.add('nav-shadow');
+				// prev - scroll > 0 => scrolling down
+				if (scrollY > 100 && prevScrollY - scrollY < 0) {
+					nav.classList.add('page-nav-hidden');
+					nav.classList.remove('sticky');
+				} else if (scrollY > 200 && prevScrollY - scrollY > 0) {
+					nav.classList.remove('page-nav-hidden');
+					nav.classList.add('sticky');
+				} else if (scrollY < 50) {
+					nav.classList.remove('page-nav-hidden');
+					nav.classList.remove('sticky');
+					nav.classList.add('nav-shadow');
+					nav.classList.add('page-nav');
+					logo.classList.add('show-b');
+				}
 			}
 
 			prevScrollY = scrollY;
@@ -145,8 +190,8 @@
 		nav = document.querySelector('nav');
 		logo = document.querySelector('#nav-logo');
 
-		nav?.classList.add('hero-nav');
-		logo?.classList.add('hidden');
+		// nav?.classList.add('hero-nav');
+		// logo?.classList.add('hidden');
 
 		document.addEventListener('click', handleClickOutside);
 		return () => {
