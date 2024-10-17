@@ -23,6 +23,7 @@
 		grid-column: full;
 		display: grid;
 		grid-template-columns: subgrid;
+		padding-bottom: var(--content-bottom-padding);
 	}
 	header {
 		/** TODO Need to find a solution to stop sticky when scroll to far down */
