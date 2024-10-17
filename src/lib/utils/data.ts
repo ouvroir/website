@@ -61,12 +61,28 @@ export function fetchData(
 			html
 		}) as Member,
 
-		events: (path, meta, html) =>
-			({
+		events: (path, meta, html) => {
+			if (meta.recurrent) {
+				const today = new Date();
+				const dayOfWeek = today.getDay();
+				const next = new Date(today);
+
+				if (meta.recurrent === 'fika') {
+					const daysUntilTuesday = (9 - dayOfWeek) % 7;
+					next.setDate(today.getDate() + daysUntilTuesday);
+				} else if (meta.recurrent === 'clinique') {
+					const daysUntilMonday = (8 - dayOfWeek) % 7;
+					next.setDate(today.getDate() + daysUntilMonday);
+				}
+
+				meta.dateStart = next
+				meta.dateEnd = next
+			}
+			return ({
 				meta: { ...meta, kind: 'event', slug: createSlugFromFilename(path), path },
 				html
-			}) as Event,
-
+			}) as Event
+		},
 		meetings: (path, meta, html) =>
 			({
 				meta: { ...meta, kind: 'meeting', slug: createSlugFromFilename(path), path },
