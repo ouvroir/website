@@ -141,6 +141,7 @@ const translations: { [locale: string]: { [path: string]: string } } = {
         'card.topic': 'Topics',
         'card.resource': 'Resource',
         'card.publishedOn': 'Published on',
+        'card.startedOn': 'Started on',
         'card.updatedOn': 'Updated on',
         'card.by': 'by',
         'card.happeningOn': 'Happening on the',
@@ -312,6 +313,8 @@ const translations: { [locale: string]: { [path: string]: string } } = {
         'card.updatedOn': 'Mis à jour le',
         'card.by': 'par',
         'card.happeningOn': 'À venir, le',
+        'card.startedOn': 'Débuté le',
+
 
 
         // Search

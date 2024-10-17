@@ -35,7 +35,7 @@
 			tags = content.meta.tags;
 			break;
 		case 'project':
-			date = $dateToLocalizedString(content.meta.dateStart);
+			date = $dateToLocalizedString(content.meta.since);
 			dateLabel = $t('card.startedOn');
 			tags = content.meta.tags;
 			break;
@@ -84,15 +84,17 @@
 	<a {href}>
 		<h2>{content.meta.title}</h2>
 
-		<div class="meta">
-			<div class="meta-date">
-				<p>{dateLabel} {date}</p>
+		{#if content.meta.kind !== 'project'}
+			<div class="meta">
+				<div class="meta-date">
+					<p>{dateLabel} {date}</p>
+				</div>
+				<span>|</span>
+				<div>
+					<p class="author">{authors}</p>
+				</div>
 			</div>
-			<span>|</span>
-			<div>
-				<p class="author">{authors}</p>
-			</div>
-		</div>
+		{/if}
 
 		<p class="description">{content.meta.description}</p>
 	</a>
