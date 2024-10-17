@@ -2,8 +2,25 @@
 	import { t, dateToLocalizedString } from '$i18n/i18n';
 	import { MemberLink, Tree } from '$components';
 	import type { Blog, Event, Resource, Project, Meeting } from '$lib/types';
+	import { onMount } from 'svelte';
 
 	export let content: Blog | Event | Resource | Project | Meeting;
+
+	onMount(() => {
+		const dialog = document.querySelector('dialog');
+		const button = document.querySelector('button.register');
+
+		if (dialog && button) {
+			button.addEventListener('click', () => {
+				dialog.showModal();
+			});
+			dialog.addEventListener('click', (e) => {
+				if (e.target === dialog) {
+					dialog.close();
+				}
+			});
+		}
+	});
 </script>
 
 <aside class="infos">
@@ -90,7 +107,9 @@
 			</p>
 		</div>
 		<div class="info">
-			{#if content.meta.link}
+			{#if content.meta.recurrent}
+				<button class="register">{$t('news.register')}</button>
+			{:else if content.meta.link}
 				<a class="register" href={content.meta.link}>{$t('news.register')}</a>
 			{:else}
 				<p>{$t('news.noRegistration')}</p>
@@ -137,6 +156,18 @@
 	{/if}
 </aside>
 
+{#if content.meta.kind === 'event' && content.meta.recurrent === 'clinique'}
+	<dialog>
+		<iframe
+			title="interactive calendar"
+			src={content.meta.link}
+			frameborder="0"
+			scrolling="yes"
+			style="border:0"
+		></iframe>
+	</dialog>
+{/if}
+
 <style>
 	.infos {
 		container: aside / inline-size;
@@ -181,6 +212,31 @@
 			color: var(--clr-b);
 			font-weight: 700;
 		}
+	}
+
+	button {
+		all: unset;
+		font-weight: 700;
+		text-decoration: underline;
+		text-underline-offset: 0.25rem;
+		text-decoration-skip: ink;
+		&:hover {
+			cursor: pointer;
+			text-decoration: none;
+		}
+	}
+
+	iframe {
+		width: 100%;
+		height: 100%;
+		border: 0;
+	}
+
+	dialog {
+		width: min(90%, 58rem);
+		height: min(90%, 58rem);
+		border: none;
+		border-radius: var(--border-radius);
 	}
 
 	#links {

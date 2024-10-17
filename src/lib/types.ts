@@ -36,6 +36,8 @@ type EventMeta = {
 	path: string;
 	kind: 'event';
 	slug: string;
+	recurrent: string;
+	draft: boolean;
 };
 
 type MemberMeta = {
