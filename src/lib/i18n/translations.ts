@@ -117,6 +117,7 @@ const translations: { [locale: string]: { [path: string]: string } } = {
         'news.type.blog': 'blog',
         'news.type.event': 'event',
         'news.type.meeting': 'meeting',
+        'news.noRegistration': 'No registration required',
 
         // Events
         'events.title': "Our events",
@@ -284,6 +285,7 @@ const translations: { [locale: string]: { [path: string]: string } } = {
         'news.type.blog': 'blog',
         'news.type.event': 'evenement',
         'news.type.meeting': 'reunion',
+        'news.noRegistration': 'Pas d’inscription requise',
 
         // Events
         'events.title': "Nos évenements",

@@ -90,7 +90,11 @@
 			</p>
 		</div>
 		<div class="info">
-			<a class="register" href={content.meta.link}>{$t('news.register')}</a>
+			{#if content.meta.link}
+				<a class="register" href={content.meta.link}>{$t('news.register')}</a>
+			{:else}
+				<p>{$t('news.noRegistration')}</p>
+			{/if}
 		</div>
 		<div class="info">
 			<span class="label">{$t('news.summary')}</span>
