@@ -146,6 +146,11 @@
 		}
 		& i {
 			font-size: 2rem;
+			width: 2rem;
+		}
+
+		& svg {
+			min-width: 2rem;
 		}
 	}
 	#about {
