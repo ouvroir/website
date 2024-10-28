@@ -18,3 +18,12 @@
 		{@html $services.html}
 	</article>
 {/if}
+
+<style>
+	:global(.text-body iframe) {
+		width: 100%;
+		height: 40rem;
+		margin-bottom: 2rem;
+		border-radius: var(--border-radius);
+	}
+</style>

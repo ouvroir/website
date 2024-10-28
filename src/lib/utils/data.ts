@@ -4,6 +4,7 @@ import markdownit from 'markdown-it';
 import markdownitfm from 'markdown-it-front-matter';
 import frontmatter from 'front-matter';
 import ilcomment from 'markdown-it-inline-comments';
+import mdiframe from 'markdown-it-iframe';
 import { attrs } from "@mdit/plugin-attrs";
 import { figure } from "@mdit/plugin-figure";
 
@@ -139,6 +140,7 @@ const parseFrontMatter = (content: string) => {
 const parseMarkdown = (content: string) => {
 	const md = markdownit()
 		.use(markdownitfm, (fm) => null)
+		.use(mdiframe)
 		.use(ilcomment)
 		.use(figure)
 		.use(attrs);
