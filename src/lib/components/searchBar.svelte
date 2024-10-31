@@ -3,19 +3,26 @@
 	import { t } from '$lib/i18n/i18n';
 
 	$: placeholder = $t('search.ui.placeholder.short');
+
+	let viewportWidth: number;
 </script>
 
-<form
+<svelte:window bind:innerWidth={viewportWidth} />
+
+<button
 	class={`search-bar-container`}
-	action="/search"
 	on:mousedown|preventDefault={() => ($searchModalOpen = true)}
 	on:touchend|preventDefault={() => ($searchModalOpen = true)}
 >
-	<i id="search-icon" class="bx bx-search"></i>
-	<input {placeholder} aria-label={placeholder} />
+	{#if viewportWidth > 1000}
+		<i id="search-icon" class="bx bx-search"></i>
+		<input {placeholder} aria-label={placeholder} />
 
-	<kbd><i class="bx bx-command"></i>K</kbd>
-</form>
+		<kbd><i class="bx bx-command"></i>K</kbd>
+	{:else}
+		<i id="search-icon" class="bx bx-search"></i>
+	{/if}
+</button>
 
 <style>
 	:root {
@@ -61,6 +68,17 @@
 			font-size: var(--fs-search);
 			line-height: 0;
 			margin-right: 0.1rem;
+		}
+	}
+
+	@media screen and (max-width: 1000px) {
+		.search-bar-container {
+			background-color: transparent;
+			/* border: none; */
+			padding: 0.5rem;
+		}
+		.search-bar-container i {
+			color: var(--clr-a) !important;
 		}
 	}
 </style>

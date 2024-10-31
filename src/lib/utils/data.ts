@@ -75,7 +75,6 @@ export function fetchData(
 					const daysUntilMonday = (8 - dayOfWeek) % 7;
 					next.setDate(today.getDate() + daysUntilMonday);
 				}
-
 				meta.dateStart = next
 				meta.dateEnd = next
 			}

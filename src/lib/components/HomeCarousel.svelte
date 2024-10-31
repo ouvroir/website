@@ -46,10 +46,15 @@
 			/* Top shadow */ 0 10px 20px -10px var(--clr-a); /* Bottom shadow */
 	}
 
+	.item {
+		grid-column: full;
+	}
+
 	.header {
-		position: relative;
-		top: 10rem;
-		left: 5rem;
+		/* position: relative; */
+		padding-top: min(10%, 10rem);
+		padding-left: min(10%, 20rem);
+		padding-right: min(10%, 5rem);
 		display: flex;
 		flex-direction: column;
 		gap: 1rem;
@@ -72,7 +77,7 @@
 			font-size: 1.2rem;
 			line-height: var(--lh);
 			font-weight: 400;
-			max-width: 55ch;
+			width: min(100%, 55ch);
 		}
 	}
 </style>

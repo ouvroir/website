@@ -37,6 +37,7 @@
 		padding-top: 5rem;
 		display: grid;
 		grid-template-columns: subgrid;
+		max-width: 100vw;
 	}
 
 	ul {
@@ -46,7 +47,6 @@
 		column-fill: balance;
 
 		& li {
-			min-width: 25rem;
 			margin-bottom: 2rem;
 			break-inside: avoid;
 		}

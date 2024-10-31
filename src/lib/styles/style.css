@@ -51,7 +51,7 @@
 
 	--hero-margin-bottom: 6vh;
 
-	--gap: clamp(1rem, 6vw, 3rem);
+	--gap: clamp(1rem, 3vw, 3rem);
 	--full: minmax(var(--gap), 1fr);
 	--content: min(62ch, 100% - var(--gap) * 2);
 	--popout: minmax(0, 10rem);
@@ -707,13 +707,6 @@ img.outgoing-left {
 
 /** Mobile */
 @media screen and (max-width: 480px) {
-	.project-item > .project-description {
-		max-width: 100% !important;
-	}
-
-	.presentation p {
-		width: 90%;
-	}
 }
 
 /** Tablet horizontal */
@@ -742,5 +735,11 @@ img.outgoing-left {
 		& h1 {
 			padding-left: 0;
 		}
+	}
+}
+
+@media screen and (max-width: 1200px) {
+	.hero-container .pattern-container {
+		display: none;
 	}
 }

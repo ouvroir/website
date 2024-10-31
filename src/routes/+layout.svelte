@@ -40,8 +40,8 @@
 		}
 	};
 
+	const combo = randomA11yCombo();
 	onMount(() => {
-		const combo = randomA11yCombo();
 		document.documentElement.style.setProperty('--clr-a', combo[0]);
 		document.documentElement.style.setProperty('--clr-b', combo[1]);
 
@@ -113,6 +113,9 @@
 {/if}
 
 <style>
+	main {
+		max-width: 100vw !important;
+	}
 	.main-bg-a {
 		background-color: var(--clr-a);
 	}
