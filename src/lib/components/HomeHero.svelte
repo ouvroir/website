@@ -25,6 +25,7 @@
 	.hero-container {
 		--radius: 40px;
 
+		height: max-content;
 		min-height: 100vh;
 		position: relative;
 		grid-column: full;
@@ -65,7 +66,7 @@
 		}
 	}
 	.hero-content {
-		width: 80ch;
+		width: min(100%, 80ch);
 		margin-left: 0.5rem;
 		/* padding-bottom: 2rem; */
 
@@ -85,12 +86,16 @@
 		}
 	}
 
-	@media screen and (max-width: 1100px) {
-		h1 {
-			line-height: 3rem;
-			grid-column: 2/-1;
+	@media screen and (max-width: 700px) {
+		.hero {
+			grid-column: full;
+			padding: 3rem 1rem;
 		}
-		.subtitle {
+		.hero-header h1 {
+			font-size: 4rem;
+		}
+		.hero-header .subtitle {
+			font-size: var(--fs-500);
 			line-height: 2rem;
 			margin-bottom: 0;
 		}
@@ -98,32 +103,6 @@
 		.hero-header {
 			margin-bottom: 3rem;
 			grid-column: 2/8;
-		}
-
-		.presentation {
-			grid-column: 2/8;
-			grid-row: 2;
-			padding-top: 0;
-		}
-
-		.logos {
-			grid-column: 2/8;
-		}
-	}
-
-	@media screen and (max-width: 480px) {
-		.hero-header {
-			flex-direction: column;
-		}
-		.subtitle {
-			line-height: 2rem;
-			margin-bottom: 0;
-		}
-
-		.logo-ouvroir {
-			/* position: relative; */
-			left: 25%;
-			top: 2rem;
 		}
 	}
 </style>
