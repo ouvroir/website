@@ -18,12 +18,12 @@ jobs:
         run: git init # Optional if repository initialization is needed
 
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v5
         with:
           submodules: 'recursive'
 
       - name: Install Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
           node-version: 18
           cache: npm
